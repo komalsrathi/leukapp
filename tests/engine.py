@@ -14,6 +14,7 @@ PROJECT_DIRECTORY = path.abspath(path.join(path.dirname(__file__), '..'))
 
 
 class ExecutionEngine(hitchtest.ExecutionEngine):
+
     """Engine for orchestating and interacting with the app."""
 
     def set_up(self):
@@ -50,7 +51,8 @@ class ExecutionEngine(hitchtest.ExecutionEngine):
         self.services['Postgres'] = hitchpostgres.PostgresService(
             postgres_package=postgres_package,
             users=[postgres_user, ],
-            databases=[hitchpostgres.PostgresDatabase("leukgen", postgres_user), ]
+            databases=[hitchpostgres.PostgresDatabase("leukgen",
+                                                      postgres_user), ]
         )
 
         self.services['HitchSMTP'] = hitchsmtp.HitchSMTPService(port=1025)
