@@ -33,7 +33,6 @@ class NewVisitorTest(unittest.TestCase):
         # (Edith is very methodical)
 
         # The page updates again, and now shows both items on her list
-
         # Edith wonders whether the site will remember her list. Then she sees
         # that the site has generated a unique URL for her -- there is some
         # explanatory text to that effect.
@@ -42,5 +41,5 @@ class NewVisitorTest(unittest.TestCase):
 
         # Satisfied, she goes back to sleep
 
-if __name__ == '__main__':  #7
-    unittest.main(warnings='ignore')  #8
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')
