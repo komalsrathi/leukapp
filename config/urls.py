@@ -8,8 +8,10 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
+    url(r'^$', TemplateView.as_view(template_name='pages/home.html'),
+        name="home"),
+    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'),
+        name="about"),
 
     # Django Admin
     url(r'^admin/', include(admin.site.urls)),
@@ -19,6 +21,8 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
+    url(r'^lists/', include("leukgen.lists.urls", namespace="lists")),
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
