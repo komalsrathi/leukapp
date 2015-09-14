@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 
 def lists_page(request):
-    return HttpResponse('<html><title>To-Do lists</title><body>Juan</body></html>')
+    return HttpResponse('<html><title>TO-DO lists</title></html>')
