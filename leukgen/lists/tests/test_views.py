@@ -10,15 +10,29 @@ from ..views import home_page
 
 class ListsPageTest(TestCase):
 
-    def test_root_url_resolves_to_lists_page_view(self):
+    def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/lists/')
         self.assertEqual(found.func, home_page)
 
-    def test_lists_home_page_returns_correct_html(self):
+    def test_home_page_returns_correct_html(self):
         request = HttpRequest()
         response = home_page(request)
         expected_html = render_to_string('lists/list_home.html')
         self.assertEqual(response.content.decode(), expected_html)
-        self.assertTrue(response.content.startswith(b'<!DOCTYPE html>'))
-        self.assertIn(b'<title>To-Do lists</title>', response.content)
-        self.assertTrue(response.content.strip().endswith(b'</html>'))
+
+    def test_home_page_can_save_POST_rquest(self):
+        # setup
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['item_text'] = 'A new list item'
+
+        # excercise
+        response = home_page(request)
+
+        # assert
+        self.assertIn('A new list item', response.content.decode())
+        expected_html = render_to_string(
+            'lists/list_home.html',
+            {'new_item_text': 'A new list item'}
+        )
+        self.assertEqual(response.content.decode(), expected_html)
