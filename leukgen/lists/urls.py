@@ -9,8 +9,8 @@ urlpatterns = [
     # URL pattern for the UserListView
     url(
         regex=r'^$',
-        view=views.lists_page,
-        name='lists'
+        view=views.home_page,
+        name='home'
     ),
 
     """
