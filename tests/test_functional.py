@@ -62,6 +62,7 @@ class NewVisitorTest(LiveServerTestCase):
         ## of Edith's is coming through from cookies etc
         self.browser.quit()
         self.browser = webdriver.Firefox()
+        self.browser.get(self.live_server_url + '/lists/')
 
         # Francis starts a new list by entering a new item. He
         # is less interesting than Edith...
