@@ -13,11 +13,18 @@ urlpatterns = [
         name='home'
     ),
 
-    # URL pattern for the views.home_page
+    # URL pattern for unit testing
     url(
         regex=r'^the-only/$',
         view=views.view_list,
-        name='view_list'
+        name='view'
+    ),
+
+    # URL pattern for the views.new_list
+    url(
+        regex=r'^new$',
+        view=views.new_list,
+        name='new'
     ),
 
 ]
