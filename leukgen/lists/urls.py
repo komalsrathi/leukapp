@@ -15,16 +15,23 @@ urlpatterns = [
 
     # URL pattern for unit testing
     url(
-        regex=r'^the-only/$',
+        regex=r'^(\d+)/$',
         view=views.view_list,
-        name='view'
+        name='view_list'
     ),
 
     # URL pattern for the views.new_list
     url(
         regex=r'^new$',
         view=views.new_list,
-        name='new'
+        name='new_list'
+    ),
+
+    # URL pattern for the views.new_list
+    url(
+        regex=r'^(\d+)/add_item$',
+        view=views.add_item,
+        name='add_item'
     ),
 
 ]
