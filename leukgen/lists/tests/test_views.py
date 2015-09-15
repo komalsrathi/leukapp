@@ -40,7 +40,7 @@ class ListsPageTest(TestCase):
         response = home_page(request)
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], 'lists/')
+        self.assertEqual(response['location'], '/lists/')
 
     def test_home_page_only_saves_items_when_necessary(self):
         request = HttpRequest()
@@ -54,5 +54,5 @@ class ListsPageTest(TestCase):
         request = HttpRequest()
         response = home_page(request)
 
-        self.assertEqual('itemey 1', response.content.decode())
-        self.assertEqual('itemey 2', response.content.decode())
+        self.assertIn('itemey 1', response.content.decode())
+        self.assertIn('itemey 2', response.content.decode())
