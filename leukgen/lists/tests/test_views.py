@@ -4,9 +4,7 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 
 from ..views import home_page
-from ..models import Item
-
-# Create your tests here.
+from ..models import Item, List
 
 
 class HomePageTest(TestCase):
@@ -29,8 +27,9 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, 'lists/list_list.html')
 
     def test_displays_all_items(self):
-        Item.objects.create(text='itemey 1')
-        Item.objects.create(text='itemey 2')
+        list_ = List.objects.create()
+        Item.objects.create(text='itemey 1', list=list_)
+        Item.objects.create(text='itemey 2', list=list_)
 
         response = self.client.get('/lists/the-only/')
 
