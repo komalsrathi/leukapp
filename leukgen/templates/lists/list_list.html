@@ -1,25 +1,11 @@
-{% extends "base.html" %}
-{% load static %}
-{% load crispy_forms_tags %}
+{% extends 'lists/list_base.html' %}
+{% block header_text %}Your To-Do list{% endblock %}
+{% block form_action %}/lists/{{ list.id }}/add_item{% endblock %}
 
-{% block title %}To-Do lists{% endblock %}
-
-{% block angular %}
+{% block table %}
+    <table id="id_list_table">
+        {% for item in list.item_set.all %}
+            <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+        {% endfor %}
+    </table>
 {% endblock %}
-
-{% block content %}
-<h2>Your To-Do list</h2>
-
-<form method="POST" action="/lists/{{ list.id }}/add_item">
-  {% csrf_token %}
-  <input type="text" name="item_text"
-  id="id_new_item" placeholder="Enter a to-do item"/>
-</form>
-
-<table id="id_list_table">
-  {% for item in list.item_set.all %}
-    <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
-  {% endfor %}
-</table>
-{% endblock content %}
-
