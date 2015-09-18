@@ -58,3 +58,7 @@ node_modules/
 
 # vagrant
 .vagrant
+
+### Django
+/staticfiles
+
