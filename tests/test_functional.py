@@ -58,8 +58,8 @@ class NewVisitorTest(LiveServerTestCase):
             '2: Use peacock feathers to make a fly')
 
         # Now, a new user, Francis, comes along to the site.
-        ## We use a new browser session to make sure that no information
-        ## of Edith's is coming through from cookies etc
+        # We use a new browser session to make sure that no information
+        # of Edith's is coming through from cookies etc
         self.browser.quit()
         self.browser = webdriver.Firefox()
         self.browser.get(self.live_server_url + '/lists/')

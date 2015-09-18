@@ -1,33 +1,33 @@
 {
-    "build_systems":
-    [
-        {
-            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
-            "name": "Anaconda Python Builder",
-            "selector": "source.python",
-            "shell_cmd": "~/.virtualenvs/leukgen3/bin/python -u \"$file\""
-        }
-    ],
-    "folders":
-    [
-        {
-            "file_exclude_patterns":
-            [
-                "*.sqlite3",
-                "Icon*"
-            ],
-            "folder_exclude_patterns":
-            [
-                "Books*"
-            ],
-            "path": "../"
-        }
-    ],
-    "settings":
-    {
-        "indent_using_spaces": true,
-        "python_interpreter": "~/.virtualenvs/leukgen3/bin/python",
-        "tab_size": 4,
-        "translate_tabs_to_spaces": true
-    }
+	"build_systems":
+	[
+		{
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "Anaconda Python Builder",
+			"selector": "source.python",
+			"shell_cmd": "~/.virtualenvs/leukgen/bin/python -u \"$file\""
+		}
+	],
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.sqlite3",
+				"Icon*"
+			],
+			"folder_exclude_patterns":
+			[
+				"Books*"
+			],
+			"path": "../"
+		}
+	],
+	"settings":
+	{
+		"indent_using_spaces": true,
+		"python_interpreter": "~/.virtualenvs/leukgen/bin/python",
+		"tab_size": 4,
+		"translate_tabs_to_spaces": true
+	}
 }
