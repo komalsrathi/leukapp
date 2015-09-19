@@ -30,5 +30,5 @@ DATABASES['default'] = env.db("DATABASE_URL", default="postgres:///staging")
 # -----------------------------------------------------------------------------
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['172.22.232.109'])
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['172.22.232.109:8000'])
 # END SITE CONFIGURATION
