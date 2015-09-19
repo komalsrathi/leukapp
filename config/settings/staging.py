@@ -15,6 +15,11 @@ from .common import *  # noqa
 SECRET_KEY = env("DJANGO_SECRET_KEY",
     default='CHANGEME!!!lp#7%-y6+lsk0yv$9d-22=n^ab8x5hkb!(#d$u2vi5+2-2w&@@')
 
+# STATIC FILE CONFIGURATION
+# -----------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+STATIC_ROOT = str(ROOT_DIR('../static'))
+
 # DATABASE CONFIGURATION
 # -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
