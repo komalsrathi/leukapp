@@ -18,7 +18,7 @@ APPS_DIR = ROOT_DIR.path('leukgen')
 env = environ.Env()
 
 # APP CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 DJANGO_APPS = (
     # Default Django apps:
     'django.contrib.auth',
@@ -53,7 +53,7 @@ LOCAL_APPS = (
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIDDLEWARE CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 MIDDLEWARE_CLASSES = (
     # Make sure djangosecure.middleware.SecurityMiddleware is listed first
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -65,29 +65,29 @@ MIDDLEWARE_CLASSES = (
 )
 
 # MIGRATIONS CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 MIGRATION_MODULES = {
     'sites': 'leukgen.contrib.sites.migrations'
 }
 
 # DEBUG
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool("DJANGO_DEBUG", False)
 
 # FIXTURE CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
 FIXTURE_DIRS = (
     str(APPS_DIR.path('fixtures')),
 )
 
 # EMAIL CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
 
 # MANAGER CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
     ("""Juan Medina""", 'medinaj@mskcc.org'),
@@ -97,7 +97,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # DATABASE CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
@@ -107,7 +107,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
 # GENERAL CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -130,7 +130,7 @@ USE_L10N = True
 USE_TZ = True
 
 # TEMPLATE CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#templates
 TEMPLATES = [
     {
@@ -169,7 +169,7 @@ TEMPLATES = [
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # STATIC FILE CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 STATIC_ROOT = str(ROOT_DIR('staticfiles'))
 
@@ -188,7 +188,7 @@ STATICFILES_FINDERS = (
 )
 
 # MEDIA CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 MEDIA_ROOT = str(APPS_DIR('media'))
 
@@ -196,14 +196,14 @@ MEDIA_ROOT = str(APPS_DIR('media'))
 MEDIA_URL = '/media/'
 
 # URL Configuration
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 ROOT_URLCONF = 'config.urls'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # AUTHENTICATION CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -225,7 +225,7 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 
 # LOGGING CONFIGURATION
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
