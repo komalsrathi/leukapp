@@ -1,0 +1,9 @@
+************
+leukwen wiki
+************
+
+Hello, hello! this is the home page of the leukgen project wiki.
+
+To get you started:
+
+1. `leukgen ID <wiki/leukgenid>`_
