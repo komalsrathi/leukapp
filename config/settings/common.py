@@ -47,6 +47,7 @@ LOCAL_APPS = (
     # Your stuff: custom apps go here
     'leukgen.lists',
     'leukgen.projects',
+    'leukgen.samples',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
