@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from __future__ import absolute_import, unicode_literals
 
 import environ
+import sys
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 APPS_DIR = ROOT_DIR.path('leukgen')
+sys.path.append(str(APPS_DIR))
 
 env = environ.Env()
 
@@ -48,6 +50,7 @@ LOCAL_APPS = (
     'leukgen.lists',
     'leukgen.projects',
     'leukgen.samples',
+    'leukgen.core',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
