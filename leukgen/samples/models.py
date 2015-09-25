@@ -1,8 +1,8 @@
 # django imports
 from django.db import models
 
-# local imports
-from ..core.models import TimeStampedModel
+# apps imports
+from core.models import TimeStampedModel
 
 
 class Individual(TimeStampedModel):
@@ -42,25 +42,26 @@ class Individual(TimeStampedModel):
 
     # meta options
     class Meta:
-        index_together = (("ext_id", "source"))
-        unique_together = (("ext_id", "source"))
+        index_together = (("ext_id", "source", "species"))
+        unique_together = (("ext_id", "source", "species"))
 
 
-class Specimen(TimeStampedModel):
+# class Specimen(TimeStampedModel):
 
-    """docstring for Specimen"""
+#     """docstring for Specimen"""
 
-    # TUMOR = 'T'
-    # NORMAL = 'N'
+#     # choices
+#     TUMOR = 'T'
+#     NORMAL = 'N'
+#     SOURCE_TYPE_CHOICES = (
+#         (TUMOR, 'Tumor'),
+#         (NORMAL, 'Normal'),
+#     )
 
-    # SPECIMEN_TYPE_CHOICES = (
-    #     (TUMOR, 'Tumor'),
-    #     (NORMAL, 'Normal'),
-    # )
-
-    # specimen_type = models.CharField(max_length=1, choices=)
-    # specimen_ext_id = models.
-    pass
+#     # fields
+#     source_type = models.CharField(max_length=1, choices=SOURCE_TYPE_CHOICES)
+#     ext_id = models.CharField(max_length=100)
+#     individual = models.ForeignKey(Individual)
 
 
 class Aliquot(TimeStampedModel):
