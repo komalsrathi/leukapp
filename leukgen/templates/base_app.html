@@ -31,10 +31,13 @@
   </head>
 
   <body>
+  {% block body %}
     <div id="wrapper">
 
       <!-- Navigation -->
+      {% block navigation%}
       {% include "config/navigation.html" %}
+      {% endblock navigation %}
 
       <!-- Page Content -->
       <div id="page-wrapper">
@@ -57,6 +60,7 @@
     {% block javascript %}
     {% include "config/js.html" %}
     {% endblock javascript %}
+  {% endblock body %}
   </body>
 </html>
 
