@@ -7,13 +7,13 @@
 {% block head_title %}{% trans "Account" %}{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-md-5">
       <h2>{% trans "E-mail Addresses" %}</h2>
       {% if user.emailaddress_set.all %}
       <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
-          
+
       <form action="{% url 'account_email' %}" class="email_list" method="post">
       {% csrf_token %}
       <fieldset class="blockLabels">
@@ -44,22 +44,28 @@
       </fieldset>
       </form>
 
-      {% else %} 
+      {% else %}
       <p><strong>{% trans 'Warning:'%}</strong> {% trans "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}</p>
 
       {% endif %}
 
+      <br/>
+      <h2>{% trans "Add E-mail Address" %}</h2>
 
-          <h2>{% trans "Add E-mail Address" %}</h2>
-          
-          <form method="post" action="." class="add_email">
-              {% csrf_token %}
-              {{ form|crispy }}
-              <button class="btn" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
-          </form>
-    </div>
-  </div>
-</div>
+      <form method="post" action="." class="add_email">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <div class="control-group">
+            <div class="controls">
+              <button class="btn" name="action_add" type="submit">
+                {% trans "Add E-mail" %}
+              </button>
+            </div>
+          </div>
+      </form>
+    </div> <!-- col  -->
+  </div> <!-- row  -->
+</div> <!-- container  -->
 {% endblock %}
 
 
