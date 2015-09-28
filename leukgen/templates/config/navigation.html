@@ -1,3 +1,4 @@
+{% load staticfiles i18n %}
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -206,13 +207,40 @@
                 <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+
+
+              {% if request.user.is_authenticated %}
+
+                <!-- Profile -->
+                <li class="nav-item">
+                  <a  class="fa fa-user fa-fw"
+                      href="{% url 'users:detail' request.user.username  %}">
+                      {% trans "My Profile" %}
+                  </a>
                 </li>
-                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+
+                <!-- Settings -->
+                <li class="nav-item">
+                  <a  class="fa fa-gear fa-fw"
+                      href="{% url 'account_email' %}">
+                      {% trans "Settings" %}
+                  </a>
                 </li>
+
+                <!-- divider -->
                 <li class="divider"></li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+
+                <!-- Logout -->
+                <li class="nav-item">
+                  <a  class="fa fa-sign-out fa-fw"
+                      href="{% url 'account_logout' %}">{% trans "Logout" %}
+                  </a>
                 </li>
+              {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
+              {% endif %}
+
             </ul>
             <!-- /.dropdown-user -->
         </li>
