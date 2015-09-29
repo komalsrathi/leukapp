@@ -85,6 +85,12 @@ body {
     left: auto;
 }
 
+.navbar-top-links .dropdown-new {
+    right: 0;
+    left: auto;
+    width: 100px;
+}
+
 .sidebar .sidebar-nav.navbar-collapse {
     padding-right: 0;
     padding-left: 0;
