@@ -1,0 +1,30 @@
+{% load staticfiles i18n %}
+<!DOCTYPE html>
+<html lang="en" ng-app>
+
+  <head>
+    {% block head %}
+    {% endblock head %}
+
+    {% block css %}
+    {% endblock %}
+
+    {% block app_css %}
+    {% endblock %}
+
+    {% block angular %}
+    {% endblock %}
+  </head>
+
+  <body>
+    {% block body %}
+    {% endblock body %}
+
+    <!-- ======================= Le javascript ======================= -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    {% block javascript %}
+    {% endblock javascript %}
+  </body>
+</html>
+

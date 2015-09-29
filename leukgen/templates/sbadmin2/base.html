@@ -1,0 +1,102 @@
+{% extends "sbadmin2/app/app.html" %}
+{% load staticfiles i18n %}
+
+{% block head %}
+  <title>{% block title %}leukgen{% endblock title %}</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Juan Medina">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+{% endblock head %}
+
+{% block css %}
+  <!-- Bootstrap Core CSS -->
+  <link
+  href="{% static 'sbadmin2/bower_components/bootstrap/dist/css/bootstrap.min.css' %}"
+  rel="stylesheet">
+
+  <!-- MetisMenu CSS -->
+  <link
+  href="{% static 'sbadmin2/bower_components/metisMenu/dist/metisMenu.min.css' %}"
+  rel="stylesheet">
+
+  <!-- Timeline CSS -->
+  <link
+  href="{% static 'sbadmin2/dist/css/timeline.css' %}"
+  rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link
+  href="{% static 'sbadmin2/dist/css/sb-admin-2.css' %}"
+  rel="stylesheet">
+
+  <!-- Morris Charts CSS -->
+  <link
+  href="{% static 'sbadmin2/bower_components/morrisjs/morris.css' %}"
+  rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link
+  href="{% static 'sbadmin2/bower_components/font-awesome/css/font-awesome.min.css' %}"
+  rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block angular %}
+  <script
+    src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js">
+  </script>
+{% endblock %}
+
+{% block body%}
+  <div id="wrapper">
+
+    <!-- Navigation -->
+    {% block navigation%}
+    {% include "sbadmin2/navigation/navigation.html" %}
+    {% endblock navigation %}
+
+    <!-- Page Content -->
+    <div id="page-wrapper">
+
+      <!-- Block Content -->
+      {% block content%}
+      {% endblock content %}
+
+      <!-- Messegaes Handling -->
+      {% if messages %}
+          {% for message in messages %}
+              <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+          {% endfor %}
+      {% endif %}
+    </div> <!-- /#page-wrapper -->
+  </div> <!-- /#wrapper -->
+{% endblock body %}
+
+{% block javascript %}
+  <!-- jQuery -->
+  <script
+  src="{% static 'sbadmin2/bower_components/jquery/dist/jquery.min.js' %}">
+  </script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script
+  src="{% static 'sbadmin2/bower_components/bootstrap/dist/js/bootstrap.min.js' %}">
+  </script>
+
+  <!-- Metis Menu Plugin JavaScript -->
+  <script
+  src="{% static 'sbadmin2/bower_components/metisMenu/dist/metisMenu.min.js' %}">
+  </script>
+
+  <!-- Custom Theme JavaScript -->
+  <script
+  src="{% static 'sbadmin2/dist/js/sb-admin-2.js' %}">
+  </script>
+{% endblock javascript %}
