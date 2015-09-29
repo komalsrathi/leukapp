@@ -21,6 +21,7 @@ urlpatterns = [
 
     # Your stuff: custom urls includes go here
     url(r'^lists/', include("leukgen.lists.urls", namespace="lists")),
+    url(r'^projects/', include("leukgen.projects.urls", namespace="projects")),
 
 
 
