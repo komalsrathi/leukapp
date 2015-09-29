@@ -21,19 +21,20 @@ class IndividualModelTest(TimeStampedModelTest, TestCase):
     def create_instance(self, **kwargs):
         return Individual.objects.create(**kwargs)
 
+    def SetUp(self):
+        self.first_individual = Individual()
+        self.first_individual.source = "MSK"
+        self.first_individual.species = "H"
+        self.first_individual.ext_id = "12345678910"
+        self.first_individual.save()
+
+        self.second_individual = Individual()
+        self.second_individual.source = "O"
+        self.second_individual.species = "M"
+        self.second_individual.ext_id = "1234567891K"
+        self.second_individual.save()
+
     def test_saving_and_retrieving_individuals(self):
-        first_individual = Individual()
-        first_individual.source = "MSK"
-        first_individual.species = "H"
-        first_individual.ext_id = "12345678910"
-        first_individual.save()
-
-        second_individual = Individual()
-        second_individual.source = "O"
-        second_individual.species = "M"
-        second_individual.ext_id = "1234567891K"
-        second_individual.save()
-
         saved_individuals = Individual.objects.all()
         self.assertEqual(saved_individuals.count(), 2)
 
@@ -47,46 +48,25 @@ class IndividualModelTest(TimeStampedModelTest, TestCase):
         self.assertEqual(second_saved_individual.ext_id, "1234567891K")
 
     def test_if_check_source_method_return_internal(self):
-        individual = Individual()
-        individual.source = "MSK"
-        individual.species = "H"
-        individual.ext_id = "12345678910"
-        individual.save()
-
-        saved_individuals = Individual.objects.all()
-        self.assertEqual(saved_individuals[0].check_source(), 'I')
+        self.assertEqual(self.first_individual.check_source(), 'I')
 
     def test_if_check_source_method_return_external(self):
-        individual = Individual()
-        individual.source = "O"
-        individual.species = "H"
-        individual.ext_id = "12345678910"
-        individual.save()
-
-        saved_individuals = Individual.objects.all()
-        self.assertEqual(saved_individuals[0].check_source(), 'E')
+        self.assertEqual(self.second_individual.check_source(), 'E')
 
     def test_unique_together_functionality(self):
-        first_individual = Individual()
-        first_individual.source = "MSK"
-        first_individual.species = "H"
-        first_individual.ext_id = "12345678910"
-        first_individual.save()
-
-        second_individual = Individual()
-        second_individual.source = "MSK"
-        second_individual.species = "H"
-        second_individual.ext_id = "12345678910"
+        self.second_individual.source = "MSK"
+        self.second_individual.species = "H"
+        self.second_individual.ext_id = "12345678910"
 
         with self.assertRaises(IntegrityError):
-            second_individual.save()
+            self.second_individual.save()
 
 
-class SpecimenModelTest(TimeStampedModelTest, TestCase):
+# class SpecimenModelTest(TimeStampedModelTest, TestCase):
 
-    """docstring for SpecimenModelTest"""
+#     """docstring for SpecimenModelTest"""
 
-    model = Specimen
+#     model = Specimen
 
-    def create_instance(self, **kwargs):
-        return Individual.objects.create(**kwargs)
+#     def create_instance(self, **kwargs):
+#         return Individual.objects.create(**kwargs)

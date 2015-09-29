@@ -59,12 +59,12 @@ class Individual(TimeStampedModel):
 #     )
 
 #     # fields
+#     individual = models.ForeignKey(Individual)
 #     source_type = models.CharField(max_length=1, choices=SOURCE_TYPE_CHOICES)
 #     ext_id = models.CharField(max_length=100)
-#     individual = models.ForeignKey(Individual)
 
 
-class Aliquot(TimeStampedModel):
+# class Aliquot(TimeStampedModel):
 
     """docstring for Aliquot"""
 
@@ -80,4 +80,4 @@ class Aliquot(TimeStampedModel):
 
     # aliquot_material = models.
     # aliquot_ext_id = models.
-    pass
+    # pass
