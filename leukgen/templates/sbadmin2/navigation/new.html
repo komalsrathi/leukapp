@@ -1,0 +1,29 @@
+{% load staticfiles i18n %}
+<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-plus fa-fw" background-color="#d9534f"></i>  <i class="fa fa-caret-down"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-new">
+
+        <!-- Profile -->
+        <li class="nav-item">
+          <a href="{% url 'projects:create' %}">
+            <i class="fa fa-edit fa-fw"></i>
+              {% trans "Project" %}
+          </a>
+        </li>
+
+        <!-- divider -->
+        <li class="divider"></li>
+
+        <!-- Settings -->
+        <li class="nav-item">
+          <a href="{% url 'account_email' %}">
+            <i class="fa fa-flask fa-fw"></i>
+            {% trans "Sample" %}
+          </a>
+        </li>
+
+    </ul>
+    <!-- /.dropdown-user -->
+</li> <!-- /.dropdown -->
