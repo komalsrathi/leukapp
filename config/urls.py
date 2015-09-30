@@ -9,20 +9,59 @@ from django.contrib import admin
 from .views import ConfigTemplateView
 
 urlpatterns = [
-    url(r'^$', ConfigTemplateView.as_view(template_name='pages/home.html'),
-        name="home"),
+    url(
+        r'^$',
+        ConfigTemplateView.as_view(template_name='pages/home.html'),
+        name="home"
+    ),
 
     # Django Admin
-    url(r'^admin/', include(admin.site.urls)),
+    url(
+        r'^admin/',
+        include(admin.site.urls)
+    ),
 
     # User management
-    url(r'^users/', include("leukgen.users.urls", namespace="users")),
-    url(r'^accounts/', include('allauth.urls')),
+    url(
+        r'^users/',
+        include("leukgen.apps.users.urls",
+        namespace="users")
+    ),
+
+    url(
+        r'^accounts/',
+        include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
-    url(r'^lists/', include("leukgen.lists.urls", namespace="lists")),
-    url(r'^projects/', include("leukgen.projects.urls", namespace="projects")),
+    url(
+        r'^lists/',
+        include("leukgen.apps.lists.urls",
+        namespace="lists")
+    ),
 
+    url(
+        r'^projects/',
+        include("leukgen.apps.projects.urls",
+        namespace="projects")
+    ),
+
+    url(
+        r'^aliquots/',
+        include("leukgen.apps.aliquots.urls",
+        namespace="aliquots")
+    ),
+
+    url(
+        r'^specimens/',
+        include("leukgen.apps.specimens.urls",
+        namespace="specimens")
+    ),
+
+    url(
+        r'^individuals/',
+        include("leukgen.apps.individuals.urls",
+        namespace="individuals")
+    ),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

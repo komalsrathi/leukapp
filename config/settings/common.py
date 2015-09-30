@@ -46,11 +46,15 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'leukgen.apps.users',  # custom users app
+    # custom users app
+    'leukgen.apps.users',
+
     # Your stuff: custom apps go here
     'leukgen.apps.lists',
     'leukgen.apps.projects',
-    'leukgen.apps.samples',
+    'leukgen.apps.individuals',
+    'leukgen.apps.specimens',
+    'leukgen.apps.aliquots',
     'leukgen.apps.core',
 )
 
