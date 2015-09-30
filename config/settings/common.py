@@ -46,12 +46,12 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'leukgen.users',  # custom users app
+    'leukgen.apps.users',  # custom users app
     # Your stuff: custom apps go here
-    'leukgen.lists',
-    'leukgen.projects',
-    'leukgen.samples',
-    'leukgen.core',
+    'leukgen.apps.lists',
+    'leukgen.apps.projects',
+    'leukgen.apps.samples',
+    'leukgen.apps.core',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
