@@ -6,7 +6,7 @@ leukid
 ======
 
 .. bibliographic fields (which also require a transform):
-:author: Juan Medina,
+:author: Juan Medina
 :contact: medinaj@mskcc.org
 :organization: Memorial Sloan-Kettering
 :status: This is "work in progress"
@@ -14,7 +14,7 @@ leukid
 :Revision: 1
 
 :abstract:
-    This wiki describes the  **sample_form** and the **leukid** with it's generation script (*idscript.py*). The **leukid** is constructed based on data stored in **leukdb** and the information provided by the **sample_form**.
+    This wiki describes the **leukid** and it's models. The **leukid** is constructed based on the information provided by the **sample_form**.
 
     Typographical conventions:
 
@@ -23,131 +23,120 @@ leukid
     * **bold** important terms
 
 .. meta::
-   :keywords: leukid, sample_form
-   :description lang=en: This wiki describes the **leukid**, it's generation script (*idscript.py*) and the  **sample_form**.
+   :keywords: leukid, sample_form, models, sample, data unit
+   :description lang=en: This wiki describes the **leukid** and it's models. The **leukid** is constructed based on the information provided by the **sample_form**.
 
 .. contents:: Table of Contents
-.. section-numbering::
+.. .. section-numbering::
 
 
 Introduction
 ------------
 
-The **sample_form** is a submission template that include the minimum fields required to construct the **leukid**.
+The **sample_form** is a submission template that includes the minimum fields required to construct the **leukid**. The **leukid** is constructed using the following Django ``Models`` (or database Schemas, or how Elli calls them: Databases):
 
-The **leukid** is designed to identify each single *data unit* living within the Leukemia Center infrastructure. The **leukid** provides a useful description of the nature of the data.
+a) ``Individual``
+b) ``Specimen``
+c) ``Aliquot``
+d) ``Library``
 
-The **leukid** is composed by the following 2 sections:
+The **leukid** is designed to identify each single **data unit** living within the Leukemia Center infrastructure. A **data unit** is an abstract concept that refers to a sequenced ``Library`` and its respective **sample**. A **sample** is an abstract concept that carries information about an ``Aliquot`` and it's respective ``Specimen`` and ``Individual``.
 
-1. *Sample*, describes:
-
-   a) Individual
-   b) Specimen
-   c) Aliquot
-
-2. *Sequencing Run* (maybe *Library* to match Sanger's naming), describes:
-
-   a) Legacy
-   b) Run ID
-   c) Sequencing technology
+The **leukid** provides a useful description of the nature of the data. The **leukid** models are thoroughly explained in the `leukid construction`_ section.
 
 sample_form
 -----------
 
 The minimum fields required to construct the **leukid** are submitted using the **sample_form**. Such fields are:
 
-+------------------------+-------------+-----------+
-| field name             | values      | data type |
-+========================+=============+===========+
-| ``individual_source``  | | Internal  | String    |
-|                        | | External  |           |
-+------------------------+-------------+-----------+
-| ``individual_species`` | | Human     | String    |
-|                        | | Mouse     |           |
-|                        | | Yeast     |           |
-|                        | | Zebrafish |           |
-+------------------------+-------------+-----------+
-| ``individual_ext_id``  | N/A         | String    |
-+------------------------+-------------+-----------+
-| ``specimen_type``      | | Tumor     | String    |
-|                        | | Normal    |           |
-+------------------------+-------------+-----------+
-| ``specimen_ext_id``    | N/A         | String    |
-+------------------------+-------------+-----------+
-| ``aliquot_material``   | | DNA       | String    |
-|                        | | RNA       |           |
-|                        | | MIXED     |           |
-+------------------------+-------------+-----------+
-| ``aliquot_ext_id``     | N/A         | String    |
-+------------------------+-------------+-----------+
++------------------------+-----------+-----------+
+| model field name       | form name | data type |
++========================+===========+===========+
+| ``Individual.source``  | Internal  | String    |
++------------------------+-----------+-----------+
+| ``Individual.species`` | Human     | String    |
++------------------------+-----------+-----------+
+| ``Individual.ext_id``  | N/A       | String    |
++------------------------+-----------+-----------+
+| ``Specimen.type``      | Tumor     | String    |
++------------------------+-----------+-----------+
+| ``Specimen.ext_id``    | N/A       | String    |
++------------------------+-----------+-----------+
+| ``Aliquot.material``   | DNA       | String    |
++------------------------+-----------+-----------+
+| ``Aliquot.ext_id``     | N/A       | String    |
++------------------------+-----------+-----------+
 
-leukid
-------
+leukid construction
+-------------------
 
-This section describes the **leukid** and how to construct it based on the **sample_form**.
+This section describes the construction of the **leukid** models based on the **sample_form** submission.
 
-Sample
-^^^^^^
+``Individual`` (leukid: I-H-100000 ...)
+"""""""""""""""""""""""""""""""""""""""
 
-A sample is an abstracted object that carries information about an Aliquot and it's respective Specimen and Individual.
+The ``Individual`` is the subject where the ``Specimen`` was obtained from. The ``Individual`` model has the following fields and methods:
 
-Individual: ``I-H-100000``
-""""""""""""""""""""""""""
+1. ``Individual.pk``: unique identifier at the database level. Its an integer starting from 1.
 
-An individual is the subject where the data was obtained from. The *idscript.py* assigns the following attributes:
+2. ``Individual.source``: indicates the source of the **sample**. This value is mapped from the **sample_form** according to the following table:
 
-1. ``individual_source``: indicates whether the sample comes from an MSK individual or not. This value is mapped from the **sample_form** according to the following table:
++-------------------------------+----------------------------------------+
+| ``Individual.source`` choices | form value                             |
++===============================+========================================+
+| MSK                           | Memorial Sloan-Kettering Cancer Center |
++-------------------------------+----------------------------------------+
+| O                             | Other                                  |
++-------------------------------+----------------------------------------+
 
-+-----------------------+------------+
-| ``individual_source`` | form value |
-+=======================+============+
-| I                     | Internal   |
-+-----------------------+------------+
-| E                     | External   |
-+-----------------------+------------+
+3. ``Individual.species``: indicates the ``Individual``'s species. This value is mapped from the **sample_form** according to the following table:
 
-2. ``individual_species``: indicates the species of the individual. This value is mapped from the **sample_form** according to the following table:
++--------------------------------+------------+
+| ``Individual.species`` choices | form value |
++================================+============+
+| H                              | Human      |
++--------------------------------+------------+
+| M                              | Mouse      |
++--------------------------------+------------+
+| Y                              | Yeast      |
++--------------------------------+------------+
+| Z                              | Zebrafish  |
++--------------------------------+------------+
 
-+------------------------+------------+
-| ``individual_species`` | form value |
-+========================+============+
-| H                      | Human      |
-+------------------------+------------+
-| M                      | Mouse      |
-+------------------------+------------+
-| Y                      | Yeast      |
-+------------------------+------------+
-| Z                      | Zebrafish  |
-+------------------------+------------+
+4. ``Individual.ext_id``: corresponds to the subject external ID, (e.g. for a human, the HOTB would provide **Subject ID**). The ``Individual.ext_id`` is recorded from **sample_form**.
 
-3. ``individual_int_id``: For a given ``individual_ext_id`` (e.g. MRN), there is a unique ``individual_int_id``. This field is created by adding 1 to the previous unique record, starting from 100000. The ``individual_ext_id`` is recorded from **sample_form**.
+5. ``Individual.int_id()``: This field is created by adding 100000 to the ``Individual.pk``.
 
-Specimen: ``I-H-100000-T-2``
-""""""""""""""""""""""""""""
+6. ``Individual.check_source()``: This field is created by adding 100000 to the ``Individual.pk``.
 
-This section describes to the Specimen extracted from the Individual. The *idscript.py* assigns the following attributes:
+``Specimen`` (leukid: I-H-100000-T-2 ...)
+"""""""""""""""""""""""""""""""""""""""""
 
-1. ``specimen_type``: this value is mapped from the **sample_form** according to the following table:
+This section describes to the ``Specimen`` extracted from the ``Individual``. The ``Specimen`` model has the following fields and methods:
+
+1. ``Specimen.Individual``: this field is a ``ForeingKey`` to an ``Individual`` instance.
+
+1. ``Specimen.source``: this value is mapped from the **sample_form** according to the following table:
 
 +-------------------+------------+
-| ``specimen_type`` | form value |
+| ``Specimen.source`` | form value |
 +===================+============+
 | T                 | Tumor      |
 +-------------------+------------+
 | N                 | Normal     |
 +-------------------+------------+
 
-2. ``specimen_int_id``: For a given ``specimen_ext_id``, there is a unique ``specimen_int_id``. This field is created by adding 1 to the previous unique record, starting from 1. The ``specimen_ext_id`` is recorded from **sample_form**.
+2. ``Specimen.int_id``: For a given ``Specimen.ext_id``, there is a unique ``Specimen.int_id``. This field is created by adding 1 to the previous unique record, starting from 1. The ``Specimen.ext_id`` is recorded from **sample_form**.
 
 Aliquot: ``I-H-100000-T-2-D-1-1``
 """""""""""""""""""""""""""""""""
 
-This section describes to the physical aliquot extracted from the individual's specimen. The *idscript.py* assigns the following attributes:
+This section describes to the physical aliquot extracted from the ``Individual``'s specimen. The *idscript.py* assigns the following attributes:
 
-1. ``aliquot_material``: this value corresponds to the biological material extracted from the specimen and is mapped from the **sample_form** according to the following table:
+1. ``Aliquot.material``: this value corresponds to the biological material extracted from the specimen and is mapped from the **sample_form** according to the following table:
 
 +----------------------+------------+
-| ``aliquot_material`` | form value |
+| ``Aliquot.material`` | form value |
 +======================+============+
 | D                    | DNA        |
 +----------------------+------------+
@@ -156,9 +145,9 @@ This section describes to the physical aliquot extracted from the individual's s
 | M                    | MIXED      |
 +----------------------+------------+
 
-2. ``aliquot_int_id``: For a given ``aliquot_ext_id``, there is a unique ``aliquot_int_id``. This field is created by adding 1 to the previous unique record, starting from 1. The ``aliquot_ext_id`` is recorded from **sample_form**. If the ``aliquot_ext_id`` is ``Null``, a new ``aliquot_int_id`` will be created.
+2. ``Aliquot.int_id``: For a given ``Aliquot.ext_id``, there is a unique ``Aliquot.int_id``. This field is created by adding 1 to the previous unique record, starting from 1. The ``Aliquot.ext_id`` is recorded from **sample_form**. If the ``Aliquot.ext_id`` is ``Null``, a new ``Aliquot.int_id`` will be created.
 
-3. ``aliquot_iteration_id``: the aliquot iteration corresponds to the subset of material extracted from the *Aliquot* tube that will be sent to the sequencing center.
+3. ``Aliquot.iteration_id``: the aliquot iteration corresponds to the subset of material extracted from the *Aliquot* tube that will be sent to the sequencing center.
 
 
 Library

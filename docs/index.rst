@@ -9,14 +9,17 @@ Welcome to leukgen's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   install
-   deploy
-   docker_ec2
-   tests
+    leukid
+    install
+    deploy
+    docker_ec2
+    leukgen/modules
 
-
+.. automodule:: leukgen.samples
+    :members:
+    :undoc-members:
 
 Indices and tables
 ==================

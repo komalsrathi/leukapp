@@ -14,19 +14,22 @@
 import os
 import sys
 
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 # sys.path.insert(0, os.path.abspath('.'))
 
-# -- General configuration -----------------------------------------------------
+# -- General configuration ----------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
 # needs_sphinx = '1.0'
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = []
+extensions = ['sphinx.ext.autodoc']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -88,7 +91,7 @@ pygments_style = 'sphinx'
 # modindex_common_prefix = []
 
 
-# -- Options for HTML output ---------------------------------------------------
+# -- Options for HTML output --------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
@@ -168,7 +171,7 @@ html_static_path = ['_static']
 htmlhelp_basename = 'leukgendoc'
 
 
-# -- Options for LaTeX output --------------------------------------------------
+# -- Options for LaTeX output -------------------------------------------------
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
@@ -211,7 +214,7 @@ latex_documents = [
 # latex_domain_indices = True
 
 
-# -- Options for manual page output --------------------------------------------
+# -- Options for manual page output -------------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
@@ -224,7 +227,7 @@ man_pages = [
 # man_show_urls = False
 
 
-# -- Options for Texinfo output ------------------------------------------------
+# -- Options for Texinfo output -----------------------------------------------
 
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
@@ -232,7 +235,8 @@ man_pages = [
 texinfo_documents = [
     ('index', 'leukgen', u'leukgen Documentation',
      u"Juan Medina", 'leukgen',
-     'Intranet website for Leukemia Genomics sample and project management.', 'Miscellaneous'),
+     'Intranet website for Leukemia Genomics sample and project management.',
+     'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.
