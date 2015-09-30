@@ -14,7 +14,8 @@ import environ
 import sys
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
-APPS_DIR = ROOT_DIR.path('leukgen')
+PROJECT_DIR = ROOT_DIR.path('leukgen')
+APPS_DIR = PROJECT_DIR.path('apps')
 sys.path.append(str(APPS_DIR))
 
 env = environ.Env()
@@ -83,7 +84,7 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 # -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
 FIXTURE_DIRS = (
-    str(APPS_DIR.path('fixtures')),
+    str(PROJECT_DIR.path('fixtures')),
 )
 
 # EMAIL CONFIGURATION
@@ -143,7 +144,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
         'DIRS': [
-            str(APPS_DIR.path('templates')),
+            str(PROJECT_DIR.path('templates')),
         ],
         'OPTIONS': {
             # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
@@ -183,7 +184,7 @@ STATIC_URL = '/static/'
 
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = (
-    str(APPS_DIR.path('static')),
+    str(PROJECT_DIR.path('static')),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
@@ -195,7 +196,7 @@ STATICFILES_FINDERS = (
 # MEDIA CONFIGURATION
 # -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = str(APPS_DIR('media'))
+MEDIA_ROOT = str(PROJECT_DIR('media'))
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
