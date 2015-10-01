@@ -16,7 +16,7 @@ import sys
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 PROJECT_DIR = ROOT_DIR.path('leukgen')
 APPS_DIR = PROJECT_DIR.path('apps')
-sys.path.append(str(APPS_DIR))
+# sys.path.insert(str(APPS_DIR))
 
 env = environ.Env()
 
