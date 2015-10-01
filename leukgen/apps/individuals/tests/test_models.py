@@ -4,7 +4,7 @@ from django.db.utils import IntegrityError
 from django.utils.translation import ugettext_lazy as _
 
 # apps imports
-from core.tests.test_models import TimeStampedModelTest
+from leukgen.apps.core.tests.test_models import TimeStampedModelTest
 
 # local imports
 from ..models import Individual
