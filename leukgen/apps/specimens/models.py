@@ -4,8 +4,8 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 # apps imports
-from core.models import TimeStampedModel
-from individuals.models import Individual
+from leukgen.apps.core.models import TimeStampedModel
+from leukgen.apps.individuals.models import Individual
 
 
 class Specimen(TimeStampedModel):
@@ -20,9 +20,9 @@ class Specimen(TimeStampedModel):
     )
 
     individual = models.ForeignKey(Individual)
+    ext_id = models.CharField(max_length=100)
     source = models.CharField(
         _("Source Code"), max_length=1, choices=SOURCE_CHOICES)
-    ext_id = models.CharField(max_length=100)
 
     # field candidates:
     # cell_type
