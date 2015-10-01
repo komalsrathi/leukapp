@@ -5,32 +5,32 @@ from django.conf.urls import url
 
 from . import views
 
-# urlpatterns = [
-#     # URL pattern for the UserListView
-#     url(
-#         regex=r'^$',
-#         view=views.UserListView.as_view(),
-#         name='list'
-#     ),
+urlpatterns = [
+    # URL pattern for the IndividualListView
+    url(
+        regex=r'^$',
+        view=views.IndividualListView.as_view(),
+        name='list'
+    ),
 
-#     # URL pattern for the UserRedirectView
-#     url(
-#         regex=r'^~redirect/$',
-#         view=views.UserRedirectView.as_view(),
-#         name='redirect'
-#     ),
+    # URL pattern for the IndividualRedirectView
+    url(
+        regex=r'^~redirect/$',
+        view=views.IndividualRedirectView.as_view(),
+        name='redirect'
+    ),
 
-#     # URL pattern for the UserDetailView
-#     url(
-#         regex=r'^(?P<username>[\w.@+-]+)/$',
-#         view=views.UserDetailView.as_view(),
-#         name='detail'
-#     ),
+    # URL pattern for the IndividualDetailView
+    url(
+        regex=r'^(?P<pk>[\w.@+-]+)/$',
+        view=views.IndividualDetailView.as_view(),
+        name='detail'
+    ),
 
-#     # URL pattern for the UserUpdateView
-#     url(
-#         regex=r'^~update/$',
-#         view=views.UserUpdateView.as_view(),
-#         name='update'
-#     ),
-# ]
+    # URL pattern for the IndividualUpdateView
+    url(
+        regex=r'^~update/(?P<pk>[\w.@+-]+)/$',
+        view=views.IndividualUpdateView.as_view(),
+        name='update'
+    ),
+]
