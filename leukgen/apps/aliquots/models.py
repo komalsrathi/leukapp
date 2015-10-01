@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 # apps imports
-from core.models import TimeStampedModel
+from leukgen.apps.core.models import TimeStampedModel
 
 
 """
