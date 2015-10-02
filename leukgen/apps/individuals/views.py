@@ -7,6 +7,7 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from braces.views import LoginRequiredMixin
 
 from .models import Individual
+from .forms import IndividualForm
 
 
 class IndividualDetailView(LoginRequiredMixin, DetailView):
@@ -26,13 +27,15 @@ class IndividualRedirectView(LoginRequiredMixin, RedirectView):
 
 class IndividualUpdateView(LoginRequiredMixin, UpdateView):
 
-    fields = ['species', 'institution']
+    # fields = ['species', 'institution']
 
     # we already imported Individual in the view code above, remember?
     model = Individual
 
     slug_field = "pk"
     slug_url_kwarg = "pk"
+
+    form_class = IndividualForm
 
     # send the individual back to their own page after a successful update
     def get_success_url(self):

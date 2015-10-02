@@ -9,7 +9,7 @@
           method="post"
           action="{% url 'individuals:update' individual.pk %}">
         {% csrf_token %}
-        {{ form|crispy }}
+        {% crispy form %}
         <div class="control-group">
           <div class="controls">
             <button type="submit" class="btn">Update</button>
