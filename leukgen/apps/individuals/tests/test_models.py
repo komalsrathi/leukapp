@@ -63,14 +63,17 @@ class IndividualModelTest(TimeStampedModelTest, TestCase):
 
     def test_int_id_returns_expected_value(self):
         int_id = str(self.individual_a.pk + 100000)
-        self.assertEqual(int_id, self.individual_a.int_id())
+        self.assertEqual(int_id, self.individual_a.get_int_id())
 
     def test_institution_verbose_name(self):
         verbose_name = \
             Individual._meta.get_field_by_name('institution')[0].verbose_name
         self.assertEqual(verbose_name, _("Source Institution"))
 
-    def test_str_returns_int_id(self):
-        int_id = \
-            self.individual_a.species + "-" + self.individual_a.int_id()
-        self.assertEqual(int_id, self.individual_a.__str__())
+    def test_str_returns_leukid(self):
+        leukid = "-".join([
+            self.individual_a.check_institution(),
+            self.individual_a.species,
+            self.individual_a.int_id,
+        ])
+        self.assertEqual(leukid, self.individual_a.__str__())

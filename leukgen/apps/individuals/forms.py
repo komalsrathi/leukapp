@@ -11,23 +11,6 @@ class IndividualForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(IndividualForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        # self.helper.form_tag = False
-        self.helper.layout = Layout(
-            TabHolder(
-                Tab(
-                    'institution',
-                    Field('institution'),
-                ),
-                Tab(
-                    'id',
-                    'ext_id',
-                ),
-                Tab(
-                    'spe',
-                    'species',
-                )
-            )
-        )
 
     class Meta:
         model = Individual

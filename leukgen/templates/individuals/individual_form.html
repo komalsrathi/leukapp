@@ -1,19 +1,12 @@
 {% extends "individuals/base.html" %}
+{% load core_tags %}
 
-{% load crispy_forms_tags %}
 {% block title %}{{ individual }}{% endblock %}
 
 {% block content %}
-    <h1>{{ individual }}</h1>
-    <form class="form-horizontal"
-          method="post"
-          action="{% url 'individuals:update' individual.pk %}">
-        {% csrf_token %}
-        {% crispy form %}
-        <div class="control-group">
-          <div class="controls">
-            <button type="submit" class="btn">Update</button>
-          </div>
-        </div>
-    </form>
+    {% if individual.pk %}
+        {% panel_default_form head=individual.leukid url_dir='individuals:update' url_arg=individual.leukid btn_text='Update' footer='' %}
+    {% else %}
+        {% panel_default_form head='create form' url_dir='individuals:create' url_arg='' btn_text='Create' footer=''%}
+    {% endif %}
 {% endblock %}

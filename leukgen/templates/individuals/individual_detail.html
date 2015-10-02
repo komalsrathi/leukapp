@@ -19,7 +19,9 @@
 
   <div class="col-sm-12 ">
     <a  class="btn btn-primary"
-        href="{% url 'individuals:update' pk=individual.pk %}">Update</a>
+        href="{% url 'individuals:update' leukid=individual.leukid %}">
+        Update
+    </a>
     <!-- Your Stuff: Custom Individual template urls -->
   </div>
 

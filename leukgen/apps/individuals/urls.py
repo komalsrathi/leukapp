@@ -22,15 +22,22 @@ urlpatterns = [
 
     # URL pattern for the IndividualDetailView
     url(
-        regex=r'^(?P<pk>[\w.@+-]+)/$',
+        regex=r'^(?P<leukid>[\w.@+-]+)/$',
         view=views.IndividualDetailView.as_view(),
         name='detail'
     ),
 
     # URL pattern for the IndividualUpdateView
     url(
-        regex=r'^~update/(?P<pk>[\w.@+-]+)/$',
+        regex=r'^~update/(?P<leukid>[\w.@+-]+)/$',
         view=views.IndividualUpdateView.as_view(),
         name='update'
+    ),
+
+    # URL pattern for the IndividualUpdateView
+    url(
+        regex=r'^~create/$',
+        view=views.IndividualCreateView.as_view(),
+        name='create'
     ),
 ]
