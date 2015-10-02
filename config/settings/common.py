@@ -42,6 +42,7 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'autocomplete_light', # autocomplete
 )
 
 # Apps specific for this project go here.

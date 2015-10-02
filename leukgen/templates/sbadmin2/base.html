@@ -71,17 +71,18 @@
 
         <!-- Page Content -->
         <div id="page-wrapper">
+          <!-- Messegaes Handling -->
+          {% if messages %}
+              {% for message in messages %}
+                  <br/>
+                  <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+              {% endfor %}
+          {% endif %}
 
           <!-- Block Content -->
           {% block content%}
           {% endblock content %}
 
-          <!-- Messegaes Handling -->
-          {% if messages %}
-              {% for message in messages %}
-                  <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
-              {% endfor %}
-          {% endif %}
         </div> <!-- /#page-wrapper -->
       </div> <!-- /#wrapper -->
     {% endblock body %}
@@ -110,6 +111,7 @@
       src="{% static 'sbadmin2/dist/js/sb-admin-2.js' %}">
       </script>
     {% endblock javascript %}
+    {% include 'autocomplete_light/static.html' %}
   </body>
 
 </html>

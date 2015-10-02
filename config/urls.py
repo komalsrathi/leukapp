@@ -32,6 +32,9 @@ urlpatterns = [
         r'^accounts/',
         include('allauth.urls')),
 
+    # autocomplete
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
+
     # Your stuff: custom urls includes go here
     url(
         r'^lists/',
