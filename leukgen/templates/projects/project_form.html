@@ -1,39 +1,9 @@
 {% extends "projects/base.html" %}
-
-{% load url from future %}
 {% load i18n %}
-{% load crispy_forms_tags %}
+{% load core_tags %}
 
 {% block title %}{% trans "New Project" %}{% endblock title %}
 
-
 {% block content %}
-<br/>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-            {% trans "Create Project" %}
-        </div>
-        <div class="panel-body">
-          <form method="post" action=".">
-              {% csrf_token %}
-              {{ form|crispy }}
-              <div class="control-group">
-                <div class="controls">
-                  <button class="btn btn-primary btn-block"
-                          name="action_add"
-                          type="submit">
-                    {% trans "Submit" %}
-                  </button>
-                </div>
-              </div>
-          </form>
-        </div> <!-- /.panel-body -->
-      </div> <!-- /.panel -->
-    </div> <!-- /. container-fluid -->
-  </div> <!-- /. row -->
-</div> <!-- /. col-md-4 col-md-offset-4 -->
-
+  {% panel_default_form head='Create New Project' url_dir='projects:create' url_arg='' btn_text='Create' footer='' %}
 {% endblock %}

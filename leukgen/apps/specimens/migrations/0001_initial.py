@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Specimen',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('source', models.CharField(verbose_name='Source Code', choices=[('T', 'Tumor'), ('N', 'Normal')], max_length=1)),
                 ('ext_id', models.CharField(max_length=100)),
+                ('source', models.CharField(max_length=1, choices=[('T', 'Tumor'), ('N', 'Normal')], verbose_name='Source Code')),
                 ('individual', models.ForeignKey(to='individuals.Individual')),
             ],
         ),
