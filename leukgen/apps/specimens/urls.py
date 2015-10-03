@@ -6,13 +6,6 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    # URL pattern for the SpecimenRedirectView
-    url(
-        regex=r'^~redirect/$',
-        view=views.SpecimenRedirectView.as_view(),
-        name='redirect'
-    ),
-
     # URL pattern for the SpecimenDetailView
     url(
         regex=r'^(?P<slug>[\w.@+-]+)/$',
@@ -25,6 +18,13 @@ urlpatterns = [
         regex=r'^$',
         view=views.SpecimenListView.as_view(),
         name='list'
+    ),
+
+    # URL pattern for the SpecimenRedirectView
+    url(
+        regex=r'^~redirect/$',
+        view=views.SpecimenRedirectView.as_view(),
+        name='redirect'
     ),
 
     # URL pattern for the SpecimenUpdateView

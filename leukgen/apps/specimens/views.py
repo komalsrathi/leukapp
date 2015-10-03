@@ -14,17 +14,9 @@ from .forms import SpecimenForm
 class SpecimenDetailView(LoginRequiredMixin, DetailView):
     model = Specimen
 
-    # These next two lines tell the view to index lookups by leukid
-    # slug_field = "leukid"
-    # slug_url_kwarg = "slug"
-
 
 class SpecimenListView(LoginRequiredMixin, ListView):
     model = Specimen
-
-    # These next two lines tell the view to index lookups by leukid
-    slug_field = "leukid"
-    slug_url_kwarg = "leukid"
 
 
 class SpecimenRedirectView(LoginRequiredMixin, RedirectView):
@@ -32,18 +24,15 @@ class SpecimenRedirectView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self):
         return reverse("specimens:detail",
-                       kwargs={"leukid": self.request.specimen.leukid})
+                       kwargs={"slug": self.request.specimen.slug})
 
 
 class SpecimenCreateView(LoginRequiredMixin, CreateView):
 
     # we already imported Specimen in the view code above, remember?
-    succes_msg = "Specimen Created!"
     model = Specimen
     form_class = SpecimenForm
-
-    slug_field = "leukid"
-    slug_url_kwarg = "leukid"
+    succes_msg = "Specimen Created!"
 
 
 class SpecimenUpdateView(LoginRequiredMixin, UpdateView):
@@ -51,6 +40,3 @@ class SpecimenUpdateView(LoginRequiredMixin, UpdateView):
     # we already imported Specimen in the view code above, remember?
     model = Specimen
     form_class = SpecimenForm
-
-    slug_field = "leukid"
-    slug_url_kwarg = "leukid"
