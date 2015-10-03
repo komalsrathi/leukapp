@@ -13,3 +13,14 @@ class TimeStampedModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class LeukappModel(TimeStampedModel):
+
+    """
+    An abstract base class model that provides self-updating
+    ``created`` and ``modified`` fields.
+    """
+
+    class Meta:
+        abstract = True

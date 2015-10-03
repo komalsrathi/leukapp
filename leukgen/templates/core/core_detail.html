@@ -1,0 +1,31 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+{% block title %} {{object}} {% endblock %}
+
+{% block content %}
+<br/>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          {% block panel_title %} {{ object }} {% endblock %}
+        </div>
+        <div class="panel-body">
+        {% block panel_body %}
+          <div class="row">
+            <div class="col-sm-12 ">
+              <a  class="btn btn-primary"
+                  href="{{ object.get_update_url }}">
+                  Update
+              </a>
+            </div>
+          </div>
+        {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

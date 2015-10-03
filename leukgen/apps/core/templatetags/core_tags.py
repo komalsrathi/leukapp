@@ -9,7 +9,6 @@ def panel_default_form(context,  *args, **kwargs):
 
     head = kwargs['head']
     url_dir = kwargs['url_dir']
-    url_arg = kwargs['url_arg']
     btn_text = kwargs['btn_text']
     footer = kwargs['footer']
 
@@ -33,7 +32,6 @@ def panel_default_form(context,  *args, **kwargs):
     return t.render(Context({
         'head': head,
         'url_dir': url_dir,
-        'url_arg': url_arg,
         'btn_text': btn_text,
         'footer': footer,
         'form': form,

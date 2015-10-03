@@ -7,16 +7,11 @@
     <div class="col-md-4 col-md-offset-4">
       <div class="panel panel-default">
         <div class="panel-heading">
-            {% trans head %}
+            {{ head }}
         </div>
         <div class="panel-body">
-        {% if url_arg %}
           <form method="post"
-                action="{% url url_dir url_arg%}">
-        {% else %}
-          <form method="post"
-                action="{% url url_dir %}">
-        {% endif %}
+                action="{{ url_dir }}">
               {% csrf_token %}
               {{ form|crispy }}
               <div class="control-group">

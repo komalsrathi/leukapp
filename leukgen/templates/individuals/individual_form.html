@@ -1,12 +1,1 @@
-{% extends "individuals/base.html" %}
-{% load core_tags %}
-
-{% block title %}{{ individual }}{% endblock %}
-
-{% block content %}
-    {% if individual.pk %}
-        {% panel_default_form head=individual.leukid url_dir='individuals:update' url_arg=individual.leukid btn_text='Update' footer='' %}
-    {% else %}
-        {% panel_default_form head='create form' url_dir='individuals:create' url_arg='' btn_text='Create' footer=''%}
-    {% endif %}
-{% endblock %}
+{% extends "core/core_form.html" %}
