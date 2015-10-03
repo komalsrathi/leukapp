@@ -14,9 +14,9 @@ from .forms import IndividualForm
 class IndividualDetailView(LoginRequiredMixin, DetailView):
     model = Individual
 
-    # These next two lines tell the view to index lookups by leukid
-    slug_field = "leukid"
-    slug_url_kwarg = "leukid"
+
+class IndividualListView(LoginRequiredMixin, ListView):
+    model = Individual
 
 
 class IndividualRedirectView(LoginRequiredMixin, RedirectView):
@@ -24,7 +24,15 @@ class IndividualRedirectView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self):
         return reverse("individuals:detail",
-                       kwargs={"leukid": self.request.individual.leukid})
+                       kwargs={"slug": self.request.individual.slug})
+
+
+class IndividualCreateView(LoginRequiredMixin, CreateView):
+
+    # we already imported Individual in the view code above, remember?
+    model = Individual
+    form_class = IndividualForm
+    succes_msg = "Individual Created!"
 
 
 class IndividualUpdateView(LoginRequiredMixin, UpdateView):
@@ -32,35 +40,3 @@ class IndividualUpdateView(LoginRequiredMixin, UpdateView):
     # we already imported Individual in the view code above, remember?
     model = Individual
     form_class = IndividualForm
-
-    slug_field = "leukid"
-    slug_url_kwarg = "leukid"
-
-    # send the individual back to their own page after a successful update
-    def get_success_url(self):
-        return reverse("individuals:detail",
-                       kwargs={"leukid": self.get_object().leukid})
-
-
-class IndividualCreateView(LoginRequiredMixin, CreateView):
-
-    # we already imported Individual in the view code above, remember?
-    succes_msg = "Individual Created!"
-    model = Individual
-    form_class = IndividualForm
-
-    slug_field = "leukid"
-    slug_url_kwarg = "leukid"
-
-    # # send the individual back to their own page after a successful update
-    # def get_success_url(self):
-    #     return reverse("individuals:detail",
-    #                    kwargs={"leukid": self.get_object().leukid})
-
-
-class IndividualListView(LoginRequiredMixin, ListView):
-    model = Individual
-
-    # These next two lines tell the view to index lookups by leukid
-    slug_field = "leukid"
-    slug_url_kwarg = "leukid"

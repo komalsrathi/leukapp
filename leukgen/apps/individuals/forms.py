@@ -14,4 +14,4 @@ class IndividualForm(forms.ModelForm):
 
     class Meta:
         model = Individual
-        fields = ['institution', 'ext_id', 'species']
+        fields = ['institution', 'species', 'ext_id']
