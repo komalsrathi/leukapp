@@ -262,6 +262,12 @@ table.dataTable thead .sorting:after {
     color: rgba(50,50,50,.5);
 }
 
+.fixed-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
 .btn-circle {
     width: 30px;
     height: 30px;

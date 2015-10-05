@@ -1,12 +1,18 @@
 {% extends "core/base.html" %}
 
 {% load static %}{% load i18n %}
-{% block title %} {{ object_list.0.APP_NAME|title }} {% endblock %}
+{% block title %} {{ APP_NAME|title }} {% endblock %}
 
 {% block content %}
 <br/>
+<a href="{% url CREATE_URL %}">
+  <button type="button"
+          class="fixed-btn btn btn-danger btn-circle btn-lg">
+    <i class="fa glyphicon-plus"></i>
+  </button>
+</a>
 <div class="container-fluid">
-    <h2>{{ object_list.0.APP_NAME|title }}</h2>
+    <h2>{{ APP_NAME|title }}</h2>
     <div class="list-group">
         {% for object in object_list %}
           <a  href="{{ object.get_absolute_url }}"
