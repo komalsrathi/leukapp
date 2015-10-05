@@ -9,7 +9,7 @@ from braces.views import LoginRequiredMixin
 
 from .models import Aliquot
 from .forms import AliquotForm
-from .constants import APP_NAME
+from .constants import APP_NAME, CREATE_URL, LIST_URL
 
 
 class AliquotDetailView(LoginRequiredMixin, DetailView):
@@ -18,6 +18,15 @@ class AliquotDetailView(LoginRequiredMixin, DetailView):
 
 class AliquotListView(LoginRequiredMixin, ListView):
     model = Aliquot
+
+    def get_context_data(self, **kwargs):
+            context = super(AliquotListView, self).get_context_data(**kwargs)
+
+            # Add new context
+            context['APP_NAME'] = APP_NAME
+            context['CREATE_URL'] = CREATE_URL
+            context['LIST_URL'] = LIST_URL
+            return context
 
 
 class AliquotRedirectView(LoginRequiredMixin, RedirectView):

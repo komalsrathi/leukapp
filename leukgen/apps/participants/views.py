@@ -9,7 +9,7 @@ from braces.views import LoginRequiredMixin
 
 from .models import Participant
 from .forms import ParticipantForm
-from .constants import APP_NAME
+from .constants import APP_NAME, CREATE_URL, LIST_URL
 
 
 class ParticipantDetailView(LoginRequiredMixin, DetailView):
@@ -18,6 +18,16 @@ class ParticipantDetailView(LoginRequiredMixin, DetailView):
 
 class ParticipantListView(LoginRequiredMixin, ListView):
     model = Participant
+
+    def get_context_data(self, **kwargs):
+            context = super(
+                ParticipantListView, self).get_context_data(**kwargs)
+
+            # Add new context
+            context['APP_NAME'] = APP_NAME
+            context['CREATE_URL'] = CREATE_URL
+            context['LIST_URL'] = LIST_URL
+            return context
 
 
 class ParticipantRedirectView(LoginRequiredMixin, RedirectView):

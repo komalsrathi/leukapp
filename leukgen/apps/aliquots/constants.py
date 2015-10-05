@@ -1,5 +1,8 @@
 APP_NAME = 'aliquots'
 
+CREATE_URL = APP_NAME + ':create'
+LIST_URL = APP_NAME + ':list'
+
 CREATE_FORM_FIELDS = [
     'specimen',
     'biological_material',

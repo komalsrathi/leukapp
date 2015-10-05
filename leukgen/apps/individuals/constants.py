@@ -1,5 +1,8 @@
 APP_NAME = 'individuals'
 
+CREATE_URL = APP_NAME + ':create'
+LIST_URL = APP_NAME + ':list'
+
 MSK = 'MSK'
 OTHER = 'O'
 INSTITUTION = (

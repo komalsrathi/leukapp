@@ -1,5 +1,8 @@
 APP_NAME = 'specimens'
 
+CREATE_URL = APP_NAME + ':create'
+LIST_URL = APP_NAME + ':list'
+
 TUMOR = 'T'
 NORMAL = 'N'
 SOURCE = (
