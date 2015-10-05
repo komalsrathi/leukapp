@@ -1,9 +1,1 @@
-{% extends "projects/base.html" %}
-{% load i18n %}
-{% load core_tags %}
-
-{% block title %}{% trans "New Project" %}{% endblock title %}
-
-{% block content %}
-  {% panel_default_form head='Create New Project' url_dir='projects:create' url_arg='' btn_text='Create' footer='' %}
-{% endblock %}
+{% extends "core/core_form.html" %}
