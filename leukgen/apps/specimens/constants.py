@@ -10,3 +10,9 @@ SOURCE = (
 CHOICES = {
     "SOURCE": SOURCE,
 }
+
+CREATE_FORM_FIELDS = [
+    'individual',
+    'source',
+    'ext_id',
+    ]

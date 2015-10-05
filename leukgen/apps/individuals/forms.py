@@ -2,8 +2,11 @@ from django import forms
 from .models import Individual
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field
-from crispy_forms.bootstrap import TabHolder, Tab
+# from crispy_forms.layout import Layout, Field
+# from crispy_forms.bootstrap import TabHolder, Tab
+
+# local
+from .constants import CREATE_FORM_FIELDS
 
 
 class IndividualForm(forms.ModelForm):
@@ -14,4 +17,4 @@ class IndividualForm(forms.ModelForm):
 
     class Meta:
         model = Individual
-        fields = ['institution', 'species', 'ext_id']
+        fields = CREATE_FORM_FIELDS

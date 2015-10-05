@@ -5,7 +5,7 @@ OTHER = 'O'
 INSTITUTION = (
     (MSK, 'Memorial Sloan-Kettering Cancer Center'),
     (OTHER, 'Other'),
-)
+    )
 
 HUMAN = 'H'
 MOUSE = 'M'
@@ -16,9 +16,15 @@ SPECIES = (
     (MOUSE, 'Mouse'),
     (YEAST, 'Yeast'),
     (ZEBRAFISH, 'Zebrafish'),
-)
+    )
 
 CHOICES = {
     "INSTITUTION": INSTITUTION,
     "SPECIES": SPECIES,
-}
+    }
+
+CREATE_FORM_FIELDS = [
+    'institution',
+    'species',
+    'ext_id',
+    ]

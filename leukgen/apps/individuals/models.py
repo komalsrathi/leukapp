@@ -17,17 +17,30 @@ class Individual(LeukappModel):
     CHOICES = CHOICES
 
     institution = models.CharField(
-        _("Individual's Institution"),
+        _("individual's institution"),
         max_length=3,
         choices=CHOICES["INSTITUTION"]
         )
     species = models.CharField(
-        _("Individual's Species"),
+        _("individual's species"),
         max_length=1,
         choices=CHOICES["SPECIES"]
         )
+    specimens_count = models.PositiveIntegerField(
+        _("aliquot count"),
+        )
+    ext_id = models.CharField(
+        _("external id"),
+        max_length=100,
+        )
+    int_id = models.PositiveIntegerField(
+        _("internal id"),
+        )
 
     class Meta:
+        verbose_name = _(APP_NAME[:-1])
+        verbose_name_plural = _(APP_NAME)
+
         index_together = (("ext_id", "institution", "species"))
         unique_together = (("ext_id", "institution", "species"))
 
@@ -40,10 +53,24 @@ class Individual(LeukappModel):
         else:
             return 'E'
 
-    def get_slug(self):
-        return '-'.join(
-            [self.check_institution(), self.species, self.get_int_id()]
-        )
-
     def get_int_id(self):
-        return str(self.pk + 100000)
+        int_id = self.pk + 100000
+        return int_id
+
+    def if_new(self, **kwargs):
+        """ if_new is executed the first time the object is created """
+
+        # initialize child count
+        self.specimens_count = 0
+
+        # get internal id
+        self.int_id = self.get_int_id()
+
+    def get_slug(self):
+        """ get_slug is executed everytime the object is saved """
+
+        return '-'.join([
+            self.check_institution(),
+            self.species,
+            str(self.int_id)]
+        )

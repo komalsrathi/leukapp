@@ -1,9 +1,14 @@
+# django
 from django import forms
-from .models import Specimen
 
+# third party
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field
-from crispy_forms.bootstrap import TabHolder, Tab
+# from crispy_forms.layout import Layout, Field
+# from crispy_forms.bootstrap import TabHolder, Tab
+
+# local
+from .constants import CREATE_FORM_FIELDS
+from .models import Specimen
 
 
 class SpecimenForm(forms.ModelForm):
@@ -14,4 +19,4 @@ class SpecimenForm(forms.ModelForm):
 
     class Meta:
         model = Specimen
-        fields = ['individual', 'source', 'ext_id']
+        fields = CREATE_FORM_FIELDS

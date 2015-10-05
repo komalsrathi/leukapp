@@ -9,6 +9,7 @@ from braces.views import LoginRequiredMixin
 
 from .models import Individual
 from .forms import IndividualForm
+from .constants import APP_NAME
 
 
 class IndividualDetailView(LoginRequiredMixin, DetailView):
@@ -23,8 +24,8 @@ class IndividualRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
 
     def get_redirect_url(self):
-        return reverse("individuals:detail",
-                       kwargs={"slug": self.request.individual.slug})
+        return reverse(APP_NAME + ":detail",
+                       kwargs={"slug": self.request.object.slug})
 
 
 class IndividualCreateView(LoginRequiredMixin, CreateView):

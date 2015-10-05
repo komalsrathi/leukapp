@@ -14,13 +14,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Specimen',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('ext_id', models.CharField(max_length=100)),
-                ('source', models.CharField(max_length=1, choices=[('T', 'Tumor'), ('N', 'Normal')], verbose_name='Source Code')),
-                ('individual', models.ForeignKey(to='individuals.Individual')),
+                ('slug', models.SlugField(max_length=100, unique=True, verbose_name='slug')),
+                ('source', models.CharField(max_length=1, verbose_name='source', choices=[('T', 'Tumor'), ('N', 'Normal')])),
+                ('aliquots_count', models.PositiveIntegerField(verbose_name='aliquot count')),
+                ('ext_id', models.CharField(max_length=100, verbose_name='external id')),
+                ('int_id', models.PositiveIntegerField(verbose_name='internal id')),
+                ('individual', models.ForeignKey(to='individuals.Individual', verbose_name='individual')),
             ],
+            options={
+                'verbose_name': 'specimen',
+                'verbose_name_plural': 'specimens',
+            },
         ),
         migrations.AlterUniqueTogether(
             name='specimen',

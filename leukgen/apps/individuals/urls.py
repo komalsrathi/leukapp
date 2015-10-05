@@ -6,6 +6,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+
     # URL pattern for the IndividualDetailView
     url(
         regex=r'^(?P<slug>[\w.@+-]+)/$',

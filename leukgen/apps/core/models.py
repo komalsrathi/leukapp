@@ -23,14 +23,10 @@ class LeukappModel(TimeStampedModel):
     Leukapp Base Model
     """
 
-    ext_id = models.CharField(
-        _("External ID"),
-        max_length=100
-        )
-    slug = models.CharField(
-        _("Slug"),
+    slug = models.SlugField(
+        _("slug"),
         max_length=100,
-        blank=True
+        unique=True,
         )
 
     class Meta:
@@ -48,6 +44,7 @@ class LeukappModel(TimeStampedModel):
 
         if new:
             kwargs['force_insert'] = False  # set to avoid in error in create()
+            self.if_new()
             self.slug = self.get_slug()
             super(LeukappModel, self).save(*args, **kwargs)
 
@@ -70,5 +67,8 @@ class LeukappModel(TimeStampedModel):
             self.APP_NAME + ':create', kwargs={'slug': self.slug}
         )
 
+    def if_new(self, **kwargs):
+        pass
+
     def get_slug(self, **kwargs):
-        raise NotImplementedError("Implement me")
+        raise NotImplementedError("implement me")
