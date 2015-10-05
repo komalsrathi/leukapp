@@ -42,7 +42,7 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-    'autocomplete_light', # autocomplete
+    'autocomplete_light',  # autocomplete
 )
 
 # Apps specific for this project go here.
@@ -56,6 +56,7 @@ LOCAL_APPS = (
     'leukgen.apps.individuals',
     'leukgen.apps.specimens',
     'leukgen.apps.aliquots',
+    'leukgen.apps.participants',
     'leukgen.apps.core',
 )
 
@@ -224,6 +225,7 @@ AUTHENTICATION_BACKENDS = (
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_SIGNUP_FORM_CLASS = 'leukgen.apps.users.forms.SignupForm'
 
 # Custom user app defaults
 # Select the correct user model
