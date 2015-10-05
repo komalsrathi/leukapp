@@ -66,6 +66,12 @@ urlpatterns = [
         namespace="individuals")
     ),
 
+    url(
+        r'^participants/',
+        include("leukgen.apps.participants.urls",
+        namespace="participants")
+    ),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
