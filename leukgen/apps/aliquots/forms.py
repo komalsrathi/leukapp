@@ -6,7 +6,7 @@ from crispy_forms.helper import FormHelper
 # from crispy_forms.bootstrap import TabHolder, Tab
 
 # local
-from .constants import CREATE_FORM_FIELDS
+from .constants import CREATE_FIELDS
 
 
 class AliquotForm(forms.ModelForm):
@@ -17,4 +17,4 @@ class AliquotForm(forms.ModelForm):
 
     class Meta:
         model = Aliquot
-        fields = CREATE_FORM_FIELDS
+        fields = CREATE_FIELDS

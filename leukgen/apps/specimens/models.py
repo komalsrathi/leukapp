@@ -27,6 +27,7 @@ class Specimen(LeukappModel):
         )
     aliquots_count = models.PositiveIntegerField(
         _("aliquot count"),
+        default=0
         )
     ext_id = models.CharField(
         _("external id"),
@@ -34,6 +35,7 @@ class Specimen(LeukappModel):
         )
     int_id = models.PositiveIntegerField(
         _("internal id"),
+        null=True,
         )
 
     class Meta:

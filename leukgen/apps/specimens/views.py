@@ -8,8 +8,8 @@ from django.views.generic import \
 from braces.views import LoginRequiredMixin
 
 from .models import Specimen
-from .forms import SpecimenForm
-from .constants import APP_NAME, CREATE_URL, LIST_URL
+from .constants import \
+    APP_NAME, CREATE_URL, LIST_URL, CREATE_FIELDS, UPDATE_FIELDS
 
 
 class SpecimenDetailView(LoginRequiredMixin, DetailView):
@@ -42,7 +42,7 @@ class SpecimenCreateView(LoginRequiredMixin, CreateView):
 
     # we already imported Specimen in the view code above, remember?
     model = Specimen
-    form_class = SpecimenForm
+    fields = CREATE_FIELDS
     succes_msg = "Specimen Created!"
 
 
@@ -50,4 +50,5 @@ class SpecimenUpdateView(LoginRequiredMixin, UpdateView):
 
     # we already imported Specimen in the view code above, remember?
     model = Specimen
-    form_class = SpecimenForm
+    fields = UPDATE_FIELDS
+    succes_msg = "Specimen Created!"

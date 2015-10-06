@@ -28,6 +28,7 @@ class Individual(LeukappModel):
         )
     specimens_count = models.PositiveIntegerField(
         _("aliquot count"),
+        default=0,
         )
     ext_id = models.CharField(
         _("external id"),
@@ -35,6 +36,7 @@ class Individual(LeukappModel):
         )
     int_id = models.PositiveIntegerField(
         _("internal id"),
+        null=True,
         )
 
     class Meta:
@@ -59,6 +61,7 @@ class Individual(LeukappModel):
 
     def if_new(self, **kwargs):
         """ if_new is executed the first time the object is created """
+        print("*********************************************")
 
         # initialize child count
         self.specimens_count = 0

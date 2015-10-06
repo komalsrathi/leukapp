@@ -8,8 +8,8 @@ from django.views.generic import \
 from braces.views import LoginRequiredMixin
 
 from .models import Aliquot
-from .forms import AliquotForm
-from .constants import APP_NAME, CREATE_URL, LIST_URL
+from .constants import \
+    APP_NAME, CREATE_URL, LIST_URL, UPDATE_FIELDS, CREATE_FIELDS
 
 
 class AliquotDetailView(LoginRequiredMixin, DetailView):
@@ -41,7 +41,7 @@ class AliquotCreateView(LoginRequiredMixin, CreateView):
 
     # we already imported Aliquot in the view code above, remember?
     model = Aliquot
-    form_class = AliquotForm
+    fields = CREATE_FIELDS
     succes_msg = "Aliquot Created!"
 
 
@@ -49,4 +49,5 @@ class AliquotUpdateView(LoginRequiredMixin, UpdateView):
 
     # we already imported Aliquot in the view code above, remember?
     model = Aliquot
-    form_class = AliquotForm
+    fields = UPDATE_FIELDS
+    succes_msg = "Aliquot Updated!"

@@ -8,8 +8,8 @@ from django.views.generic import \
 from braces.views import LoginRequiredMixin
 
 from .models import Individual
-from .forms import IndividualForm
-from .constants import APP_NAME, CREATE_URL, LIST_URL
+from .constants import \
+    APP_NAME, CREATE_URL, LIST_URL, CREATE_FIELDS, UPDATE_FIELDS
 
 
 class IndividualDetailView(LoginRequiredMixin, DetailView):
@@ -42,7 +42,7 @@ class IndividualCreateView(LoginRequiredMixin, CreateView):
 
     # we already imported Individual in the view code above, remember?
     model = Individual
-    form_class = IndividualForm
+    fields = CREATE_FIELDS
     succes_msg = "Individual Created!"
 
 
@@ -50,4 +50,5 @@ class IndividualUpdateView(LoginRequiredMixin, UpdateView):
 
     # we already imported Individual in the view code above, remember?
     model = Individual
-    form_class = IndividualForm
+    fields = UPDATE_FIELDS
+    succes_msg = "Individual Updated!"

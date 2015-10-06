@@ -3,10 +3,15 @@ APP_NAME = 'aliquots'
 CREATE_URL = APP_NAME + ':create'
 LIST_URL = APP_NAME + ':list'
 
-CREATE_FORM_FIELDS = [
+CREATE_FIELDS = [
     'specimen',
     'biological_material',
     'ext_id',
+]
+
+UPDATE_FIELDS = [
+    'specimen',
+    'biological_material',
 ]
 
 DNA = 'D'

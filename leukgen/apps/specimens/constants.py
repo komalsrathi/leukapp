@@ -14,8 +14,13 @@ CHOICES = {
     "SOURCE": SOURCE,
 }
 
-CREATE_FORM_FIELDS = [
+CREATE_FIELDS = [
     'individual',
     'source',
     'ext_id',
+    ]
+
+UPDATE_FIELDS = [
+    'individual',
+    'source',
     ]

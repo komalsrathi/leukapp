@@ -7,7 +7,7 @@ from crispy_forms.helper import FormHelper
 # from crispy_forms.bootstrap import TabHolder, Tab
 
 # local
-from .constants import CREATE_FORM_FIELDS
+from .constants import CREATE_FIELDS
 from .models import Specimen
 
 
@@ -19,4 +19,4 @@ class SpecimenForm(forms.ModelForm):
 
     class Meta:
         model = Specimen
-        fields = CREATE_FORM_FIELDS
+        fields = CREATE_FIELDS

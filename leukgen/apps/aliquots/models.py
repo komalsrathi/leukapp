@@ -31,6 +31,7 @@ class Aliquot(LeukappModel):
         )
     int_id = models.PositiveIntegerField(
         _("internal id"),
+        null=True
         )
 
     class Meta:
