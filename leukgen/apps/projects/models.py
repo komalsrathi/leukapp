@@ -70,5 +70,5 @@ class Project(LeukappModel):
 
         # get_slug must return the slug
         return '-'.join(
-            [self.pi.last_name, self.pk]
+            [self.pi.last_name, str(self.pk)]
         )
