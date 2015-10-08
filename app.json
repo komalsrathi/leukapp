@@ -1,5 +1,5 @@
 {
-  "name": "leukgen",
+  "name": "leukapp",
   "description": "Intranet website for Leukemia Genomics sample and project management.",
   "env": {
     "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-python",

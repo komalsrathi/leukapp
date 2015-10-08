@@ -1,4 +1,4 @@
-leukgen
+leukapp
 ==============================
 
 Intranet website for Leukemia Genomics sample and project management.
@@ -9,9 +9,9 @@ LICENSE: BSD
 Settings
 ------------
 
-leukgen relies extensively on environment settings which **will not work with Apache/mod_wsgi setups**. It has been deployed successfully with both Gunicorn/Nginx and even uWSGI/Nginx.
+leukapp relies extensively on environment settings which **will not work with Apache/mod_wsgi setups**. It has been deployed successfully with both Gunicorn/Nginx and even uWSGI/Nginx.
 
-For configuration purposes, the following table maps the 'leukgen' environment variables to their Django setting:
+For configuration purposes, the following table maps the 'leukapp' environment variables to their Django setting:
 
 ======================================= =========================== ============================================== ======================================================================
 Environment Variable                    Django Setting              Development Default                            Production Default
@@ -27,9 +27,9 @@ DJANGO_SECURE_FRAME_DENY                SECURE_FRAME_DENY           n/a         
 DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS   HSTS_INCLUDE_SUBDOMAINS     n/a                                            True
 DJANGO_SESSION_COOKIE_HTTPONLY          SESSION_COOKIE_HTTPONLY     n/a                                            True
 DJANGO_SESSION_COOKIE_SECURE            SESSION_COOKIE_SECURE       n/a                                            False
-DJANGO_DEFAULT_FROM_EMAIL               DEFAULT_FROM_EMAIL          n/a                                            "leukgen <noreply@leukgen.mskcc.org>"
-DJANGO_SERVER_EMAIL                     SERVER_EMAIL                n/a                                            "leukgen <noreply@leukgen.mskcc.org>"
-DJANGO_EMAIL_SUBJECT_PREFIX             EMAIL_SUBJECT_PREFIX        n/a                                            "[leukgen] "
+DJANGO_DEFAULT_FROM_EMAIL               DEFAULT_FROM_EMAIL          n/a                                            "leukapp <noreply@leukgen.mskcc.org>"
+DJANGO_SERVER_EMAIL                     SERVER_EMAIL                n/a                                            "leukapp <noreply@leukgen.mskcc.org>"
+DJANGO_EMAIL_SUBJECT_PREFIX             EMAIL_SUBJECT_PREFIX        n/a                                            "[leukapp] "
 DJANGO_ALLOWED_HOSTS                    ALLOWED_HOSTS               ['*']                                          ['leukgen.mskcc.org']
 ======================================= =========================== ============================================== ======================================================================
 
@@ -66,7 +66,7 @@ First make sure to create and activate a virtualenv_, then open a terminal at th
 
 Create a local PostgreSQL database::
 
-    $ createdb leukgen
+    $ createdb leukapp
 
 Run ``migrate`` on your new database::
 
@@ -139,7 +139,7 @@ To install the test runner::
 
   $ pip install hitch
 
-To run the tests, enter the leukgen/tests directory and run the following commands::
+To run the tests, enter the leukapp/tests directory and run the following commands::
 
   $ hitch init
 
@@ -233,7 +233,7 @@ This pass all incoming requests on `nginx-proxy` to the nginx service your appli
 
 .. _nginx-proxy: https://github.com/jwilder/nginx-proxy
 
-Postgres is saving its database files to `/data/leukgen/postgres` by default. Change that if you wan't
+Postgres is saving its database files to `/data/leukapp/postgres` by default. Change that if you wan't
 something else and make sure to make backups since this is not done automatically.
 
 To get started, pull your code from source control (don't forget the `.env` file) and change to your projects root
@@ -281,19 +281,19 @@ it needs to do is to run `docker-compose up` in your projects root directory.
 
 If you are using `supervisor`, you can use this file as a starting point::
 
-    [program:leukgen]
+    [program:leukapp]
     command=docker-compose up
-    directory=/path/to/leukgen
+    directory=/path/to/leukapp
     redirect_stderr=true
     autostart=true
     autorestart=true
     priority=10
 
 
-Place it in `/etc/supervisor/conf.d/leukgen.conf` and run::
+Place it in `/etc/supervisor/conf.d/leukapp.conf` and run::
 
     supervisorctl reread
-    supervisorctl start leukgen
+    supervisorctl start leukapp
 
 To get the status, run::
 

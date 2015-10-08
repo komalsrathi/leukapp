@@ -12,7 +12,7 @@ def update_site_forward(apps, schema_editor):
         id=settings.SITE_ID,
         defaults={
             "domain": "leukgen.mskcc.org",
-            "name": "leukgen"
+            "name": "leukapp"
         }
     )
 

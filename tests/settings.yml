@@ -6,7 +6,7 @@ pause_on_success: false
 pause_on_failure: true
 startup_timeout: 45
 environment_variables:
-  DATABASE_URL: postgres://leukgen:password@127.0.0.1:15432/leukgen
+  DATABASE_URL: postgres://leukapp:password@127.0.0.1:15432/leukapp
   SECRET_KEY: cj5^uos4tfCdfghjkf5hq$9$(@-79^e9&x$3vyf#igvsfm4d=+
   CELERY_BROKER_URL: redis://localhost:16379
 window_size:

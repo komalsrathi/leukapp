@@ -1,7 +1,7 @@
 postgres:
   image: postgres:9.4
   volumes:
-    - /data/leukgen/postgres:/var/lib/postgresql/data
+    - /data/leukapp/postgres:/var/lib/postgresql/data
   env_file: .env
 
 django:

@@ -24,7 +24,7 @@ urlpatterns = [
     # User management
     url(
         r'^users/',
-        include("leukgen.apps.users.urls",
+        include("leukapp.apps.users.urls",
         namespace="users")
     ),
 
@@ -38,37 +38,37 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     url(
         r'^lists/',
-        include("leukgen.apps.lists.urls",
+        include("leukapp.apps.lists.urls",
         namespace="lists")
     ),
 
     url(
         r'^projects/',
-        include("leukgen.apps.projects.urls",
+        include("leukapp.apps.projects.urls",
         namespace="projects")
     ),
 
     url(
         r'^aliquots/',
-        include("leukgen.apps.aliquots.urls",
+        include("leukapp.apps.aliquots.urls",
         namespace="aliquots")
     ),
 
     url(
         r'^specimens/',
-        include("leukgen.apps.specimens.urls",
+        include("leukapp.apps.specimens.urls",
         namespace="specimens")
     ),
 
     url(
         r'^individuals/',
-        include("leukgen.apps.individuals.urls",
+        include("leukapp.apps.individuals.urls",
         namespace="individuals")
     ),
 
     url(
         r'^participants/',
-        include("leukgen.apps.participants.urls",
+        include("leukapp.apps.participants.urls",
         namespace="participants")
     ),
 

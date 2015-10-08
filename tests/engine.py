@@ -46,12 +46,12 @@ class ExecutionEngine(hitchtest.ExecutionEngine):
             shutdown_timeout=5.0,
         )
 
-        postgres_user = hitchpostgres.PostgresUser("leukgen", "password")
+        postgres_user = hitchpostgres.PostgresUser("leukapp", "password")
 
         self.services['Postgres'] = hitchpostgres.PostgresService(
             postgres_package=postgres_package,
             users=[postgres_user, ],
-            databases=[hitchpostgres.PostgresDatabase("leukgen",
+            databases=[hitchpostgres.PostgresDatabase("leukapp",
                                                       postgres_user), ]
         )
 

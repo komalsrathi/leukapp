@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Django settings for leukgen project.
+Django settings for leukapp project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/dev/topics/settings/
@@ -14,7 +14,7 @@ import environ
 import sys
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
-PROJECT_DIR = ROOT_DIR.path('leukgen')
+PROJECT_DIR = ROOT_DIR.path('leukapp')
 APPS_DIR = PROJECT_DIR.path('apps')
 # sys.path.insert(str(APPS_DIR))
 
@@ -48,16 +48,16 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     # custom users app
-    'leukgen.apps.users',
+    'leukapp.apps.users',
 
     # Your stuff: custom apps go here
-    'leukgen.apps.lists',
-    'leukgen.apps.projects',
-    'leukgen.apps.individuals',
-    'leukgen.apps.specimens',
-    'leukgen.apps.aliquots',
-    'leukgen.apps.participants',
-    'leukgen.apps.core',
+    'leukapp.apps.lists',
+    'leukapp.apps.projects',
+    'leukapp.apps.individuals',
+    'leukapp.apps.specimens',
+    'leukapp.apps.aliquots',
+    'leukapp.apps.participants',
+    'leukapp.apps.core',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -78,7 +78,7 @@ MIDDLEWARE_CLASSES = (
 # MIGRATIONS CONFIGURATION
 # -----------------------------------------------------------------------------
 MIGRATION_MODULES = {
-    'sites': 'leukgen.contrib.sites.migrations'
+    'sites': 'leukapp.contrib.sites.migrations'
 }
 
 # DEBUG
@@ -113,7 +113,7 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    'default': env.db("DATABASE_URL", default="postgres:///leukgen"),
+    'default': env.db("DATABASE_URL", default="postgres:///leukapp"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
@@ -225,7 +225,7 @@ AUTHENTICATION_BACKENDS = (
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_SIGNUP_FORM_CLASS = 'leukgen.apps.users.forms.SignupForm'
+ACCOUNT_SIGNUP_FORM_CLASS = 'leukapp.apps.users.forms.SignupForm'
 
 # Custom user app defaults
 # Select the correct user model
