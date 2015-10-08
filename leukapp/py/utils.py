@@ -4,10 +4,10 @@ import sys
 # django
 from django.core.management.base import BaseCommand, CommandError
 
-# leukgen apps
-from leukgen.apps.individuals.constants import CREATE_FIELDS as ind_fields
-from leukgen.apps.specimens.constants import CREATE_FIELDS as spe_fields
-from leukgen.apps.aliquots.constants import CREATE_FIELDS as ali_fields
+# leukapp apps
+from leukapp.apps.individuals.constants import CREATE_FIELDS as ind_fields
+from leukapp.apps.specimens.constants import CREATE_FIELDS as spe_fields
+from leukapp.apps.aliquots.constants import CREATE_FIELDS as ali_fields
 
 
 class Command(BaseCommand):

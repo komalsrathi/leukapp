@@ -2,11 +2,11 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
-# leukgen apps
-from leukgen.apps.individuals.constants import CREATE_FIELDS as ind_fields
-from leukgen.apps.specimens.constants import CREATE_FIELDS as spe_fields
-from leukgen.apps.aliquots.constants import CREATE_FIELDS as ali_fields
-from leukgen.py.samples_from_csv import add_samples_from_csv
+# leukapp apps
+from leukapp.apps.individuals.constants import CREATE_FIELDS as ind_fields
+from leukapp.apps.specimens.constants import CREATE_FIELDS as spe_fields
+from leukapp.apps.aliquots.constants import CREATE_FIELDS as ali_fields
+from leukapp.py.samples_from_csv import add_samples_from_csv
 
 
 class Command(BaseCommand):

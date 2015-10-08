@@ -5,14 +5,14 @@ import csv
 from django import forms
 from django.db.models import Q
 
-# leukgen apps
-from leukgen.apps.individuals.models import Individual
-from leukgen.apps.specimens.models import Specimen
-from leukgen.apps.aliquots.models import Aliquot
+# leukapp apps
+from leukapp.apps.individuals.models import Individual
+from leukapp.apps.specimens.models import Specimen
+from leukapp.apps.aliquots.models import Aliquot
 
-from leukgen.apps.individuals.constants import CREATE_FIELDS as IndiFields
-from leukgen.apps.specimens.constants import CREATE_FIELDS as SpeFields
-from leukgen.apps.aliquots.constants import CREATE_FIELDS as AliFields
+from leukapp.apps.individuals.constants import CREATE_FIELDS as IndiFields
+from leukapp.apps.specimens.constants import CREATE_FIELDS as SpeFields
+from leukapp.apps.aliquots.constants import CREATE_FIELDS as AliFields
 
 
 class IndividualForm(forms.ModelForm):
