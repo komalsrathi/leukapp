@@ -1,9 +1,9 @@
-.. leukgen documentation master file, created by
+.. leukapp documentation master file, created by
    sphinx-quickstart.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to leukgen's documentation!
+Welcome to leukapp's documentation!
 ====================================================================
 
 Contents:
@@ -15,9 +15,9 @@ Contents:
     install
     deploy
     docker_ec2
-    leukgen/modules
+    leukapp/modules
 
-.. automodule:: leukgen.samples
+.. automodule:: leukapp.samples
     :members:
     :undoc-members:
 

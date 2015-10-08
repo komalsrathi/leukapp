@@ -1,12 +1,12 @@
 rm -rf _build
-rm -rf leukgen
-mkdir -p leukgen
+rm -rf leukapp
+mkdir -p leukapp
 
 sphinx-apidoc \
-    -o leukgen\
-    ../leukgen\
-    ../leukgen/contrib\
-    ../leukgen/*/tests\
-    ../leukgen/*/migrations\
+    -o leukapp\
+    ../leukapp\
+    ../leukapp/contrib\
+    ../leukapp/*/tests\
+    ../leukapp/*/migrations\
 
 make html
