@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
+
+# django
 from django import forms
 from .models import Individual
 
+# third party
 from crispy_forms.helper import FormHelper
-# from crispy_forms.layout import Layout, Field
-# from crispy_forms.bootstrap import TabHolder, Tab
 
 # local
 from .constants import CREATE_FIELDS

@@ -1,10 +1,12 @@
 # django imports
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import validate_slug
 
 # apps imports
-from leukgen.apps.core.models import LeukappModel
-from leukgen.apps.participants.models import Participant
+from leukapp.apps.core.models import LeukappModel
+import leukapp.apps.core.validators as cv
+from leukapp.apps.participants.models import Participant
 
 # local imports
 from .constants import APP_NAME
@@ -17,11 +19,12 @@ class Project(LeukappModel):
     APP_NAME = APP_NAME
 
     name = models.CharField(
-        _("name"),
-        max_length=100
+        _("project name"),
+        max_length=100,
+        validators=[cv.object_name]
         )
     description = models.CharField(
-        _("description"),
+        _("project description"),
         max_length=140,
         )
     pi = models.ForeignKey(

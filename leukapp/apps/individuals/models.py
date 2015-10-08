@@ -1,12 +1,14 @@
-# django imports
+# -*- coding: utf-8 -*-
+
+# django
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-# apps imports
-from leukgen.apps.core.models import LeukappModel
+# leukapp
+from leukapp.apps.core.models import LeukappModel
 
-# local imports
-from .constants import APP_NAME, CHOICES
+# local
+from .constants import APP_NAME, INDIVIDUAL_CHOICES
 
 
 class Individual(LeukappModel):
@@ -14,8 +16,9 @@ class Individual(LeukappModel):
     """docstring for Individual"""
 
     APP_NAME = APP_NAME
-    CHOICES = CHOICES
+    CHOICES = INDIVIDUAL_CHOICES
 
+    # external fields
     institution = models.CharField(
         _("individual's institution"),
         max_length=3,
@@ -26,13 +29,15 @@ class Individual(LeukappModel):
         max_length=1,
         choices=CHOICES["SPECIES"]
         )
-    specimens_count = models.PositiveIntegerField(
-        _("aliquot count"),
-        default=0,
-        )
     ext_id = models.CharField(
         _("external id"),
         max_length=100,
+        )
+
+    # internal fields
+    specimens_count = models.PositiveIntegerField(
+        _("aliquot count"),
+        default=0,
         )
     int_id = models.PositiveIntegerField(
         _("internal id"),
@@ -61,7 +66,6 @@ class Individual(LeukappModel):
 
     def if_new(self, **kwargs):
         """ if_new is executed the first time the object is created """
-        print("*********************************************")
 
         # initialize child count
         self.specimens_count = 0

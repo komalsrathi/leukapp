@@ -3,8 +3,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 # apps imports
-from leukgen.apps.core.models import LeukappModel
-from leukgen.apps.specimens.models import Specimen
+from leukapp.apps.core.models import LeukappModel
+from leukapp.apps.specimens.models import Specimen
 
 # local imports
 from .constants import APP_NAME, CHOICES

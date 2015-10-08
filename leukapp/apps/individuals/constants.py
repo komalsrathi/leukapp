@@ -1,19 +1,28 @@
+# -*- coding: utf-8 -*-
+"""
+Individuals app constants
+"""
+
+# app name
 APP_NAME = 'individuals'
 
+# urls
 CREATE_URL = APP_NAME + ':create'
 LIST_URL = APP_NAME + ':list'
 
-CREATE_FIELDS = [
+# model fields
+INDIVIDUAL_CREATE_FIELDS = [
     'institution',
     'species',
     'ext_id',
     ]
 
-UPDATE_FIELDS = [
+INDIVIDUAL_UPDATE_FIELDS = [
     'institution',
     'species',
     ]
 
+# choices
 MSK = 'MSK'
 OTHER = 'O'
 INSTITUTION = (
@@ -32,7 +41,7 @@ SPECIES = (
     (ZEBRAFISH, 'Zebrafish'),
     )
 
-CHOICES = {
+INDIVIDUAL_CHOICES = {
     "INSTITUTION": INSTITUTION,
     "SPECIES": SPECIES,
     }

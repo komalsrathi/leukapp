@@ -7,8 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 from allauth.account.models import EmailAddress
 
 # apps imports
-from leukgen.apps.core.models import LeukappModel
-from leukgen.apps.core.validators import phone_validator
+from leukapp.apps.core.models import LeukappModel
+import leukapp.apps.core.validators as cv
 
 # local imports
 from .constants import APP_NAME
@@ -36,7 +36,7 @@ class Participant(LeukappModel):
     phone = models.CharField(
         _("phone"),
         max_length=15,
-        validators=[phone_validator],
+        validators=[cv.phone],
         blank=True
         )
     user = models.ForeignKey(

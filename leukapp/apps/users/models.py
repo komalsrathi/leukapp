@@ -10,7 +10,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 # local apps
-from leukgen.apps.core.validators import phone_validator
+import leukapp.apps.core.validators as cv
 
 
 @python_2_unicode_compatible
@@ -22,7 +22,7 @@ class User(AbstractUser):
     phone = models.CharField(
         _("phone"),
         max_length=15,
-        validators=[phone_validator],
+        validators=[cv.phone],
         blank=True
         )
 
