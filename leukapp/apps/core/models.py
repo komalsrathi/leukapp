@@ -62,11 +62,6 @@ class LeukappModel(TimeStampedModel):
             self.APP_NAME + ':update', kwargs={'slug': self.slug}
         )
 
-    def get_create_url(self):
-        return reverse(
-            self.APP_NAME + ':create', kwargs={'slug': self.slug}
-        )
-
     def if_new(self, **kwargs):
         pass
 

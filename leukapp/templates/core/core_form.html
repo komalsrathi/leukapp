@@ -13,6 +13,6 @@
     {% if object %}
         {% panel_default_form head=object url_dir=object.get_update_url btn_text='Update' footer='' %}
     {% else %}
-        {% panel_default_form head='Create Form' url_dir=object.get_create_url btn_text='Create' footer=''%}
+        {% panel_default_form head='Create Form' url_dir='' btn_text='Create' footer=''%}
     {% endif %}
 {% endblock %}
