@@ -96,4 +96,5 @@ class Individual(LeukappModel):
         self.slug = '-'.join([
             self.check_institution(),
             self.species,
-            self.int_id])
+            self.int_id
+            ])

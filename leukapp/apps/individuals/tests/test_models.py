@@ -1,28 +1,16 @@
-# django imports
+# django
 from django.test import TestCase
 from django.db.utils import IntegrityError
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 
-# apps imports
-from leukapp.apps.core.tests.test_models import TimeStampedModelTest
-
-# local imports
+# local
 from ..models import Individual
 from .. import constants
 
 
-class IndividualModelTest(TimeStampedModelTest, TestCase):
-
-    # required due to ModelMixin
-    # http://blog.kevinastone.com/django-model-behaviors.html
-    model = Individual
-
-    # required due to ModelMixin, see:
-    # http://blog.kevinastone.com/django-model-behaviors.html
-    def create_instance(self, **kwargs):
-        return self.model.objects.create(**kwargs)
+class IndividualModelTest(TestCase):
 
     def setUp(self):
         self.individual_a = Individual()

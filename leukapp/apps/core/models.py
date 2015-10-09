@@ -67,3 +67,18 @@ class LeukappModel(TimeStampedModel):
 
     def if_save(self, **kwargs):
         pass
+
+
+class LeukappTestModel(LeukappModel):
+
+    """
+    this model only serves the purpose of testing the abstract models above
+    """
+
+    def if_save(self):
+        """
+        if_save is executed everytime the object is saved
+        test: test_str_returns_slug
+        """
+
+        self.slug = self.pk
