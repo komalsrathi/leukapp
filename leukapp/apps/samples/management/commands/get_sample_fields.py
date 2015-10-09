@@ -2,9 +2,9 @@
 from django.core.management.base import BaseCommand, CommandError
 
 # leukapp apps
-from leukapp.apps.individuals.constants import CREATE_FIELDS as ind_fields
-from leukapp.apps.specimens.constants import CREATE_FIELDS as spe_fields
-from leukapp.apps.aliquots.constants import CREATE_FIELDS as ali_fields
+from leukapp.apps.individuals.constants import INDIVIDUAL_CREATE_FIELDS
+from leukapp.apps.specimens.constants import SPECIMEN_CREATE_FIELDS
+from leukapp.apps.aliquots.constants import ALIQUOT_CREATE_FIELDS
 
 
 class Command(BaseCommand):
@@ -17,9 +17,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         keys = ['Individual', 'Specimen', 'Aliquot']
         fields = {
-            'Individuals': ind_fields,
-            'Specimens': spe_fields,
-            'Aliquots': ali_fields,
+            'Individuals': INDIVIDUAL_CREATE_FIELDS,
+            'Specimens': SPECIMEN_CREATE_FIELDS,
+            'Aliquots': ALIQUOT_CREATE_FIELDS,
             }
         for k in keys:
             for f in fields[k]:
