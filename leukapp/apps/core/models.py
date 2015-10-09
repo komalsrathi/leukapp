@@ -45,11 +45,11 @@ class LeukappModel(TimeStampedModel):
         if new:
             kwargs['force_insert'] = False  # set to avoid in error in create()
             self.if_new()
-            self.slug = self.get_slug()
+            self.if_save()
             super(LeukappModel, self).save(*args, **kwargs)
 
         else:
-            self.slug = self.get_slug()
+            self.if_save()
             super(LeukappModel, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -70,5 +70,5 @@ class LeukappModel(TimeStampedModel):
     def if_new(self, **kwargs):
         pass
 
-    def get_slug(self, **kwargs):
-        raise NotImplementedError("implement me")
+    def if_save(self, **kwargs):
+        pass
