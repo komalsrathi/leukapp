@@ -107,6 +107,7 @@ class IndividualAbstractModel(LeukappModel):
             self.int_id
             ])
 
+
 class Individual(IndividualAbstractModel):
 
     """
