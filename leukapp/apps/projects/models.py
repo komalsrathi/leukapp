@@ -1,11 +1,10 @@
 # django imports
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.core.validators import validate_slug
 
 # apps imports
 from leukapp.apps.core.models import LeukappModel
-import leukapp.apps.core.validators as cv
+from leukapp.apps.core.validators import object_name_validator
 from leukapp.apps.participants.models import Participant
 
 # local imports
@@ -21,7 +20,7 @@ class Project(LeukappModel):
     name = models.CharField(
         _("project name"),
         max_length=100,
-        validators=[cv.object_name]
+        validators=[object_name_validator]
         )
     description = models.CharField(
         _("project description"),
@@ -65,13 +64,12 @@ class Project(LeukappModel):
     def __str__(self):
         return self.slug
 
-    def get_slug(self):
-        """ get_slug is run everytime the object is saved"""
+    def if_save(self):
+        """ if_save() is run everytime the object is saved"""
 
         # add pi, analyst and requestors as project participants
         self.participants.add(self.pi, self.analyst, self.requestor)
 
-        # get_slug must return the slug
-        return '-'.join(
-            [self.pi.last_name, str(self.pk)]
-        )
+        # if_save() must return the slug
+        self.slug = '-'.join(
+            [self.pi.last_name, str(self.pk)])

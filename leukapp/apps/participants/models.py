@@ -8,7 +8,7 @@ from allauth.account.models import EmailAddress
 
 # apps imports
 from leukapp.apps.core.models import LeukappModel
-import leukapp.apps.core.validators as cv
+from leukapp.apps.core.validators import phone_validator
 
 # local imports
 from .constants import APP_NAME
@@ -36,7 +36,7 @@ class Participant(LeukappModel):
     phone = models.CharField(
         _("phone"),
         max_length=15,
-        validators=[cv.phone],
+        validators=[phone_validator],
         blank=True
         )
     user = models.ForeignKey(
@@ -53,8 +53,8 @@ class Participant(LeukappModel):
     def __str__(self):
         return self.slug
 
-    def get_slug(self):
-        """ get_slug is run everytime the object is saved"""
+    def if_save(self):
+        """ if_save is run everytime the object is saved"""
 
         # see if there is any user with the email registered
         try:
@@ -64,4 +64,4 @@ class Participant(LeukappModel):
         except EmailAddress.DoesNotExist:
             pass
 
-        return self.email
+        self.slug = self.email
