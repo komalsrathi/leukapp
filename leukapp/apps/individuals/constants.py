@@ -7,8 +7,8 @@ Individuals app constants
 APP_NAME = 'individuals'
 
 # urls
-CREATE_URL = APP_NAME + ':create'
-LIST_URL = APP_NAME + ':list'
+INDIVIDUAL_CREATE_URL = APP_NAME + ':create'
+INDIVIDUAL_LIST_URL = APP_NAME + ':list'
 
 # model fields
 INDIVIDUAL_CREATE_FIELDS = [

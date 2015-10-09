@@ -50,12 +50,12 @@ class IndividualListView(LoginRequiredMixin, ListView):
     model = Individual
 
     def get_context_data(self, **kwargs):
+
         context = super(IndividualListView, self).get_context_data(**kwargs)
 
         # Add new context
         context['APP_NAME'] = constants.APP_NAME
-        context['CREATE_URL'] = constants.CREATE_URL
-        context['LIST_URL'] = constants.LIST_URL
+        context['CREATE_URL'] = constants.INDIVIDUAL_CREATE_URL
         return context
 
 
@@ -69,8 +69,7 @@ class IndividualRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
 
     def get_redirect_url(self):
-        return reverse(constants.APP_NAME + ":detail",
-                       kwargs={"slug": self.request.object.slug})
+        return reverse(constants.INDIVIDUAL_LIST_URL)
 
 
 class IndividualCreateView(LoginRequiredMixin, CreateView):

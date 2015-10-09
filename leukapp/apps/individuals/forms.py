@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+"""
+Custom forms not used so far
+"""
+
+"""
 # django
 from django import forms
 from .models import Individual
@@ -20,3 +25,4 @@ class IndividualForm(forms.ModelForm):
     class Meta:
         model = Individual
         fields = CREATE_FIELDS
+"""
