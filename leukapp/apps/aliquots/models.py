@@ -1,21 +1,28 @@
+# -*- coding: utf-8 -*-
+
 # django imports
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 # apps imports
 from leukapp.apps.core.models import LeukappModel
+from leukapp.apps.core.validators import ext_id_validator
 from leukapp.apps.specimens.models import Specimen
 
 # local imports
-from .constants import APP_NAME, CHOICES
+from .constants import APP_NAME, ALIQUOT_CHOICES
 
 
 class Aliquot(LeukappModel):
 
-    """docstring for Aliquot"""
+    """
+    see: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=365039979
+    """
 
     APP_NAME = APP_NAME
+    CHOICES = ALIQUOT_CHOICES
 
+    # external fields
     specimen = models.ForeignKey(
         Specimen,
         verbose_name=_("specimen"),
@@ -27,38 +34,53 @@ class Aliquot(LeukappModel):
         )
     ext_id = models.CharField(
         _("external id"),
-        max_length=100
+        max_length=100,
+        validators=[ext_id_validator],  # test: test_ext_id_uses_validator
+        help_text=_("The external id should be unique at the Specimen level."),
         )
-    int_id = models.PositiveIntegerField(
+
+    # internal fields
+    int_id = models.CharField(
         _("internal id"),
-        null=True
+        max_length=8,
+        null=True,
         )
 
     class Meta:
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
 
-        index_together = (("ext_id", "biological_material", "specimen"))
-        unique_together = (("ext_id", "biological_material", "specimen"))
+        # test: test_unique_together_functionality
+        unique_together = (("ext_id", "specimen"))
+        index_together = (("ext_id", "specimen"))
 
     def __str__(self):
         return self.slug
 
     def if_new(self, **kwargs):
-        """ if_new is executed the first time the object is created """
+        """
+        if_new is executed the first time the object is created
+        tests:
+            test_if_new_adds_one_to_specimen_aliquots_created
+            test_if_specimens_created_keep_count_correctly
+
+        """
 
         # alter parent count
-        self.specimen.aliquots_count += 1
+        self.specimen.aliquots_created += 1
         self.specimen.save()
 
         # store int_id
-        self.int_id = self.specimen.aliquots_count
+        self.int_id = str(self.specimen.aliquots_created)
 
-    def get_slug(self):
-        """ get_slug is always excecuted when saving """
+    def if_save(self):
+        """
+        if_save is always excecuted when saving
+        test: test_str_returns_slug
+        """
 
-        return '-'.join([
+        self.slug = '-'.join([
             self.specimen.slug,
             self.biological_material,
-            str(self.int_id)
+            self.int_id
             ])
