@@ -1,19 +1,29 @@
+# -*- coding: utf-8 -*-
+
+"""
+specimens app constants
+"""
+
+# app name
 APP_NAME = 'aliquots'
 
-CREATE_URL = APP_NAME + ':create'
-LIST_URL = APP_NAME + ':list'
+# urls
+ALIQUOT_CREATE_URL = APP_NAME + ':create'
+ALIQUOT_LIST_URL = APP_NAME + ':list'
 
-CREATE_FIELDS = [
+# models fields
+ALIQUOT_CREATE_FIELDS = [
     'specimen',
     'biological_material',
     'ext_id',
-]
+    ]
 
-UPDATE_FIELDS = [
+ALIQUOT_UPDATE_FIELDS = [
     'specimen',
     'biological_material',
-]
+    ]
 
+# choices
 DNA = 'D'
 RNA = 'R'
 MIXED = 'M'
@@ -23,6 +33,6 @@ BIOLOGICAL_MATERIAL = (
     (MIXED, 'MIXED'),
 )
 
-CHOICES = {
+ALIQUOT_CHOICES = {
     "BIOLOGICAL_MATERIAL": BIOLOGICAL_MATERIAL,
 }
