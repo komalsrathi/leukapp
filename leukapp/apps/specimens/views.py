@@ -79,7 +79,6 @@ class SpecimenCreateView(LoginRequiredMixin, CreateView):
     See: http://ccbv.co.uk/CreateView/
     """
 
-    # we already imported Specimen in the view code above, remember?
     model = Specimen
     fields = constants.SPECIMEN_CREATE_FIELDS
     succes_msg = "Specimen Created!"
@@ -92,7 +91,6 @@ class SpecimenUpdateView(LoginRequiredMixin, UpdateView):
     See: http://ccbv.co.uk/UpdateView/
     """
 
-    # we already imported Specimen in the view code above, remember?
     model = Specimen
     fields = constants.SPECIMEN_UPDATE_FIELDS
     succes_msg = "Specimen Created!"

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # django imports
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -13,7 +15,9 @@ from .constants import APP_NAME, SPECIMEN_CHOICES
 
 class Specimen(LeukappModel):
 
-    """docstring for Specimen"""
+    """
+    see: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=1125452971
+    """
 
     APP_NAME = APP_NAME
     CHOICES = SPECIMEN_CHOICES
@@ -37,7 +41,7 @@ class Specimen(LeukappModel):
         )
 
     # internal fields
-    aliquots_created = models.PositiveIntegerField(
+    aliquots_created = models.PositiveSmallIntegerField(
         _("number of aliquots created"),
         default=0
         )
@@ -83,4 +87,5 @@ class Specimen(LeukappModel):
         self.slug = '-'.join([
             self.individual.slug,
             self.source,
-            self.int_id])
+            self.int_id
+            ])

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # django imports
 from django.test import TestCase
 from django.db.utils import IntegrityError
@@ -6,7 +8,6 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 
 # apps imports
-from leukapp.apps.core.tests.test_models import TimeStampedModelTest
 from leukapp.apps.individuals.models import Individual
 
 # local imports
