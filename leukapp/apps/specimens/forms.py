@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+
+"""
+Custom forms not used so far
+"""
+
+"""
 # django
 from django import forms
 
@@ -20,3 +27,4 @@ class SpecimenForm(forms.ModelForm):
     class Meta:
         model = Specimen
         fields = CREATE_FIELDS
+"""

@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
+
+# python
 from __future__ import absolute_import, unicode_literals
 
+# django
 from django.conf.urls import url
 
+# local
 from . import views
 
 urlpatterns = [
+
     # URL pattern for the SpecimenDetailView
     url(
         regex=r'^(?P<slug>[\w.@+-]+)/$',
