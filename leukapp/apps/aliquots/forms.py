@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+
+"""
+Custom forms not used so far
+"""
+
+"""
 from django import forms
 from .models import Aliquot
 
@@ -18,3 +25,4 @@ class AliquotForm(forms.ModelForm):
     class Meta:
         model = Aliquot
         fields = CREATE_FIELDS
+"""
