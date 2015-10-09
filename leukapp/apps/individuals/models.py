@@ -23,26 +23,26 @@ class Individual(LeukappModel):
 
     # external fields
     institution = models.CharField(
-        _("individual's institution"),
+        _("institution"),
         max_length=3,
         choices=CHOICES["INSTITUTION"]
         )
     species = models.CharField(
-        _("individual's species"),
+        _("species"),
         max_length=1,
         choices=CHOICES["SPECIES"]
         )
     ext_id = models.CharField(
         _("external id"),
         max_length=100,
-        validators=[ext_id_validator],  # test:test_ext_id_uses_validator
-        help_text=_("Enter a 'External id' consisting of"
-            " letters, numbers, underscores or hyphens."),
+        validators=[ext_id_validator],  # test: test_ext_id_uses_validator
+        help_text=_("The external id should be unique at the "
+            "Institution and Species levels."),
         )
 
     # internal fields
-    specimens_count = models.PositiveSmallIntegerField(
-        _("specimen count"),
+    specimens_created = models.PositiveSmallIntegerField(
+        _("number of specimens created"),
         default=0,
         )
     int_id = models.CharField(
@@ -83,7 +83,7 @@ class Individual(LeukappModel):
             test_int_id_returns_expected_value
         """
 
-        self.specimens_count = 0
+        self.specimens_created = 0
         self.int_id = str(self.pk + 100000)
 
     def if_save(self):

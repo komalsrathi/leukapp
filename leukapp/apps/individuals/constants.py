@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Individuals app constants
+individuals app constants
 """
 
 # app name
@@ -10,7 +10,7 @@ APP_NAME = 'individuals'
 INDIVIDUAL_CREATE_URL = APP_NAME + ':create'
 INDIVIDUAL_LIST_URL = APP_NAME + ':list'
 
-# model fields
+# models fields
 INDIVIDUAL_CREATE_FIELDS = [
     'institution',
     'species',
