@@ -12,10 +12,16 @@ from leukapp.apps.core.validators import ext_id_validator
 from .constants import APP_NAME, INDIVIDUAL_CHOICES
 
 
-class Individual(LeukappModel):
+class IndividualAbstractModel(LeukappModel):
 
     """
-    see: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627
+    This is an Abstract Model because its also used to create
+    pseudo Individuals.
+
+    Pseudo Individuals are used to validate new data whithout creating
+    new objects. see the leukgen.apps.samples application
+
+    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627
     """
 
     APP_NAME = APP_NAME
@@ -52,6 +58,8 @@ class Individual(LeukappModel):
         )
 
     class Meta:
+        abstract = True
+
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
 
@@ -98,3 +106,9 @@ class Individual(LeukappModel):
             self.species,
             self.int_id
             ])
+
+class Individual(IndividualAbstractModel):
+
+    """
+    Main Individual Model
+    """

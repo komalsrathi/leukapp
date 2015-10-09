@@ -13,10 +13,16 @@ from leukapp.apps.individuals.models import Individual
 from .constants import APP_NAME, SPECIMEN_CHOICES
 
 
-class Specimen(LeukappModel):
+class SpecimenAbstractModel(LeukappModel):
 
     """
-    see: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=1125452971
+    This is an Abstract Model because its also used to create
+    pseudo Specimens.
+
+    Pseudo Specimens are used to validate new data whithout creating
+    new objects. see the leukgen.apps.samples application
+
+    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=1125452971
     """
 
     APP_NAME = APP_NAME
@@ -52,6 +58,8 @@ class Specimen(LeukappModel):
         )
 
     class Meta:
+        abstract = True
+
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
 
@@ -89,3 +97,9 @@ class Specimen(LeukappModel):
             self.source,
             self.int_id
             ])
+
+class Specimen(SpecimenAbstractModel):
+
+    """
+    Main Specimen Model
+    """
