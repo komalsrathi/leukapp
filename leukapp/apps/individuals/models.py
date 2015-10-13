@@ -36,7 +36,7 @@ class IndividualAbstractModel(LeukappModel):
     species = models.CharField(
         _("species"),
         max_length=1,
-        choices=CHOICES["SPECIES"]
+        choices=CHOICES["SPECIES"],
         )
     ext_id = models.CharField(
         _("external id"),
@@ -54,7 +54,6 @@ class IndividualAbstractModel(LeukappModel):
     int_id = models.CharField(
         _("internal id"),
         max_length=8,
-        null=True,
         )
 
     class Meta:
