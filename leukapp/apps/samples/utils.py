@@ -1,39 +1,69 @@
 # python
-import sys
+import random
 
-# django
-from django.core.management.base import BaseCommand, CommandError
-
-# leukapp apps
-from leukapp.apps.individuals.constants import CREATE_FIELDS as ind_fields
-from leukapp.apps.specimens.constants import CREATE_FIELDS as spe_fields
-from leukapp.apps.aliquots.constants import CREATE_FIELDS as ali_fields
+# leukapp
+from leukapp.apps.individuals.utils import IndividualFactory
+from leukapp.apps.specimens.utils import SpecimenFactory
+from leukapp.apps.aliquots.utils import AliquotFactory
 
 
-class Command(BaseCommand):
-    help = 'Gets create form fields for Individuals, Specimens and Aliquots'
+def create_samples_batch(i, s, a):
+    """
+    Creates a batch of samples.
 
-    def add_arguments(self, parser):
-        parser.add_argument('poll_id', nargs='+', type=int)
+    Input Args:
+        i (int): number of individuals
+        s (int): number of specimens per individual
+        a (int): number of aliquots per specimen
 
-    def handle(self, *args, **options):
-        for poll_id in options['poll_id']:
-            try:
-                poll = Poll.objects.get(pk=poll_id)
-            except Poll.DoesNotExist:
-                raise CommandError('Poll "%s" does not exist' % poll_id)
+    Returns:
+        dictionary {
+            'individuals': list of all individuals created
+            'specimens': list of all specimens created
+            'aliquots': list of all aliquots created
+        }
 
-            poll.opened = False
-            poll.save()
+    Raises:
+        not defined yet
 
-            self.stdout.write('Successfully closed poll "%s"' % poll_id)
+    tests: test_utils | test_create_samples_batch
+    """
+
+    individuals = IndividualFactory.create_batch(i)
+
+    specimens = []
+    for i in individuals:
+        kwargs = {'individual': i}
+        specimens += SpecimenFactory.create_batch(s, **kwargs)
+
+    aliquots = []
+    for s in specimens:
+        kwargs = {'specimen': s}
+        aliquots += AliquotFactory.create_batch(a, **kwargs)
+
+    return {
+        'individuals': individuals,
+        'specimens': specimens,
+        'aliquots': aliquots,
+        }
 
 
-def get_individuals_specimens_aliquots_create_form_fields():
-    fields = ind_fields + spe_fields + ali_fields
-    return fields
+def create_rows(individuals):
 
-if __name__ == '__main__':
+    create_batch()
 
-    if sys.argv[1] == 'get_individuals_specimens_aliquots_create_form_fields':
-        print(get_individuals_specimens_aliquots_create_form_fields())
+    rows = []
+    for i in individuals:
+        row = {
+            'Project.pk': random.randint(1, 1000),
+            'Individual.institution': i.institution,
+            'Individual.species': i.species,
+            'Individual.ext_id': i.ext_id,
+            'Specimen.source': i.specimen.source,
+            'Specimen.ext_id': i.specimen.ext_id,
+            'Aliquot.bio_source': i.specimen.aliquot.bio_source,
+            'Aliquot.ext_id': i.specimen.aliquot.ext_id,
+            }
+        rows.append(row)
+
+    return rows
