@@ -23,6 +23,12 @@ ALIQUOT_UPDATE_FIELDS = [
     'biological_material',
     ]
 
+ALIQUOT_GET_OR_CREATE_FIELDS = (
+    'specimen',
+    'biological_material',
+    'ext_id',
+    )
+
 # choices
 DNA = 'D'
 RNA = 'R'
@@ -36,3 +42,5 @@ BIOLOGICAL_MATERIAL = (
 ALIQUOT_CHOICES = {
     "BIOLOGICAL_MATERIAL": BIOLOGICAL_MATERIAL,
 }
+
+BIOLOGICAL_MATERIAL_SHORT = [b[0] for b in BIOLOGICAL_MATERIAL]

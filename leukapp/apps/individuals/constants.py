@@ -22,6 +22,12 @@ INDIVIDUAL_UPDATE_FIELDS = [
     'species',
     ]
 
+INDIVIDUAL_GET_OR_CREATE_FIELDS = (
+    'institution',
+    'species',
+    'ext_id',
+    )
+
 # choices
 MSK = 'MSK'
 OTHER = 'O'
@@ -45,3 +51,6 @@ INDIVIDUAL_CHOICES = {
     "INSTITUTION": INSTITUTION,
     "SPECIES": SPECIES,
     }
+
+SPECIES_SHORT = [s[0] for s in SPECIES]
+INSTITUTION_SHORT = [i[0] for i in INSTITUTION]

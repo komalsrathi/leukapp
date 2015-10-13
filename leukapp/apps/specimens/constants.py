@@ -23,6 +23,12 @@ SPECIMEN_UPDATE_FIELDS = [
     'source',
     ]
 
+SPECIMEN_GET_OR_CREATE_FIELDS = (
+    'individual',
+    'source',
+    'ext_id',
+    )
+
 # choices
 TUMOR = 'T'
 NORMAL = 'N'
@@ -34,3 +40,5 @@ SOURCE = (
 SPECIMEN_CHOICES = {
     "SOURCE": SOURCE,
 }
+
+SOURCE_SHORT = [s[0] for s in SOURCE]
