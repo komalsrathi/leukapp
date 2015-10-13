@@ -14,18 +14,18 @@ ALIQUOT_LIST_URL = APP_NAME + ':list'
 # models fields
 ALIQUOT_CREATE_FIELDS = [
     'specimen',
-    'biological_material',
+    'bio_source',
     'ext_id',
     ]
 
 ALIQUOT_UPDATE_FIELDS = [
     'specimen',
-    'biological_material',
+    'bio_source',
     ]
 
 ALIQUOT_GET_OR_CREATE_FIELDS = (
     'specimen',
-    'biological_material',
+    'bio_source',
     'ext_id',
     )
 
@@ -33,14 +33,14 @@ ALIQUOT_GET_OR_CREATE_FIELDS = (
 DNA = 'D'
 RNA = 'R'
 MIXED = 'M'
-BIOLOGICAL_MATERIAL = (
+BIO_SOURCE = (
     (DNA, 'DNA'),
     (RNA, 'RNA'),
     (MIXED, 'MIXED'),
 )
 
 ALIQUOT_CHOICES = {
-    "BIOLOGICAL_MATERIAL": BIOLOGICAL_MATERIAL,
+    "BIO_SOURCE": BIO_SOURCE,
 }
 
-BIOLOGICAL_MATERIAL_SHORT = [b[0] for b in BIOLOGICAL_MATERIAL]
+BIO_SOURCE_SHORT = [b[0] for b in BIO_SOURCE]
