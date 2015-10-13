@@ -33,10 +33,10 @@ class AliquotAbstractModel(LeukappModel):
         Specimen,
         verbose_name=_("specimen"),
         )
-    biological_material = models.CharField(
+    bio_source = models.CharField(
         _("biological material"),
         max_length=1,
-        choices=CHOICES["BIOLOGICAL_MATERIAL"]
+        choices=CHOICES["BIO_SOURCE"]
         )
     ext_id = models.CharField(
         _("external id"),
@@ -89,7 +89,7 @@ class AliquotAbstractModel(LeukappModel):
 
         self.slug = '-'.join([
             self.specimen.slug,
-            self.biological_material,
+            self.bio_source,
             self.int_id
             ])
 

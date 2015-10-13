@@ -6,7 +6,6 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 
 # apps imports
-from leukapp.apps.core.tests.test_models import TimeStampedModelTest
 from leukapp.apps.individuals.models import Individual
 from leukapp.apps.specimens.models import Specimen
 
@@ -32,7 +31,7 @@ class AliquotModelTest(TestCase):
 
         self.aliquot_a = Aliquot.objects.create(
             specimen=self.specimen_a,
-            biological_material='D',
+            bio_source='D',
             ext_id='123456789',
         )
 
@@ -42,7 +41,7 @@ class AliquotModelTest(TestCase):
 
         first_saved_aliquot = saved_aliquots[0]
         self.assertEqual(first_saved_aliquot.specimen, self.specimen_a)
-        self.assertEqual(first_saved_aliquot.biological_material, 'D')
+        self.assertEqual(first_saved_aliquot.bio_source, 'D')
         self.assertEqual(first_saved_aliquot.ext_id, '123456789')
 
     def test_ext_id_uses_validator(self):
@@ -64,7 +63,7 @@ class AliquotModelTest(TestCase):
     def test_if_specimens_created_keep_count_correctly(self):
         self.aliquot_b = Aliquot.objects.create(
             specimen=self.specimen_a,
-            biological_material='R',
+            bio_source='R',
             ext_id='123456789051',
         )
         self.assertEqual(2, self.specimen_a.aliquots_created)
@@ -72,12 +71,12 @@ class AliquotModelTest(TestCase):
     def test_if_aliquots_created_is_correct_after_delete_aliquots(self):
         self.aliquot_b = Aliquot.objects.create(
             specimen=self.specimen_a,
-            biological_material='R',
+            bio_source='R',
             ext_id='123456789051',
         )
         self.aliquot_c = Aliquot.objects.create(
             specimen=self.specimen_a,
-            biological_material='R',
+            bio_source='R',
             ext_id='123456789054651',
         )
         self.aliquot_b.delete()
@@ -87,7 +86,7 @@ class AliquotModelTest(TestCase):
     def test_int_id_returns_expected_value(self):
         self.aliquot_b = Aliquot.objects.create(
             specimen=self.specimen_a,
-            biological_material='R',
+            bio_source='R',
             ext_id='123456789051',
         )
         int_id = str(self.specimen_a.aliquots_created)
@@ -96,7 +95,7 @@ class AliquotModelTest(TestCase):
     def test_str_returns_slug(self):
         slug = '-'.join([
             self.aliquot_a.specimen.slug,
-            self.aliquot_a.biological_material,
+            self.aliquot_a.bio_source,
             self.aliquot_a.int_id
             ])
         self.assertEqual(slug, self.aliquot_a.__str__())
