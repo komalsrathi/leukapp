@@ -98,6 +98,7 @@ class SpecimenAbstractModel(LeukappModel):
             self.int_id
             ])
 
+
 class Specimen(SpecimenAbstractModel):
 
     """
