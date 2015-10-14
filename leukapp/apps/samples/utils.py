@@ -7,63 +7,66 @@ from leukapp.apps.specimens.utils import SpecimenFactory
 from leukapp.apps.aliquots.utils import AliquotFactory
 
 
-def create_samples_batch(i, s, a):
+class SamplesFactory(object):
+
     """
-    Creates a batch of samples.
+    Class used as a samples factory.
 
-    Input Args:
-        i (int): number of individuals
-        s (int): number of specimens per individual
-        a (int): number of aliquots per specimen
-
-    Returns:
-        dictionary {
-            'individuals': list of all individuals created
-            'specimens': list of all specimens created
-            'aliquots': list of all aliquots created
-        }
-
-    Raises:
-        not defined yet
-
-    tests: test_utils | test_create_samples_batch
+    Attributes:
+        `individuals`: list of all individuals created
+        `specimens`: list of all specimens created
+        `aliquots`: list of all aliquots created
+        `rows`: simulates the leukgen_form
     """
 
-    individuals = IndividualFactory.create_batch(i)
+    def __init__(self):
+        super(SamplesFactory, self).__init__()
+        self.individuals = []
+        self.specimens = []
+        self.aliquots = []
+        self.rows = []
 
-    specimens = []
-    for i in individuals:
-        kwargs = {'individual': i}
-        specimens += SpecimenFactory.create_batch(s, **kwargs)
+    def create_batch(self, i, s, a):
+        """
+        Creates a batch of samples.
 
-    aliquots = []
-    for s in specimens:
-        kwargs = {'specimen': s}
-        aliquots += AliquotFactory.create_batch(a, **kwargs)
+        Input Args:
+            i (int): number of individuals
+            s (int): number of specimens per individual
+            a (int): number of aliquots per specimen
+        Raises:
+            not defined yet
 
-    return {
-        'individuals': individuals,
-        'specimens': specimens,
-        'aliquots': aliquots,
-        }
+        tests: test_utils | test_samples_factory_create_batch
+        """
+        self.individuals += IndividualFactory.create_batch(i)
 
+        for individual in self.individuals:
+            kwargs = {'individual': individual}
+            self.specimens += SpecimenFactory.create_batch(s, **kwargs)
 
-def create_rows(individuals):
+        for specimen in self.specimens:
+            kwargs = {'specimen': specimen}
+            self.aliquots += AliquotFactory.create_batch(a, **kwargs)
 
-    create_batch()
+    def create_rows(self):
+        """
+        rows simulates the leukgen_form
 
-    rows = []
-    for i in individuals:
-        row = {
-            'Project.pk': random.randint(1, 1000),
-            'Individual.institution': i.institution,
-            'Individual.species': i.species,
-            'Individual.ext_id': i.ext_id,
-            'Specimen.source': i.specimen.source,
-            'Specimen.ext_id': i.specimen.ext_id,
-            'Aliquot.bio_source': i.specimen.aliquot.bio_source,
-            'Aliquot.ext_id': i.specimen.aliquot.ext_id,
-            }
-        rows.append(row)
+        tests: test_utils | test_samples_factory_create_rows
+        """
 
-    return rows
+        for i in self.individuals:
+            for s in i.specimen_set.all():
+                for a in s.aliquot_set.all():
+                    row = {
+                        'Project.pk': random.randint(1, 1000),
+                        'Individual.institution': i.institution,
+                        'Individual.species': i.species,
+                        'Individual.ext_id': i.ext_id,
+                        'Specimen.source': s.source,
+                        'Specimen.ext_id': s.ext_id,
+                        'Aliquot.bio_source': a.bio_source,
+                        'Aliquot.ext_id': a.ext_id,
+                        }
+                    self.rows.append(row)
