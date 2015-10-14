@@ -31,8 +31,8 @@ class IndividualModelTest(TestCase):
         saved_objects = Individual.objects.all()
         self.assertEqual(saved_objects.count(), 2)
 
-        first_saved_object = saved_objects[0]
-        second_saved_object = saved_objects[1]
+        first_saved_object = saved_objects[1]
+        second_saved_object = saved_objects[0]
         self.assertEqual(first_saved_object.institution, "MSK")
         self.assertEqual(first_saved_object.species, "H")
         self.assertEqual(first_saved_object.ext_id, "12345678910")
