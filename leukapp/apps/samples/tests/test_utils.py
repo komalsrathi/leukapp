@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+# python
+import csv
+import os
+
 # django imports
 from django.test import TestCase
 
@@ -21,5 +25,18 @@ class SamplesUtilsTest(TestCase):
         batch = utils.SamplesFactory()
         batch.create_batch(10, 2, 2)
         batch.create_rows()
-        self.assertGreater(len(batch.rows), 10 * 3)
+        self.assertGreater(len(batch.rows), 5)
         self.assertLessEqual(len(batch.rows), 10 * 2 * 2)
+
+    def test_csv_from_rows(self):
+        batch = utils.SamplesFactory()
+        batch.create_batch(1, 1, 1)
+        batch.create_rows()
+        path = batch.create_csv_from_rows()
+
+        with open(path, 'r') as testcsv:
+            rows = csv.DictReader(testcsv, delimiter=",")
+            rows = list(rows)
+
+        self.assertCountEqual(batch.rows, rows)
+        os.remove(path)
