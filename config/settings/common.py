@@ -58,6 +58,7 @@ LOCAL_APPS = (
     'leukapp.apps.aliquots',
     'leukapp.apps.participants',
     'leukapp.apps.core',
+    'leukapp.apps.samples',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
