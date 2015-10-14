@@ -6,22 +6,22 @@ from leukapp.apps.specimens.models import SpecimenAbstractModel
 from leukapp.apps.aliquots.models import AliquotAbstractModel
 
 
-class PseudoIndividual(IndividualAbstractModel):
+# class PseudoIndividual(IndividualAbstractModel):
 
-    """
-    Main PseudoIndividual Model
-    """
-
-
-class PseudoSpecimen(SpecimenAbstractModel):
-
-    """
-    Main PseudoSpecimen Model
-    """
+#     """
+#     Main PseudoIndividual Model
+#     """
 
 
-class PseudoAliquot(AliquotAbstractModel):
+# class PseudoSpecimen(SpecimenAbstractModel):
 
-    """
-    Main PseudoAliquot Model
-    """
+#     """
+#     Main PseudoSpecimen Model
+#     """
+
+
+# class PseudoAliquot(AliquotAbstractModel):
+
+#     """
+#     Main PseudoAliquot Model
+#     """

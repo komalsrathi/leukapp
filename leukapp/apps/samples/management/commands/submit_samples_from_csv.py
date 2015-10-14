@@ -1,10 +1,14 @@
+# -*- coding: utf-8 -*-
+
 # python
 import csv
-import json
+import os
+import datetime
 
 # django
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 # leukapp
 from leukapp.apps.individuals.models import Individual
@@ -14,6 +18,7 @@ from leukapp.apps.projects.models import Project
 
 # local
 from leukapp.apps.samples import forms
+from leukapp.apps.samples.constants import LEUKFORM_OUT_FIELDS
 
 
 class Command(BaseCommand):
@@ -73,45 +78,47 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         filename = settings.MEDIA_ROOT + options['filename']
 
-        with open(filename, 'r') as rows:
-            out = self.save_samples_from_csv(rows)
+        with open(filename, 'r') as leukform:
+            rows = csv.DictReader(leukform, delimiter=",")
+            self.save_samples_from_rows(rows)
 
-        self.stdout.write("individuals_added: %s" % out['individuals_added'])
-        self.stdout.write("specimens_added: %s" % out['specimens_added'])
-        self.stdout.write("aliquots_added: %s" % out['aliquots_added'])
+        for model in self.models:
+            if model != 'Project':
+                a = len(self.added[model])
+                e = len(self.existing[model])
+                r = len(self.rejected[model])
 
-        for e in out['errors']:
-            self.stdout.write("errors: %s" % e)
+                self.stdout.write(model + " added: %s" % a)
+                self.stdout.write(model + " existing: %s" % e)
+                self.stdout.write(model + " rejected: %s" % r)
 
-    def save_samples_from_csv(self, rows):
-        """ adds samples from csv """
+        self.stdout.write("results file: %s" % self.save_out_rows_in_csv())
+
+    def save_samples_from_rows(self, rows):
+        """
+        Adds samples from csv
+
+        tests:
+            test_save_samples_from_rows
+            test_added_existing_individuals
+            test_added_existing_specimens
+            test_added_existing_aliquots
+        """
 
         # Generate a dict per row, with the first CSV row being the keys.
-        for row in csv.DictReader(rows, delimiter=","):
+        for row in rows:
+            if not self.process_row(row):
+                continue
 
-            # initialize outrow
-            self.initialize_out_row()
-
-            # get fields from row
-            self.get_fields_from_row(row)
-
-            # find or create individual
-            if not self.get_or_create_instance(model='Individual'):
-                self.out_rows.append(self.out_row)
-                break
-
-            # find or create specimen
-            if not self.get_or_create_instance(model='Specimen'):
-                self.out_rows.append(self.out_row)
-                break
-
-            # find or create aliquot
-            self.get_or_create_instance(model='Aliquot')
-            self.out_rows.append(self.out_row)
+        for model in self.models:
+            if model != 'Project':
+                self.added[model] = set(self.added[model])
+                self.existing[model] = set(self.existing[model])
+                self.rejected[model] = set(self.rejected[model])
 
     def initialize_out_row(self):
         """
-        initializes the results row for the current leukgen_form row
+        initializes the results row for the current leukform row
 
         test: test_initialize_out_row
         """
@@ -135,12 +142,48 @@ class Command(BaseCommand):
         tests:
             test_get_fields_from_row
         """
+        if not row:
+            return self.models_fields
+
         keys = list(row)
         for k in keys:
             model, field = k.split('.')
             self.models_fields[model][field] = row[k]
 
         return self.models_fields
+
+    def process_row(self, row):
+        """
+        Process row's fields.
+
+        Input Args:
+            row (dict): dict with keys as column names
+        tests:
+            test_process_row_empty_row_dict
+            test_process_row_invalid_individual
+            test_process_row_invalid_specimen
+        """
+        # initialize outrow
+        self.initialize_out_row()
+
+        # get fields from row
+        self.get_fields_from_row(row)
+
+        # find or create individual
+        if not self.get_or_create_instance(model='Individual'):
+            self.out_rows.append(self.out_row)
+            return False
+
+        # find or create specimen
+        if not self.get_or_create_instance(model='Specimen'):
+            self.out_rows.append(self.out_row)
+            return False
+
+        # find or create aliquot
+        self.get_or_create_instance(model='Aliquot')
+        self.out_rows.append(self.out_row)
+
+        return True
 
     def get_or_create_instance(self, model):
         """
@@ -183,7 +226,9 @@ class Command(BaseCommand):
         self.out_row[model + '.ext_id'] = fields['ext_id']
         self.out_row[model + '.action'] = self.ACTION_EXISTING
         self.out_row[model + '.errors'] = self.ACTION_NO_ERRORS
-        self.existing[model].append(instance)
+
+        if instance not in self.added[model]:
+            self.existing[model].append(instance)
 
         # update Specimen and Aliquot fields foreing keys
         self.update_models_fields(model, instance)
@@ -253,3 +298,28 @@ class Command(BaseCommand):
 
         if model == 'Specimen' and instance:
             self.models_fields['Aliquot']['specimen'] = instance.pk
+
+    def save_out_rows_in_csv(self):
+        """
+        Creates a csv from out_rows.
+
+        Returns:
+            Path of csv
+        Raises:
+            ImproperlyConfigured("create out_rows first")
+        tests: test_csv_from_rows
+        """
+        if not self.out_rows:
+            raise ImproperlyConfigured("create rows first")
+
+        timestamp = datetime.datetime.now().isoformat()
+        file_name = 'out_leukform_' + timestamp + '.csv'
+        path = os.path.join(settings.MEDIA_ROOT, 'csv', 'outrows', file_name)
+        keys = LEUKFORM_OUT_FIELDS
+
+        with open(path, 'w') as output_file:
+            dict_writer = csv.DictWriter(output_file, keys)
+            dict_writer.writeheader()
+            dict_writer.writerows(self.out_rows)
+
+        return path
