@@ -12,7 +12,7 @@ from leukapp.apps.core.validators import ext_id_validator
 from .constants import APP_NAME, INDIVIDUAL_CHOICES
 
 
-class IndividualAbstractModel(LeukappModel):
+class Individual(LeukappModel):
 
     """
     This is an Abstract Model because its also used to create
@@ -57,8 +57,6 @@ class IndividualAbstractModel(LeukappModel):
         )
 
     class Meta:
-        abstract = True
-
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
 
@@ -105,10 +103,3 @@ class IndividualAbstractModel(LeukappModel):
             self.species,
             self.int_id
             ])
-
-
-class Individual(IndividualAbstractModel):
-
-    """
-    Main Individual Model
-    """
