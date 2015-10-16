@@ -56,7 +56,7 @@ class SpecimenModelTest(TestCase):
 
     def test_str_returns_slug(self):
         s = SpecimenFactory()
-        slug = '-'.join([s.individual.slug, s.source, s.int_id])
+        slug = '-'.join([s.individual.slug, s.source_type, s.int_id])
         self.assertEqual(slug, s.__str__())
 
     def test_if_new_initializes_aliquots_created_with_zero(self):

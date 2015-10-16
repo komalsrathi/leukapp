@@ -91,6 +91,6 @@ class Specimen(LeukappModel):
 
         self.slug = '-'.join([
             self.individual.slug,
-            self.source,
+            self.source_type,
             self.int_id
             ])
