@@ -13,15 +13,9 @@ from leukapp.apps.individuals.models import Individual
 from .constants import APP_NAME, SPECIMEN_CHOICES
 
 
-class SpecimenAbstractModel(LeukappModel):
+class Specimen(LeukappModel):
 
     """
-    This is an Abstract Model because its also used to create
-    pseudo Specimens.
-
-    Pseudo Specimens are used to validate new data whithout creating
-    new objects. see the leukgen.apps.samples application
-
     requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=1125452971
     """
 
@@ -35,6 +29,11 @@ class SpecimenAbstractModel(LeukappModel):
         )
     source = models.CharField(
         _("source"),
+        max_length=15,
+        choices=CHOICES["SOURCE"]
+        )
+    source_type = models.CharField(
+        _("source_type"),
         max_length=1,
         choices=CHOICES["SOURCE"]
         )
@@ -58,14 +57,12 @@ class SpecimenAbstractModel(LeukappModel):
         )
 
     class Meta:
-        abstract = True
-
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
 
         # test: test_unique_together_functionality
-        unique_together = (("ext_id", "source", "individual"))
-        index_together = (("ext_id", "source", "individual"))
+        unique_together = (("ext_id", "individual"))
+        index_together = (("ext_id", "individual"))
 
     def __str__(self):
         return self.slug
@@ -97,10 +94,3 @@ class SpecimenAbstractModel(LeukappModel):
             self.source,
             self.int_id
             ])
-
-
-class Specimen(SpecimenAbstractModel):
-
-    """
-    Main Specimen Model
-    """
