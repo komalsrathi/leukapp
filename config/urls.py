@@ -72,6 +72,12 @@ urlpatterns = [
         namespace="participants")
     ),
 
+    url(
+        r'^samples/',
+        include("leukapp.apps.samples.urls",
+        namespace="samples")
+    ),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
