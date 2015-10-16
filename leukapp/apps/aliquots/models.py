@@ -13,15 +13,9 @@ from leukapp.apps.specimens.models import Specimen
 from .constants import APP_NAME, ALIQUOT_CHOICES
 
 
-class AliquotAbstractModel(LeukappModel):
+class Aliquot(LeukappModel):
 
     """
-    This is an Abstract Model because its also used to create
-    pseudo Aliquots.
-
-    Pseudo Aliquots are used to validate new data whithout creating
-    new objects. see the leukgen.apps.samples application
-
     requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=365039979
     """
 
@@ -51,10 +45,12 @@ class AliquotAbstractModel(LeukappModel):
         max_length=8,
         null=True,
         )
+    samples_created = models.PositiveSmallIntegerField(
+        _("number of samples created"),
+        default=0,
+        )
 
     class Meta:
-        abstract = True
-
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
 
@@ -71,8 +67,10 @@ class AliquotAbstractModel(LeukappModel):
         tests:
             test_if_new_adds_one_to_specimen_aliquots_created
             test_if_specimens_created_keep_count_correctly
-
         """
+
+        # initialize child count
+        self.samples_created = 0
 
         # alter parent count
         self.specimen.aliquots_created += 1
@@ -90,12 +88,5 @@ class AliquotAbstractModel(LeukappModel):
         self.slug = '-'.join([
             self.specimen.slug,
             self.bio_source,
-            self.int_id
+            self.int_id,
             ])
-
-
-class Aliquot(AliquotAbstractModel):
-
-    """
-    Main Aliquot Model
-    """

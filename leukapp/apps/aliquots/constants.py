@@ -19,7 +19,6 @@ ALIQUOT_CREATE_FIELDS = [
     ]
 
 ALIQUOT_UPDATE_FIELDS = [
-    'specimen',
     'bio_source',
     ]
 
