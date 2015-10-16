@@ -44,13 +44,16 @@ class Project(LeukappModel):
     participants = models.ManyToManyField(
         Participant,
         verbose_name=_("participants"),
-        related_name='projects_participant',
+        related_name='projects_as_participant',
+        blank=True,
         )
-    cost_center_no = models.PositiveIntegerField(
+    cost_center_no = models.CharField(
         _("cost center number"),
+        max_length=100,
         )
-    fund_no = models.PositiveIntegerField(
+    fund_no = models.CharField(
         _("fund number"),
+        max_length=100,
         )
     protocol_no = models.CharField(
         _("protocol number"),
@@ -71,5 +74,4 @@ class Project(LeukappModel):
         self.participants.add(self.pi, self.analyst, self.requestor)
 
         # if_save() must return the slug
-        self.slug = '-'.join(
-            [self.pi.last_name, str(self.pk)])
+        self.slug = str(self.pk)
