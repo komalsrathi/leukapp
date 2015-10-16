@@ -5,10 +5,15 @@ import random
 import os
 import datetime
 import csv
+import string
 
 # django
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
+
+# third party
+import factory
+from factory.fuzzy import FuzzyChoice, FuzzyText
 
 # leukapp
 from leukapp.apps.individuals.utils import IndividualFactory
@@ -16,8 +21,25 @@ from leukapp.apps.specimens.utils import SpecimenFactory
 from leukapp.apps.aliquots.utils import AliquotFactory
 from .constants import LEUKFORM_FIELDS
 
+# local
+from .models import Sample
+from . import constants
 
-class SamplesFactory(object):
+
+class SampleFactory(factory.django.DjangoModelFactory):
+
+    class Meta:
+        model = Sample
+        django_get_or_create = constants.SAMPLE_GET_OR_CREATE_FIELDS
+
+    aliquot = factory.SubFactory(AliquotFactory)
+    platform = FuzzyChoice(constants.PLATFORM_SHORT)
+    technology = FuzzyChoice(constants.TECHNOLOGY_SHORT)
+    center = FuzzyChoice(constants.CENTER_SHORT)
+    ext_id = FuzzyText(length=12, chars=string.hexdigits)
+
+
+class LeukformFactory(object):
 
     """
     Class used as a samples factory.
@@ -30,13 +52,14 @@ class SamplesFactory(object):
     """
 
     def __init__(self):
-        super(SamplesFactory, self).__init__()
+        super(LeukformFactory, self).__init__()
         self.individuals = []
         self.specimens = []
         self.aliquots = []
+        self.samples = []
         self.rows = []
 
-    def create_batch(self, i, s, a):
+    def create_batch(self, i, s, a, sa):
         """
         Creates a batch of samples.
 
@@ -44,6 +67,7 @@ class SamplesFactory(object):
             i (int): number of individuals
             s (int): number of specimens per individual
             a (int): number of aliquots per specimen
+            sa (int): number of samples per aliquot
         Raises:
             not defined yet
 
@@ -58,6 +82,10 @@ class SamplesFactory(object):
         for specimen in self.specimens:
             kwargs = {'specimen': specimen}
             self.aliquots += AliquotFactory.create_batch(a, **kwargs)
+
+        for aliquot in self.aliquots:
+            kwargs = {'aliquot': aliquot}
+            self.samples += SampleFactory.create_batch(sa, **kwargs)
 
     def create_rows(self):
         """
@@ -74,17 +102,23 @@ class SamplesFactory(object):
         for i in self.individuals:
             for s in i.specimen_set.all():
                 for a in s.aliquot_set.all():
-                    row = {
-                        'Project.pk': str(random.randint(1, 1000)),
-                        'Individual.institution': i.institution,
-                        'Individual.species': i.species,
-                        'Individual.ext_id': i.ext_id,
-                        'Specimen.source': s.source,
-                        'Specimen.ext_id': s.ext_id,
-                        'Aliquot.bio_source': a.bio_source,
-                        'Aliquot.ext_id': a.ext_id,
-                        }
-                    self.rows.append(row)
+                    for sa in a.sample_set.all():
+                        row = {
+                            'Project.pk': str(random.randint(1, 1000)),
+                            'Individual.institution': i.institution,
+                            'Individual.species': i.species,
+                            'Individual.ext_id': i.ext_id,
+                            'Specimen.source': s.source,
+                            'Specimen.source_type': s.source_type,
+                            'Specimen.ext_id': s.ext_id,
+                            'Aliquot.bio_source': a.bio_source,
+                            'Aliquot.ext_id': a.ext_id,
+                            'Sample.platform': sa.platform,
+                            'Sample.technology': sa.technology,
+                            'Sample.center': sa.center,
+                            'Sample.ext_id': sa.ext_id,
+                            }
+                        self.rows.append(row)
 
     def create_csv_from_rows(self):
         """

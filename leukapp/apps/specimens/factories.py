@@ -8,7 +8,7 @@ import factory
 from factory.fuzzy import FuzzyChoice, FuzzyText
 
 # leukapp
-from leukapp.apps.individuals.utils import IndividualFactory
+from leukapp.apps.individuals.factories import IndividualFactory
 
 # local
 from .models import Specimen
@@ -23,4 +23,5 @@ class SpecimenFactory(factory.django.DjangoModelFactory):
 
     individual = factory.SubFactory(IndividualFactory)
     source = FuzzyChoice(constants.SOURCE_SHORT)
+    source_type = FuzzyChoice(constants.SOURCE_TYPE_SHORT)
     ext_id = FuzzyText(length=12, chars=string.hexdigits)

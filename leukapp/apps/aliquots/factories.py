@@ -8,7 +8,7 @@ import factory
 from factory.fuzzy import FuzzyChoice, FuzzyText
 
 # leukapp
-from leukapp.apps.specimens.utils import SpecimenFactory
+from leukapp.apps.specimens.factories import SpecimenFactory
 
 # local
 from .models import Aliquot
