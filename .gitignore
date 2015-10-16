@@ -61,6 +61,7 @@ node_modules/
 
 ### Django
 /staticfiles
+/migrations
 
 # CSV
 *.csv
