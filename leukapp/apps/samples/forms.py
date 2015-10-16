@@ -37,7 +37,7 @@ class AliquotForm(forms.ModelForm):
         fields = ALIQUOT_CREATE_FIELDS
 
 
-class SamplesForm(forms.ModelForm):
+class SampleForm(forms.ModelForm):
 
     class Meta:
         model = Sample

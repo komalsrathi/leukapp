@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 
 # leukapp
-from leukapp.apps.aliquots.utils import AliquotFactory
+from leukapp.apps.aliquots.factories import AliquotFactory
 
 # local
 from ..utils import SampleFactory
@@ -56,7 +56,7 @@ class SamplesModelTest(TestCase):
 
     def test_str_returns_slug(self):
         s = SampleFactory()
-        slug = '-'.join([s.int_id])
+        slug = '-'.join([s.aliquot.slug, s.int_id])
         self.assertEqual(slug, s.__str__())
 
     def test_get_absolute_url(self):

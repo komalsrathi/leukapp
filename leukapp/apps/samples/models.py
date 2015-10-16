@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import ext_id_validator
 from leukapp.apps.aliquots.models import Aliquot
+from leukapp.apps.projects.models import Project
 
 # local
 from .constants import APP_NAME, SAMPLE_CHOICES
@@ -26,6 +27,11 @@ class Sample(LeukappModel):
     aliquot = models.ForeignKey(
         Aliquot,
         verbose_name=_("aliquot"),
+        )
+    projects = models.ManyToManyField(
+        Project,
+        verbose_name=_("projects"),
+        blank=True,
         )
     platform = models.CharField(
         _("platform"),
@@ -91,5 +97,6 @@ class Sample(LeukappModel):
 
         # update slug
         self.slug = '-'.join([
+            self.aliquot.slug,
             self.int_id,
             ])

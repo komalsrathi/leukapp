@@ -87,24 +87,22 @@ SAMPLE_GET_OR_CREATE_FIELDS = (
 
 # leukform fields
 LEUKFORM_FIELDS = [
-    'Project.pk',
+    'Individual.ext_id',
     'Individual.institution',
     'Individual.species',
-    'Individual.ext_id',
-    'Specimen.source',
     'Specimen.ext_id',
-    'Aliquot.bio_source',
+    'Specimen.source',
+    'Specimen.source_type',
     'Aliquot.ext_id',
+    'Aliquot.bio_source',
+    'Sample.ext_id',
     'Sample.platform',
     'Sample.technology',
     'Sample.center',
-    'Sample.ext_id',
+    'Sample.projects',
 ]
 
 LEUKFORM_OUT_FIELDS = [
-    'Project.action',
-    'Project.pk',
-    'Project.errors',
     'Individual.ext_id',
     'Individual.action',
     'Individual.errors',
