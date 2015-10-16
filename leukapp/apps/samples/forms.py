@@ -11,6 +11,10 @@ from leukapp.apps.individuals.models import Individual
 from leukapp.apps.specimens.models import Specimen
 from leukapp.apps.aliquots.models import Aliquot
 
+# local
+from .models import Sample
+from .constants import SAMPLE_CREATE_FIELDS
+
 
 class IndividualForm(forms.ModelForm):
 
@@ -31,3 +35,10 @@ class AliquotForm(forms.ModelForm):
     class Meta:
         model = Aliquot
         fields = ALIQUOT_CREATE_FIELDS
+
+
+class SamplesForm(forms.ModelForm):
+
+    class Meta:
+        model = Sample
+        fields = SAMPLE_CREATE_FIELDS

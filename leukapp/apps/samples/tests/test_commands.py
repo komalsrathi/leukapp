@@ -19,7 +19,7 @@ from leukapp.apps.aliquots.utils import AliquotFactory
 
 # local imports
 from ..management.commands import submit_samples_from_csv
-from ..utils import SamplesFactory
+from ..utils import LeukformFactory
 
 
 class SamplesCommandsTest(TestCase):
@@ -48,7 +48,7 @@ class SamplesCommandsTest(TestCase):
                 self.Command.out_row[model + '.errors'])
 
     def test_get_fields_from_row(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         row = batch.rows[0]
@@ -74,7 +74,7 @@ class SamplesCommandsTest(TestCase):
             fields['Project']['pk'], None)
 
     def test_get_instance_using_existent_instance(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         row = batch.rows[0]
@@ -128,7 +128,7 @@ class SamplesCommandsTest(TestCase):
                 self.Command.get_instance(model=model, fields={})
 
     def test_create_instance_form_valid(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         row = batch.rows[0]
@@ -196,7 +196,7 @@ class SamplesCommandsTest(TestCase):
                 self.Command.out_row[model + '.errors'])
 
     def test_update_models_fields_for_specimen(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         row = batch.rows[0]
@@ -209,7 +209,7 @@ class SamplesCommandsTest(TestCase):
             individual.pk)
 
     def test_update_models_fields_for_aliquot(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         row = batch.rows[0]
@@ -222,7 +222,7 @@ class SamplesCommandsTest(TestCase):
             specimen.pk)
 
     def test_get_or_create_instance_existent_instance(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         row = batch.rows[0]
@@ -237,7 +237,7 @@ class SamplesCommandsTest(TestCase):
         self.assertEqual(specimen, None)
 
     def test_process_row_existing_instances(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         row = batch.rows[0]
@@ -309,7 +309,7 @@ class SamplesCommandsTest(TestCase):
 
     def test_process_row_invalid_individual(self):
 
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         row = batch.rows[0]
@@ -349,7 +349,7 @@ class SamplesCommandsTest(TestCase):
 
     def test_process_row_invalid_specimen(self):
 
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         row = batch.rows[0]
@@ -386,7 +386,7 @@ class SamplesCommandsTest(TestCase):
 
     def test_process_row_invalid_aliquot(self):
 
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         row = batch.rows[0]
@@ -419,7 +419,7 @@ class SamplesCommandsTest(TestCase):
             self.Command.out_row['Aliquot' + '.action'])
 
     def test_save_samples_from_rows(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(10, 2, 2)
         batch.create_rows()
         self.Command.save_samples_from_rows(batch.rows)
@@ -428,7 +428,7 @@ class SamplesCommandsTest(TestCase):
         self.assertLessEqual(out_rows_number, 10 * 2 * 2)
 
     def test_added_existing_individuals(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(20, 2, 2)
         batch.create_rows()
 
@@ -443,7 +443,7 @@ class SamplesCommandsTest(TestCase):
             len(self.Command.added['Individual']), 10)
 
     def test_added_existing_specimens(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(20, 2, 2)
         batch.create_rows()
 
@@ -458,7 +458,7 @@ class SamplesCommandsTest(TestCase):
             len(self.Command.added['Specimen']), 10)
 
     def test_added_existing_aliquots(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(20, 2, 2)
         batch.create_rows()
 
@@ -473,7 +473,7 @@ class SamplesCommandsTest(TestCase):
             len(self.Command.added['Aliquot']), 10)
 
     def test_save_out_rows_in_csv(self):
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(2, 1, 1)
         batch.create_rows()
 
@@ -489,7 +489,7 @@ class SamplesCommandsTest(TestCase):
 
     def test_rejected_invalid_individual(self):
 
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         batch.rows[0]['Individual.institution'] = ''
@@ -501,7 +501,7 @@ class SamplesCommandsTest(TestCase):
 
     def test_rejected_invalid_specimen(self):
 
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         batch.rows[0]['Specimen.source'] = ''
@@ -512,7 +512,7 @@ class SamplesCommandsTest(TestCase):
 
     def test_rejected_invalid_aliquot(self):
 
-        batch = SamplesFactory()
+        batch = LeukformFactory()
         batch.create_batch(1, 1, 1)
         batch.create_rows()
         batch.rows[0]['Aliquot.bio_source'] = ''
