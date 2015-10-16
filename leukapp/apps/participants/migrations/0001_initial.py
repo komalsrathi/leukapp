@@ -14,18 +14,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Participant',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('slug', models.SlugField(max_length=100, unique=True, verbose_name='slug')),
+                ('slug', models.SlugField(max_length=100, verbose_name='slug', unique=True)),
                 ('first_name', models.CharField(max_length=100, verbose_name='first name')),
                 ('last_name', models.CharField(max_length=100, verbose_name='last name')),
-                ('email', models.EmailField(max_length=254, unique=True, verbose_name='email')),
-                ('phone', models.CharField(max_length=15, blank=True, validators=[django.core.validators.RegexValidator(regex='^\\+?1?\\d{9,15}$', message="Phone number must be entered in the format: '+999999999'.Up to 15 digits allowed.")], verbose_name='phone')),
+                ('email', models.EmailField(max_length=254, verbose_name='email', unique=True)),
+                ('phone', models.CharField(validators=[django.core.validators.RegexValidator(message="Phone number must be entered in the format: '+999999999'.Up to 15 digits allowed.", regex='^\\+?1?\\d{9,15}$')], blank=True, max_length=15, verbose_name='phone')),
             ],
             options={
-                'verbose_name': 'participant',
                 'verbose_name_plural': 'participants',
+                'verbose_name': 'participant',
             },
         ),
     ]

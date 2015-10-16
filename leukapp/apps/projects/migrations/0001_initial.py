@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import django.core.validators
 
 
 class Migration(migrations.Migration):
@@ -14,23 +15,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Project',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('slug', models.SlugField(max_length=100, unique=True, verbose_name='slug')),
-                ('name', models.CharField(max_length=100, verbose_name='name')),
-                ('description', models.CharField(max_length=140, verbose_name='description')),
+                ('slug', models.SlugField(max_length=100, verbose_name='slug', unique=True)),
+                ('name', models.CharField(validators=[django.core.validators.RegexValidator(message='Enter a valid name consisting of letters, numbers, white spaces, underscores or hyphens.', code='invalid', regex='^[-a-zA-Z0-9_\\s]+\\Z')], max_length=100, verbose_name='project name')),
+                ('description', models.CharField(max_length=140, verbose_name='project description')),
                 ('cost_center_no', models.PositiveIntegerField(verbose_name='cost center number')),
                 ('fund_no', models.PositiveIntegerField(verbose_name='fund number')),
                 ('protocol_no', models.CharField(max_length=100, verbose_name='protocol number')),
-                ('analyst', models.ForeignKey(related_name='projects_as_analyst', to='participants.Participant', verbose_name='data analyst')),
-                ('participants', models.ManyToManyField(related_name='projects_participant', to='participants.Participant', verbose_name='participants')),
-                ('pi', models.ForeignKey(related_name='projects_as_pi', to='participants.Participant', verbose_name='principal investigator')),
-                ('requestor', models.ForeignKey(related_name='projects_as_requestor', to='participants.Participant', verbose_name='requestor')),
+                ('analyst', models.ForeignKey(to='participants.Participant', verbose_name='data analyst', related_name='projects_as_analyst')),
+                ('participants', models.ManyToManyField(to='participants.Participant', related_name='projects_participant', verbose_name='participants')),
+                ('pi', models.ForeignKey(to='participants.Participant', verbose_name='principal investigator', related_name='projects_as_pi')),
+                ('requestor', models.ForeignKey(to='participants.Participant', verbose_name='requestor', related_name='projects_as_requestor')),
             ],
             options={
-                'verbose_name': 'project',
                 'verbose_name_plural': 'projects',
+                'verbose_name': 'project',
             },
         ),
     ]
