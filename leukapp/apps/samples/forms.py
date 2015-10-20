@@ -39,6 +39,10 @@ class AliquotForm(forms.ModelForm):
 
 class SampleForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+            super(SampleForm, self).__init__(*args, **kwargs)
+            self.fields['projects'].required = True
+
     class Meta:
         model = Sample
         fields = SAMPLE_CREATE_FIELDS

@@ -72,6 +72,7 @@ SAMPLE_CREATE_FIELDS = [
     'technology',
     'center',
     'ext_id',
+    'projects',
     ]
 
 SAMPLE_UPDATE_FIELDS = [
