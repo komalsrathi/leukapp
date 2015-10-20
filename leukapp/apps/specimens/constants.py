@@ -15,6 +15,7 @@ SPECIMEN_LIST_URL = APP_NAME + ':list'
 SPECIMEN_CREATE_FIELDS = [
     'individual',
     'source',
+    'source_type',
     'ext_id',
     ]
 

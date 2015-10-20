@@ -29,13 +29,13 @@ class Specimen(LeukappModel):
         )
     source = models.CharField(
         _("source"),
-        max_length=15,
+        max_length=100,
         choices=CHOICES["SOURCE"]
         )
     source_type = models.CharField(
         _("source_type"),
-        max_length=1,
-        choices=CHOICES["SOURCE"]
+        max_length=100,
+        choices=CHOICES["SOURCE_TYPE"]
         )
     ext_id = models.CharField(
         _("external id"),
