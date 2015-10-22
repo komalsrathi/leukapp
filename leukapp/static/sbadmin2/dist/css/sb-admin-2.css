@@ -266,6 +266,8 @@ table.dataTable thead .sorting:after {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  z-index: +1;
+  /*position:relative;*/
 }
 
 .btn-circle {

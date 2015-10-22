@@ -19,6 +19,12 @@
     {% endblock head %}
 
     {% block css %}
+
+      <!-- Leukapp CSS -->
+      <link
+      href="{% static 'css/project.css' %}"
+      rel="stylesheet">
+
       <!-- Bootstrap Core CSS -->
       <link
       href="{% static 'sbadmin2/bower_components/bootstrap/dist/css/bootstrap.min.css' %}"
@@ -34,7 +40,7 @@
       href="{% static 'sbadmin2/dist/css/timeline.css' %}"
       rel="stylesheet">
 
-      <!-- Custom CSS -->
+      <!-- Sb admin Custom CSS -->
       <link
       href="{% static 'sbadmin2/dist/css/sb-admin-2.css' %}"
       rel="stylesheet">
@@ -48,6 +54,15 @@
       <link
       href="{% static 'sbadmin2/bower_components/font-awesome/css/font-awesome.min.css' %}"
       rel="stylesheet" type="text/css">
+
+      <!-- Tokeninput CSS -->
+      <link
+      href="{% static 'tokeninput/css/token-input.css' %}"
+      rel="stylesheet">
+      <link
+      href="{% static 'tokeninput/css/token-input-facebook.css' %}"
+      rel="stylesheet">
+
     {% endblock %}
 
     {% block app_css %}
@@ -96,6 +111,12 @@
       src="{% static 'sbadmin2/bower_components/jquery/dist/jquery.min.js' %}">
       </script>
 
+      <!-- Leukapp JavaScript -->
+      <script
+      src="{% static 'js/project.js' %}"
+      type="text/javascript">
+      </script>
+
       <!-- Bootstrap Core JavaScript -->
       <script
       src="{% static 'sbadmin2/bower_components/bootstrap/dist/js/bootstrap.min.js' %}">
@@ -110,7 +131,32 @@
       <script
       src="{% static 'sbadmin2/dist/js/sb-admin-2.js' %}">
       </script>
+
+      <!-- Dajngo modal-view -->
+      <script
+      src="{% static 'django_modalview/js/django_modal_view.js' %}"
+      type="text/javascript" >
+      </script>
+
+      <script
+      type="text/javascript"
+      src="{% static 'django_modalview/js/jquery.form.js' %}">
+      </script>
+
+      <script
+      src="{% static 'django_modalview/js/mymodals.js' %}"
+      type="text/javascript">
+      </script>
+
+      <!-- Tokeinput JavaScript -->
+      <script
+      src="{% static 'tokeninput/js/jquery.tokeninput.js' %}">
+      </script>
     {% endblock javascript %}
+
+    {% block extra_javascript %}
+    {% endblock extra_javascript %}
+
     {% include 'autocomplete_light/static.html' %}
   </body>
 
