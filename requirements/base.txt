@@ -44,3 +44,7 @@ django-modalview==0.1.5
 
 # Autocomplete light, not used yet
 django-autocomplete-light==2.2.8
+
+# Factories!
+factory-boy==2.5.2
+

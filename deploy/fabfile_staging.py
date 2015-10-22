@@ -56,5 +56,7 @@ def _update_static_files(source_folder):
 
 def _update_database(source_folder):
     python = '/home/medinaj/.virtualenvs/staging/bin/python'
-    command = 'cd {0} && {1} manage.py migrate --noinput'
-    run(command.format(source_folder, python))
+    command = 'workon staging && cd {0} && {1} {2} {3}'
+    migrate = 'manage.py migrate --noinput'
+    config = '--settings=config.settings.staging'
+    run(command.format(source_folder, python, migrate, config))
