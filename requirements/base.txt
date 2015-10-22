@@ -37,5 +37,7 @@ django-redis==4.2.0
 redis>=2.10.0
 
 
-
 # Your custom requirements go here
+
+# Modal Class Based Views
+django-modalview==0.1.5

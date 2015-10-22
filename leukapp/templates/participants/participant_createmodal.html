@@ -1,0 +1,16 @@
+{% extends 'django_modalview/modal_content.html' %}
+{% load crispy_forms_tags %}
+
+{% block modal-description %}
+    {% block description %}
+        {% if description %}
+            {{ description|safe }}
+        {% endif %}
+    {% endblock %}
+    {% block form %}
+        {% if form %}
+            {% csrf_token %}
+            {{ form|crispy }}
+        {% endif %}
+    {% endblock %}
+{% endblock %}

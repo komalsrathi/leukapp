@@ -35,6 +35,20 @@ urlpatterns = [
         name='create'
     ),
 
+    # URL pattern for the ParticipantCreateModal
+    url(
+        regex=r'^~createmodal/$',
+        view=views.ParticipantCreateModal.as_view(),
+        name='createmodal'
+    ),
+
+    # URL pattern for the search_participant
+    url(
+        regex=r'^~search/$',
+        view=views.search_participant,
+        name='search'
+    ),
+
     # URL pattern for the ParticipantUpdateView
     url(
         regex=r'^~update/(?P<slug>[\w.@+-]+)/$',

@@ -1,1 +1,96 @@
 {% extends "core/core_form.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block panel_body %}
+<!-- participant -->
+<p align="right"> Add Participant
+  <button id="modal_runner"
+          class="btn btn-primary btn-circle"
+          href="{% url 'participants:createmodal' %}">
+    <i class="fa fa-users fa-fw"></i>
+  </button>
+</p>
+
+{% endblock %}
+
+
+{% block extra_javascript %}
+<!-- PI -->
+<script type="text/javascript">
+
+$(document).ready(function () {
+    $("#id_pi").tokenInput(
+        "{% url 'participants:search' %}",
+      {
+        tokenLimit: 1,
+      {% if object %}
+        prePopulate: [
+              {id: "{{ object.pi.pk }}", name: "{{ object.pi.email }}"},
+          ],
+      {% endif %}
+      }
+    );
+});
+</script>
+
+<!-- Analyst -->
+<script type="text/javascript">
+
+$(document).ready(function () {
+    $("#id_analyst").tokenInput(
+        "{% url 'participants:search' %}",
+      {
+        tokenLimit: 1,
+      {% if object %}
+        prePopulate: [
+              {id: "{{ object.analyst.pk }}",
+              name: "{{ object.analyst.email }}"},
+          ],
+      {% endif %}
+      }
+    );
+});
+</script>
+
+
+<!-- Analyst -->
+<script type="text/javascript">
+
+$(document).ready(function () {
+    $("#id_requestor").tokenInput(
+        "{% url 'participants:search' %}",
+      {
+        tokenLimit: 1,
+      {% if object %}
+        prePopulate: [
+              {id: "{{ object.requestor.pk }}",
+              name: "{{ object.requestor.email }}"},
+          ],
+      {% endif %}
+      }
+    );
+});
+</script>
+
+<!-- Analyst -->
+<script type="text/javascript">
+participants = [];
+$(document).ready(function () {
+    $("#id_participants").tokenInput(
+        "{% url 'participants:search' %}",
+      {
+      {% if object %}
+        prePopulate: [
+            {% for p in object.participants.all %}
+              {id: "{{ p.pk }}",
+              name: "{{ p.email }}"},
+            {% endfor %}
+          ],
+      {% endif %}
+      }
+    );
+});
+</script>
+
+{% endblock extra_javascript %}

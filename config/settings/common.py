@@ -43,6 +43,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'autocomplete_light',  # autocomplete
+    'django_modalview',  # modela class based views
 )
 
 # Apps specific for this project go here.
@@ -59,6 +60,7 @@ LOCAL_APPS = (
     'leukapp.apps.participants',
     'leukapp.apps.core',
     'leukapp.apps.samples',
+    'leukapp.apps.leukforms',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
