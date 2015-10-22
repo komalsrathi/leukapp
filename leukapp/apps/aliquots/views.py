@@ -48,6 +48,7 @@ class AliquotListView(LoginRequiredMixin, ListView):
     """
 
     model = Aliquot
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
             context = super(AliquotListView, self).get_context_data(**kwargs)
