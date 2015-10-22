@@ -55,6 +55,7 @@ def _update_static_files(source_folder):
 
 
 def _update_database(source_folder):
+    # migrate
     python = '/home/medinaj/.virtualenvs/staging/bin/python'
     command = 'workon staging && cd {0} && {1} {2} {3}'
     migrate = 'manage.py migrate --noinput'
