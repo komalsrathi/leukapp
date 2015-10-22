@@ -48,6 +48,7 @@ class SampleListView(LoginRequiredMixin, ListView):
     """
 
     model = Sample
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
             context = super(SampleListView, self).get_context_data(**kwargs)
