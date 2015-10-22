@@ -1,3 +1,7 @@
+"""
+fab deploy:host=medinaj@plvleukweb1.mskcc.org -f fabfile_staging.py
+"""
+
 # python
 import random
 
@@ -50,7 +54,11 @@ def _update_virtualenv(source_folder):
 
 
 def _update_static_files(source_folder):
-    """this one is not needed because we are Django White Noise"""
+    python = '/home/medinaj/.virtualenvs/staging/bin/python'
+    command = 'workon staging && cd {0} && {1} {2} {3}'
+    collectstatic = 'manage.py collectstatic --noinput'
+    config = '--settings=config.settings.staging'
+    run(command.format(source_folder, python, collectstatic, config))
     pass
 
 
