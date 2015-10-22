@@ -9,8 +9,9 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-# local apps
+# leukapp
 from leukapp.apps.core.validators import phone_validator
+from leukapp.apps.participants.factories import ParticipantFactory
 
 
 @python_2_unicode_compatible
@@ -32,6 +33,12 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         self.first_name = self.first_name.capitalize()
         self.last_name = self.last_name.capitalize()
+        ParticipantFactory(
+            first_name=self.first_name,
+            last_name=self.last_name,
+            email=self.email,
+            phone=self.phone,
+            )
         super(User, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
