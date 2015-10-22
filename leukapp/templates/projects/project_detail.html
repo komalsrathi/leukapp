@@ -1,1 +1,7 @@
 {% extends "core/core_detail.html" %}
+
+{% block title %}
+    {% if object %}
+    {{ object.name }}
+    {% endif %}
+{% endblock %}
