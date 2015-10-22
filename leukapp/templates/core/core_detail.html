@@ -4,6 +4,16 @@
 {% block title %} {{object}} {% endblock %}
 
 {% block content %}
+<!-- Create Button -->
+{% with object.APP_NAME|add:":create" as create_url %}
+<a href="{% url create_url %}">
+  <button type="button"
+          class="fixed-btn btn btn-danger btn-circle btn-lg">
+    <i class="fa glyphicon-plus"></i>
+  </button>
+</a>
+{% endwith %}
+
 <br/>
 <div class="container-fluid">
   <div class="row">

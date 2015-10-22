@@ -13,6 +13,7 @@
 </a>
 <div class="container-fluid">
     <h2>{{ APP_NAME|title }}</h2>
+    {% if object_list %}
     <div class="list-group">
         {% for object in object_list %}
           <a  href="{{ object.get_absolute_url }}"
@@ -20,6 +21,24 @@
             <h4 class="list-group-item-heading">{{ object }}</h4>
           </a>
         {% endfor %}
+        {% if is_paginated %}
+          <div class="pagination">
+              <span class="page-links">
+                  {% if page_obj.has_previous %}
+                      <a href="/{{ APP_NAME }}?page={{ page_obj.previous_page_number }}">previous</a>
+                  {% endif %}
+                  <span class="page-current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+                  {% if page_obj.has_next %}
+                      <a href="/{{ APP_NAME }}?page={{ page_obj.next_page_number }}">next</a>
+                  {% endif %}
+              </span>
+          </div>
+        {% endif %}
     </div>
+    {% else %}
+        <p>No {{ APP_NAME|title }} yet</p>
+    {% endif %}
 </div>
 {% endblock content %}

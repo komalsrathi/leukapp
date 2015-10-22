@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% load core_tags %}
+{% load crispy_forms_tags %}
 
 {% block title %}
   {% if object %}
@@ -10,9 +10,58 @@
 {% endblock %}
 
 {% block content %}
-    {% if object %}
-        {% panel_default_form head=object url_dir=object.get_update_url btn_text='Update' footer='' %}
-    {% else %}
-        {% panel_default_form head='Create Form' url_dir='' btn_text='Create' footer=''%}
-    {% endif %}
+<!-- Create Button -->
+{% if object %}
+    {% with object.APP_NAME|add:":create" as create_url %}
+    <a href="{% url create_url %}">
+      <button type="button"
+              class="fixed-btn btn btn-danger btn-circle btn-lg">
+        <i class="fa glyphicon-plus"></i>
+      </button>
+    </a>
+    {% endwith %}
+{% else %}
+{% endif %}
+
+<br/>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+        {% if object %}
+            {{ object.APP_NAME|title }}: {{ object }}
+        {% else %}
+            Create Form
+        {% endif %}
+        </div>
+        <div class="panel-body">
+        {% block panel_body %}
+        {% endblock %}
+          <form method="post"
+                action="."
+                enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <div class="control-group">
+                <div class="controls">
+                  <button class="btn btn-primary btn-block"
+                          name="action_add"
+                          type="submit"
+                          onClick="this.form.submit(); this.disabled=true;">
+                    Submit
+                  </button>
+                </div>
+              </div>
+          </form>
+        </div>
+        {% if footer %}
+        <div class="panel-footer">
+            {{ footer }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
