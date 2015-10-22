@@ -78,6 +78,12 @@ urlpatterns = [
         namespace="samples")
     ),
 
+    url(
+        r'^leukforms/',
+        include("leukapp.apps.leukforms.urls",
+        namespace="leukforms")
+    ),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

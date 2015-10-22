@@ -1,0 +1,14 @@
+{% extends "core/core_detail.html" %}
+{% block panel_body %}
+  <div class="row">
+    <div class="col-sm-12 ">
+
+    <p style="white-space: pre-line">{{ object.summary }}</p>
+
+      <a  class="btn btn-success btn-block"
+          href="{% url 'leukforms:result' object.slug %}">
+          download result
+      </a>
+    </div>
+  </div>
+{% endblock %}
