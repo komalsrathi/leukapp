@@ -41,3 +41,6 @@ redis>=2.10.0
 
 # Modal Class Based Views
 django-modalview==0.1.5
+
+# Autocomplete light, not used yet
+django-autocomplete-light==2.2.8
