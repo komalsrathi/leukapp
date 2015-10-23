@@ -48,12 +48,14 @@ class Specimen(LeukappModel):
     # internal fields
     aliquots_created = models.PositiveSmallIntegerField(
         _("number of aliquots created"),
-        default=0
+        default=0,
+        editable=False,
         )
     int_id = models.CharField(
         _("internal id"),
         max_length=8,
         null=True,
+        editable=False,
         )
 
     class Meta:

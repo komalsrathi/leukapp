@@ -27,6 +27,7 @@ class LeukappModel(TimeStampedModel):
         _("slug"),
         max_length=100,
         unique=True,
+        editable=False,
         )
 
     class Meta:

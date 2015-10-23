@@ -50,10 +50,12 @@ class Individual(LeukappModel):
     specimens_created = models.PositiveSmallIntegerField(
         _("number of specimens created"),
         default=0,
+        editable=False,
         )
     int_id = models.CharField(
         _("internal id"),
         max_length=8,
+        editable=False,
         )
 
     class Meta:

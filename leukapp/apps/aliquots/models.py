@@ -44,10 +44,12 @@ class Aliquot(LeukappModel):
         _("internal id"),
         max_length=8,
         null=True,
+        editable=False,
         )
     samples_created = models.PositiveSmallIntegerField(
         _("number of samples created"),
         default=0,
+        editable=False,
         )
 
     class Meta:
