@@ -41,7 +41,7 @@ class User(AbstractUser):
             last_name=self.last_name,
             email=self.email,
             phone=self.phone,
-            user=self.pk,
+            user=self,
             ).save()
 
     def get_absolute_url(self):
