@@ -1,0 +1,25 @@
+{% extends "base.yml" %}
+{% block test %}
+- engine: engine.py:ExecutionEngine
+  name: Stub {{ python_version }}
+  preconditions:
+    python_version: "{{ python_version }}"
+  scenario:
+    - Load website
+    - Click: link-signup
+    - Fill form:
+        id_first_name: django
+        id_last_name: django
+        id_username: django
+        id_email: django@reinhardt.com
+        id_password1: jazzguitar
+        id_password2: jazzguitar
+    - Click: btn-signup
+    - Pause
+    - Load website
+    - Fill form:
+        id_login: django
+        id_password: jazzguitar
+    - Click: btn-signin
+    - Pause
+{% endblock %}
