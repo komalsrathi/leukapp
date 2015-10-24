@@ -1,0 +1,11 @@
+#!/bin/bash
+# This hook is run after this virtualenv is activated.
+
+# leukapp environmental variables
+export PROJECT_DIR=/Users/medinaj/Documents/msk/projects/leukapp_project
+export DATABASE_TEST_URL=postgres:///leukapp_test
+export DATABASE_URL=postgres:///leukapp
+export DJANGO_SETTINGS_MODULE="config.settings.local"
+
+# cd to leukapp directory
+cd ~/Documents/msk/projects/leukapp_project
