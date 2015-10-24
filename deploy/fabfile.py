@@ -9,9 +9,10 @@ required packages at server:
 
 fab commad example: deploy.sh
 """
+import random
 
 # third party
-from fabric.contrib.files import exists  # append, sed
+from fabric.contrib.files import exists, sed  # append
 from fabric.api import env, local, run
 
 
@@ -74,11 +75,19 @@ def _update_virtualenv(
     if not exists(virtualenv_folder):
         run('mkvirtualenv ' + virtualenv)
 
-    postsource = source_folder + '.env/staging_postactivate'
+    postsource = source_folder + '/.env/staging_postactivate'
     postvirtual = virtualenv_folder + '/bin/postactivate'
     run('ln -sf {0} {1}'.format(postsource, postvirtual))
     workon = 'workon ' + virtualenv
     run(workon + ' && pip install -r ' + requirements)
+
+
+def _update_settings(source_folder):
+    postsource = source_folder + '/.env/staging_postactivate'
+    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+    key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
+    key = "DJANGO_SECRET_KEY={0}".format(key)
+    sed(postsource, "DJANGO_SECRET_KEY=CHANGE_ME", key)
 
 
 def _update_static_files(virtualenv, settings):
