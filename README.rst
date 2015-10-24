@@ -139,7 +139,7 @@ To install the test runner::
 
   $ pip install hitch
 
-To run the tests, enter the leukapp/tests directory and run the following commands::
+To run the tests, enter the tests/ directory and run the following commands::
 
   $ hitch init
 
