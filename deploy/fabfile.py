@@ -7,13 +7,7 @@ required packages at server:
     * virtualenv
     * virtualenvwrapper
 
-fab commad example:
-
-fab \
-    deploy:host=medinaj@plvleukweb1.mskcc.org \
-    -f fabfile.py \
-    --set=VIRTUALENV=staging,REPO_URL=git@github.com:leukgen/leukapp.git,REQUIREMENTS=production.txt,DJ_SETTINGS=config.settings.staging\
-
+fab commad example: deploy.sh
 """
 
 # third party
@@ -24,6 +18,7 @@ from fabric.api import env, local, run
 def deploy():
 
     # settings
+    project_dir = env.PROJECT_DIR
     user = env.user
     host = env.host
     repo = env.REPO_URL
@@ -37,7 +32,7 @@ def deploy():
     # deploy
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder, repo)
-    _update_nginx_conf(host)
+    _update_nginx_conf(host, project_dir)
     _update_virtualenv(virtualenv, virtualenv_folder, requirements)
     _update_static_files(virtualenv, settings)
     _update_database(virtualenv, settings)
@@ -59,8 +54,8 @@ def _get_latest_source(source_folder, repo):
     run(command)
 
 
-def _update_nginx_conf(host):
-    with open('./nginx.template.conf', 'r') as f:
+def _update_nginx_conf(host, project_dir):
+    with open(project_dir + '/deploy/nginx.template.conf', 'r') as f:
         conf = f.read()
     conf = conf.replace("SITENAME", host)
     available = '/etc/nginx/sites-available'
