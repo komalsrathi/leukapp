@@ -4,7 +4,7 @@
 export DJANGO_SETTINGS_MODULE=config.settings.staging
 export DJANGO_ALLOWED_HOSTS=plvleukweb1.mskcc.org
 export DATABASE_URL=postgres:///staging
-export DJANGO_SECRET_KEY=
+export DJANGO_SECRET_KEY=123456789
 
 cd /home/medinaj/sites/plvleukweb1.mskcc.org/source/
 

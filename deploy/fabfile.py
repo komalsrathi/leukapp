@@ -33,7 +33,7 @@ def deploy():
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder, repo)
     _update_nginx_conf(host, project_dir)
-    _update_virtualenv(virtualenv, virtualenv_folder, requirements)
+    _update_virtualenv(virtualenv, virtualenv_folder, requirements, source_folder)
     _update_static_files(virtualenv, settings)
     _update_database(virtualenv, settings)
 
@@ -69,9 +69,14 @@ def _update_nginx_conf(host, project_dir):
         run(command)
 
 
-def _update_virtualenv(virtualenv, virtualenv_folder, requirements):
+def _update_virtualenv(
+        virtualenv, virtualenv_folder, requirements, source_folder):
     if not exists(virtualenv_folder):
         run('mkvirtualenv ' + virtualenv)
+
+    postsource = source_folder + '.env/staging_postactivate'
+    postvirtual = virtualenv_folder + '/bin/postactivate'
+    run('ln -sf {0} {1}'.format(postsource, postvirtual))
     workon = 'workon ' + virtualenv
     run(workon + ' && pip install -r ' + requirements)
 
@@ -88,3 +93,7 @@ def _update_database(virtualenv, settings):
     migrate = workon + ' && python manage.py migrate --noinput'
     command = migrate + ' --settings=' + settings
     run(command)
+
+
+def _restart_server():
+    run("dzdo start staging")
