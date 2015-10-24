@@ -36,12 +36,17 @@
         <li class="divider"></li>
 
         <!-- Logout -->
+        <form id="form" method="post" action="{% url 'account_logout' %}">
+          {% csrf_token %}
+        </form>
+
         <li>
-          <a href="{% url 'account_logout' %}">
+          <a href="" onclick="form.submit();">
             <i class="fa fa-sign-out fa-fw"></i>
             {% trans "Logout" %}
           </a>
         </li>
+
       {% else %}
         <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
@@ -50,3 +55,4 @@
     </ul>
     <!-- /.dropdown-user -->
 </li> <!-- /.dropdown -->
+
