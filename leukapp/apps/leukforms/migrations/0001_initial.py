@@ -3,28 +3,28 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 from django.conf import settings
+import leukapp.apps.leukforms.validators
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('samples', '0005_auto_20151016_1646'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Leukform',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('slug', models.SlugField(unique=True, max_length=100, verbose_name='slug')),
-                ('description', models.CharField(max_length=8, verbose_name='description', blank=True, help_text='This is for your future self.')),
-                ('submission', models.FileField(upload_to='leukform/submissions/%Y/%m', verbose_name='leukform csv')),
-                ('result', models.FileField(upload_to='leukform/results/%Y/%m', verbose_name='sumbission result', blank=True)),
-                ('samples', models.ManyToManyField(to='samples.Sample', verbose_name='samples', blank=True)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, verbose_name='user', blank=True)),
+                ('description', models.CharField(help_text='This is for your future self.', max_length=140, verbose_name='description', blank=True)),
+                ('submission', models.FileField(upload_to='leukform/submissions/%Y/%m', validators=[leukapp.apps.leukforms.validators.leukform_csv_validator], verbose_name='leukform')),
+                ('result', models.FileField(verbose_name='sumbission result', blank=True, upload_to='leukform/results/%Y/%m')),
+                ('summary', models.TextField(verbose_name='summary', blank=True)),
+                ('slug', models.SlugField(unique=True, verbose_name='slug', editable=False)),
+                ('user', models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL, verbose_name='user', blank=True)),
             ],
             options={
                 'verbose_name_plural': 'leukforms',

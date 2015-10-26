@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('leukforms', '0003_auto_20151020_1803'),
+        ('participants', '0003_auto_20151023_1522'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='leukform',
+            model_name='participant',
             name='slug',
-            field=models.SlugField(editable=False, unique=True, max_length=100, verbose_name='slug'),
+            field=models.SlugField(editable=False, unique=True, verbose_name='slug'),
         ),
     ]

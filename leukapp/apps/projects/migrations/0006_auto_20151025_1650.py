@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('samples', '0004_sample_projects'),
+        ('projects', '0005_auto_20151023_1522'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sample',
-            name='projects',
-            field=models.ManyToManyField(to='projects.Project', verbose_name='projects', blank=True),
+            model_name='project',
+            name='slug',
+            field=models.SlugField(editable=False, unique=True, verbose_name='slug'),
         ),
     ]
