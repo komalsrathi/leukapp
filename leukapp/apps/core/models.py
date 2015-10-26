@@ -23,13 +23,6 @@ class LeukappModel(TimeStampedModel):
     Leukapp Base Model
     """
 
-    slug = models.SlugField(
-        _("slug"),
-        max_length=100,
-        unique=True,
-        editable=False,
-        )
-
     class Meta:
         abstract = True
 
@@ -39,19 +32,19 @@ class LeukappModel(TimeStampedModel):
         """
 
         new = not self.pk
-        super(LeukappModel, self).save(*args, **kwargs)
 
         # http://stackoverflow.com/questions/9940674/django-model-manager-objects-create-where-is-the-documentation
 
         if new:
-            kwargs['force_insert'] = False  # set to avoid in error in create()
+            super(LeukappModel, self).save(*args, **kwargs)  # get pk
+            kwargs['force_insert'] = False  # set to avoid error in create()
             self.if_new()
             self.if_save()
-            super(LeukappModel, self).save(*args, **kwargs)
 
         else:
             self.if_save()
-            super(LeukappModel, self).save(*args, **kwargs)
+
+        super(LeukappModel, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse(
