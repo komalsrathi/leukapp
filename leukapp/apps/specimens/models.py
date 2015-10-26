@@ -10,7 +10,7 @@ from leukapp.apps.core.validators import ext_id_validator
 from leukapp.apps.individuals.models import Individual
 
 # local imports
-from .constants import APP_NAME, SPECIMEN_CHOICES
+from .constants import APP_NAME, SPECIMEN_CHOICES, TUMOR, NORMAL
 
 
 class Specimen(LeukappModel):
@@ -30,6 +30,7 @@ class Specimen(LeukappModel):
     source = models.CharField(
         _("source"),
         max_length=100,
+        blank=True,
         choices=CHOICES["SOURCE"]
         )
     source_type = models.CharField(
@@ -46,7 +47,12 @@ class Specimen(LeukappModel):
         )
 
     # internal fields
-    aliquots_created = models.PositiveSmallIntegerField(
+    dna_count = models.PositiveSmallIntegerField(
+        _("number of aliquots created"),
+        default=0,
+        editable=False,
+        )
+    rna_count = models.PositiveSmallIntegerField(
         _("number of aliquots created"),
         default=0,
         editable=False,
@@ -55,6 +61,11 @@ class Specimen(LeukappModel):
         _("internal id"),
         max_length=8,
         null=True,
+        editable=False,
+        )
+    slug = models.SlugField(
+        _("slug"),
+        unique=True,
         editable=False,
         )
 
@@ -78,12 +89,12 @@ class Specimen(LeukappModel):
             test_int_id_returns_expected_value
         """
 
-        # alter individual specimens_created count
-        self.individual.specimens_created += 1
-        self.individual.save()
+        # initializes aliquots count
+        self.dna_count = 0
+        self.rna_count = 0
 
-        self.aliquots_created = 0
-        self.int_id = str(self.individual.specimens_created)
+        # retrieve internal id
+        self.get_int_id()
 
     def if_save(self):
         """
@@ -93,6 +104,16 @@ class Specimen(LeukappModel):
 
         self.slug = '-'.join([
             self.individual.slug,
-            self.source_type,
-            self.int_id
+            self.int_id,
             ])
+
+    def get_int_id(self):
+        """ return int_id based on count of tumors/normals per Individual """
+        if self.source_type == TUMOR:
+            self.individual.tumors_count += 1
+            self.int_id = self.source_type + str(self.individual.tumors_count)
+        elif self.source_type == NORMAL:
+            self.individual.normals_count += 1
+            self.int_id = self.source_type + str(self.individual.normals_count)
+        self.individual.save()
+        return self.int_id

@@ -32,35 +32,42 @@ class SpecimenModelTest(TestCase):
         with self.assertRaises(IntegrityError):
             Specimen.objects.create(individual=s.individual, ext_id=s.ext_id)
 
-    def test_if_new_adds_one_to_individual_specimens_created(self):
-        self.assertEqual(1, SpecimenFactory().individual.specimens_created)
-
-    def test_if_individual_specimens_created_keep_count_correctly(self):
+    def test_if_specimen_counters_keep_count_correctly(self):
         i = IndividualFactory()
-        SpecimenFactory(individual=i)
-        SpecimenFactory(individual=i)
-        self.assertEqual(2, i.specimens_created)
+        for c in range(3):
+            SpecimenFactory(individual=i, source_type=constants.TUMOR)
+        for c in range(2):
+            SpecimenFactory(individual=i, source_type=constants.NORMAL)
+        self.assertEqual(3, i.tumors_count)
+        self.assertEqual(2, i.normals_count)
 
-    def test_if_specimens_created_is_correct_after_delete_specimens(self):
+    def test_if_specimen_counters_are_correct_after_delete_specimens(self):
         i = IndividualFactory()
-        SpecimenFactory(individual=i).delete()
-        SpecimenFactory(individual=i).delete()
-        SpecimenFactory(individual=i).delete()
-        self.assertEqual(3, i.specimens_created)
+        for c in range(3):
+            SpecimenFactory(
+                individual=i, source_type=constants.TUMOR).delete()
+            SpecimenFactory(
+                individual=i, source_type=constants.NORMAL).delete()
+        self.assertEqual(3, i.tumors_count)
+        self.assertEqual(3, i.normals_count)
 
     def test_int_id_returns_expected_value(self):
         i = IndividualFactory()
-        s = SpecimenFactory(individual=i)
-        int_id = str(i.specimens_created)
-        self.assertEqual(s.int_id, int_id)
+        st = SpecimenFactory(individual=i, source_type=constants.TUMOR)
+        sn = SpecimenFactory(individual=i, source_type=constants.NORMAL)
+        st_int_id = constants.TUMOR + str(i.tumors_count)
+        sn_int_id = constants.NORMAL + str(i.normals_count)
+        self.assertEqual(st.int_id, st_int_id)
+        self.assertEqual(sn.int_id, sn_int_id)
 
     def test_str_returns_slug(self):
         s = SpecimenFactory()
-        slug = '-'.join([s.individual.slug, s.source_type, s.int_id])
+        slug = '-'.join([s.individual.slug, s.int_id])
         self.assertEqual(slug, s.__str__())
 
-    def test_if_new_initializes_aliquots_created_with_zero(self):
-        self.assertEqual(SpecimenFactory().aliquots_created, 0)
+    def test_if_new_initializes_aliquots_counters_with_zero(self):
+        self.assertEqual(SpecimenFactory().dna_count, 0)
+        self.assertEqual(SpecimenFactory().rna_count, 0)
 
     def test_get_absolute_url(self):
         s = SpecimenFactory()
