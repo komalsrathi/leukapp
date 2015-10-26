@@ -34,3 +34,7 @@ PROJECT_UPDATE_FIELDS = [
     'fund_no',
     'protocol_no',
     ]
+
+PROJECT_GET_OR_CREATE_FIELDS = [
+    'name',
+    ]

@@ -13,14 +13,18 @@ from .constants import APP_NAME
 
 class Project(LeukappModel):
 
-    """docstring for Project"""
+    """
+    requirements= https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=0
+    """
 
     APP_NAME = APP_NAME
 
+    # external
     name = models.CharField(
         _("project name"),
         max_length=100,
-        validators=[object_name_validator]
+        validators=[object_name_validator],
+        unique=True,
         )
     description = models.CharField(
         _("project description"),
@@ -60,6 +64,18 @@ class Project(LeukappModel):
         max_length=100,
         )
 
+    # internal
+    slug = models.SlugField(
+        _("slug"),
+        unique=True,
+        editable=False,
+        )
+    int_id = models.SlugField(
+        _("int_id"),
+        unique=True,
+        editable=False,
+        )
+
     class Meta:
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
@@ -67,11 +83,11 @@ class Project(LeukappModel):
     def __str__(self):
         return self.slug
 
+    def if_new(self):
+        """ ran when object is created """
+        self.int_id = str(self.pk + 100)
+        self.slug = self.int_id
+
     def if_save(self):
         """ if_save() is run everytime the object is saved"""
-
-        # add pi, analyst and requestors as project participants
         self.participants.add(self.pi, self.analyst, self.requestor)
-
-        # if_save() must return the slug
-        self.slug = str(self.pk)

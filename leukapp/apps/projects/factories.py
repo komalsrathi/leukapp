@@ -12,12 +12,14 @@ from leukapp.apps.participants.factories import ParticipantFactory
 
 # local
 from .models import Project
+from . import constants
 
 
 class ProjectFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Project
+        django_get_or_create = constants.PROJECT_GET_OR_CREATE_FIELDS
 
     name = FuzzyText(length=10, chars=string.ascii_lowercase)
     description = FuzzyText(length=140, chars=string.ascii_lowercase)
