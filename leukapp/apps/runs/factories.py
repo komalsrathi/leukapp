@@ -12,15 +12,15 @@ from leukapp.apps.aliquots.factories import AliquotFactory
 from leukapp.apps.projects.factories import ProjectFactory
 
 # local
-from .models import Sample
+from .models import Run
 from . import constants
 
 
-class SampleFactory(factory.django.DjangoModelFactory):
+class RunFactory(factory.django.DjangoModelFactory):
 
     class Meta:
-        model = Sample
-        django_get_or_create = constants.SAMPLE_GET_OR_CREATE_FIELDS
+        model = Run
+        django_get_or_create = constants.RUN_GET_OR_CREATE_FIELDS
 
     aliquot = factory.SubFactory(AliquotFactory)
     platform = FuzzyChoice(constants.PLATFORM_SHORT)

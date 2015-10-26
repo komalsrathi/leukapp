@@ -23,11 +23,11 @@ from django.views.generic import \
 from braces.views import LoginRequiredMixin
 
 # local
-from .models import Sample
+from .models import Run
 from . import constants
 
 
-class SampleDetailView(LoginRequiredMixin, DetailView):
+class RunDetailView(LoginRequiredMixin, DetailView):
 
     """
     Render a "detail" view of an object. By default this is a model instance
@@ -36,10 +36,10 @@ class SampleDetailView(LoginRequiredMixin, DetailView):
     See: http://ccbv.co.uk/DetailView/
     """
 
-    model = Sample
+    model = Run
 
 
-class SampleListView(LoginRequiredMixin, ListView):
+class RunListView(LoginRequiredMixin, ListView):
 
     """
     Render some list of objects, set by `self.model` or `self.queryset`.
@@ -47,19 +47,19 @@ class SampleListView(LoginRequiredMixin, ListView):
     See: http://ccbv.co.uk/ListView/
     """
 
-    model = Sample
+    model = Run
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
-            context = super(SampleListView, self).get_context_data(**kwargs)
+            context = super(RunListView, self).get_context_data(**kwargs)
 
             # Add new context
             context['APP_NAME'] = constants.APP_NAME
-            context['CREATE_URL'] = constants.SAMPLE_CREATE_URL
+            context['CREATE_URL'] = constants.RUN_CREATE_URL
             return context
 
 
-class SampleRedirectView(LoginRequiredMixin, RedirectView):
+class RunRedirectView(LoginRequiredMixin, RedirectView):
 
     """
     A view that provides a redirect on any GET request.
@@ -69,28 +69,28 @@ class SampleRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
 
     def get_redirect_url(self):
-        return reverse(constants.SAMPLE_LIST_URL)
+        return reverse(constants.RUN_LIST_URL)
 
 
-class SampleCreateView(LoginRequiredMixin, CreateView):
+class RunCreateView(LoginRequiredMixin, CreateView):
 
     """
     View for creating a new object, with a response rendered by template.
     See: http://ccbv.co.uk/CreateView/
     """
 
-    model = Sample
-    fields = constants.SAMPLE_CREATE_FIELDS
-    succes_msg = "Sample Created!"
+    model = Run
+    fields = constants.RUN_CREATE_FIELDS
+    succes_msg = "Run Created!"
 
 
-class SampleUpdateView(LoginRequiredMixin, UpdateView):
+class RunUpdateView(LoginRequiredMixin, UpdateView):
 
     """
     View for updating an object, with a response rendered by template.
     See: http://ccbv.co.uk/UpdateView/
     """
 
-    model = Sample
-    fields = constants.SAMPLE_UPDATE_FIELDS
-    succes_msg = "Sample Updated!"
+    model = Run
+    fields = constants.RUN_UPDATE_FIELDS
+    succes_msg = "Run Updated!"

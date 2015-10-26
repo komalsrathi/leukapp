@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-samples app constants
+runs app constants
 """
 
 # app name
-APP_NAME = 'samples'
+APP_NAME = 'runs'
 
 # urls
-SAMPLE_CREATE_URL = APP_NAME + ':create'
-SAMPLE_LIST_URL = APP_NAME + ':list'
+RUN_CREATE_URL = APP_NAME + ':create'
+RUN_LIST_URL = APP_NAME + ':list'
 
 # choices
 WHOLE_EXOME = 'WHOLE-EXOME'
@@ -54,7 +54,7 @@ CENTER = (
     (FOUNDATION, 'FOUNDATION'),
     )
 
-SAMPLE_CHOICES = {
+RUN_CHOICES = {
     "PLATFORM": PLATFORM,
     "TECHNOLOGY": TECHNOLOGY,
     "CENTER": CENTER,
@@ -66,7 +66,7 @@ TECHNOLOGY_SHORT = [e[0] for e in TECHNOLOGY]
 CENTER_SHORT = [e[0] for e in CENTER]
 
 # sample fields
-SAMPLE_CREATE_FIELDS = [
+RUN_CREATE_FIELDS = [
     'aliquot',
     'platform',
     'technology',
@@ -75,13 +75,13 @@ SAMPLE_CREATE_FIELDS = [
     'projects',
     ]
 
-SAMPLE_UPDATE_FIELDS = [
+RUN_UPDATE_FIELDS = [
     'platform',
     'technology',
     'center',
     ]
 
-SAMPLE_GET_OR_CREATE_FIELDS = (
+RUN_GET_OR_CREATE_FIELDS = (
     'aliquot',
     'ext_id',
     )

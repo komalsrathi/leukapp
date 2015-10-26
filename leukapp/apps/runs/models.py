@@ -11,17 +11,17 @@ from leukapp.apps.aliquots.models import Aliquot
 from leukapp.apps.projects.models import Project
 
 # local
-from .constants import APP_NAME, SAMPLE_CHOICES
+from .constants import APP_NAME, RUN_CHOICES
 
 
-class Sample(LeukappModel):
+class Run(LeukappModel):
 
     """
     requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=2010180721
     """
 
     APP_NAME = APP_NAME
-    CHOICES = SAMPLE_CHOICES
+    CHOICES = RUN_CHOICES
 
     # external fields
     aliquot = models.ForeignKey(
@@ -51,7 +51,7 @@ class Sample(LeukappModel):
     ext_id = models.CharField(
         _("sequencing center id"),
         max_length=100,
-        validators=[ext_id_validator],  # test: test_ext_id_uses_validator
+        validators=[ext_id_validator],
         help_text=_("The sequencing center id should be unique at the "
             "Institution and Species levels."),
         )
@@ -62,12 +62,15 @@ class Sample(LeukappModel):
         max_length=8,
         null=True,
         )
+    slug = models.SlugField(
+        _("slug"),
+        unique=True,
+        editable=False,
+        )
 
     class Meta:
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
-
-        # test: test_unique_together_functionality
         unique_together = (("ext_id", "aliquot"))
         index_together = (("ext_id", "aliquot"))
 
@@ -75,28 +78,11 @@ class Sample(LeukappModel):
         return self.slug
 
     def if_new(self, **kwargs):
-        """
-        if_new is executed the first time the object is created
-        tests:
-            test_if_new_initializes_specimen_count_with_zero
-            test_int_id_returns_expected_value
-        """
-
-        # alter parent count
-        self.aliquot.samples_created += 1
+        """ if_new is executed the first time the object is created """
+        self.aliquot.runs_count += 1
         self.aliquot.save()
-
-        # store int_id
-        self.int_id = str(self.aliquot.samples_created)
+        self.int_id = str(self.aliquot.runs_count)
 
     def if_save(self):
-        """
-        if_save() is executed everytime the object is saved
-        test: test_str_returns_leukid
-        """
-
-        # update slug
-        self.slug = '-'.join([
-            self.aliquot.slug,
-            self.int_id,
-            ])
+        """ if_save() is executed everytime the object is saved """
+        self.slug = '-'.join([self.aliquot.slug, self.int_id])
