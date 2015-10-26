@@ -13,8 +13,6 @@ from leukapp.apps.users.factories import UserFactory
 from .. import views
 from .. import constants
 
-settings.AUTH_USER_MODEL
-
 
 class IndividualsViewsTest(TestCase):
 

@@ -41,7 +41,7 @@ class Specimen(LeukappModel):
     ext_id = models.CharField(
         _("external id"),
         max_length=100,
-        validators=[ext_id_validator],  # test: test_ext_id_uses_validator
+        validators=[ext_id_validator],
         help_text=_("The external id should be unique at the Individual "
             "and Source levels."),
         )
@@ -72,8 +72,6 @@ class Specimen(LeukappModel):
     class Meta:
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
-
-        # test: test_unique_together_functionality
         unique_together = (("ext_id", "individual"))
         index_together = (("ext_id", "individual"))
 
@@ -81,31 +79,14 @@ class Specimen(LeukappModel):
         return self.slug
 
     def if_new(self, **kwargs):
-        """
-        if_new is executed the first time the object is created
-        tests:
-            test_individual_specimens_created_keep_count_correctly
-            test_specimens_created_is_correct_after_delete_specimens
-            test_int_id_returns_expected_value
-        """
-
-        # initializes aliquots count
+        """ if_new is executed the first time the object is created """
         self.dna_count = 0
         self.rna_count = 0
-
-        # retrieve internal id
         self.get_int_id()
 
     def if_save(self):
-        """
-        if_save is executed everytime the object is saved
-        test: test_str_returns_slug
-        """
-
-        self.slug = '-'.join([
-            self.individual.slug,
-            self.int_id,
-            ])
+        """ if_save is executed everytime the object is saved """
+        self.slug = '-'.join([self.individual.slug, self.int_id])
 
     def get_int_id(self):
         """ return int_id based on count of tumors/normals per Individual """
