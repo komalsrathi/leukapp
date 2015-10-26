@@ -41,11 +41,12 @@ class IndividualModelTest(TestCase):
 
     def test_str_returns_slug(self):
         i = IndividualFactory(institution='MSK', species='H', ext_id='1')
-        slug = "-".join([i.check_institution(), i.species, i.int_id])
+        slug = "-".join([i.check_institution(), i.int_id])
         self.assertEqual(slug, i.__str__())
 
-    def test_if_new_initializes_specimens_created_with_zero(self):
-        self.assertEqual(IndividualFactory().specimens_created, 0)
+    def test_if_new_initializes_specimens_counts_with_zero(self):
+        self.assertEqual(IndividualFactory().tumors_count, 0)
+        self.assertEqual(IndividualFactory().normals_count, 0)
 
     def test_ext_id_uses_validator(self):
         i = IndividualFactory(ext_id="1234 % ''10")
