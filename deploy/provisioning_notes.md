@@ -32,3 +32,6 @@ Assume we have a user account at /home/username
     └── SITENAME
          └── source
 
+
+
+dzdo touch /var/lock/subsys/staging

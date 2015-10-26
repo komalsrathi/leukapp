@@ -35,8 +35,10 @@ def deploy():
     _get_latest_source(source_folder, repo)
     _update_nginx_conf(host, project_dir)
     _update_virtualenv(virtualenv, virtualenv_folder, requirements, source_folder)
+    _update_settings(source_folder)
     _update_static_files(virtualenv, settings)
     _update_database(virtualenv, settings)
+    _restart_server()
 
 
 def _create_directory_structure_if_necessary(site_folder):
@@ -84,7 +86,7 @@ def _update_virtualenv(
 
 def _update_settings(source_folder):
     postsource = source_folder + '/.env/staging_postactivate'
-    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&'
     key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
     key = "DJANGO_SECRET_KEY={0}".format(key)
     sed(postsource, "DJANGO_SECRET_KEY=CHANGE_ME", key)
@@ -105,4 +107,4 @@ def _update_database(virtualenv, settings):
 
 
 def _restart_server():
-    run("dzdo start staging")
+    run("workon staging && gunicorn --bind unix:/tmp/plvleukweb1.mskcc.org.socket config.wsgi:application")
