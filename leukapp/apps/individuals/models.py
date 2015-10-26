@@ -47,14 +47,24 @@ class Individual(LeukappModel):
         )
 
     # internal fields
-    specimens_created = models.PositiveSmallIntegerField(
-        _("number of specimens created"),
+    tumors_count = models.PositiveSmallIntegerField(
+        _("number of tumor specimens created"),
+        default=0,
+        editable=False,
+        )
+    normals_count = models.PositiveSmallIntegerField(
+        _("number of normal specimens created"),
         default=0,
         editable=False,
         )
     int_id = models.CharField(
         _("internal id"),
         max_length=8,
+        editable=False,
+        )
+    slug = models.SlugField(
+        _("slug"),
+        unique=True,
         editable=False,
         )
 
@@ -90,8 +100,12 @@ class Individual(LeukappModel):
             test_int_id_returns_expected_value
         """
 
-        self.specimens_created = 0
-        self.int_id = str(self.pk + 100000)
+        # initializes count of normal and tumors
+        self.tumors_count = 0
+        self.normals_count = 0
+
+        # gets internal id
+        self.get_int_id()
 
     def if_save(self):
         """
@@ -102,6 +116,10 @@ class Individual(LeukappModel):
         # update slug
         self.slug = '-'.join([
             self.check_institution(),
-            self.species,
             self.int_id
             ])
+
+    def get_int_id(self):
+        """ returns Individual internal ID """
+        self.int_id = self.species + str(self.pk + 100000)
+        return self.int_id

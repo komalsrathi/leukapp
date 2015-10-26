@@ -37,7 +37,7 @@ class IndividualModelTest(TestCase):
 
     def test_int_id_returns_expected_value(self):
         i = IndividualFactory(institution='MSK')
-        self.assertEqual(i.int_id, str(i.pk + 100000))
+        self.assertEqual(i.int_id, i.species + str(i.pk + 100000))
 
     def test_str_returns_slug(self):
         i = IndividualFactory(institution='MSK', species='H', ext_id='1')
