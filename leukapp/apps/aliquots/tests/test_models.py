@@ -31,31 +31,35 @@ class AliquotModelTest(TestCase):
             AliquotFactory(**kw)
             Aliquot.objects.create(**kw)
 
-    def test_if_new_adds_one_to_specimen_aliquots_created(self):
-        self.assertEqual(1, AliquotFactory().specimen.aliquots_created)
-
-    def test_if_aliquots_created_keep_count_correctly(self):
+    def test_if_aliquots_counters_keep_count_correctly(self):
         s = SpecimenFactory()
-        AliquotFactory(specimen=s)
-        AliquotFactory(specimen=s)
-        self.assertEqual(2, s.aliquots_created)
+        for i in range(3):
+            AliquotFactory(specimen=s, bio_source=constants.DNA)
+        for i in range(2):
+            AliquotFactory(specimen=s, bio_source=constants.RNA)
+        self.assertEqual(3, s.dna_count)
+        self.assertEqual(2, s.rna_count)
 
     def test_if_aliquots_created_is_correct_after_delete_aliquots(self):
         s = SpecimenFactory()
-        AliquotFactory(specimen=s).delete()
-        AliquotFactory(specimen=s).delete()
-        AliquotFactory(specimen=s).delete()
-        self.assertEqual(3, s.aliquots_created)
+        for i in range(3):
+            AliquotFactory(specimen=s, bio_source=constants.DNA).delete()
+            AliquotFactory(specimen=s, bio_source=constants.RNA).delete()
+        self.assertEqual(3, s.dna_count)
+        self.assertEqual(3, s.rna_count)
 
     def test_int_id_returns_expected_value(self):
         s = SpecimenFactory()
-        a = AliquotFactory(specimen=s)
-        int_id = str(s.aliquots_created)
-        self.assertEqual(a.int_id, int_id)
+        ad = AliquotFactory(specimen=s, bio_source=constants.DNA)
+        ar = AliquotFactory(specimen=s, bio_source=constants.RNA)
+        ad_int_id = ad.bio_source + str(s.dna_count)
+        ar_int_id = ar.bio_source + str(s.rna_count)
+        self.assertEqual(ad.int_id, ad_int_id)
+        self.assertEqual(ar.int_id, ar_int_id)
 
     def test_str_returns_slug(self):
         a = AliquotFactory()
-        slug = '-'.join([a.specimen.slug, a.bio_source, a.int_id])
+        slug = '-'.join([a.specimen.slug, a.int_id])
         self.assertEqual(slug, a.__str__())
 
     def test_get_absolute_url(self):
@@ -70,6 +74,6 @@ class AliquotModelTest(TestCase):
         url = reverse(constants.APP_NAME + ':update', kwargs={'slug': slug})
         self.assertEqual(url, a.get_update_url())
 
-    def test_if_new_initializes_samples_created_with_zero(self):
+    def test_if_new_initializes_runs_count_with_zero(self):
         a = AliquotFactory()
-        self.assertEqual(a.samples_created, 0)
+        self.assertEqual(a.runs_count, 0)
