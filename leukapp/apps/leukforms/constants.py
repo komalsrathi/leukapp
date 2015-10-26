@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-samples app constants
+runs app constants
 """
 
 # app name
@@ -10,7 +10,7 @@ APP_NAME = 'leukforms'
 LEUKFORM_CREATE_URL = APP_NAME + ':create'
 LEUKFORM_LIST_URL = APP_NAME + ':list'
 
-# sample fields
+# run fields
 LEUKFORM_CREATE_FIELDS = [
     'description',
     'submission',
@@ -31,13 +31,12 @@ LEUKFORM_CSV_FIELDS = [
     'Individual.institution',
     'Individual.species',
     'Specimen.ext_id',
-    'Specimen.source',
     'Specimen.source_type',
     'Aliquot.ext_id',
     'Aliquot.bio_source',
-    'Sample.ext_id',
-    'Sample.platform',
-    'Sample.technology',
-    'Sample.center',
-    'Sample.projects',
+    'Run.ext_id',
+    'Run.platform',
+    'Run.technology',
+    'Run.center',
+    'Run.projects',
 ]
