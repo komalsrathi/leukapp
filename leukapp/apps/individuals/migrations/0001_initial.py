@@ -14,19 +14,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Individual',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('slug', models.SlugField(max_length=100, verbose_name='slug', unique=True)),
-                ('institution', models.CharField(choices=[('MSK', 'Memorial Sloan-Kettering Cancer Center'), ('O', 'Other')], verbose_name='institution', max_length=3)),
-                ('species', models.CharField(choices=[('H', 'Human'), ('M', 'Mouse'), ('Y', 'Yeast'), ('Z', 'Zebrafish')], verbose_name='species', max_length=1)),
-                ('ext_id', models.CharField(validators=[django.core.validators.RegexValidator(message="Enter a valid 'External id' consisting of letters, numbers, underscores or hyphens.", code='invalid', regex='^[-a-zA-Z0-9_]+\\Z')], max_length=100, verbose_name='external id', help_text='The external id should be unique at the Institution and Species levels.')),
-                ('specimens_created', models.PositiveSmallIntegerField(default=0, verbose_name='number of specimens created')),
-                ('int_id', models.CharField(max_length=8, verbose_name='internal id')),
+                ('institution', models.CharField(max_length=3, verbose_name='institution', choices=[('MSK', 'Memorial Sloan-Kettering Cancer Center'), ('O', 'Other')])),
+                ('species', models.CharField(max_length=1, verbose_name='species', choices=[('H', 'Human'), ('M', 'Mouse'), ('Y', 'Yeast'), ('Z', 'Zebrafish')])),
+                ('ext_id', models.CharField(help_text='The external id should be unique at the Institution and Species levels.', verbose_name='external id', validators=[django.core.validators.RegexValidator(message="Enter a valid 'External id' consisting of letters, numbers, underscores or hyphens.", code='invalid', regex='^[-a-zA-Z0-9_]+\\Z')], max_length=100)),
+                ('tumors_count', models.PositiveSmallIntegerField(verbose_name='number of tumor specimens created', default=0, editable=False)),
+                ('normals_count', models.PositiveSmallIntegerField(verbose_name='number of normal specimens created', default=0, editable=False)),
+                ('int_id', models.CharField(max_length=8, verbose_name='internal id', editable=False)),
+                ('slug', models.SlugField(verbose_name='slug', editable=False, unique=True)),
             ],
             options={
-                'verbose_name_plural': 'individuals',
                 'verbose_name': 'individual',
+                'verbose_name_plural': 'individuals',
             },
         ),
         migrations.AlterUniqueTogether(

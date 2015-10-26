@@ -9,12 +9,12 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('participants', '0001_initial'),
+        ('leukforms', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='participant',
+            model_name='leukform',
             name='user',
             field=models.ForeignKey(null=True, verbose_name='user', blank=True, to=settings.AUTH_USER_MODEL),
         ),
