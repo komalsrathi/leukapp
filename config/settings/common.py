@@ -59,7 +59,7 @@ LOCAL_APPS = (
     'leukapp.apps.aliquots',
     'leukapp.apps.participants',
     'leukapp.apps.core',
-    'leukapp.apps.samples',
+    'leukapp.apps.runs',
     'leukapp.apps.leukforms',
 )
 

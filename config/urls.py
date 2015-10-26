@@ -73,9 +73,9 @@ urlpatterns = [
     ),
 
     url(
-        r'^samples/',
-        include("leukapp.apps.samples.urls",
-        namespace="samples")
+        r'^runs/',
+        include("leukapp.apps.runs.urls",
+        namespace="runs")
     ),
 
     url(
