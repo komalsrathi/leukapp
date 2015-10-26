@@ -36,13 +36,11 @@ class User(AbstractUser):
         super(User, self).save(*args, **kwargs)
 
         # creates new participant with current user
-        ParticipantFactory(
-            first_name=self.first_name,
-            last_name=self.last_name,
-            email=self.email,
-            phone=self.phone,
-            user=self,
-            ).save()
+        p = ParticipantFactory(email=self.email)
+        p.first_name = self.first_name
+        p.last_name = self.last_name
+        p.phone = self.phone
+        p.save()
 
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
