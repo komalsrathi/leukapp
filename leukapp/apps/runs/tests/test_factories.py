@@ -18,7 +18,7 @@ class AliquotUtilsTest(TestCase):
         b = Run.objects.get(pk=a.pk)
         self.assertEqual(a, b)
 
-    def test_aliquotfactory_doesnt_create_existing_sample(self):
+    def test_aliquotfactory_doesnt_create_existing_run(self):
         a = AliquotFactory()
         s_a = RunFactory(aliquot=a, ext_id='1')
         s_b = RunFactory(aliquot=a, ext_id='1')

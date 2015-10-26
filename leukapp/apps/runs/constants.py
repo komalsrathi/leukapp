@@ -65,7 +65,7 @@ PLATFORM_SHORT = [e[0] for e in PLATFORM]
 TECHNOLOGY_SHORT = [e[0] for e in TECHNOLOGY]
 CENTER_SHORT = [e[0] for e in CENTER]
 
-# sample fields
+# run fields
 RUN_CREATE_FIELDS = [
     'aliquot',
     'platform',
