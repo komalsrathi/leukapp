@@ -31,11 +31,9 @@ ALIQUOT_GET_OR_CREATE_FIELDS = (
 # choices
 DNA = 'D'
 RNA = 'R'
-MIXED = 'M'
 BIO_SOURCE = (
     (DNA, 'DNA'),
     (RNA, 'RNA'),
-    (MIXED, 'MIXED'),
 )
 
 ALIQUOT_CHOICES = {
