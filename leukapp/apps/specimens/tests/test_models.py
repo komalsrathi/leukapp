@@ -30,7 +30,10 @@ class SpecimenModelTest(TestCase):
     def test_unique_together_functionality(self):
         s = SpecimenFactory()
         with self.assertRaises(IntegrityError):
-            Specimen.objects.create(individual=s.individual, ext_id=s.ext_id)
+            Specimen.objects.create(
+                individual=s.individual,
+                ext_id=s.ext_id,
+                source_type=s.source_type)
 
     def test_if_specimen_counters_keep_count_correctly(self):
         i = IndividualFactory()

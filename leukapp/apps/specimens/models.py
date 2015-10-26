@@ -72,8 +72,8 @@ class Specimen(LeukappModel):
     class Meta:
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
-        unique_together = (("ext_id", "individual"))
-        index_together = (("ext_id", "individual"))
+        unique_together = (("ext_id", "individual", "source_type"))
+        index_together = (("ext_id", "individual", "source_type"))
 
     def __str__(self):
         return self.slug

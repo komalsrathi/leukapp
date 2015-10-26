@@ -26,6 +26,7 @@ SPECIMEN_UPDATE_FIELDS = [
 SPECIMEN_GET_OR_CREATE_FIELDS = (
     'individual',
     'ext_id',
+    'source_type',
     )
 
 # choices

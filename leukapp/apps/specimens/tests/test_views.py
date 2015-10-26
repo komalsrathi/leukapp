@@ -3,7 +3,6 @@
 # django imports
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
-from django.conf import settings
 
 # leukapp
 from leukapp.apps.users.factories import UserFactory
@@ -19,14 +18,14 @@ class SpecimensViewsTest(TestCase):
         self.factory = RequestFactory()
         self.user = UserFactory()
 
-    def test_individual_list_view_adds_app_name_to_context(self):
+    def test_specimen_list_view_adds_app_name_to_context(self):
         request = self.factory.get(reverse(constants.APP_NAME + ':list'))
         request.user = self.user
         view = views.SpecimenListView.as_view()
         response = view(request)
         self.assertEqual(response.context_data["APP_NAME"], constants.APP_NAME)
 
-    def test_individual_list_view_adds_create_url_to_context(self):
+    def test_specimen_list_view_adds_create_url_to_context(self):
         request = self.factory.get(reverse(constants.APP_NAME + ':list'))
         request.user = self.user
         view = views.SpecimenListView.as_view()
