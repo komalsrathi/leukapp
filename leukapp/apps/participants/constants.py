@@ -2,6 +2,7 @@
 """
 individuals app constants
 """
+
 # app name
 APP_NAME = 'participants'
 
@@ -10,7 +11,6 @@ CREATE_URL = APP_NAME + ':create'
 LIST_URL = APP_NAME + ':list'
 
 # model fields
-
 PARTICIPANT_CREATE_FIELDS = [
     'first_name',
     'last_name',

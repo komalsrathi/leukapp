@@ -20,6 +20,7 @@ class Participant(LeukappModel):
 
     APP_NAME = APP_NAME
 
+    # external
     first_name = models.CharField(
         _("first name"),
         max_length=100,
@@ -39,12 +40,19 @@ class Participant(LeukappModel):
         validators=[phone_validator],
         blank=True
         )
+
+    # internal
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("user"),
         null=True,
         blank=True
     )
+    slug = models.SlugField(
+        _("slug"),
+        unique=True,
+        editable=False,
+        )
 
     class Meta:
         verbose_name = _(APP_NAME[:-1])
@@ -63,5 +71,7 @@ class Participant(LeukappModel):
             self.last_name = self.user.last_name
         except EmailAddress.DoesNotExist:
             pass
+
+        print
 
         self.slug = self.email

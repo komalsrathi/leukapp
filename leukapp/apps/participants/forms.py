@@ -5,6 +5,7 @@ from crispy_forms.helper import FormHelper
 # from crispy_forms.bootstrap import TabHolder, Tab
 
 from .models import Participant
+from .constants import PARTICIPANT_CREATE_FIELDS
 
 
 class ParticipantForm(forms.ModelForm):
@@ -15,4 +16,4 @@ class ParticipantForm(forms.ModelForm):
 
     class Meta:
         model = Participant
-        fields = ['first_name', 'last_name', 'email', 'phone']
+        fields = PARTICIPANT_CREATE_FIELDS

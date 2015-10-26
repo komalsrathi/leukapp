@@ -12,7 +12,7 @@ from django.views.generic import \
 # third party
 from braces.views import LoginRequiredMixin
 from django_modalview.generic.edit import ModalCreateView
-from django_modalview.generic.component import ModalResponse
+from django_modalview.generic.component import ModalResponse, ModalButton
 
 # local
 from .models import Participant
@@ -67,6 +67,7 @@ class ParticipantCreateModal(ModalCreateView):
         super(ParticipantCreateModal, self).__init__(*args, **kwargs)
         self.title = "Create Participant"
         self.form_class = ParticipantForm
+        self.submit_button = ModalButton("Submit", button_type='primary')
         self.close_button = None
 
     def form_valid(self, form, **kwargs):
