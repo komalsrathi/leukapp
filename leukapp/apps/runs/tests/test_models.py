@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from leukapp.apps.aliquots.factories import AliquotFactory
 
 # local
-from ..utils import RunFactory
+from ..factories import RunFactory
 from ..models import Run
 from .. import constants
 
