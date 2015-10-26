@@ -26,7 +26,11 @@ class AliquotModelTest(TestCase):
             AliquotFactory(ext_id="1234 % ''10").full_clean()
 
     def test_unique_together_functionality(self):
-        kw = {'specimen': SpecimenFactory(), 'ext_id': '1'}
+        kw = {
+            'specimen': SpecimenFactory(),
+            'ext_id': '1',
+            'bio_source': constants.DNA
+            }
         with self.assertRaises(IntegrityError):
             AliquotFactory(**kw)
             Aliquot.objects.create(**kw)

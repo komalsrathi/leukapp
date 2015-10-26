@@ -47,7 +47,7 @@ class Aliquot(LeukappModel):
         editable=False,
         )
     runs_count = models.PositiveSmallIntegerField(
-        _("number of samples created"),
+        _("number of runs created"),
         default=0,
         editable=False,
         )
@@ -60,8 +60,8 @@ class Aliquot(LeukappModel):
     class Meta:
         verbose_name = _(APP_NAME[:-1])
         verbose_name_plural = _(APP_NAME)
-        unique_together = (("ext_id", "specimen"))
-        index_together = (("ext_id", "specimen"))
+        unique_together = (("ext_id", "specimen", "bio_source"))
+        index_together = (("ext_id", "specimen", "bio_source"))
 
     def __str__(self):
         return self.slug
