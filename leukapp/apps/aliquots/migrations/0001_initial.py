@@ -8,22 +8,22 @@ import django.core.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('specimens', '0001_initial'),
+        ('specimens', '0006_auto_20151026_1046'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Aliquot',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('slug', models.SlugField(max_length=100, verbose_name='slug', unique=True)),
-                ('bio_source', models.CharField(choices=[('D', 'DNA'), ('R', 'RNA'), ('M', 'MIXED')], verbose_name='biological material', max_length=1)),
-                ('ext_id', models.CharField(validators=[django.core.validators.RegexValidator(message="Enter a valid 'External id' consisting of letters, numbers, underscores or hyphens.", code='invalid', regex='^[-a-zA-Z0-9_]+\\Z')], max_length=100, verbose_name='external id', help_text='The external id should be unique at the Specimen level.')),
-                ('int_id', models.CharField(null=True, max_length=8, verbose_name='internal id')),
-                ('samples_created', models.PositiveSmallIntegerField(default=0, verbose_name='number of samples created')),
-                ('specimen', models.ForeignKey(verbose_name='specimen', to='specimens.Specimen')),
+                ('bio_source', models.CharField(max_length=1, choices=[('D', 'DNA'), ('R', 'RNA')], verbose_name='biological material')),
+                ('ext_id', models.CharField(help_text='The external id should be unique at the Specimen level.', max_length=100, validators=[django.core.validators.RegexValidator(code='invalid', message="Enter a valid 'External id' consisting of letters, numbers, underscores or hyphens.", regex='^[-a-zA-Z0-9_]+\\Z')], verbose_name='external id')),
+                ('int_id', models.CharField(null=True, editable=False, max_length=8, verbose_name='internal id')),
+                ('runs_count', models.PositiveSmallIntegerField(default=0, editable=False, verbose_name='number of samples created')),
+                ('slug', models.SlugField(unique=True, verbose_name='slug', editable=False)),
+                ('specimen', models.ForeignKey(to='specimens.Specimen', verbose_name='specimen')),
             ],
             options={
                 'verbose_name_plural': 'aliquots',
