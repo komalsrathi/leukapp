@@ -11,7 +11,7 @@ from leukapp.apps.aliquots.models import Aliquot
 from leukapp.apps.projects.models import Project
 
 # local
-from .constants import APP_NAME, RUN_CHOICES
+from . import constants
 
 
 class Run(LeukappModel):
@@ -20,8 +20,8 @@ class Run(LeukappModel):
     requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=2010180721
     """
 
-    APP_NAME = APP_NAME
-    CHOICES = RUN_CHOICES
+    APP_NAME = constants.APP_NAME
+    CHOICES = constants.RUN_CHOICES
 
     # external fields
     aliquot = models.ForeignKey(
@@ -58,7 +58,6 @@ class Run(LeukappModel):
     order = models.PositiveSmallIntegerField(
         _("desired order"),
         default=0,
-        editable=False,
         )
 
     # internal fields
@@ -74,10 +73,10 @@ class Run(LeukappModel):
         )
 
     class Meta:
-        verbose_name = _(APP_NAME[:-1])
-        verbose_name_plural = _(APP_NAME)
-        unique_together = (("ext_id", "aliquot"))
-        index_together = (("ext_id", "aliquot"))
+        verbose_name = _(constants.APP_NAME[:-1])
+        verbose_name_plural = _(constants.APP_NAME)
+        unique_together = (constants.RUN_UNIQUE_TOGETHER)
+        index_together = (constants.RUN_UNIQUE_TOGETHER)
 
     def __str__(self):
         return self.slug

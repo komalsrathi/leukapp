@@ -11,14 +11,14 @@ from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import phone_validator
 
 # local imports
-from .constants import APP_NAME
+from . import constants
 
 
 class Participant(LeukappModel):
 
     """docstring for Participant"""
 
-    APP_NAME = APP_NAME
+    APP_NAME = constants.APP_NAME
 
     # external
     first_name = models.CharField(
@@ -55,8 +55,8 @@ class Participant(LeukappModel):
         )
 
     class Meta:
-        verbose_name = _(APP_NAME[:-1])
-        verbose_name_plural = _(APP_NAME)
+        verbose_name = _(constants.APP_NAME[:-1])
+        verbose_name_plural = _(constants.APP_NAME)
 
     def __str__(self):
         return self.slug

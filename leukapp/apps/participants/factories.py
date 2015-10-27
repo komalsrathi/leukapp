@@ -16,7 +16,7 @@ class ParticipantFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Participant
-        django_get_or_create = constants.PARTICIPANT_GET_OR_CREATE_FIELDS
+        django_get_or_create = constants.PARTICIPANT_UNIQUE_TOGETHER
 
     first_name = FuzzyText(length=3, chars=string.ascii_lowercase)
     last_name = FuzzyText(length=3, chars=string.ascii_lowercase)

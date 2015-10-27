@@ -16,7 +16,7 @@ class IndividualFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Individual
-        django_get_or_create = constants.INDIVIDUAL_GET_OR_CREATE_FIELDS
+        django_get_or_create = constants.INDIVIDUAL_UNIQUE_TOGETHER
 
     institution = FuzzyChoice(constants.INSTITUTION_SHORT)
     species = FuzzyChoice(constants.SPECIES_SHORT)

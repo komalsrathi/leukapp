@@ -12,18 +12,18 @@ SPECIMEN_CREATE_URL = APP_NAME + ':create'
 SPECIMEN_LIST_URL = APP_NAME + ':list'
 
 # models fields
-SPECIMEN_CREATE_FIELDS = [
+SPECIMEN_CREATE_FIELDS = (
     'individual',
     'source',
     'source_type',
     'ext_id',
-    ]
+    )
 
-SPECIMEN_UPDATE_FIELDS = [
+SPECIMEN_UPDATE_FIELDS = (
     'source',
-    ]
+    )
 
-SPECIMEN_GET_OR_CREATE_FIELDS = (
+SPECIMEN_UNIQUE_TOGETHER = (
     'individual',
     'ext_id',
     'source_type',

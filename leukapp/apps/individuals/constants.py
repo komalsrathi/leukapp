@@ -11,18 +11,18 @@ INDIVIDUAL_CREATE_URL = APP_NAME + ':create'
 INDIVIDUAL_LIST_URL = APP_NAME + ':list'
 
 # models fields
-INDIVIDUAL_CREATE_FIELDS = [
+INDIVIDUAL_CREATE_FIELDS = (
     'institution',
     'species',
     'ext_id',
-    ]
+    )
 
-INDIVIDUAL_UPDATE_FIELDS = [
+INDIVIDUAL_UPDATE_FIELDS = (
     'institution',
     'species',
-    ]
+    )
 
-INDIVIDUAL_GET_OR_CREATE_FIELDS = (
+INDIVIDUAL_UNIQUE_TOGETHER = (
     'institution',
     'species',
     'ext_id',

@@ -10,7 +10,7 @@ from leukapp.apps.core.validators import ext_id_validator
 from leukapp.apps.specimens.models import Specimen
 
 # local imports
-from .constants import APP_NAME, ALIQUOT_CHOICES, DNA, RNA
+from . import constants
 
 
 class Aliquot(LeukappModel):
@@ -19,8 +19,8 @@ class Aliquot(LeukappModel):
     requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=365039979
     """
 
-    APP_NAME = APP_NAME
-    CHOICES = ALIQUOT_CHOICES
+    APP_NAME = constants.APP_NAME
+    CHOICES = constants.ALIQUOT_CHOICES
 
     # external fields
     specimen = models.ForeignKey(
@@ -58,10 +58,10 @@ class Aliquot(LeukappModel):
         )
 
     class Meta:
-        verbose_name = _(APP_NAME[:-1])
-        verbose_name_plural = _(APP_NAME)
-        unique_together = (("ext_id", "specimen", "bio_source"))
-        index_together = (("ext_id", "specimen", "bio_source"))
+        verbose_name = _(constants.APP_NAME[:-1])
+        verbose_name_plural = _(constants.APP_NAME)
+        unique_together = (constants.ALIQUOT_UNIQUE_TOGETHER)
+        index_together = (constants.ALIQUOT_UNIQUE_TOGETHER)
 
     def __str__(self):
         return self.slug
@@ -77,10 +77,10 @@ class Aliquot(LeukappModel):
 
     def get_int_id(self):
         """ return int_id based on count of tumors/normals per Individual """
-        if self.bio_source == DNA:
+        if self.bio_source == constants.DNA:
             self.specimen.dna_count += 1
             self.int_id = self.bio_source + str(self.specimen.dna_count)
-        elif self.bio_source == RNA:
+        elif self.bio_source == constants.RNA:
             self.specimen.rna_count += 1
             self.int_id = self.bio_source + str(self.specimen.rna_count)
         self.specimen.save()

@@ -8,7 +8,7 @@ from leukapp.apps.core.validators import object_name_validator
 from leukapp.apps.participants.models import Participant
 
 # local imports
-from .constants import APP_NAME
+from . import constants
 
 
 class Project(LeukappModel):
@@ -17,7 +17,7 @@ class Project(LeukappModel):
     requirements= https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=0
     """
 
-    APP_NAME = APP_NAME
+    APP_NAME = constants.APP_NAME
 
     # external
     name = models.CharField(
@@ -77,8 +77,8 @@ class Project(LeukappModel):
         )
 
     class Meta:
-        verbose_name = _(APP_NAME[:-1])
-        verbose_name_plural = _(APP_NAME)
+        verbose_name = _(constants.APP_NAME[:-1])
+        verbose_name_plural = _(constants.APP_NAME)
 
     def __str__(self):
         return self.slug

@@ -10,7 +10,7 @@ from leukapp.apps.core.validators import ext_id_validator
 from leukapp.apps.individuals.models import Individual
 
 # local imports
-from .constants import APP_NAME, SPECIMEN_CHOICES, TUMOR, NORMAL
+from . import constants
 
 
 class Specimen(LeukappModel):
@@ -19,8 +19,8 @@ class Specimen(LeukappModel):
     requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=1125452971
     """
 
-    APP_NAME = APP_NAME
-    CHOICES = SPECIMEN_CHOICES
+    APP_NAME = constants.APP_NAME
+    CHOICES = constants.SPECIMEN_CHOICES
 
     # external fields
     individual = models.ForeignKey(
@@ -70,10 +70,10 @@ class Specimen(LeukappModel):
         )
 
     class Meta:
-        verbose_name = _(APP_NAME[:-1])
-        verbose_name_plural = _(APP_NAME)
-        unique_together = (("ext_id", "individual", "source_type"))
-        index_together = (("ext_id", "individual", "source_type"))
+        verbose_name = _(constants.APP_NAME[:-1])
+        verbose_name_plural = _(constants.APP_NAME)
+        unique_together = (constants.SPECIMEN_UNIQUE_TOGETHER)
+        index_together = (constants.SPECIMEN_UNIQUE_TOGETHER)
 
     def __str__(self):
         return self.slug
@@ -90,10 +90,10 @@ class Specimen(LeukappModel):
 
     def get_int_id(self):
         """ return int_id based on count of tumors/normals per Individual """
-        if self.source_type == TUMOR:
+        if self.source_type == constants.TUMOR:
             self.individual.tumors_count += 1
             self.int_id = self.source_type + str(self.individual.tumors_count)
-        elif self.source_type == NORMAL:
+        elif self.source_type == constants.NORMAL:
             self.individual.normals_count += 1
             self.int_id = self.source_type + str(self.individual.normals_count)
         self.individual.save()

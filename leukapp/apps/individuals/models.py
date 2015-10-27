@@ -9,7 +9,7 @@ from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import ext_id_validator
 
 # local
-from .constants import APP_NAME, INDIVIDUAL_CHOICES
+from . import constants
 
 
 class Individual(LeukappModel):
@@ -18,8 +18,8 @@ class Individual(LeukappModel):
     requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627
     """
 
-    APP_NAME = APP_NAME
-    CHOICES = INDIVIDUAL_CHOICES
+    APP_NAME = constants.APP_NAME
+    CHOICES = constants.INDIVIDUAL_CHOICES
 
     # external fields
     institution = models.CharField(
@@ -63,10 +63,10 @@ class Individual(LeukappModel):
         )
 
     class Meta:
-        verbose_name = _(APP_NAME[:-1])
-        verbose_name_plural = _(APP_NAME)
-        unique_together = (("ext_id", "institution", "species"))
-        index_together = (("ext_id", "institution", "species"))
+        verbose_name = _(constants.APP_NAME[:-1])
+        verbose_name_plural = _(constants.APP_NAME)
+        unique_together = (constants.INDIVIDUAL_UNIQUE_TOGETHER)
+        index_together = (constants.INDIVIDUAL_UNIQUE_TOGETHER)
 
     def __str__(self):
         return self.slug

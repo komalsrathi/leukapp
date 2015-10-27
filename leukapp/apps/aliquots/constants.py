@@ -12,17 +12,17 @@ ALIQUOT_CREATE_URL = APP_NAME + ':create'
 ALIQUOT_LIST_URL = APP_NAME + ':list'
 
 # models fields
-ALIQUOT_CREATE_FIELDS = [
+ALIQUOT_CREATE_FIELDS = (
     'specimen',
     'bio_source',
     'ext_id',
-    ]
+    )
 
-ALIQUOT_UPDATE_FIELDS = [
+ALIQUOT_UPDATE_FIELDS = (
     'bio_source',
-    ]
+    )
 
-ALIQUOT_GET_OR_CREATE_FIELDS = (
+ALIQUOT_UNIQUE_TOGETHER = (
     'specimen',
     'bio_source',
     'ext_id',

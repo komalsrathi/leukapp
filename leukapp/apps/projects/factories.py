@@ -19,7 +19,7 @@ class ProjectFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Project
-        django_get_or_create = constants.PROJECT_GET_OR_CREATE_FIELDS
+        django_get_or_create = constants.PROJECT_UNIQUE_TOGETHER
 
     name = FuzzyText(length=10, chars=string.ascii_lowercase)
     description = FuzzyText(length=140, chars=string.ascii_lowercase)

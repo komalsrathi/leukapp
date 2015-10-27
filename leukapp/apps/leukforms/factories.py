@@ -28,10 +28,15 @@ class LeukformCsvFactory(object):
     Class used as a runs factory.
 
     Attributes:
-        individuals: list of all individuals created
-        specimens: list of all specimens created
-        aliquots: list of all aliquots created
-        rows: simulates the leukform
+        individuals (list): list of all individuals created
+        specimens (list): list of all specimens created
+        aliquots (list): list of all aliquots created
+        rows (list of dictionaries): simulates the leukform
+    Methods:
+        create_batch: creates a batch of runs
+        create_rows: creates `rows` simulating leukform based on batch
+        create_csv_from_rows: creates csv from rows
+        create_stringio_from_rows: creates StringIO from rows
     """
 
     def __init__(self):

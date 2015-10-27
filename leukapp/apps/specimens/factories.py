@@ -19,7 +19,7 @@ class SpecimenFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Specimen
-        django_get_or_create = constants.SPECIMEN_GET_OR_CREATE_FIELDS
+        django_get_or_create = constants.SPECIMEN_UNIQUE_TOGETHER
 
     individual = factory.SubFactory(IndividualFactory)
     source = FuzzyChoice(constants.SOURCE_SHORT)

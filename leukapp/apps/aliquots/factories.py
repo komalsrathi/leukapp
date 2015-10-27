@@ -19,7 +19,7 @@ class AliquotFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Aliquot
-        django_get_or_create = constants.ALIQUOT_GET_OR_CREATE_FIELDS
+        django_get_or_create = constants.ALIQUOT_UNIQUE_TOGETHER
 
     specimen = factory.SubFactory(SpecimenFactory)
     bio_source = FuzzyChoice(constants.BIO_SOURCE_SHORT)

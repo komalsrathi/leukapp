@@ -20,7 +20,7 @@ class RunFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Run
-        django_get_or_create = constants.RUN_GET_OR_CREATE_FIELDS
+        django_get_or_create = constants.RUN_UNIQUE_TOGETHER
 
     aliquot = factory.SubFactory(AliquotFactory)
     platform = FuzzyChoice(constants.PLATFORM_SHORT)

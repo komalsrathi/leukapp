@@ -66,22 +66,23 @@ TECHNOLOGY_SHORT = [e[0] for e in TECHNOLOGY]
 CENTER_SHORT = [e[0] for e in CENTER]
 
 # run fields
-RUN_CREATE_FIELDS = [
+RUN_CREATE_FIELDS = (
     'aliquot',
     'platform',
     'technology',
     'center',
     'ext_id',
     'projects',
-    ]
+    'order',
+    )
 
-RUN_UPDATE_FIELDS = [
+RUN_UPDATE_FIELDS = (
     'platform',
     'technology',
     'center',
-    ]
+    )
 
-RUN_GET_OR_CREATE_FIELDS = (
+RUN_UNIQUE_TOGETHER = (
     'aliquot',
     'ext_id',
     )
