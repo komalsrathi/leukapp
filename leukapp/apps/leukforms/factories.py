@@ -5,6 +5,7 @@ import random
 import os
 import datetime
 import csv
+import io
 
 # django
 from django.core.exceptions import ImproperlyConfigured
@@ -57,8 +58,12 @@ class LeukformCsvFactory(object):
             aliquots (int): number of aliquots per specimen
             runs (int): number of runs per aliquot
         Raises:
-            not defined yet
+            ImproperlyConfigured if batch has already been created
         """
+        if self.individuals:
+            msg = "Batch has already been created, run .__init__() to reset"
+            raise ImproperlyConfigured(msg)
+
         projects = [ProjectFactory(name=str(i)) for i in range(10)]
         self.individuals += IndividualFactory.create_batch(individuals)
 
@@ -71,9 +76,11 @@ class LeukformCsvFactory(object):
             self.aliquots += AliquotFactory.create_batch(aliquots, **kwargs)
 
         for aliquot in self.aliquots:
-            projects_list = random.sample(projects, 3)
-            kwargs = {'aliquot': aliquot, 'projects': projects_list}
-            self.runs += RunFactory.create_batch(runs, **kwargs)
+            for i in range(runs):
+                i = str(i)
+                run_projects = random.sample(projects, 3)
+                r = RunFactory(aliquot=aliquot, projects=run_projects, order=i)
+                self.runs.append(r)
 
     def create_rows(self):
         """
@@ -81,11 +88,16 @@ class LeukformCsvFactory(object):
 
         Raises:
             ImproperlyConfigured("create rows first")
-        tests: test_runs_factory_create_rows
         """
 
         if not self.individuals:
             raise ImproperlyConfigured("create batch first")
+
+        if self.rows:
+            msg = "Rows has already been created. "
+            msg += "Run `object`.__init__() if you want to reset"
+            print(msg)
+            return self.rows
 
         for run in self.runs:
 
@@ -96,7 +108,7 @@ class LeukformCsvFactory(object):
             aliquot = run.aliquot
             specimen = aliquot.specimen
             individual = specimen.individual
-            individual  # Just here to avoid unused error
+            individual  # Just here to avoid unused error in my code editor
 
             # initialize row
             row = {}
@@ -108,11 +120,12 @@ class LeukformCsvFactory(object):
                     row[col] = projects
                 else:
                     value = '{0}.{1}'.format(model.lower(), field)
-                    row[col] = eval(value)
+                    row[col] = str(eval(value))
 
             # append row to rows
             self.rows.append(row)
 
+        random.shuffle(self.rows)
         return self.rows
 
     def create_csv_from_rows(self):
@@ -123,7 +136,6 @@ class LeukformCsvFactory(object):
             Path of csv
         Raises:
             ImproperlyConfigured("create rows first")
-        tests: test_csv_from_rows
         """
         if not self.rows:
             raise ImproperlyConfigured("create rows first")
@@ -148,19 +160,15 @@ class LeukformCsvFactory(object):
             Path of csv
         Raises:
             ImproperlyConfigured("create rows first")
-        tests: test_csv_from_rows
         """
         if not self.rows:
             raise ImproperlyConfigured("create rows first")
 
-        timestamp = datetime.datetime.now().isoformat()
-        file_name = 'test_leukform_' + timestamp + '.csv'
-        path = os.path.join(settings.MEDIA_ROOT, 'csv', 'outrows', file_name)
         keys = LEUKFORM_CSV_FIELDS
+        out = io.StringIO()
+        dict_writer = csv.DictWriter(out, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(self.out)
+        out.seek(0)
 
-        with open(path, 'w') as output_file:
-            dict_writer = csv.DictWriter(output_file, keys)
-            dict_writer.writeheader()
-            dict_writer.writerows(self.rows)
-
-        return path
+        return out
