@@ -114,4 +114,4 @@ class Leukform(LeukappModel):
 def leukform_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.submission.delete(False)
-    instance.results.delete(False)
+    instance.result.delete(False)
