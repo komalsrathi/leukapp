@@ -38,5 +38,6 @@ LEUKFORM_CSV_FIELDS = [
     'Run.platform',
     'Run.technology',
     'Run.center',
+    'Run.order',
     'Run.projects',
 ]
