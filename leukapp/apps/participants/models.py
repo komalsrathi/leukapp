@@ -71,7 +71,4 @@ class Participant(LeukappModel):
             self.last_name = self.user.last_name
         except EmailAddress.DoesNotExist:
             pass
-
-        print
-
         self.slug = self.email
