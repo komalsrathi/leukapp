@@ -53,7 +53,12 @@ class Run(LeukappModel):
         max_length=100,
         validators=[ext_id_validator],
         help_text=_("The sequencing center id should be unique at the "
-            "Institution and Species levels."),
+            "Aliquot level."),
+        )
+    order = models.PositiveSmallIntegerField(
+        _("desired order"),
+        default=0,
+        editable=False,
         )
 
     # internal fields
