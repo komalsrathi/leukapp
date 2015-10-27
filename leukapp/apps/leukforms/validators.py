@@ -24,27 +24,23 @@ def leukform_csv_validator(document):
     try:
         with open(full_tmp_path, 'r') as leukform:
             rows = csv.DictReader(leukform, delimiter=",")
-
-            count = 0
-            for row in rows:
-                if count == 0:
-                    skeys = set(row.keys())
-                    sleukfields = set(LEUKFORM_CSV_FIELDS)
-                    if not sleukfields.issubset(skeys):
-                        dif = sleukfields - skeys
-                        raise ValidationError(
-                            u'Invalid leukform: missing columns, %s'
-                            % str(dif))
-                count += 1
-                break
-
-            if count == 0:
-                raise ValidationError(u'Invalid leukform: empty rows')
-
+            rows = list(rows)
+            try:
+                row = rows[0]
+                keys = set(row.keys())
+                leukformcsvfields = set(LEUKFORM_CSV_FIELDS)
+                if not leukformcsvfields.issubset(keys):
+                    dif = leukformcsvfields - keys
+                    msg = u'Invalid leukform: missing columns, %s' % str(dif)
+                    raise ValidationError(msg)
+            except IndexError:
+                raise ValidationError(u'Invalid leukform: empty rows.')
     except csv.Error:
-        raise ValidationError(u'Not a valid csv file')
+        raise ValidationError(u'Not a valid csv file.')
     except UnicodeDecodeError:
-        raise ValidationError(u'Invalid encoding type, please use utf-8')
-    return True
+        msg = u'Invalid encoding type. '
+        msg += 'Please use utf-8 and make sure is a valid csv file.'
+        raise ValidationError(msg)
 
-    default_storage.delete(tmp_path)
+    default_storage.delete(full_tmp_path)
+    return True
