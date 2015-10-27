@@ -62,7 +62,7 @@ INSTALLED_APPS += ("gunicorn", )
 # STORAGE CONFIGURATION
 # -----------------------------------------------------------------------------
 # Uploaded Media Files
-# ------------------------
+# --------------------
 # See: http://django-storages.readthedocs.org/en/latest/index.html
 INSTALLED_APPS += (
     'storages',
@@ -92,7 +92,7 @@ AWS_HEADERS = {
 MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 
 # Static Assests
-# ------------------------
+# -----------------------------------------------------------------------------
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 

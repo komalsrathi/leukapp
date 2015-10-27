@@ -18,6 +18,8 @@
   </button>
 </p>
 
+{{ object.participants.all }}
+
 {% endblock %}
 
 
@@ -60,7 +62,7 @@ $(document).ready(function () {
 </script>
 
 
-<!-- Analyst -->
+<!-- Requestor -->
 <script type="text/javascript">
 
 $(document).ready(function () {
@@ -79,22 +81,22 @@ $(document).ready(function () {
 });
 </script>
 
-<!-- Analyst -->
+<!-- Participants -->
 <script type="text/javascript">
 participants = [];
 $(document).ready(function () {
     $("#id_participants").tokenInput(
         "{% url 'participants:search' %}",
-      {
-      {% if object %}
-        prePopulate: [
-            {% for p in object.participants.all %}
-              {id: "{{ p.pk }}",
-              name: "{{ p.email }}"},
-            {% endfor %}
-          ],
-      {% endif %}
-      }
+        {
+        {% if object %}
+          prePopulate: [
+              {% for p in object.participants.all %}
+                {id: "{{ p.pk }}",
+                name: "{{ p.email }}"},
+              {% endfor %}
+            ],
+        {% endif %}
+        }
     );
 });
 </script>

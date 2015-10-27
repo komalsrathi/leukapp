@@ -7,8 +7,8 @@ projects app constants
 APP_NAME = 'projects'
 
 # urls
-CREATE_URL = APP_NAME + ':create'
-LIST_URL = APP_NAME + ':list'
+PROJECT_CREATE_URL = APP_NAME + ':create'
+PROJECT_LIST_URL = APP_NAME + ':list'
 
 # fields
 PROJECT_CREATE_FIELDS = (
