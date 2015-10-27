@@ -18,7 +18,7 @@ class TestRunsFromCsv(TestCase):
         self.batch.create_batch(1, 1, 1, 1)
         self.batch.create_rows()
         self.row = self.batch.rows[0]
-        self.loader.fields_from_row(self.row)
+        self.loader._fields_from_row(self.row)
 
         # batch instances
         self.created = {
@@ -29,12 +29,12 @@ class TestRunsFromCsv(TestCase):
             }
 
         self.row = self.batch.rows[0]
-        self.loader.fields_from_row(self.row)
+        self.loader._fields_from_row(self.row)
 
-        individual, errors = self.loader.get_or_create(model='Individual')
-        specimen, errors = self.loader.get_or_create(model='Specimen')
-        aliquot, errors = self.loader.get_or_create(model='Aliquot')
-        run, errors = self.loader.get_or_create(model='Run')
+        individual, errors = self.loader._get_or_create(model='Individual')
+        specimen, errors = self.loader._get_or_create(model='Specimen')
+        aliquot, errors = self.loader._get_or_create(model='Aliquot')
+        run, errors = self.loader._get_or_create(model='Run')
 
         # batch instances
         self.loaded = {
@@ -45,7 +45,7 @@ class TestRunsFromCsv(TestCase):
             }
 
     def test_fields_from_row_excluding_run(self):
-        fields = self.loader.fields_from_row(self.row)
+        fields = self.loader._fields_from_row(self.row)
         for model in self.models:
             fields[model].pop('projects', None)
             fields[model].pop('individual', None)
@@ -56,7 +56,7 @@ class TestRunsFromCsv(TestCase):
                 self.assertEqual(fields[model][field], eval(value))
 
     def test_fields_for_run_projects(self):
-        fields = self.loader.fields_from_row(self.row)
+        fields = self.loader._fields_from_row(self.row)
         projects = [p.pk for p in self.created['Run'].projects.all()]
         for p in fields['Run']['projects']:
             self.assertIn(p, projects)
@@ -70,7 +70,7 @@ class TestRunsFromCsv(TestCase):
     def test_get_or_create_using_nonexistent_instance(self):
         for model in self.models:
             self.loader.input[model] = {}
-            instance, errors = self.loader.get_or_create(model)
+            instance, errors = self.loader._get_or_create(model)
             self.assertNotEqual(errors, None)
 
     def test_create_instance_form_valid(self):
@@ -80,7 +80,7 @@ class TestRunsFromCsv(TestCase):
             self.created[model].delete()
 
         for model in self.models:
-            instance, errors = self.loader.get_or_create(model=model)
+            instance, errors = self.loader._get_or_create(model=model)
             added = [instance]
             self.assertCountEqual(self.loader.added[model], added)
             self.assertEqual(instance.ext_id, ext_ids[model])
@@ -89,27 +89,27 @@ class TestRunsFromCsv(TestCase):
         self.row['Individual.institution'] = ''
         self.row['Individual.species'] = ''
         self.row['Individual.ext_id'] = ''
-        self.loader.fields_from_row(self.row)
+        self.loader._fields_from_row(self.row)
         self.loader.save_runs_from_rows(self.batch.rows)
         self.assertEqual(self.loader.rejected["Individual"], 1)
 
     def test_process_row_invalid_specimen(self):
         self.row['Specimen.ext_id'] = ''
-        self.loader.fields_from_row(self.row)
+        self.loader._fields_from_row(self.row)
         self.loader.save_runs_from_rows(self.batch.rows)
         self.assertEqual(self.loader.rejected["Specimen"], 1)
 
     def test_process_row_invalid_aliquot(self):
         self.row['Aliquot.bio_source'] = ''
         self.row['Aliquot.ext_id'] = ''
-        self.loader.fields_from_row(self.row)
+        self.loader._fields_from_row(self.row)
         self.loader.save_runs_from_rows(self.batch.rows)
         self.assertEqual(self.loader.rejected["Aliquot"], 1)
 
     def test_process_row_invalid_run(self):
         self.batch.runs[0].delete()
         self.row['Run.projects'] = 'asa5|ss56'
-        self.loader.fields_from_row(self.row)
+        self.loader._fields_from_row(self.row)
         self.loader.save_runs_from_rows(self.batch.rows)
         self.assertEqual(self.loader.rejected["Run"], 1)
 

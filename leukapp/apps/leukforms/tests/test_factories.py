@@ -15,19 +15,15 @@ class LeukformCsvFactoryTest(TestCase):
 
     def test_leukform_factory_create_batch(self):
         batch = LeukformCsvFactory()
-        batch.create_batch(10, 2, 2, 1)
-        self.assertEqual(len(batch.individuals), 10)
+        batch.create_batch(4, 2, 2, 1)
+        batch.create_rows()
+        self.assertEqual(len(batch.individuals), 4)
         self.assertNotEqual(batch.individuals[0].slug, None)
         self.assertNotEqual(batch.specimens[0].slug, None)
         self.assertNotEqual(batch.aliquots[0].slug, None)
         self.assertNotEqual(batch.runs[0].slug, None)
-
-    def test_leukform_factory_create_rows(self):
-        batch = LeukformCsvFactory()
-        batch.create_batch(10, 2, 2, 1)
-        batch.create_rows()
         self.assertGreater(len(batch.rows), 5)
-        self.assertLessEqual(len(batch.rows), 10 * 2 * 2)
+        self.assertLessEqual(len(batch.rows), 4 * 2 * 2 * 1)
 
     def test_csv_from_rows(self):
         batch = LeukformCsvFactory()
