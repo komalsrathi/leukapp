@@ -61,18 +61,30 @@ class RunsFromCsv(object):
             self.rejected[model] = 0
 
     def submit(self, filename):
+        """ Adds rows from csv file """
         with open(filename, 'r') as leukform:
             rows = csv.DictReader(leukform, delimiter=",")
             return self.save_runs_from_rows(rows)
 
     def save_runs_from_rows(self, rows):
-        """ Adds runs from csv """
-        self.process_rows(rows)
-        summary = self.write_summary()
-        return self.out(summary)
+        """ Adds runs from list of dictionaries  """
+        self._process_rows(rows)
+        summary = self._write_summary()
+        return self._write_out(summary)
 
-    def out(self, summary):
-        """ process output dictionary including a csv results file """
+    def _write_summary(self):
+        """ writes out summary text"""
+        summary = ''
+        for model in self.models_keys:
+            added = str(len(self.added[model]))
+            existed = str(len(self.existed[model]))
+            rejected = str(self.rejected[model])
+            txt = '{0}s -> {1} added, {2} existed, {3} rejected.\n'
+            summary += txt.format(model, added, existed, rejected)
+        return summary
+
+    def _write_out(self, summary):
+        """ Process output dictionary including a csv results file """
         keys = LEUKFORM_CSV_FIELDS.copy()
         keys.extend(['STATUS', 'RESULT'])
         result = io.StringIO()
@@ -90,26 +102,17 @@ class RunsFromCsv(object):
 
         return out
 
-    def write_summary(self):
-        """ writes out summary text"""
-        summary = ''
-        for model in self.models_keys:
-            added = str(len(self.added[model]))
-            existed = str(len(self.existed[model]))
-            rejected = str(self.rejected[model])
-            txt = '{0}s -> {1} added, {2} existed, {3} rejected.\n'
-            summary += txt.format(model, added, existed, rejected)
-        return summary
-
-    def process_rows(self, rows):
+    def _process_rows(self, rows):
         """ process csv rows """
+
+        rows = self._sort_rows(rows)
         for row in rows:
-            self.fields_from_row(row)
+            self._fields_from_row(row)
             row['RESULT'] = None
             row['STATUS'] = None
 
             for model in self.models_keys:
-                instance, errors = self.get_or_create(model=model)
+                instance, errors = self._get_or_create(model=model)
                 if errors:
                     row['RESULT'] = errors
                     row['STATUS'] = 'REJECTED'
@@ -126,7 +129,19 @@ class RunsFromCsv(object):
         for model in self.models:
             self.existed[model] = set(self.existed[model])
 
-    def fields_from_row(self, row):
+    def _sort_rows(self, rows):
+        """ Sorts rows based on Run.order column """
+        return sorted(
+            rows,
+            key=lambda k: (
+                k['Individual.ext_id'],
+                k['Specimen.ext_id'],
+                k['Aliquot.ext_id'],
+                int(k['Run.order']),
+                )
+            )
+
+    def _fields_from_row(self, row):
         """
         Gets fields from rows.
 
@@ -144,6 +159,7 @@ class RunsFromCsv(object):
             model, field = k.split('.')
             if field == 'projects' and model == 'Run':
                 try:
+                    # parse projects
                     projects = [int(e) for e in row[k].split("|")]
                     self.input[model][field] = projects
                 except Exception:
@@ -153,7 +169,7 @@ class RunsFromCsv(object):
 
         return self.input
 
-    def get_or_create(self, model):
+    def _get_or_create(self, model):
         """
         Gets or creates instance while collecting results data.
 
@@ -182,10 +198,10 @@ class RunsFromCsv(object):
                 errors = form.errors.as_json()
 
         # update foreing key for next model
-        self.update_input(model, instance)
+        self._update_input(model, instance)
         return instance, errors
 
-    def update_input(self, model, instance):
+    def _update_input(self, model, instance):
         """ Updates child instances after parent are found or created. """
         if model == 'Individual' and instance:
             self.input['Specimen']['individual'] = instance.pk
