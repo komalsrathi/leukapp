@@ -10,6 +10,11 @@ from leukapp.apps.specimens.models import Specimen
 from leukapp.apps.aliquots.models import Aliquot
 from leukapp.apps.runs.models import Run
 
+from leukapp.apps.individuals.constants import INDIVIDUAL_UNIQUE_TOGETHER
+from leukapp.apps.specimens.constants import SPECIMEN_UNIQUE_TOGETHER
+from leukapp.apps.aliquots.constants import ALIQUOT_UNIQUE_TOGETHER
+from leukapp.apps.runs.constants import RUN_UNIQUE_TOGETHER
+
 # local
 from .constants import LEUKFORM_CSV_FIELDS
 from .forms import IndividualForm, SpecimenForm, AliquotForm, RunForm
@@ -27,6 +32,13 @@ class RunsFromCsv(object):
 
         # models list
         self.models_keys = ['Individual', 'Specimen', 'Aliquot', 'Run']
+
+        self.unique_together = {
+            'Individual': INDIVIDUAL_UNIQUE_TOGETHER,
+            'Specimen': SPECIMEN_UNIQUE_TOGETHER,
+            'Aliquot': ALIQUOT_UNIQUE_TOGETHER,
+            'Run': RUN_UNIQUE_TOGETHER,
+        }
 
         # models
         self.models = {
@@ -181,16 +193,16 @@ class RunsFromCsv(object):
         """
         errors, instance = None, None
         form = self.forms[model](self.input[model])
-        search = self.input[model].copy()
+        search = {k: self.input[model][k] for k in self.unique_together[model]}
 
         try:
             if not self.input[model]:
                 raise self.models[model].DoesNotExist
-            search.pop('projects', None)
             instance = self.models[model].objects.get(**search)
             if instance not in self.added[model]:
                 self.existed[model].append(instance)
-        except self.models[model].DoesNotExist:
+        except self.models[model].DoesNotExist as e:
+            print(e, search)
             if form.is_valid():
                 instance = form.save()
                 self.added[model].append(instance)
