@@ -101,6 +101,9 @@ def _update_static_files(virtualenv, settings):
 
 def _update_database(virtualenv, settings):
     workon = 'workon ' + virtualenv
+    makemigrations = workon + ' && python manage.py makemigrations --noinput'
+    command = makemigrations + ' --settings=' + settings
+    run(command)
     migrate = workon + ' && python manage.py migrate --noinput'
     command = migrate + ' --settings=' + settings
     run(command)
