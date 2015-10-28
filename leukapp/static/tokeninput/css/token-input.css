@@ -105,13 +105,14 @@ li.token-input-selected-token span {
 
 div.token-input-dropdown {
     position: absolute;
-    width: 400px;
+    /*width: 60%;*/
     background-color: #fff;
     overflow: hidden;
     cursor: default;
     font-size: 12px;
     font-family: inherit;
     z-index: 1;
+    margin-left: 15px;
 
     /*border*/
     border: 1px solid #ccc;

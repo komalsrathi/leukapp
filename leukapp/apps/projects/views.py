@@ -18,7 +18,6 @@ from __future__ import absolute_import, unicode_literals
 from django import forms
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
-from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.views.generic import \
     DetailView, ListView, RedirectView, UpdateView, CreateView
@@ -29,7 +28,6 @@ from braces.views import LoginRequiredMixin
 # local
 from .models import Project
 from . import constants
-from .forms import ProjectUpdateForm
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
@@ -89,6 +87,8 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     fields = constants.PROJECT_CREATE_FIELDS
 
     def get_form(self, form_class=None):
+        obj = self.get_object()
+        print(obj.participants.all())
         form = super(ProjectCreateView, self).get_form(form_class)
         return update_project_form_widgets(form)
 
@@ -98,17 +98,12 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
             self, request, *args, **kwargs)
 
 
-@method_decorator(never_cache)
 class ProjectUpdateView(LoginRequiredMixin, UpdateView):
 
     """
     View for updating an object, with a response rendered by template.
     See: http://ccbv.co.uk/UpdateView/
     """
-
-    def __init__(self):
-        self.queryset = None
-        super(ProjectUpdateView, self).__init__()
 
     model = Project
     fields = constants.PROJECT_UPDATE_FIELDS
@@ -122,6 +117,11 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
         request = clean_participants_in_request(request)
         return super(ProjectUpdateView, self).post(
             self, request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        obj = super(ProjectUpdateView, self).get_object()
+        obj.save()
+        return obj
 
 
 # HELPER FUNCTIONS
