@@ -94,4 +94,3 @@ class Project(LeukappModel):
     def if_save(self):
         """ if_save() is run everytime the object is saved"""
         self.participants.add(self.pi, self.analyst, self.requestor)
-        print(self.pk, self.participants.all())

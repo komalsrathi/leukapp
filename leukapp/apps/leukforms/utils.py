@@ -131,9 +131,12 @@ class RunsFromCsv(object):
                     self.rejected[model] += 1
                     break
 
-            if not row['RESULT']:
+            if (not row['RESULT']) and (instance in self.added['Run']):
                 row['RESULT'] = instance.slug
                 row['STATUS'] = 'ACCEPTED'
+            elif (not row['RESULT']):
+                row['RESULT'] = instance.slug
+                row['STATUS'] = 'EXISTED'
 
             self.result.append(row)
 
@@ -192,17 +195,17 @@ class RunsFromCsv(object):
             instance (model): instance found or created
         """
         errors, instance = None, None
-        form = self.forms[model](self.input[model])
-        search = {k: self.input[model][k] for k in self.unique_together[model]}
 
         try:
             if not self.input[model]:
                 raise self.models[model].DoesNotExist
+            unique = self.unique_together[model]
+            search = {k: self.input[model][k] for k in unique}
             instance = self.models[model].objects.get(**search)
             if instance not in self.added[model]:
                 self.existed[model].append(instance)
-        except self.models[model].DoesNotExist as e:
-            print(e, search)
+        except self.models[model].DoesNotExist:
+            form = self.forms[model](self.input[model])
             if form.is_valid():
                 instance = form.save()
                 self.added[model].append(instance)
