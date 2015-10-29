@@ -87,8 +87,6 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     fields = constants.PROJECT_CREATE_FIELDS
 
     def get_form(self, form_class=None):
-        obj = self.get_object()
-        print(obj.participants.all())
         form = super(ProjectCreateView, self).get_form(form_class)
         return update_project_form_widgets(form)
 
@@ -119,6 +117,7 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
             self, request, *args, **kwargs)
 
     def get_object(self, queryset=None):
+        """ force obj.save() on updated model """
         obj = super(ProjectUpdateView, self).get_object()
         obj.save()
         return obj
