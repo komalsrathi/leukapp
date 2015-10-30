@@ -18,6 +18,11 @@ ALIQUOT_CREATE_FIELDS = (
     'ext_id',
     )
 
+ALIQUOT_LEUKFORM_FIELDS = (
+    'bio_source',
+    'ext_id',
+    )
+
 ALIQUOT_UPDATE_FIELDS = (
     'bio_source',
     )

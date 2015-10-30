@@ -27,7 +27,7 @@ class Command(BaseCommand):
 
         with open(filename, 'r') as leukform:
             rows = csv.DictReader(leukform, delimiter=",")
-            self.save_runs_from_rows(rows)
+            self.process_leukform(rows)
 
         for model in self.models:
             if model != 'Project':

@@ -16,11 +16,12 @@ from leukapp.apps.aliquots.constants import ALIQUOT_UNIQUE_TOGETHER
 from leukapp.apps.runs.constants import RUN_UNIQUE_TOGETHER
 
 # local
-from .constants import LEUKFORM_CSV_FIELDS
+from .constants import LEUKFORM_CSV_FIELDS, MODELS
 from .forms import IndividualForm, SpecimenForm, AliquotForm, RunForm
+from .validators import leukform_csv_validator, leukform_rows_validator
 
 
-class RunsFromCsv(object):
+class LeukformLoader(object):
 
     """
     """
@@ -28,10 +29,11 @@ class RunsFromCsv(object):
     help = 'Gets create form fields for Individuals, Specimens and Aliquots'
 
     def __init__(self):
-        super(RunsFromCsv, self).__init__()
+        super(LeukformLoader, self).__init__()
 
-        # models list
-        self.models_keys = ['Individual', 'Specimen', 'Aliquot', 'Run']
+        # variables
+        self.rows = {}
+        self.MODELS = MODELS
 
         self.unique_together = {
             'Individual': INDIVIDUAL_UNIQUE_TOGETHER,
@@ -72,91 +74,68 @@ class RunsFromCsv(object):
             self.existed[model] = []
             self.rejected[model] = 0
 
-    def submit(self, filename):
-        """ Adds rows from csv file """
-        with open(filename, 'r') as leukform:
-            rows = csv.DictReader(leukform, delimiter=",")
-            return self.save_runs_from_rows(rows)
+    def submit(self, csvpath):
+        """ Process `leukform` from csv file using `csvpath` (str) """
+        if leukform_csv_validator(csvpath):
+            with open(csvpath, 'r') as leukform:
+                leukform_csv_validator(leukform)
+                rows = csv.DictReader(leukform, delimiter=",")
+                return self.process_leukform(rows)
 
-    def save_runs_from_rows(self, rows):
-        """ Adds runs from list of dictionaries  """
-        self._process_rows(rows)
-        summary = self._write_summary()
-        return self._write_out(summary)
+    def process_leukform(self, rows):
+        """
+        Process `leukform` from dictionary.
+        Input: rows (dict): csv.DictReader type of dictionary
+        Returns: json dictionary described in `self._write_out()`
+        """
+        self.rows = list(rows)
+        self._process_rows()
+        return self._write_out()
 
-    def _write_summary(self):
-        """ writes out summary text"""
-        summary = ''
-        for model in self.models_keys:
-            added = str(len(self.added[model]))
-            existed = str(len(self.existed[model]))
-            rejected = str(self.rejected[model])
-            txt = '{0}s -> {1} added, {2} existed, {3} rejected.\n'
-            summary += txt.format(model, added, existed, rejected)
-        return summary
-
-    def _write_out(self, summary):
-        """ Process output dictionary including a csv results file """
-        keys = LEUKFORM_CSV_FIELDS.copy()
-        keys.extend(['STATUS', 'RESULT'])
-        result = io.StringIO()
-        dict_writer = csv.DictWriter(result, keys)
-        dict_writer.writeheader()
-        dict_writer.writerows(self.result)
-        result.seek(0)
-
-        out = {
-            "added": self.added,
-            "existed": self.existed,
-            "result": result,
-            "summary": summary,
-            }
-
-        return out
-
-    def _process_rows(self, rows):
+    def _process_rows(self):
         """ process csv rows """
 
-        rows = self._sort_rows(rows)
-        for row in rows:
-            self._fields_from_row(row)
-            row['RESULT'] = None
-            row['STATUS'] = None
-
-            for model in self.models_keys:
-                instance, errors = self._get_or_create(model=model)
-                if errors:
-                    row['RESULT'] = errors
-                    row['STATUS'] = 'REJECTED'
-                    self.rejected[model] += 1
-                    break
-
-            if (not row['RESULT']) and (instance in self.added['Run']):
-                row['RESULT'] = instance.slug
-                row['STATUS'] = 'ACCEPTED'
-            elif (not row['RESULT']):
-                row['RESULT'] = instance.slug
-                row['STATUS'] = 'EXISTED'
-
+        self._sort_rows()
+        for row in self.rows:
+            row = self._process_row(row)
             self.result.append(row)
 
         # removes duplicates from existing instances
         for model in self.models:
             self.existed[model] = set(self.existed[model])
 
-    def _sort_rows(self, rows):
-        """ Sorts rows based on Run.order column """
-        return sorted(
-            rows,
+    def _sort_rows(self):
+        """ Sorts rows based on `Individual.ext_id` and `Specimen.order` """
+        self.rows = sorted(
+            self.rows,
             key=lambda k: (
                 k['Individual.ext_id'],
-                k['Specimen.ext_id'],
-                k['Aliquot.ext_id'],
-                int(k['Run.order']),
+                k['Individual.leukid'],
+                int(k['Specimen.order']),
                 )
             )
 
-    def _fields_from_row(self, row):
+    def _process_row(self, row):
+        """ process csv rows """
+        fields = self._get_fields_from_row(row)
+        for model in self.MODELS:
+            instance, errors = self._get_or_create(model=model)
+            if errors:
+                result, status = errors, 'REJECTED'
+                self.rejected[model] += 1
+                break
+
+        if (not row['RESULT']) and (instance in self.added['Run']):
+            row['RESULT'] = instance.slug
+            row['STATUS'] = 'ACCEPTED'
+        elif (not row['RESULT']):
+            row['RESULT'] = instance.slug
+            row['STATUS'] = 'EXISTED'
+
+        row['RESULT'], row['STATUS'] = result, status
+        return row
+
+    def _get_fields_from_row(self, row):
         """
         Gets fields from rows.
 
@@ -166,23 +145,36 @@ class RunsFromCsv(object):
             input: nested dictionary, first lever are models
                 second level are leuk_form fields
         """
+        fields = {}
         if not row:
-            return self.input
+            return fields
 
-        keys = list(row)
-        for k in keys:
-            model, field = k.split('.')
-            if field == 'projects' and model == 'Run':
-                try:
-                    # parse projects
-                    projects = [int(e) for e in row[k].split("|")]
-                    self.input[model][field] = projects
-                except Exception:
-                    self.input[model][field] = row[k]
-            else:
-                self.input[model][field] = row[k]
+        for column in list(row):
+            model, field = column.split('.')
+            fields[model][field] = self._clean_field(row, column)
 
-        return self.input
+        return fields
+
+    def _clean_field(self, row, column):
+        """
+        clean field based on preprocessing rules.
+
+        Input Args:
+            row (dict): dict with keys as column names
+            column (str): column name for the field to be cleaned
+        Returns:
+            value (not fixed): cleaned value
+        """
+        model, field = column.split('.')
+        value = row[column]
+
+        if field == 'projects' and model == 'Run':
+            try:
+                value = [int(e) for e in row[column].split("|")]
+            except Exception:
+                pass
+
+        return value
 
     def _get_or_create(self, model):
         """
@@ -224,3 +216,34 @@ class RunsFromCsv(object):
             self.input['Aliquot']['specimen'] = instance.pk
         elif model == 'Aliquot' and instance:
             self.input['Run']['aliquot'] = instance.pk
+
+    def _write_out(self):
+        """ Process output dictionary including a csv results file """
+        summary = self._write_summary()
+        keys = LEUKFORM_CSV_FIELDS.copy()
+        keys.extend(['STATUS', 'RESULT'])
+        result = io.StringIO()
+        dict_writer = csv.DictWriter(result, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(self.result)
+        result.seek(0)
+
+        out = {
+            "added": self.added,
+            "existed": self.existed,
+            "result": result,
+            "summary": summary,
+            }
+
+        return out
+
+    def _write_summary(self):
+        """ writes out summary text"""
+        summary = ''
+        for model in self.MODELS:
+            added = str(len(self.added[model]))
+            existed = str(len(self.existed[model]))
+            rejected = str(self.rejected[model])
+            txt = '{0}s -> {1} added, {2} existed, {3} rejected.\n'
+            summary += txt.format(model, added, existed, rejected)
+        return summary

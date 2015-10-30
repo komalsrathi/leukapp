@@ -32,12 +32,15 @@ LEUKFORM_CSV_FIELDS = [
     'Individual.species',
     'Specimen.ext_id',
     'Specimen.source_type',
+    'Specimen.order',
     'Aliquot.ext_id',
     'Aliquot.bio_source',
     'Run.ext_id',
     'Run.platform',
     'Run.technology',
     'Run.center',
-    'Run.order',
     'Run.projects',
 ]
+
+# Models
+MODELS = ['Individual', 'Specimen', 'Aliquot', 'Run']

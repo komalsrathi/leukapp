@@ -10,6 +10,36 @@ APP_NAME = 'runs'
 RUN_CREATE_URL = APP_NAME + ':create'
 RUN_LIST_URL = APP_NAME + ':list'
 
+# run fields
+RUN_CREATE_FIELDS = (
+    'aliquot',
+    'platform',
+    'technology',
+    'center',
+    'ext_id',
+    'projects',
+    )
+
+# run fields
+RUN_LEUKFORM_FIELDS = (
+    'platform',
+    'technology',
+    'center',
+    'ext_id',
+    'projects',
+    )
+
+RUN_UPDATE_FIELDS = (
+    'platform',
+    'technology',
+    'center',
+    )
+
+RUN_UNIQUE_TOGETHER = (
+    'aliquot',
+    'ext_id',
+    )
+
 # choices
 WHOLE_EXOME = 'WHOLE-EXOME'
 WHOLE_GENOME = 'WHOLE-GENOME'
@@ -64,25 +94,3 @@ RUN_CHOICES = {
 PLATFORM_SHORT = [e[0] for e in PLATFORM]
 TECHNOLOGY_SHORT = [e[0] for e in TECHNOLOGY]
 CENTER_SHORT = [e[0] for e in CENTER]
-
-# run fields
-RUN_CREATE_FIELDS = (
-    'aliquot',
-    'platform',
-    'technology',
-    'center',
-    'ext_id',
-    'projects',
-    'order',
-    )
-
-RUN_UPDATE_FIELDS = (
-    'platform',
-    'technology',
-    'center',
-    )
-
-RUN_UNIQUE_TOGETHER = (
-    'aliquot',
-    'ext_id',
-    )

@@ -18,7 +18,7 @@ from leukapp.apps.aliquots.models import Aliquot
 # local
 from .constants import APP_NAME
 from .validators import leukform_csv_validator
-from .utils import RunsFromCsv
+from .utils import LeukformLoader
 
 
 class Leukform(LeukappModel):
@@ -94,7 +94,7 @@ class Leukform(LeukappModel):
     def if_new(self, **kwargs):
         """ if_new is executed the first time the object is created """
         # load runs
-        loader = RunsFromCsv()
+        loader = LeukformLoader()
         out = loader.submit(filename=self.submission.file.name)
 
         # create result

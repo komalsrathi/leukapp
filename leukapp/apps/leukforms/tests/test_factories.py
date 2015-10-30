@@ -16,7 +16,7 @@ class LeukformCsvFactoryTest(TestCase):
     def test_leukform_factory_create_batch(self):
         batch = LeukformCsvFactory()
         batch.create_batch(4, 2, 2, 1)
-        batch.create_rows()
+        batch.get_rows()
         self.assertEqual(len(batch.individuals), 4)
         self.assertNotEqual(batch.individuals[0].slug, None)
         self.assertNotEqual(batch.specimens[0].slug, None)
@@ -28,7 +28,7 @@ class LeukformCsvFactoryTest(TestCase):
     def test_csv_from_rows(self):
         batch = LeukformCsvFactory()
         batch.create_batch(1, 1, 1, 1)
-        batch.create_rows()
+        batch.get_rows()
         path = batch.create_csv_from_rows()
 
         with open(path, 'r') as testcsv:

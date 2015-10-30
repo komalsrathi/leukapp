@@ -16,7 +16,7 @@ from . import constants
 class Specimen(LeukappModel):
 
     """
-    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=1125452971
+    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627
     """
 
     APP_NAME = constants.APP_NAME
@@ -44,6 +44,10 @@ class Specimen(LeukappModel):
         validators=[ext_id_validator],
         help_text=_("The external id should be unique at the Individual "
             "and Source levels."),
+        )
+    order = models.PositiveSmallIntegerField(
+        _("desired order"),
+        default=0,
         )
 
     # internal fields

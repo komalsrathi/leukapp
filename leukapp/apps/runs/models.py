@@ -17,7 +17,7 @@ from . import constants
 class Run(LeukappModel):
 
     """
-    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=2010180721
+    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627
     """
 
     APP_NAME = constants.APP_NAME
@@ -54,10 +54,6 @@ class Run(LeukappModel):
         validators=[ext_id_validator],
         help_text=_("The sequencing center id should be unique at the "
             "Aliquot level."),
-        )
-    order = models.PositiveSmallIntegerField(
-        _("desired order"),
-        default=0,
         )
 
     # internal fields

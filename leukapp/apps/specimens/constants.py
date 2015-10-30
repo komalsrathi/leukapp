@@ -17,6 +17,13 @@ SPECIMEN_CREATE_FIELDS = (
     'source',
     'source_type',
     'ext_id',
+    'order',
+    )
+
+SPECIMEN_LEUKFORM_FIELDS = (
+    'source_type',
+    'ext_id',
+    'order',
     )
 
 SPECIMEN_UPDATE_FIELDS = (

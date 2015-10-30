@@ -16,7 +16,7 @@ from . import constants
 class Aliquot(LeukappModel):
 
     """
-    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=365039979
+    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627
     """
 
     APP_NAME = constants.APP_NAME
