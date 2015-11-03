@@ -12,6 +12,7 @@ from leukapp.apps.projects.models import Project
 
 # local
 from . import constants
+from .validators import projects_list_validator
 
 
 class Run(LeukappModel):
@@ -33,19 +34,26 @@ class Run(LeukappModel):
         verbose_name=_("projects"),
         blank=True,
         )
+    projects_list = models.CharField(
+        _("list of projetcs"),
+        max_length=100,
+        validators=[projects_list_validator],
+        help_text=_("Include the projects pks separated by a '|' character"),
+        blank=True,
+        )
     platform = models.CharField(
         _("platform"),
-        max_length=30,
+        max_length=100,
         choices=CHOICES["PLATFORM"]
         )
     technology = models.CharField(
         _("technology"),
-        max_length=30,
+        max_length=100,
         choices=CHOICES["TECHNOLOGY"]
         )
     center = models.CharField(
         _("sequencing center"),
-        max_length=10,
+        max_length=100,
         choices=CHOICES["CENTER"]
         )
     ext_id = models.CharField(
@@ -84,5 +92,13 @@ class Run(LeukappModel):
         self.int_id = str(self.aliquot.runs_count)
 
     def if_save(self):
-        """ if_save() is executed everytime the object is saved """
+        """ NOTTESTED if_save() is executed everytime the object is saved """
         self.slug = '-'.join([self.aliquot.slug, self.int_id])
+        self._get_projects_from_list()
+
+    def _get_projects_from_list(self):
+        """ NOTTESTED NOTDOCUMENTED """
+        if self.projects_list:
+            projects = [int(p) for p in self.projects_list.split("|")]
+            [self.projects.add(p) for p in projects]
+            self.projects_list = ''

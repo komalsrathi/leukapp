@@ -9,7 +9,6 @@ from factory.fuzzy import FuzzyChoice, FuzzyText
 
 # leukapp
 from leukapp.apps.aliquots.factories import AliquotFactory
-from leukapp.apps.projects.factories import ProjectFactory
 
 # local
 from .models import Run
@@ -23,10 +22,11 @@ class RunFactory(factory.django.DjangoModelFactory):
         django_get_or_create = constants.RUN_UNIQUE_TOGETHER
 
     aliquot = factory.SubFactory(AliquotFactory)
-    platform = FuzzyChoice(constants.PLATFORM_SHORT)
-    technology = FuzzyChoice(constants.TECHNOLOGY_SHORT)
-    center = FuzzyChoice(constants.CENTER_SHORT)
+    platform = FuzzyChoice(constants.PLATFORM_VALUE)
+    technology = FuzzyChoice(constants.TECHNOLOGY_VALUE)
+    center = FuzzyChoice(constants.CENTER_VALUE)
     ext_id = FuzzyText(length=12, chars=string.hexdigits)
+    projects_list = ''
 
     @factory.post_generation
     def projects(self, create, extracted, **kwargs):
