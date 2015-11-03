@@ -29,7 +29,7 @@ class Aliquot(LeukappModel):
         )
     bio_source = models.CharField(
         _("biological material"),
-        max_length=1,
+        max_length=100,
         choices=CHOICES["BIO_SOURCE"]
         )
     ext_id = models.CharField(
@@ -42,7 +42,7 @@ class Aliquot(LeukappModel):
     # internal fields
     int_id = models.CharField(
         _("internal id"),
-        max_length=8,
+        max_length=100,
         null=True,
         editable=False,
         )
@@ -77,11 +77,12 @@ class Aliquot(LeukappModel):
 
     def get_int_id(self):
         """ return int_id based on count of tumors/normals per Individual """
+        bio_source_id = constants.LEUKID_BIO_SOURCE[self.bio_source]
         if self.bio_source == constants.DNA:
             self.specimen.dna_count += 1
-            self.int_id = self.bio_source + str(self.specimen.dna_count)
+            self.int_id = bio_source_id + str(self.specimen.dna_count)
         elif self.bio_source == constants.RNA:
             self.specimen.rna_count += 1
-            self.int_id = self.bio_source + str(self.specimen.rna_count)
+            self.int_id = bio_source_id + str(self.specimen.rna_count)
         self.specimen.save()
         return self.int_id
