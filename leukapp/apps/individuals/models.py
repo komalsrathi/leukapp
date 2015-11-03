@@ -24,12 +24,12 @@ class Individual(LeukappModel):
     # external fields
     institution = models.CharField(
         _("institution"),
-        max_length=3,
+        max_length=100,
         choices=CHOICES["INSTITUTION"]
         )
     species = models.CharField(
         _("species"),
-        max_length=1,
+        max_length=100,
         choices=CHOICES["SPECIES"],
         )
     ext_id = models.CharField(
@@ -53,7 +53,7 @@ class Individual(LeukappModel):
         )
     int_id = models.CharField(
         _("internal id"),
-        max_length=8,
+        max_length=100,
         editable=False,
         )
     slug = models.SlugField(
@@ -73,7 +73,7 @@ class Individual(LeukappModel):
 
     def check_institution(self):
         """ Determines whether or not the Individual comes from MSK or not. """
-        if self.institution == 'MSK':
+        if self.institution == constants.MSK:
             return 'I'
         else:
             return 'E'
@@ -86,9 +86,12 @@ class Individual(LeukappModel):
 
     def if_save(self):
         """ if_save() is executed everytime the object is saved """
-        self.slug = '-'.join([self.check_institution(), self.int_id])
+        self.slug = self.int_id
 
     def get_int_id(self):
         """ returns Individual internal ID """
-        self.int_id = self.species + str(self.pk + 100000)
+        species_id = constants.LEUKID_SPECIES[self.species]
+        institution_id = self.check_institution()
+        join = [institution_id, species_id, str(self.pk + 100000)]
+        self.int_id = "-".join(join)
         return self.int_id
