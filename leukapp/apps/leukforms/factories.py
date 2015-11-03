@@ -23,7 +23,7 @@ from leukapp.apps.aliquots.constants import ALIQUOT_LEUKFORM_FIELDS
 from leukapp.apps.runs.constants import RUN_LEUKFORM_FIELDS
 
 # local
-from .constants import LEUKFORM_CSV_FIELDS, MODELS
+from .constants import LEUKFORM_CSV_FIELDS
 
 
 class LeukformCsvFactory(object):
@@ -39,8 +39,8 @@ class LeukformCsvFactory(object):
     Methods:
         create_batch: creates a batch of runs
         get_rows: creates `rows` simulating leukform based on batch
-        create_csv_from_rows: creates csv from rows
-        create_stringio_from_rows: creates StringIO from rows
+        _create_csv_from_rows: creates csv from rows
+        _create_stringio_from_rows: creates StringIO from rows
     """
 
     leukform_fields = {
@@ -58,6 +58,7 @@ class LeukformCsvFactory(object):
         self.runs = []
         self.rows = []
         self.row = {}
+        self.projects = [ProjectFactory(name=str(i)) for i in range(10)]
         self.instances = {
             'Individual': self.individuals,
             'Specimen': self.specimens,
@@ -82,52 +83,18 @@ class LeukformCsvFactory(object):
             msg = "Batch has already been created, run .__init__() to reset"
             raise ImproperlyConfigured(msg)
 
-        self.rows = []
         self.delete = delete
-        projects = [ProjectFactory(name=str(i)) for i in range(10)]
+        self.last = False
+        self.i = individuals
+        self.s = specimens
+        self.a = aliquots
+        self.r = runs
 
-        for i in range(individuals):
-            self.row = {}
-            i = IndividualFactory()
-            last = (specimens == 0)
-            self._write_row(i, 'Individual', last)
-            self.individuals.append(i)
-            for o in range(specimens):
-                s = SpecimenFactory(individual=i, order=o)
-                last = (aliquots == 0)
-                self._write_row(s, 'Specimen', last)
-                self.specimens.append(s)
-                for NOTUSED in range(aliquots):
-                    a = AliquotFactory(specimen=s)
-                    last = (runs == 0)
-                    self._write_row(a, 'Aliquot', last)
-                    self.aliquots.append(a)
-                    for NOTUSED in range(runs):
-                        p = random.sample(projects, 3)
-                        r = RunFactory(aliquot=a, projects=p)
-                        self._write_row(r, 'Run', True)
-                        self.runs.append(r)
-            if delete:
-                i.delete()
-
+        self.rows = []
+        self._create_individuals()
+        if delete:
+            [i.delete() for i in self.individuals]
         return self.rows
-
-    def _write_row(self, instance, model, last=False):
-        """ NOTTESTED """
-        if not self.delete and not last:
-            self.row[model + '.leukid'] = instance.slug
-        else:
-            for field in self.leukform_fields[model]:
-                column = "%s.%s" % (model, field)
-                if model == 'Run' and field == 'projects':
-                    p = '|'.join([str(e.pk) for e in instance.projects.all()])
-                    self.row[column] = p
-                    continue
-                value = 'instance.%s' % field
-                self.row[column] = eval(value)
-        if last:
-            self.rows.append(self.row)
-        return self.row
 
     def get_rows(self, ordered=True):
         """ return rows """
@@ -135,7 +102,59 @@ class LeukformCsvFactory(object):
             random.shuffle(self.rows)
         return self.rows
 
-    def create_csv_from_rows(self):
+    def _create_individuals(self):
+        """ NOTTESTED NOTDOCUMENTED """
+        for NOTUSED in range(self.i):
+            self.row = {}
+            i, self.last = IndividualFactory(), (self.s == 0)
+            self._write_row(i, 'Individual')
+            self.individuals.append(i)
+            self._create_specimens(i)
+
+    def _create_specimens(self, i):
+        """ NOTTESTED NOTDOCUMENTED """
+        for order in range(self.s):
+            s = SpecimenFactory(individual=i, order=order)
+            self.last = (self.a == 0)
+            self._write_row(s, 'Specimen')
+            self.specimens.append(s)
+            self._create_aliquots(s)
+
+    def _create_aliquots(self, s):
+        """ NOTTESTED NOTDOCUMENTED """
+        for NOTUSED in range(self.a):
+            a, self.last = AliquotFactory(specimen=s), (self.r == 0)
+            self._write_row(a, 'Aliquot')
+            self.aliquots.append(a)
+            self._create_runs(a)
+
+    def _create_runs(self, a):
+        """ NOTTESTED NOTDOCUMENTED """
+        for NOTUSED in range(self.r):
+            ps = random.sample(self.projects, 3)
+            pl = '|'.join(str(p.pk) for p in ps)
+            r = RunFactory(aliquot=a, projects=ps)
+            r.projects_list = pl
+            self.last = True
+            self._write_row(r, 'Run')
+            self.runs.append(r)
+
+    def _write_row(self, instance, model):
+        """ NOTTESTED NOTDOCUMENTED """
+        if (not self.delete) and (not self.last):
+            self.row = {}
+            self.row[model + '.slug'] = instance.slug
+        else:
+            for field in self.leukform_fields[model]:
+                column = "%s.%s" % (model, field)
+                value = 'instance.%s' % field
+                self.row[column] = eval(value)
+        if self.last:
+            instance.delete()
+            self.rows.append(self.row)
+        return self.row
+
+    def _create_csv_from_rows(self):
         """
         Creates a csv from rows.
         Returns: Path of csv
@@ -147,7 +166,7 @@ class LeukformCsvFactory(object):
         timestamp = datetime.datetime.now().isoformat()
         file_name = 'test_leukform_' + timestamp + '.csv'
         path = os.path.join(settings.MEDIA_ROOT, 'csv', 'outrows', file_name)
-        keys = LEUKFORM_CSV_FIELDS
+        keys = set(self.rows[0])
 
         with open(path, 'w') as output_file:
             dict_writer = csv.DictWriter(output_file, keys)
@@ -156,16 +175,16 @@ class LeukformCsvFactory(object):
 
         return path
 
-    def create_stringio_from_rows(self):
+    def _create_stringio_from_rows(self):
         """
-        Creates a csv from rows.
-        Returns:Path of csv
+        Creates a string from rows.
+        Returns: stringio
         Raises:ImproperlyConfigured("create rows first")
         """
         if not self.rows:
             raise ImproperlyConfigured("create rows first")
 
-        keys = LEUKFORM_CSV_FIELDS
+        keys = set(self.rows[0])
         out = io.StringIO()
         dict_writer = csv.DictWriter(out, keys)
         dict_writer.writeheader()
