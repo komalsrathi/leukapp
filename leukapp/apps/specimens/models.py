@@ -94,11 +94,12 @@ class Specimen(LeukappModel):
 
     def get_int_id(self):
         """ return int_id based on count of tumors/normals per Individual """
+        source_type_id = constants.LEUKID_SOURCE[self.source_type]
         if self.source_type == constants.TUMOR:
             self.individual.tumors_count += 1
-            self.int_id = self.source_type + str(self.individual.tumors_count)
+            self.int_id = source_type_id + str(self.individual.tumors_count)
         elif self.source_type == constants.NORMAL:
             self.individual.normals_count += 1
-            self.int_id = self.source_type + str(self.individual.normals_count)
+            self.int_id = source_type_id + str(self.individual.normals_count)
         self.individual.save()
         return self.int_id
