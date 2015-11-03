@@ -34,15 +34,19 @@ ALIQUOT_UNIQUE_TOGETHER = (
     )
 
 # choices
-DNA = 'D'
-RNA = 'R'
+DNA = 'DNA'
+RNA = 'RNA'
 BIO_SOURCE = (
     (DNA, 'DNA'),
     (RNA, 'RNA'),
-)
+    )
+BIO_SOURCE_VALUE = [b[0] for b in BIO_SOURCE]
 
 ALIQUOT_CHOICES = {
     "BIO_SOURCE": BIO_SOURCE,
-}
+    }
 
-BIO_SOURCE_SHORT = [b[0] for b in BIO_SOURCE]
+LEUKID_BIO_SOURCE = {
+    DNA: 'D',
+    RNA: 'R',
+    }

@@ -50,18 +50,22 @@ SOURCE = (
     (HAIR, 'Hair'),
     (TCELLS, 'T-Cells'),
 )
+SOURCE_VALUE = [s[0] for s in SOURCE]
 
-TUMOR = 'T'
-NORMAL = 'N'
+TUMOR = 'TUMOR'
+NORMAL = 'NORMAL'
 SOURCE_TYPE = (
     (TUMOR, 'Tumor'),
     (NORMAL, 'Normal'),
 )
+SOURCE_TYPE_VALUE = [s[0] for s in SOURCE_TYPE]
 
 SPECIMEN_CHOICES = {
     "SOURCE": SOURCE,
     "SOURCE_TYPE": SOURCE_TYPE,
 }
 
-SOURCE_SHORT = [s[0] for s in SOURCE]
-SOURCE_TYPE_SHORT = [s[0] for s in SOURCE_TYPE]
+LEUKID_SOURCE = {
+    TUMOR: 'T',
+    NORMAL: 'N',
+    }

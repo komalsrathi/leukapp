@@ -36,27 +36,36 @@ INDIVIDUAL_UNIQUE_TOGETHER = (
 
 # choices
 MSK = 'MSK'
-OTHER = 'O'
+OTHER = 'OTHER'
 INSTITUTION = (
     (MSK, 'Memorial Sloan-Kettering Cancer Center'),
     (OTHER, 'Other'),
     )
+INSTITUTION_VALUE = [s[0] for s in INSTITUTION]
 
-HUMAN = 'H'
-MOUSE = 'M'
-YEAST = 'Y'
-ZEBRAFISH = 'Z'
+HUMAN = 'HUMAN'
+MOUSE = 'MOUSE'
+YEAST = 'YEAST'
+ZEBRAFISH = 'ZEBRAFISH'
+XENOGRAFT = 'XENOGRAFT'
 SPECIES = (
     (HUMAN, 'Human'),
     (MOUSE, 'Mouse'),
     (YEAST, 'Yeast'),
     (ZEBRAFISH, 'Zebrafish'),
+    (XENOGRAFT, 'Xenograft'),
     )
+SPECIES_VALUE = [i[0] for i in SPECIES]
 
 INDIVIDUAL_CHOICES = {
     "INSTITUTION": INSTITUTION,
     "SPECIES": SPECIES,
     }
 
-SPECIES_SHORT = [s[0] for s in SPECIES]
-INSTITUTION_SHORT = [i[0] for i in INSTITUTION]
+LEUKID_SPECIES = {
+    HUMAN: 'H',
+    MOUSE: 'M',
+    YEAST: 'Y',
+    ZEBRAFISH: 'Z',
+    XENOGRAFT: 'X',
+    }

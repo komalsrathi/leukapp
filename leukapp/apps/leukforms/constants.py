@@ -3,6 +3,16 @@
 runs app constants
 """
 
+# leukapp
+from leukapp.apps.individuals.constants import INDIVIDUAL_UNIQUE_TOGETHER
+from leukapp.apps.specimens.constants import SPECIMEN_UNIQUE_TOGETHER
+from leukapp.apps.aliquots.constants import ALIQUOT_UNIQUE_TOGETHER
+from leukapp.apps.runs.constants import RUN_UNIQUE_TOGETHER
+from leukapp.apps.individuals.models import Individual
+from leukapp.apps.specimens.models import Specimen
+from leukapp.apps.aliquots.models import Aliquot
+from leukapp.apps.runs.models import Run
+
 # app name
 APP_NAME = 'leukforms'
 
@@ -39,8 +49,22 @@ LEUKFORM_CSV_FIELDS = [
     'Run.platform',
     'Run.technology',
     'Run.center',
-    'Run.projects',
+    'Run.projects_list',
 ]
 
+LEUKAPP_UNIQUE_TOGETHER = {
+    'Individual': INDIVIDUAL_UNIQUE_TOGETHER,
+    'Specimen': SPECIMEN_UNIQUE_TOGETHER,
+    'Aliquot': ALIQUOT_UNIQUE_TOGETHER,
+    'Run': RUN_UNIQUE_TOGETHER,
+    }
+
 # Models
-MODELS = ['Individual', 'Specimen', 'Aliquot', 'Run']
+MODELS_LIST = ['Individual', 'Specimen', 'Aliquot', 'Run']
+
+LEUKAPP_MODELS = {
+    'Individual': Individual,
+    'Specimen': Specimen,
+    'Aliquot': Aliquot,
+    'Run': Run,
+    }

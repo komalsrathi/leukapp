@@ -26,7 +26,7 @@ RUN_LEUKFORM_FIELDS = (
     'technology',
     'center',
     'ext_id',
-    'projects',
+    'projects_list',
     )
 
 RUN_UPDATE_FIELDS = (
@@ -61,6 +61,7 @@ PLATFORM = (
     (CHIP_SEQ, 'CHIP-SEQ'),
     (ATAC_SEQ, 'ATAC-SEQ'),
     )
+PLATFORM_VALUE = [e[0] for e in PLATFORM]
 
 AGILENTV4 = 'AGILENTV4'
 AGILENTV5 = 'AGILENTV5'
@@ -74,6 +75,7 @@ TECHNOLOGY = (
     (HEMEPACTV1, 'HEMEPACTV1'),
     (HEMEPACTV2, 'HEMEPACTV2'),
     )
+TECHNOLOGY_VALUE = [e[0] for e in TECHNOLOGY]
 
 CMO = 'CMO'
 NYGC = 'NYGC'
@@ -83,14 +85,10 @@ CENTER = (
     (NYGC, 'NYGC'),
     (FOUNDATION, 'FOUNDATION'),
     )
+CENTER_VALUE = [e[0] for e in CENTER]
 
 RUN_CHOICES = {
     "PLATFORM": PLATFORM,
     "TECHNOLOGY": TECHNOLOGY,
     "CENTER": CENTER,
     }
-
-# choices short
-PLATFORM_SHORT = [e[0] for e in PLATFORM]
-TECHNOLOGY_SHORT = [e[0] for e in TECHNOLOGY]
-CENTER_SHORT = [e[0] for e in CENTER]
