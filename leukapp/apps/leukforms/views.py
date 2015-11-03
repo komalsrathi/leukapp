@@ -15,6 +15,7 @@ The `LoginRequiredMixin` is also used:
 from __future__ import absolute_import, unicode_literals
 
 # django
+from django.views.decorators.cache import never_cache
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.generic import \
@@ -83,6 +84,11 @@ class LeukformCreateView(LoginRequiredMixin, CreateView):
     model = Leukform
     fields = constants.LEUKFORM_CREATE_FIELDS
     succes_msg = "Leukform Created!"
+
+    @never_cache
+    def dispatch(self, request, *args, **kwargs):
+        return super(LeukformCreateView, self).dispatch(
+            request, *args, **kwargs)
 
 
 class LeukformUpdateView(LoginRequiredMixin, UpdateView):

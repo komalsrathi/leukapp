@@ -36,8 +36,8 @@ class TestLeukformLoader(TestCase):
     def setUp(self):
         pass
 
-    def test_get_fields_from_row_excluding_run(self):
-        fields = self.loader._get_fields_from_row(self.rowexample)
+    def test_clean_row_excluding_run(self):
+        fields = self.loader._clean_row(self.rowexample)
         for model in self.models:
             fields[model].pop('projects', None)
             fields[model].pop('individual', None)
@@ -48,7 +48,7 @@ class TestLeukformLoader(TestCase):
                 self.assertEqual(fields[model][field], eval(value))
 
     def test_fields_for_run_projects(self):
-        fields = self.loader._get_fields_from_row(self.rowexample)
+        fields = self.loader._clean_row(self.rowexample)
         projects = [p.pk for p in self.created['Run'].projects.all()]
         for p in fields['Run']['projects']:
             self.assertIn(p, projects)
@@ -81,27 +81,27 @@ class TestLeukformLoader(TestCase):
         self.rowexample['Individual.institution'] = ''
         self.rowexample['Individual.species'] = ''
         self.rowexample['Individual.ext_id'] = ''
-        self.loader._get_fields_from_row(self.rowexample)
+        self.loader._clean_row(self.rowexample)
         self.loader.process_leukform(self.batch.rows)
         self.assertEqual(self.loader.rejected["Individual"], 1)
 
     def test_process_row_invalid_specimen(self):
         self.rowexample['Specimen.ext_id'] = ''
-        self.loader._get_fields_from_row(self.rowexample)
+        self.loader._clean_row(self.rowexample)
         self.loader.process_leukform(self.batch.rows)
         self.assertEqual(self.loader.rejected["Specimen"], 1)
 
     def test_process_row_invalid_aliquot(self):
         self.rowexample['Aliquot.bio_source'] = ''
         self.rowexample['Aliquot.ext_id'] = ''
-        self.loader._get_fields_from_row(self.rowexample)
+        self.loader._clean_row(self.rowexample)
         self.loader.process_leukform(self.batch.rows)
         self.assertEqual(self.loader.rejected["Aliquot"], 1)
 
     def test_process_row_invalid_run(self):
         self.batch.runs[0].delete()
         self.rowexample['Run.projects'] = 'asa5|ss56'
-        self.loader._get_fields_from_row(self.rowexample)
+        self.loader._clean_row(self.rowexample)
         self.loader.process_leukform(self.batch.rows)
         self.assertEqual(self.loader.rejected["Run"], 1)
 

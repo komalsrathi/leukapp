@@ -39,8 +39,15 @@ class RunForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
             super(RunForm, self).__init__(*args, **kwargs)
-            self.fields['projects'].required = True
+            self.fields['projects_list'].required = True
 
     class Meta:
         model = Run
-        fields = RUN_CREATE_FIELDS
+        fields = RUN_CREATE_FIELDS + ('projects_list', )
+
+LEUKAPP_FORMS = {
+    'Individual': IndividualForm,
+    'Specimen': SpecimenForm,
+    'Aliquot': AliquotForm,
+    'Run': RunForm
+    }

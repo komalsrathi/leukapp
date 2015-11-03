@@ -10,10 +10,10 @@ from django.dispatch.dispatcher import receiver
 
 # leukapp
 from leukapp.apps.core.models import LeukappModel
-from leukapp.apps.runs.models import Run
 from leukapp.apps.individuals.models import Individual
 from leukapp.apps.specimens.models import Specimen
 from leukapp.apps.aliquots.models import Aliquot
+from leukapp.apps.runs.models import Run
 
 # local
 from .constants import APP_NAME

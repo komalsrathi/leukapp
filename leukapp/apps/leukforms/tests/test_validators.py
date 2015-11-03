@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+"""
+TODO:
+leukform_rows_validator:
+    validate unique together for Specimen.order
+
+"""
+
 # django
 from django.test import TestCase
 from django.core.exceptions import ValidationError

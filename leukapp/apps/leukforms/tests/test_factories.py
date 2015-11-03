@@ -29,7 +29,7 @@ class LeukformCsvFactoryTest(TestCase):
         batch = LeukformCsvFactory()
         batch.create_batch(1, 1, 1, 1)
         batch.get_rows()
-        path = batch.create_csv_from_rows()
+        path = batch._create_csv_from_rows()
 
         with open(path, 'r') as testcsv:
             rows = csv.DictReader(testcsv, delimiter=",")
