@@ -92,7 +92,7 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         request = clean_participants_in_request(request)
-        return super(ProjectUpdateView, self).post(
+        return super(ProjectCreateView, self).post(
             self, request, *args, **kwargs)
 
 

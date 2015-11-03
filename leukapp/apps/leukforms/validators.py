@@ -33,7 +33,6 @@ def leukform_csv_validator(document):
     except UnicodeDecodeError:
         msg = u'Invalid encoding type: use utf-8 and a valid csv file.'
         raise ValidationError(msg)
-    print('deleted!!!')
     default_storage.delete(path)
     return True
 
@@ -112,6 +111,5 @@ def leukform_specimen_order_unique_together_validator(rows):
                     unique[key] = row['Specimen.ext_id']
                 else:
                     if unique[key] != row['Specimen.ext_id']:
-                        print('test key', count, unique)
                         raise ValidationError(msg)
     return True
