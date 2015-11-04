@@ -5,14 +5,14 @@ from django.test import TestCase
 
 # leukapp
 from leukapp.apps.leukforms.utils import LeukformLoader
-from leukapp.apps.leukforms.factories import LeukformCsvFactory
+from leukapp.apps.leukforms.factories import LeukformSamplesFactory
 
 
 class TestLeukformLoader(TestCase):
 
     models = ['Individual', 'Specimen', 'Aliquot', 'Run']
     loader = LeukformLoader()
-    batch = LeukformCsvFactory()
+    batch = LeukformSamplesFactory()
     batch.create_batch(1, 1, 1, 1)
     batch.get_rows()
     rowexample = batch.rows[0]
@@ -106,7 +106,7 @@ class TestLeukformLoader(TestCase):
         self.assertEqual(self.loader.rejected["Run"], 1)
 
     def test_process_leukform(self):
-        batch = LeukformCsvFactory()
+        batch = LeukformSamplesFactory()
         batch.create_batch(5, 3, 2, 1)
         batch.get_rows()
         loader = LeukformLoader()
@@ -118,7 +118,7 @@ class TestLeukformLoader(TestCase):
         self.assertLessEqual(added, 5 * 3 * 2 * 1)
 
     def test_added_existed_individuals(self):
-        batch = LeukformCsvFactory()
+        batch = LeukformSamplesFactory()
         batch.create_batch(5, 3, 2, 1)
         batch.get_rows()
         loader = LeukformLoader()

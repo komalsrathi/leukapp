@@ -12,17 +12,11 @@ from django.test import TestCase
 from django.core.exceptions import ValidationError
 
 # leukapp
-from ..factories import LeukformCsvFactory
+from ..factories import LeukformSamplesFactory
 from .. import validators
 
 
 class TestValidators(TestCase):
-
-    models = ['Individual', 'Specimen', 'Aliquot', 'Run']
-    batch = LeukformCsvFactory()
-    batch.create_batch(5, 4, 3, 2)
-    rows = batch.get_rows()
-    rowexample = batch.rows[0]
 
     def setUp(self):
         pass
@@ -53,15 +47,38 @@ class TestValidators(TestCase):
             validators.leukform_rows_validator(rows=rows)
 
     def test_leukform_rows_validator_rows_valid(self):
-        result = validators.leukform_rows_validator(rows=[{'Individual.leukid': ''}])
+        rows = [{'Individual.slug': ''}]
+        result = validators.leukform_rows_validator(rows=rows)
         self.assertEqual(True, result)
 
     def test_leukform_rows_validator_individuals_leukid_not_valid(self):
         with self.assertRaises(ValidationError):
             validators.leukform_rows_validator(rows=[{'Individual.juan': ''}])
 
-    def test_leukform_specimen_order_unique_together_validator(self):
-        batch = LeukformCsvFactory()
+    def test_leukform_specimen_order_validator_valid(self):
+        batch = LeukformSamplesFactory()
         rows = batch.create_batch(2, 2, 0, 0)
-        function = validators.leukform_specimen_order_unique_together_validator
+        function = validators.leukform_specimen_order_validator
         self.assertEqual(True, function(rows))
+
+    def test_leukform_specimen_order_validator_not_valid(self):
+        batch = LeukformSamplesFactory()
+        rows = batch.create_batch(1, 2, 0, 0)
+        rows[1]['Specimen.order'] = rows[0]['Specimen.order']
+        function = validators.leukform_specimen_order_validator
+        with self.assertRaises(ValidationError):
+            function(rows)
+
+    def test_leukform_specimen_order_validator_valid_using_slug(self):
+        batch = LeukformSamplesFactory()
+        rows = batch.create_batch(2, 2, 0, 0, delete=False)
+        function = validators.leukform_specimen_order_validator
+        self.assertEqual(True, function(rows))
+
+    def test_leukform_specimen_order_validator_not_valid_using_slug(self):
+        batch = LeukformSamplesFactory()
+        rows = batch.create_batch(1, 2, 0, 0, delete=False)
+        rows[1]['Specimen.order'] = rows[0]['Specimen.order']
+        function = validators.leukform_specimen_order_validator
+        with self.assertRaises(ValidationError):
+            function(rows)
