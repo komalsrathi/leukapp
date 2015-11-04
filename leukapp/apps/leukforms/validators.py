@@ -11,7 +11,7 @@ from django.core.files.storage import default_storage
 from django.conf import settings
 
 # local
-from .constants import MODELS_LIST
+from .constants import MODELS_LIST, LEUKFORM_FIELDS
 # used to map csv headers to location fields
 
 
@@ -38,34 +38,28 @@ def leukform_csv_validator(document):
 
 
 def leukform_rows_validator(rows):
-    """ tested """
+    """ Validate that rows look good """
     if not rows:
         raise ValidationError(u"Invalid leukform: couldn't read rows.")
     try:
         rows = list(rows)
-    except ValueError:
-        raise ValidationError(u"Invalid leukform: couldn't parse rows.")
-    except TypeError:
+    except (ValueError, TypeError):
         raise ValidationError(u"Invalid leukform: couldn't parse rows.")
 
-    leukform_columns_validator(rows)
-    leukform_specimen_order_unique_together_validator(rows)
+    leukform_columns_validator(rows)  # Validate columns
+    leukform_specimen_order_validator(rows)  # Validate specimen order
 
-    # validate unique together for Specimen.order
     return True
 
 
 def leukform_columns_validator(rows):
-    """ validate the leukform columns being submitted """
+    """ Validate the leukform columns being submitted """
 
-    # validate columns are a valid list of names
     if type(rows[0]) != dict:
         raise ValidationError(u"Invalid leukform: invalid row content")
     try:
         columns = list(rows[0])
-    except ValueError:
-        raise ValidationError(u"Invalid leukform: couldn't parse columns.")
-    except TypeError:
+    except (ValueError, TypeError):
         raise ValidationError(u"Invalid leukform: couldn't parse columns.")
     if not columns:
         raise ValidationError(u"Invalid leukform: couldn't parse columns.")
@@ -74,23 +68,29 @@ def leukform_columns_validator(rows):
     if len(columns) == 0:
         raise ValidationError(u"Invalid leukform: couldn't parse columns.")
 
-    # validate whether or not columns are valid columns names
+    # Validate whether or not columns are valid leukform fields
     for column in columns:
         msg = u"Invalid leukform: invalid column '%s'." % column
         try:
             model, field = column.split('.')
-            if model not in MODELS_LIST:
+            notinleukform = (field not in LEUKFORM_FIELDS[model])
+            notslug = (field != 'slug')
+            if model not in MODELS_LIST or (notinleukform and notslug):
                 raise ValidationError(msg)
-        except ValueError:
-            raise ValidationError(msg)
-        except AttributeError:
+        except (ValueError, AttributeError, KeyError):
             raise ValidationError(msg)
 
     return True
 
 
-def leukform_specimen_order_unique_together_validator(rows):
-    """ validate the leukform columns being submitted """
+def leukform_specimen_order_validator(rows):
+    """
+    Validate whether or not the order submitted is valid.
+
+    This function makes sure that the Specimen.order is unique at the
+    Individual.ext_id (or Individual.slug if the leukid is submitted)
+    and Specimen.ext_id levels.
+    """
 
     columns = list(rows[0])
     unique = {}
@@ -105,7 +105,9 @@ def leukform_specimen_order_unique_together_validator(rows):
         for row in rows:
             count += 1
             msg = msg_template.format(count)
-            if row['Specimen.ext_id'] and row['Specimen.order']:
+            c1 = row['Specimen.ext_id'] is not None
+            c2 = row['Specimen.order'] is not None
+            if c1 and c2:
                 key = "-".join(str(row[col]) for col in key_cols)
                 if key not in unique:
                     unique[key] = row['Specimen.ext_id']
