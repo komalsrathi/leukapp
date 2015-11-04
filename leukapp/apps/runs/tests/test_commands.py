@@ -19,5 +19,5 @@ from leukapp.apps.aliquots.utils import AliquotFactory
 
 # local imports
 from ..management.commands import submit_runs_from_csv
-from ..utils import LeukformCsvFactory
+from ..utils import LeukformSamplesFactory
 """

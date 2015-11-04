@@ -101,4 +101,3 @@ class Run(LeukappModel):
         if self.projects_list:
             projects = [int(p) for p in self.projects_list.split("|")]
             [self.projects.add(p) for p in projects]
-            self.projects_list = ''
