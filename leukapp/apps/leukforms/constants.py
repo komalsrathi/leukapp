@@ -3,15 +3,30 @@
 runs app constants
 """
 
-# leukapp
+# leukapp unique together
 from leukapp.apps.individuals.constants import INDIVIDUAL_UNIQUE_TOGETHER
 from leukapp.apps.specimens.constants import SPECIMEN_UNIQUE_TOGETHER
 from leukapp.apps.aliquots.constants import ALIQUOT_UNIQUE_TOGETHER
 from leukapp.apps.runs.constants import RUN_UNIQUE_TOGETHER
+
+# leukform fields
+from leukapp.apps.individuals.constants import INDIVIDUAL_LEUKFORM_FIELDS
+from leukapp.apps.specimens.constants import SPECIMEN_LEUKFORM_FIELDS
+from leukapp.apps.aliquots.constants import ALIQUOT_LEUKFORM_FIELDS
+from leukapp.apps.runs.constants import RUN_LEUKFORM_FIELDS
+
+# leukapp models
 from leukapp.apps.individuals.models import Individual
 from leukapp.apps.specimens.models import Specimen
 from leukapp.apps.aliquots.models import Aliquot
 from leukapp.apps.runs.models import Run
+
+# leukapp factories
+from leukapp.apps.projects.factories import ProjectFactory
+from leukapp.apps.individuals.factories import IndividualFactory
+from leukapp.apps.specimens.factories import SpecimenFactory
+from leukapp.apps.aliquots.factories import AliquotFactory
+from leukapp.apps.runs.factories import RunFactory
 
 # app name
 APP_NAME = 'leukforms'
@@ -36,22 +51,14 @@ LEUKFORM_GET_OR_CREATE_FIELDS = (
     )
 
 # leukform fields
-LEUKFORM_CSV_FIELDS = [
-    'Individual.ext_id',
-    'Individual.institution',
-    'Individual.species',
-    'Specimen.ext_id',
-    'Specimen.source_type',
-    'Specimen.order',
-    'Aliquot.ext_id',
-    'Aliquot.bio_source',
-    'Run.ext_id',
-    'Run.platform',
-    'Run.technology',
-    'Run.center',
-    'Run.projects_list',
-]
+LEUKFORM_FIELDS = {
+    'Individual': INDIVIDUAL_LEUKFORM_FIELDS,
+    'Specimen': SPECIMEN_LEUKFORM_FIELDS,
+    'Aliquot': ALIQUOT_LEUKFORM_FIELDS,
+    'Run': RUN_LEUKFORM_FIELDS,
+    }
 
+# unique together
 LEUKAPP_UNIQUE_TOGETHER = {
     'Individual': INDIVIDUAL_UNIQUE_TOGETHER,
     'Specimen': SPECIMEN_UNIQUE_TOGETHER,
@@ -67,4 +74,13 @@ LEUKAPP_MODELS = {
     'Specimen': Specimen,
     'Aliquot': Aliquot,
     'Run': Run,
+    }
+
+# factories
+LEUKAPP_FACTORIES = {
+    'Individual': IndividualFactory,
+    'Specimen': SpecimenFactory,
+    'Aliquot': AliquotFactory,
+    'Run': RunFactory,
+    'Project': ProjectFactory,
     }
