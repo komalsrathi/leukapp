@@ -20,7 +20,7 @@ class LeukformCsvFactoryTest(TestCase):
     def test_set_parameters_individual(self):
         batch = LeukformSamplesFactory()
         parent = 'juan'
-        kwargs, child = batch._set_parameters(
+        kwargs, child = batch._update_parameters(
             model='Individual', parent=parent)
         self.assertDictEqual(kwargs, {})
         self.assertEqual(child, 'Specimen')
@@ -29,7 +29,7 @@ class LeukformCsvFactoryTest(TestCase):
     def test_set_parameters_specimen(self):
         batch = LeukformSamplesFactory()
         parent = 'juan'
-        kwargs, child = batch._set_parameters(
+        kwargs, child = batch._update_parameters(
             model='Specimen', parent=parent, order=1)
         self.assertDictEqual(kwargs, {'individual': parent, 'order': '1'})
         self.assertEqual(child, 'Aliquot')
@@ -39,7 +39,7 @@ class LeukformCsvFactoryTest(TestCase):
         batch = LeukformSamplesFactory()
         parent = 'juan'
         batch.request['Run'] = 2
-        kwargs, child = batch._set_parameters(
+        kwargs, child = batch._update_parameters(
             model='Aliquot', parent=parent)
         self.assertDictEqual(kwargs, {'specimen': parent})
         self.assertEqual(child, 'Run')
@@ -49,7 +49,7 @@ class LeukformCsvFactoryTest(TestCase):
         batch = LeukformSamplesFactory()
         parent = 'juan'
         batch.request['Run'] = 2
-        kwargs, child = batch._set_parameters(
+        kwargs, child = batch._update_parameters(
             model='Run', parent=parent)
         self.assertEqual(kwargs['aliquot'], parent)
         self.assertEqual(batch._last, True)
@@ -59,18 +59,29 @@ class LeukformCsvFactoryTest(TestCase):
         projects_list = [int(e) for e in projects_list]
         [self.assertIn(p, batch_projects) for p in projects_list]
 
-    def test_write_row_delete_false_last_false(self):
+    def test_write_row_delete_false_last_false_slug_true(self):
         batch = LeukformSamplesFactory()
         batch._last = False
-        batch.delete = False
+        batch._delete = False
+        batch._slug = True
         instance = AliquotFactory()
         batch._write_row(instance, model='Aliquot')
         self.assertDictEqual(batch._row, {'Aliquot.slug': instance.slug})
 
+    def test_write_row_delete_false_last_false_slug_false(self):
+        batch = LeukformSamplesFactory()
+        batch._last = False
+        batch._delete = False
+        batch._slug = False
+        instance = AliquotFactory()
+        batch._write_row(instance, model='Aliquot')
+        self.assertEqual(batch._row['Aliquot.ext_id'], instance.ext_id)
+
     def test_write_row_delete_true_last_false(self):
         batch = LeukformSamplesFactory()
         batch._last = False
-        batch.delete = True
+        batch._delete = True
+        batch._slug = False
         instance = AliquotFactory()
         row = {}
         for field in LEUKFORM_FIELDS['Aliquot']:
@@ -83,7 +94,8 @@ class LeukformCsvFactoryTest(TestCase):
     def test_write_row_delete_true_last_true(self):
         batch = LeukformSamplesFactory()
         batch._last = True
-        batch.delete = True
+        batch._delete = True
+        batch._slug = False
         instance = AliquotFactory()
         row = {}
         rows = []

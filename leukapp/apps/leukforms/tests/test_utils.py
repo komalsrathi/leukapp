@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 
+# python
+import os
+
 # django
 from django.test import TestCase
 
 # leukapp
 from leukapp.apps.leukforms.utils import LeukformLoader
 from leukapp.apps.leukforms.factories import LeukformSamplesFactory
+
+# local
+from ..constants import MODELS_LIST, LEUKAPP_FACTORIES
 
 
 class TestLeukformLoader(TestCase):
@@ -14,117 +20,194 @@ class TestLeukformLoader(TestCase):
     loader = LeukformLoader()
     batch = LeukformSamplesFactory()
     batch.create_batch(1, 1, 1, 1)
-    batch.get_rows()
     rowexample = batch.rows[0]
-
-    # example of created instances
-    created = {
-        'Individual': batch.individuals[0],
-        'Specimen': batch.specimens[0],
-        'Aliquot': batch.aliquots[0],
-        'Run': batch.runs[0],
-        }
-
-    # example of loaded instances
-    loaded = {
-        'Individual': loader._get_or_create(model='Individual')[0],
-        'Specimen': loader._get_or_create(model='Specimen')[0],
-        'Aliquot': loader._get_or_create(model='Aliquot')[0],
-        'Run': loader._get_or_create(model='Run')[0],
-        }
 
     def setUp(self):
         pass
 
-    def test_clean_row_excluding_run(self):
-        fields = self.loader._clean_row(self.rowexample)
-        for model in self.models:
-            fields[model].pop('projects', None)
-            fields[model].pop('individual', None)
-            fields[model].pop('specimen', None)
-            fields[model].pop('aliquot', None)
-            for field in fields[model]:
-                value = "self.created[model].{0}".format(field)
-                self.assertEqual(fields[model][field], eval(value))
+    def test_update_fields_individual(self):
+        models = ['Individual', 'Specimen', 'Aliquot']
+        children = ['Specimen', 'Aliquot', 'Run']
+        for i in range(3):
+            model, child = models[i], children[i]
+            loader, fields = LeukformLoader(), {child: {}}
+            instance = LEUKAPP_FACTORIES[model]()
+            fields = loader._update_fields(model, fields, instance)
+            expected = {model.lower(): instance.pk}
+            self.assertDictEqual(fields[child], expected)
 
-    def test_fields_for_run_projects(self):
-        fields = self.loader._clean_row(self.rowexample)
-        projects = [p.pk for p in self.created['Run'].projects.all()]
-        for p in fields['Run']['projects']:
-            self.assertIn(p, projects)
+    def test_clean_fields_empty_row(self):
+        loader = LeukformLoader()
+        fields = loader._get_fields({})
+        self.assertDictEqual(fields, {})
 
-    def test_get_or_create_using_existent_instance(self):
-        for model in self.created:
-            self.assertEqual(self.created[model], self.loaded[model])
-            self.assertCountEqual(
-                self.loader.existed[model], [self.loaded[model]])
+    def test_clean_fields(self):
+        loader = LeukformLoader()
+        fields = loader._get_fields(self.rowexample)
+        for column in list(self.rowexample):
+            model, field = column.split('.')
+            expected = {field: self.rowexample[column]}
+            self.assertDictContainsSubset(expected, fields[model])
 
-    def test_get_or_create_using_nonexistent_instance(self):
-        for model in self.models:
-            self.loader.input[model] = {}
-            instance, errors = self.loader._get_or_create(model)
-            self.assertNotEqual(errors, None)
+    def test_get_or_create_accepted(self):
+        """
+        Starts requesting 1 individual (request = [1]) and tests whether or not
+        the individual is created and ACCEPTED. In each iteration, it adds
+        the next model (1 individual, 1 specimen: request = [1, 1]) and so on.
+        """
+        request = []
+        batch = LeukformSamplesFactory()
+        for i in range(4):
+            request.append(1)
+            batch.create_batch(*request, delete=True)
+            loader = LeukformLoader()
+            fields = loader._get_fields(batch.rows[0])
+            for model in MODELS_LIST[:i+1]:
+                instance, msg = loader._get_or_create(model, fields)
+                fields = loader._update_fields(model, fields, instance)
+                expected = batch.instances[model][0]
+                self.assertEqual('ACCEPTED', msg)
+                self.assertEqual(expected.ext_id, instance.ext_id)
+                self.assertEqual(len(loader.added[model]), 1)
 
-    def test_create_instance_form_valid(self):
-        ext_ids = {}
-        for model in self.models:
-            ext_ids[model] = self.created[model].ext_id
-            self.created[model].delete()
+    def test_get_or_create_existed_slug_false(self):
+        """
+        Using the same rationale as `test_get_or_create_accepted`, this test
+        evaluates whether or not instances are found (EXISTED) using all their
+        data. For the last model requested, it tests whether or not they are
+        created correctly. This is a LeukformSamplesFactory functionality.
+        Instances for the last model requested are always deleted.
+        """
+        request = []
+        batch = LeukformSamplesFactory()
+        for i in range(4):
+            request.append(1)
+            batch.create_batch(*request, delete=False)
+            loader = LeukformLoader()
+            fields = loader._get_fields(batch.rows[0])
+            for j, model in enumerate(MODELS_LIST[:i+1]):
+                instance, msg = loader._get_or_create(model, fields)
+                fields = loader._update_fields(model, fields, instance)
+                expected = batch.instances[model][0]
+                self.assertEqual(expected.ext_id, instance.ext_id)
+                if j == i:
+                    self.assertEqual('ACCEPTED', msg)
+                    self.assertEqual(len(loader.added[model]), 1)
+                else:
+                    self.assertEqual('EXISTED', msg)
+                    self.assertEqual(len(loader.existed[model]), 1)
 
-        for model in self.models:
-            instance, errors = self.loader._get_or_create(model=model)
-            added = [instance]
-            self.assertCountEqual(self.loader.added[model], added)
-            self.assertEqual(instance.ext_id, ext_ids[model])
+    def test_get_or_create_existed_slug_true(self):
+        """
+        Using the same rationale as `test_get_or_create_accepted`, this test
+        evaluates whether or not instances are found (EXISTED) using their
+        slug. For the last model requested, it tests whether or not they are
+        created correctly. This is a LeukformSamplesFactory functionality.
+        Instances for the last model requested are always deleted.
 
-    def test_process_row_invalid_individual(self):
-        self.rowexample['Individual.institution'] = ''
-        self.rowexample['Individual.species'] = ''
-        self.rowexample['Individual.ext_id'] = ''
-        self.loader._clean_row(self.rowexample)
-        self.loader.process_leukform(self.batch.rows)
-        self.assertEqual(self.loader.rejected["Individual"], 1)
+        When using slug=True in LeukformSamplesFactory, only two sets of data
+        are provided: the data of the object to be created and the slug of the
+        parent object. Therefore, when j==0 it's always and existing object,
+        and when j==1, it's always a created object.
+        """
+        request = [1]
+        batch = LeukformSamplesFactory()
+        for i in range(3):
+            request.append(1)
+            batch.create_batch(*request, slug=True)
+            loader = LeukformLoader()
+            fields = loader._get_fields(batch.rows[0])
+            for j, model in enumerate(MODELS_LIST[i:i+2]):
+                instance, msg = loader._get_or_create(model, fields)
+                fields = loader._update_fields(model, fields, instance)
+                expected = batch.instances[model][0]
+                self.assertEqual(expected.ext_id, instance.ext_id)
+                if j == 0:
+                    self.assertEqual('EXISTED', msg)
+                    self.assertEqual(len(loader.existed[model]), 1)
+                else:
+                    self.assertEqual('ACCEPTED', msg)
+                    self.assertEqual(len(loader.added[model]), 1)
 
-    def test_process_row_invalid_specimen(self):
-        self.rowexample['Specimen.ext_id'] = ''
-        self.loader._clean_row(self.rowexample)
-        self.loader.process_leukform(self.batch.rows)
-        self.assertEqual(self.loader.rejected["Specimen"], 1)
+    def test_get_or_create_invalid_slug(self):
+        request = [1]
+        batch = LeukformSamplesFactory()
+        for i in range(3):
+            request.append(1)
+            row = batch.create_batch(*request, slug=True)[0]
+            row[MODELS_LIST[i] + '.slug'] = '546321'
+            loader = LeukformLoader()
+            fields = loader._get_fields(row)
+            model = MODELS_LIST[i]
+            instance, msg = loader._get_or_create(model, fields)
+            self.assertEqual('SLUG NOT FOUND', msg)
+            self.assertEqual(loader.rejected[model], 1)
 
-    def test_process_row_invalid_aliquot(self):
-        self.rowexample['Aliquot.bio_source'] = ''
-        self.rowexample['Aliquot.ext_id'] = ''
-        self.loader._clean_row(self.rowexample)
-        self.loader.process_leukform(self.batch.rows)
-        self.assertEqual(self.loader.rejected["Aliquot"], 1)
-
-    def test_process_row_invalid_run(self):
-        self.batch.runs[0].delete()
-        self.rowexample['Run.projects'] = 'asa5|ss56'
-        self.loader._clean_row(self.rowexample)
-        self.loader.process_leukform(self.batch.rows)
-        self.assertEqual(self.loader.rejected["Run"], 1)
+    def test_process_row(self):
+        loader = LeukformLoader()
+        batch = LeukformSamplesFactory()
+        rows = batch.create_batch(1, 1, 1, 1)
+        row = loader._process_row(rows[0])
+        self.assertEqual(row['STATUS'], 'ACCEPTED')
 
     def test_process_leukform(self):
         batch = LeukformSamplesFactory()
-        batch.create_batch(5, 3, 2, 1)
-        batch.get_rows()
+        batch.create_batch(2, 2, 2, 2, delete=True)
         loader = LeukformLoader()
-        for i in batch.individuals:
-            i.delete()
-        loader.process_leukform(batch.rows)
+        loader._columns_submitted = list(batch.rows[0])
+        loader._process_leukform(batch.rows)
         added = len(loader.added["Run"])
-        self.assertGreater(added, 5)
-        self.assertLessEqual(added, 5 * 3 * 2 * 1)
+        self.assertEqual(added, 2 ** 4)
 
-    def test_added_existed_individuals(self):
-        batch = LeukformSamplesFactory()
-        batch.create_batch(5, 3, 2, 1)
-        batch.get_rows()
+    def test_sort_rows_not_specimen_order(self):
         loader = LeukformLoader()
-        for i in range(3):
-            batch.individuals[i].delete()
+        rows = loader._sort_rows([{1: 1}])
+        self.assertCountEqual([{1: 1}], rows)
 
-        loader.process_leukform(batch.rows)
-        self.assertEqual(len(loader.added['Individual']), 3)
-        self.assertEqual(len(loader.existed['Individual']), 2)
+    def test_sort_rows_slug(self):
+        loader = LeukformLoader()
+        batch = LeukformSamplesFactory()
+        batch.create_batch(1, 3, slug=True)
+        rows = batch.get_rows(shuffle=True)
+        expected = sorted(rows, key=lambda k: (
+                k['Individual.slug'], int(k['Specimen.order'])))
+        obtained = loader._sort_rows(rows)
+        self.assertCountEqual(obtained, expected)
+
+    def test_sort_rows_ext_id(self):
+        loader = LeukformLoader()
+        batch = LeukformSamplesFactory()
+        batch.create_batch(1, 3, slug=False)
+        rows = batch.get_rows(shuffle=True)
+        expected = sorted(rows, key=lambda k: (
+                k['Individual.ext_id'], int(k['Specimen.order'])))
+        obtained = loader._sort_rows(rows)
+        self.assertCountEqual(obtained, expected)
+
+    def test_submit_leukform_filename(self):
+        batch = LeukformSamplesFactory()
+        batch.create_batch(2, 2, 2, 2, delete=False)
+        path = batch.create_csv_from_rows()
+        loader = LeukformLoader()
+        output = loader.submit(filepath=path, validate=True)
+        batch_runs = [r.ext_id for r in batch.instances["Run"]]
+        out_runs = [r.ext_id for r in output["added"]["Run"]]
+        self.assertCountEqual(batch_runs, out_runs)
+        os.remove(path)
+
+    def test_submit_leukform_rows(self):
+        batch = LeukformSamplesFactory()
+        rows = batch.create_batch(2, 2, 2, 2, delete=False)
+        loader = LeukformLoader()
+        output = loader.submit(rows=rows, validate=True)
+        batch_runs = [r.ext_id for r in batch.instances["Run"]]
+        out_runs = [r.ext_id for r in output["added"]["Run"]]
+        self.assertCountEqual(batch_runs, out_runs)
+
+    def test_submit_leukform_no_rows_no_filename(self):
+        with self.assertRaises(Exception):
+            LeukformLoader().submit()
+
+    def test_submit_leukform_rows_and_filename(self):
+        with self.assertRaises(Exception):
+            LeukformLoader().submit(rows=[], filename='juan')
