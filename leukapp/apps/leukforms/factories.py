@@ -18,7 +18,8 @@ from .constants import LEUKFORM_FIELDS, LEUKAPP_FACTORIES
 class LeukformSamplesFactory(object):
 
     """
-    Class used as a leukform samples factory.
+    A leukform samples factory. This factory is mainly used to test the
+    LeukformLoader module.
 
     Attributes:
         instances (dict): keys are models, values are created instances
@@ -34,9 +35,6 @@ class LeukformSamplesFactory(object):
 
     def __init__(self):
         super(LeukformSamplesFactory, self).__init__()
-
-        # delete created instances
-        self.delete = True
 
         # initialize rows
         self.rows = []
@@ -63,69 +61,84 @@ class LeukformSamplesFactory(object):
         self.projects = [ProjectFactory(name=str(i)) for i in range(10)]
 
     def create_batch(self, individuals, specimens=0, aliquots=0, runs=0,
-            delete=True):
+            delete=True, slug=False):
         """
-        Creates a batch of runs.
+        Creates a batch of samples and returns them in a leukform format.
+
+        Instances for the last model requested are always deleted.
+        For instance, if you request individuals=10, specimens=2 and
+        delete=False, the 10 individuals will not be deleted. However, the
+        specimens will be.
+
+        When using slug=True in LeukformSamplesFactory, only two sets of data
+        are provided: the data of the object to be created and the slug of the
+        parent object.
 
         Input:
             individuals (int): number of individuals
             specimens (int): number of specimens per individual
             aliquots (int): number of aliquots per specimen
             runs (int): number of runs per aliquot
-        Raises:
-            ImproperlyConfigured if batch has already been created
+            delete (boolean): if True, delete all created instances
+            slug (boolean): if True, delete is depreciated, slugs are returned
+        Returns:
+            rows (list): a list of dictoaries ready to be submitted
         """
         if self.instances['Individual']:
             self.__init__()
 
-        self.delete = delete
+        if slug:  # if slug, instances won't be deleted, slugs will be returned
+            self._delete = False
+            self._slug = slug
+        if not slug:  # if not slug, delete will not be depreciated
+            self._delete = delete
+            self._slug = slug
+
         self.request = {
-            'Individual': individuals,
-            'Specimen': specimens,
-            'Aliquot': aliquots,
-            'Run': runs,
+            'Individual': int(individuals),
+            'Specimen': int(specimens),
+            'Aliquot': int(aliquots),
+            'Run': int(runs),
             }
 
-        self.i = individuals
-        self.s = specimens
-        self.a = aliquots
-        self.r = runs
+        self._create_instances()
 
-        self._create_instances(model='Individual')
-
-        if self.delete:
-            [i.delete() for i in self.instances['Individual']]
+        if self._delete:
+            try:  # this will recursively delete all child istances
+                [i.delete() for i in self.instances['Individual']]
+            except AssertionError:
+                pass
 
         return self.rows
 
-    def get_rows(self, ordered=True):
-        """ if ordered, returns shuffled rows; else, returns rows """
-        if not ordered:
+    def get_rows(self, shuffle=True):
+        """ if shuffle, returns shuffled rows; else, returns rows """
+        if not shuffle:
             random.shuffle(self.rows)
         return self.rows
 
-    def _create_instances(self, model, parent=None):
+    def _create_instances(self, model='Individual', parent=None):
         """
-        Recursively generates instance passing its model and parent.
-        This function calls self._set_parameters, which provides
-        model specific kwargs and the name of the child model
+        Recursively generates instances by passing the child model name and
+        the parent instance. This function calls self._update_parameters,
+        which provides model specific kwargs and the name of the child model.
 
         Input:
             model (str): name of instance's model
-            parent (Leukapp Instance): foreing key's object
+            parent (Model Object): foreing key's object
         """
         for order in range(self.request[model]):
-            kwargs, child = self._set_parameters(model, parent, order)
+            kwargs, child = self._update_parameters(model, parent, order)
             instance = LEUKAPP_FACTORIES[model](**kwargs)
             self.instances[model].append(instance)
             self._write_row(instance, model)
             if child:
                 self._create_instances(model=child, parent=instance)
 
-    def _set_parameters(self, model, parent, order=None):
+    def _update_parameters(self, model, parent, order=None):
         """
-        Provides the model specific Factory kwargs. Also determines whether
-        or not this istance is in the last level of creation by quering
+        Provides the model specific' Factory kwargs. Also determines whether
+        or not this instance is in the last level of creation by quering
         the number of requested instances for the child model.
 
         Input:
@@ -152,16 +165,16 @@ class LeukformSamplesFactory(object):
 
     def _write_row(self, instance, model):
         """
-        Writes each instance data to self._row and appends it to self.rows
+        Writes each instance's data to self._row and appends it to self.rows
         when self._last is True. Instances in the last level of creation will
-        always be deleted. If self.delete and self._last are False only the
+        always be deleted. If self._slug=True and self._last=False, only the
         instance slug will be recorded.
 
         Input:
             model (str): name of instance's model
             parent (Leukapp Instance): foreing key's object
         """
-        if (not self.delete) and (not self._last):
+        if self._slug and (not self._last):
             self._row = {}
             self._row[model + '.slug'] = instance.slug
         else:
@@ -177,7 +190,7 @@ class LeukformSamplesFactory(object):
         """
         Creates a csv from rows.
         Returns: Path of csv
-        Raises: ImproperlyConfigured("create rows first")
+        Raises: ImproperlyConfigured("create batch first")
         """
         if not self.rows:
             raise ImproperlyConfigured("create rows first")
@@ -196,9 +209,10 @@ class LeukformSamplesFactory(object):
 
     def create_stringio_from_rows(self):
         """
-        Creates a string from rows.
-        Returns: stringio
-        Raises:ImproperlyConfigured("create rows first")
+        Creates a StringIO from rows.
+        Returns: StringIO
+        Raises:ImproperlyConfigured("create batch first")
+        NOTTESTED
         """
         if not self.rows:
             raise ImproperlyConfigured("create rows first")
