@@ -22,7 +22,7 @@ def leukform_csv_validator(document):
     else:
         tmp_path = 'tmp/%s' % document.name
         path = os.path.join(settings.MEDIA_ROOT, tmp_path)
-        default_storage.delete(path)  # Delete file in case it exists
+        default_storage.delete(tmp_path)  # Delete file in case it exists
         default_storage.save(tmp_path, ContentFile(document.file.read()))
     try:
         with open(path, 'r') as leukform:
@@ -33,7 +33,6 @@ def leukform_csv_validator(document):
     except UnicodeDecodeError:
         msg = u'Invalid encoding type: use utf-8 and a valid csv file.'
         raise ValidationError(msg)
-    default_storage.delete(path)
     return True
 
 
@@ -73,10 +72,13 @@ def leukform_columns_validator(rows):
         msg = u"Invalid leukform: invalid column '%s'." % column
         try:
             model, field = column.split('.')
-            notinleukform = (field not in LEUKFORM_FIELDS[model])
+            fieldnotinleukform = (field not in LEUKFORM_FIELDS[model])
             notslug = (field != 'slug')
-            if model not in MODELS_LIST or (notinleukform and notslug):
+            if model not in MODELS_LIST:
                 raise ValidationError(msg)
+            if fieldnotinleukform and notslug:
+                raise ValidationError(msg)
+
         except (ValueError, AttributeError, KeyError):
             raise ValidationError(msg)
 
@@ -105,8 +107,8 @@ def leukform_specimen_order_validator(rows):
         for row in rows:
             count += 1
             msg = msg_template.format(count)
-            c1 = row['Specimen.ext_id'] is not None
-            c2 = row['Specimen.order'] is not None
+            c1 = row['Specimen.ext_id']
+            c2 = row['Specimen.order']
             if c1 and c2:
                 key = "-".join(str(row[col]) for col in key_cols)
                 if key not in unique:
