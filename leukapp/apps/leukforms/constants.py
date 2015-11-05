@@ -28,6 +28,12 @@ from leukapp.apps.specimens.factories import SpecimenFactory
 from leukapp.apps.aliquots.factories import AliquotFactory
 from leukapp.apps.runs.factories import RunFactory
 
+# local
+from .forms import IndividualForm
+from .forms import SpecimenForm
+from .forms import AliquotForm
+from .forms import RunForm
+
 # app name
 APP_NAME = 'leukforms'
 
@@ -83,4 +89,12 @@ LEUKAPP_FACTORIES = {
     'Aliquot': AliquotFactory,
     'Run': RunFactory,
     'Project': ProjectFactory,
+    }
+
+# leukapp forms
+LEUKAPP_FORMS = {
+    'Individual': IndividualForm,
+    'Specimen': SpecimenForm,
+    'Aliquot': AliquotForm,
+    'Run': RunForm
     }

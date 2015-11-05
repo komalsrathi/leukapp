@@ -44,10 +44,3 @@ class RunForm(forms.ModelForm):
     class Meta:
         model = Run
         fields = RUN_CREATE_FIELDS + ('projects_list', )
-
-LEUKAPP_FORMS = {
-    'Individual': IndividualForm,
-    'Specimen': SpecimenForm,
-    'Aliquot': AliquotForm,
-    'Run': RunForm
-    }
