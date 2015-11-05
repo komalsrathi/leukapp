@@ -93,9 +93,10 @@ class Leukform(LeukappModel):
 
     def if_new(self, **kwargs):
         """ if_new is executed the first time the object is created """
-        # load runs
+
+        # validate is  False in .submit because it has already been validated
         loader = LeukformLoader()
-        out = loader.submit(filename=self.submission.file.name)
+        out = loader.submit(filepath=self.submission.file.name, validate=False)
 
         # create result
         result_name = 'result-leukform-%s.csv' % self.pk
