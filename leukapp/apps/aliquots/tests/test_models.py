@@ -56,8 +56,10 @@ class AliquotModelTest(TestCase):
         s = SpecimenFactory()
         ad = AliquotFactory(specimen=s, bio_source=constants.DNA)
         ar = AliquotFactory(specimen=s, bio_source=constants.RNA)
-        ad_int_id = ad.bio_source + str(s.dna_count)
-        ar_int_id = ar.bio_source + str(s.rna_count)
+        ad_int_id = constants.LEUKID_BIO_SOURCE[ad.bio_source]
+        ad_int_id += str(s.dna_count)
+        ar_int_id = constants.LEUKID_BIO_SOURCE[ar.bio_source]
+        ar_int_id += str(s.rna_count)
         self.assertEqual(ad.int_id, ad_int_id)
         self.assertEqual(ar.int_id, ar_int_id)
 
