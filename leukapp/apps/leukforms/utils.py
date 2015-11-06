@@ -157,18 +157,41 @@ class LeukformLoader(object):
         Returns:
             fields (dict): a dict of dicts, first level models, then fields
         """
-        fields = {}
-
         if not row:
-            return fields
-        for column in list(row):
+            return {}
+
+        fields = {}
+        columns = set(row)
+        row = self._alter_row_special_case(row)
+
+        for column in columns:
+            model, field = column.split('.')
             if row[column]:
-                model, field = column.split('.')
                 if model not in fields:
                     fields[model] = {}
                 fields[model][field] = row[column]
 
         return fields
+
+    def _alter_row_special_case(self, row):
+        """
+        Test the case when only the Individual and/or Specimen ext_id are
+        available. In this situation the leukform will be submitted with empty
+        Specimen.ext_id and empty Aliquot.ext_id if only Individual.ext_id is
+        available. Or, with empty Aliquot.ext_id if only the Individual and
+        Specimen ext_id are available. Then, the empty fields will be set to 1.
+        Input:
+            row (dict): csv.DictReader type of dictionary
+        """
+        columns = set(row)
+        c0 = {'Individual.ext_id', 'Specimen.ext_id'}.issubset(columns)
+        c1 = c0 and row['Individual.ext_id']
+        c2 = c1 and {'Aliquot.ext_id'}.issubset(columns)
+        if c1 and (row['Specimen.ext_id'] == ''):
+            row['Specimen.ext_id'] = '1'
+        if c2 and (row['Aliquot.ext_id'] == ''):
+            row['Specimen.ext_id'] = '1'
+        return row
 
     def _get_or_create(self, model, fields):
         """

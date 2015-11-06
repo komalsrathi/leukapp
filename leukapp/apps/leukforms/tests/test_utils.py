@@ -211,3 +211,45 @@ class TestLeukformLoader(TestCase):
     def test_submit_leukform_rows_and_filename(self):
         with self.assertRaises(Exception):
             LeukformLoader().submit(rows=[], filename='juan')
+
+    def test_alter_row_special_case_specimen_blank_no_aliquot(self):
+        row = {
+            'Individual.ext_id': '123',
+            'Specimen.ext_id': ''
+            }
+        obtained = LeukformLoader()._alter_row_special_case(row)
+        expected = row
+        expected['Specimen.ext_id'] = 1
+        self.assertDictEqual(obtained, expected)
+
+    def test_alter_row_special_case_specimen_blank_aliquot_blank(self):
+        row = {
+            'Individual.ext_id': '123',
+            'Specimen.ext_id': '',
+            'Aliquot.ext_id': '',
+            }
+        obtained = LeukformLoader()._alter_row_special_case(row)
+        expected = row
+        expected['Specimen.ext_id'] = 1
+        expected['Aliquot.ext_id'] = 1
+        self.assertDictEqual(obtained, expected)
+
+    def test_alter_row_special_case_specimen_notblank_aliquot_blank(self):
+        row = {
+            'Individual.ext_id': '123',
+            'Specimen.ext_id': '123',
+            'Aliquot.ext_id': '',
+            }
+        obtained = LeukformLoader()._alter_row_special_case(row)
+        expected = row
+        expected['Aliquot.ext_id'] = 1
+        self.assertDictEqual(obtained, expected)
+
+    def test_alter_row_special_case_no_individual_ext_id(self):
+        row = {
+            'Individual.slug': '123',
+            'Specimen.ext_id': '',
+            'Aliquot.ext_id': '',
+            }
+        obtained = LeukformLoader()._alter_row_special_case(row)
+        self.assertDictEqual(obtained, row)
