@@ -253,3 +253,27 @@ class TestLeukformLoader(TestCase):
             }
         obtained = LeukformLoader()._alter_row_special_case(row)
         self.assertDictEqual(obtained, row)
+
+    def test_get_fields_using_special_case(self):
+        row = {
+            'Individual.ext_id': '123',
+            'Specimen.ext_id': '',
+            'Aliquot.ext_id': '',
+            }
+        expected = {
+            'Individual': {'ext_id': '123'},
+            'Specimen': {'ext_id': '1'},
+            'Aliquot': {'ext_id': '1'},
+            }
+        obtained = LeukformLoader()._get_fields(row)
+        self.assertDictEqual(obtained, expected)
+
+    def test_clean_specimen_order_column(self):
+        loader = LeukformLoader()
+        batch = LeukformSamplesFactory()
+        rows = batch.create_batch(1, 4)
+        for row in rows[:2]:
+            row['Specimen.order'] = ''
+        rows = loader._clean_specimen_order_column(rows)
+        for row in rows[:2]:
+            self.assertEqual(row['Specimen.order'], '0')

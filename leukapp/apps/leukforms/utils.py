@@ -93,17 +93,15 @@ class LeukformLoader(object):
         Input: rows (list): csv.DictReader list of dictionaries
         Returns: json dictionary described in `self._write_output()`
         """
-        keys = set(rows[0])
+        columns = set(rows[0])
 
-        if 'Specimen.order' in keys:
-            for row in rows:
-                if row['Specimen.order'] is not None:
-                    row['Specimen.order'] = str(0)
+        if 'Specimen.order' in columns:
+            rows = self._clean_specimen_order_column(rows)
         else:
             return rows
 
-        c1 = set(['Individual.ext_id', 'Specimen.order']).issubset(keys)
-        c2 = set(['Individual.slug', 'Specimen.order']).issubset(keys)
+        c1 = {'Individual.ext_id', 'Specimen.order'}.issubset(columns)
+        c2 = {'Individual.slug', 'Specimen.order'}.issubset(columns)
         c3 = c1 and c2
 
         if c3:
@@ -118,6 +116,13 @@ class LeukformLoader(object):
             rows = sorted(rows, key=lambda k: (
                 k['Individual.slug'], int(k['Specimen.order'])))
 
+        return rows
+
+    def _clean_specimen_order_column(self, rows):
+        """ simply adds zeros when Specimen.order is blank """
+        for row in rows:
+            if row['Specimen.order'] == '':
+                row['Specimen.order'] = str(0)
         return rows
 
     def _process_row(self, row):
@@ -190,7 +195,7 @@ class LeukformLoader(object):
         if c1 and (row['Specimen.ext_id'] == ''):
             row['Specimen.ext_id'] = '1'
         if c2 and (row['Aliquot.ext_id'] == ''):
-            row['Specimen.ext_id'] = '1'
+            row['Aliquot.ext_id'] = '1'
         return row
 
     def _get_or_create(self, model, fields):
