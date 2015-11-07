@@ -3,6 +3,7 @@
 # python
 import csv
 import io
+import json
 
 # local
 from . import constants
@@ -21,6 +22,11 @@ class LeukformLoader(object):
     def __init__(self):
         super(LeukformLoader, self).__init__()
 
+        # constants
+        self.VALID = 'ACCEPTED'
+        self.REJECTED = 'REJECTED'
+        self.EXISTED = 'EXISTED'
+
         # results data
         self.added = {}
         self.existed = {}
@@ -32,8 +38,8 @@ class LeukformLoader(object):
             self.existed[model] = []
             self.rejected[model] = 0
 
-    def submit(self, filepath=None, rows=None, validate=True):
-        """ NOTTESTED
+    def submit(self, filepath=None, rows=None, validate=True, mock=False):
+        """
         Process `leukform` from csv file using `filepath` or from a list of
         dictionaries using rows. If validate, then the input is validated.
 
@@ -69,8 +75,11 @@ class LeukformLoader(object):
         else:
             raise Exception("Provide a csv filepath or a list of dictionaries")
 
+        if mock:
+            self.VALID = 'VALID'
+
         rows = self._process_leukform(rows)
-        output = self._write_output(rows, columns)
+        output = self._write_output(rows, columns, mock)
         return output
 
     def _process_leukform(self, rows):
@@ -145,10 +154,10 @@ class LeukformLoader(object):
                     fields = self._update_fields(model, fields, instance)
                 else:
                     row['RESULT'] = msg
-                    row['STATUS'] = 'REJECTED'
+                    row['STATUS'] = self.REJECTED
                     break
 
-        if (msg == 'EXISTED') or (msg == 'ACCEPTED'):
+        if (msg == self.EXISTED) or (msg == self.VALID):
             row['RESULT'] = instance.slug
             row['STATUS'] = msg
 
@@ -214,7 +223,7 @@ class LeukformLoader(object):
 
         if 'slug' in fields[model]:  # if slug, use it to find the object
             try:
-                msg = 'EXISTED'
+                msg = self.EXISTED
                 slug = fields[model]['slug']
                 instance = MODEL.objects.get(slug=slug)
                 if instance not in self.added[model]:
@@ -225,7 +234,7 @@ class LeukformLoader(object):
 
         else:  # if not slug, find or create the object using all its data
             try:
-                msg = 'EXISTED'
+                msg = self.EXISTED
                 unique = constants.LEUKAPP_UNIQUE_TOGETHER[model]
                 search = {k: fields[model][k] for k in unique}
                 instance = MODEL.objects.get(**search)
@@ -234,7 +243,7 @@ class LeukformLoader(object):
             except MODEL.DoesNotExist:
                 form = FORM(fields[model])
                 if form.is_valid():
-                    msg = 'ACCEPTED'
+                    msg = self.VALID
                     instance = form.save(commit=True)
                     self.added[model].append(instance)
                 else:
@@ -261,8 +270,8 @@ class LeukformLoader(object):
             fields['Run']['aliquot'] = instance.pk
         return fields
 
-    def _write_output(self, rows, columns):
-        """
+    def _write_output(self, rows, columns, mock=False):
+        """ NOTTESTED
         Process output dictionary including a csv results file
         """
 
@@ -285,18 +294,29 @@ class LeukformLoader(object):
             "summary": summary,
             }
 
+        if mock:
+            self._delete_added_models()
+
         return output
 
+    def _delete_added_models(self):
+        """ deletes current added models """
+        for model in constants.MODELS_LIST[::-1]:
+            for instance in self.added[model]:
+                try:
+                    instance.delete()
+                except AssertionError:
+                    continue
+
     def _write_summary(self):
-        """
+        """ NOTTESTED
         writes out summary text
         """
-        summary = ''
+        summary = {}
         for model in constants.MODELS_LIST:
-            added = str(len(self.added[model]))
-            existed = str(len(self.existed[model]))
-            rejected = str(self.rejected[model])
-            txt = '{0}s -> {1} added, {2} existed, {3} rejected.\n'
-            summary += txt.format(model, added, existed, rejected)
-
-        return summary
+            summary[model] = {
+                "valid": len(self.added[model]),
+                "existed": len(self.existed[model]),
+                "rejected": self.rejected[model],
+                }
+        return json.dumps(summary)

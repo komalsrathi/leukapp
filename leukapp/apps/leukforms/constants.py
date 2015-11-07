@@ -45,6 +45,7 @@ LEUKFORM_LIST_URL = APP_NAME + ':list'
 LEUKFORM_CREATE_FIELDS = [
     'description',
     'submission',
+    'mock',
     ]
 
 LEUKFORM_UPDATE_FIELDS = [
@@ -54,6 +55,7 @@ LEUKFORM_UPDATE_FIELDS = [
 LEUKFORM_GET_OR_CREATE_FIELDS = (
     'description',
     'submission',
+    'mock',
     )
 
 # leukform fields

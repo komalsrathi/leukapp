@@ -50,6 +50,11 @@ class Leukform(LeukappModel):
         _("summary"),
         blank=True,
         )
+    mock = models.BooleanField(
+        _("test leukform"),
+        help_text='if True, records will not be saved.',
+        default=False,
+        )
 
     # internal
     created_individuals = models.ManyToManyField(
@@ -96,10 +101,14 @@ class Leukform(LeukappModel):
 
         # validate is  False in .submit because it has already been validated
         loader = LeukformLoader()
-        out = loader.submit(filepath=self.submission.file.name, validate=False)
+        filepath = self.submission.file.name
+        out = loader.submit(filepath=filepath, validate=False, mock=self.mock)
 
         # create result
-        result_name = 'result-leukform-%s.csv' % self.pk
+        if self.mock:
+            result_name = 'result-leukform-test-%s.csv' % self.pk
+        else:
+            result_name = 'result-leukform-%s.csv' % self.pk
         self.summary = out['summary']
         self.result = File(name=result_name, file=out['result'])
 
