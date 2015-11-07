@@ -2,6 +2,7 @@
 
 # python
 import os
+import json
 
 # django
 from django.test import TestCase
@@ -277,3 +278,29 @@ class TestLeukformLoader(TestCase):
         rows = loader._clean_specimen_order_column(rows)
         for row in rows[:2]:
             self.assertEqual(row['Specimen.order'], '0')
+
+    def test_delete_added_models(self):
+        batch = LeukformSamplesFactory()
+        rows = batch.create_batch(1, 1, 1, 1, delete=True)
+        loader = LeukformLoader()
+        loader.submit(rows=rows, validate=False, mock=True)
+        for model in loader.added:
+            for instance in loader.added[model]:
+                with self.assertRaises(AssertionError):
+                    instance.delete()
+
+    def test_write_summary(self):
+        batch = LeukformSamplesFactory()
+        rows = batch.create_batch(1, 1, 1, 1, delete=True)
+        loader = LeukformLoader()
+        loader.submit(rows=rows, validate=False, mock=True)
+        obtained = loader._write_summary()
+        expected = {}
+        for model in loader.added:
+            expected[model] = {
+                "valid": len(loader.added[model]),
+                "existed": len(loader.existed[model]),
+                "rejected": loader.rejected[model],
+                }
+        expected = json.dumps(expected)
+        self.assertDictEqual(eval(expected), eval(obtained))
