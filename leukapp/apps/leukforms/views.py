@@ -13,9 +13,11 @@ The `LoginRequiredMixin` is also used:
 
 # python
 from __future__ import absolute_import, unicode_literals
+import csv
 
 # django
 from django.views.decorators.cache import never_cache
+from django.template.defaulttags import register
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.generic import \
@@ -39,6 +41,28 @@ class LeukformDetailView(LoginRequiredMixin, DetailView):
     """
 
     model = Leukform
+
+    def get_context_data(self, **kwargs):
+            super_function = super(LeukformDetailView, self).get_context_data
+            context = super_function(**kwargs)
+
+            # Add new context
+            obj = self.get_object()
+            path = obj.result.file.name
+            with open(path, 'r') as result:
+                reader = csv.reader(result)
+                columns = list(next(reader))
+                result.seek(0)
+                result = list(csv.DictReader(result, delimiter=","))
+
+            context['MODELS'] = constants.MODELS_LIST
+            context['COLUMNS'] = columns
+            context['RESULT'] = result
+            context['SUMMARY'] = eval(obj.summary)
+            context['SUMMARY_COLS'] = ['valid', 'existed', 'rejected']
+            context['APP_NAME'] = constants.APP_NAME
+            context['CREATE_URL'] = constants.LEUKFORM_CREATE_URL
+            return context
 
 
 class LeukformListView(LoginRequiredMixin, ListView):
@@ -109,3 +133,7 @@ def download_result(request, slug):
     response = HttpResponse(leukform.result, content_type='text/csv')
     response['Content-Disposition'] = "attachment; filename=%s" % filename
     return response
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

@@ -1,14 +1,105 @@
 {% extends "core/core_detail.html" %}
-{% block detail_body %}
-  <div class="row">
-    <div class="col-sm-12 ">
+{% load staticfiles i18n %}
 
-    <p style="white-space: pre-line">{{ object.summary }}</p>
 
-      <a  class="btn btn-success btn-block"
-          href="{% url 'leukforms:result' object.slug %}">
-          download result
-      </a>
-    </div>
-  </div>
+{% block extra_css %}
+<!-- DataTables Responsive CSS -->
+<link
+href="{% static 'sbadmin2/bower_components/datatables-responsive/css/dataTables.responsive.css' %}"
+rel="stylesheet">
+
+<!-- DataTables CSS -->
+<link
+href="{% static 'sbadmin2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css' %}"
+rel="stylesheet">
 {% endblock %}
+
+
+
+{% block detail_body %}
+<!-- <p style="white-space: pre-line"> -->
+<h2>Summary</h2>
+<table class="table table-bordered table-hover border-collapse">
+    <tr>
+      <th>Model</th>
+      {% for col in SUMMARY_COLS %}
+      <th>{{ col|title }}</th>
+      {% endfor %}
+    </tr>
+{% for model in MODELS %}
+    <tr>
+      <th>{{ model }}</th>
+      {% with SUMMARY|get_item:model as summary %}
+      {% for col in SUMMARY_COLS %}
+      <td>{{ summary|get_item:col }}</td>
+      {% endfor %}
+      {% endwith %}
+    </tr>
+{% endfor %}
+</table>
+</p>
+
+
+<!-- RESULTS Table -->
+<br>
+<hr>
+<h2>Results</h2>
+<div class="dataTable_wrapper">
+  <table
+  class="table table-striped table-bordered table-hover border-collapse"
+  id="dataTables-example">
+    <thead>
+        <tr>
+          {% for column in COLUMNS %}
+            <th style="font-size: 11px">{{ column }}</th>
+          {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+    {% for row in RESULT %}
+        <tr>
+          {% for column in COLUMNS %}
+              <td style="font-size: 11px">
+                {{ row|get_item:column }}
+              </td>
+          {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Download results -->
+<hr>
+<a  class="btn btn-success btn-block"
+    href="{% url 'leukforms:result' object.slug %}">
+    download result
+</a>
+{% endblock detail_body %}
+
+
+{% block extra_javascript %}
+
+    <!-- Tables -->
+    <script
+    src="{% static 'sbadmin2/bower_components/datatables/media/js/jquery.dataTables.min.js' %}">
+    </script>
+
+    <script
+    src="{% static 'sbadmin2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js' %}">
+    </script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+        "responsive": true,
+        "scrollY": 400,
+        "scrollX": true,
+        "paging": false,
+
+        });
+        // $('.dataTables_scrollBody thead tr').addClass('hidden');
+    });
+    </script>
+{% endblock extra_javascript %}
