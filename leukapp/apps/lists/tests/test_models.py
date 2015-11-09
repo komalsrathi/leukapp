@@ -1,11 +1,10 @@
+"""
 from django.test import TestCase
 
 from ..models import Item, List
 
 
 class ListAndItemModelsTest(TestCase):
-
-    """docstring for ItemModelTest"""
 
     def test_saving_and_retrieving_items(self):
         list_ = List()
@@ -33,3 +32,4 @@ class ListAndItemModelsTest(TestCase):
         self.assertEqual(first_saved_item.list, list_)
         self.assertEqual(second_saved_item.text, "Item the second")
         self.assertEqual(second_saved_item.list, list_)
+"""

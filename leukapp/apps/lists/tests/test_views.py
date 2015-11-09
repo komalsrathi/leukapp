@@ -1,3 +1,5 @@
+"""
+
 from django.core.urlresolvers import resolve
 from django.test import TestCase
 from django.http import HttpRequest
@@ -95,3 +97,5 @@ class NewItemtest(TestCase):
         )
 
         self.assertRedirects(response, '/lists/%d/' % (correct_list.id,))
+"""
+
