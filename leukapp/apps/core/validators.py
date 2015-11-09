@@ -22,7 +22,7 @@ object_name_validator = RegexValidator(
 # the ext_id_validator uses the same regex as
 # django.core.validators.validate_slug
 ext_id_validator = RegexValidator(
-    regex=r'^[-a-zA-Z0-9_]+\Z',
+    regex=r'^[-a-zA-Z0-9_.]+\Z',
     code='invalid',
     message=_("Enter a valid 'External id' consisting of"
         " letters, numbers, underscores or hyphens."),

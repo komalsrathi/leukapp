@@ -13,6 +13,9 @@ class CoreValidatorsTest(TestCase):
         with self.assertRaises(ValidationError):
             ext_id_validator("Juan San")
 
+    def test_ext_id_validator_doesnt_allow_white_spaces(self):
+        self.assertEqual(None, ext_id_validator("asdf.asfs.sdaf"))
+
     def test_ext_id_validator_displays_correct_msg(self):
         msg = "Enter a valid 'External id' consisting of" \
             " letters, numbers, underscores or hyphens."
