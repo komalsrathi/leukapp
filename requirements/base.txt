@@ -1,5 +1,5 @@
 # Bleeding edge Django
-django==1.8.4
+django==1.9.b1
 
 # Configuration
 django-environ==0.3.0
@@ -20,7 +20,7 @@ Pillow==2.9.0
 
 # For user registration, either via email or social
 # Well-built with regular release cycles!
-django-allauth==0.23.0
+django-allauth==0.24.1
 
 # For the persistence stores
 psycopg2==2.6.1
