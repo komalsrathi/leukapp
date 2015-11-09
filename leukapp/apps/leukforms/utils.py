@@ -240,7 +240,7 @@ class LeukformLoader(object):
                 instance = MODEL.objects.get(**search)
                 if instance not in self.added[model]:
                     self.existed[model].append(instance)
-            except MODEL.DoesNotExist:
+            except (MODEL.DoesNotExist, KeyError):
                 form = FORM(fields[model])
                 if form.is_valid():
                     msg = self.VALID

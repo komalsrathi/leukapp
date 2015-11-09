@@ -47,6 +47,8 @@ class Specimen(LeukappModel):
         )
     order = models.PositiveSmallIntegerField(
         _("desired order"),
+        null=True,
+        blank=True,
         default=0,
         )
 
