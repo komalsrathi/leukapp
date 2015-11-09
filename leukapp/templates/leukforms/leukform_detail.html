@@ -22,9 +22,9 @@ rel="stylesheet">
 <table class="table table-bordered table-hover border-collapse">
     <tr>
       <th>Model</th>
-      {% for col in SUMMARY_COLS %}
-      <th>{{ col|title }}</th>
-      {% endfor %}
+      <th>Valid/Added</th>
+      <th>Existed</th>
+      <th>Rejected</th>
     </tr>
 {% for model in MODELS %}
     <tr>
