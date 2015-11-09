@@ -7,7 +7,7 @@ Most of these views inherits from Django's `Class Based Views`. See:
     • http://www.pydanny.com/stay-with-the-django-cbv-defaults.html
     • http://www.pydanny.com/tag/class-based-views.html
 
-The `LoginRequiredMixin` is also used:
+The `views.LoginRequiredMixin` is also used:
     • http://django-braces.readthedocs.org/en/latest/access.html
 """
 
@@ -16,21 +16,19 @@ from __future__ import absolute_import, unicode_literals
 
 # djano
 from django import forms
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
 from django.core.urlresolvers import reverse
 from django.views.generic import \
     DetailView, ListView, RedirectView, UpdateView, CreateView
 
 # third party
-from braces.views import LoginRequiredMixin
+from braces import views
 
 # local
 from .models import Project
 from . import constants
 
 
-class ProjectDetailView(LoginRequiredMixin, DetailView):
+class ProjectDetailView(views.LoginRequiredMixin, DetailView):
 
     """
     Render a "detail" view of an object. By default this is a model instance
@@ -42,7 +40,7 @@ class ProjectDetailView(LoginRequiredMixin, DetailView):
     model = Project
 
 
-class ProjectListView(LoginRequiredMixin, ListView):
+class ProjectListView(views.LoginRequiredMixin, ListView):
 
     """
     Render some list of objects, set by `self.model` or `self.queryset`.
@@ -55,15 +53,17 @@ class ProjectListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
             context = super(ProjectListView, self).get_context_data(**kwargs)
-
-            # Add new context
             context['APP_NAME'] = constants.APP_NAME
             context['CREATE_URL'] = constants.PROJECT_CREATE_URL
             context['LIST_URL'] = constants.PROJECT_LIST_URL
             return context
 
+    def get_queryset(self):
+        email = self.request.user.email
+        return Project.objects.filter(participants__email=email)
 
-class ProjectRedirectView(LoginRequiredMixin, RedirectView):
+
+class ProjectRedirectView(views.LoginRequiredMixin, RedirectView):
 
     """
     A view that provides a redirect on any GET request.
@@ -76,7 +76,9 @@ class ProjectRedirectView(LoginRequiredMixin, RedirectView):
         return reverse(constants.PROJECT_LIST_URL)
 
 
-class ProjectCreateView(LoginRequiredMixin, CreateView):
+class ProjectCreateView(views.MultiplePermissionsRequiredMixin,
+                        views.LoginRequiredMixin,
+                        CreateView):
 
     """
     View for creating a new object, with a response rendered by template.
@@ -85,6 +87,13 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
 
     model = Project
     fields = constants.PROJECT_CREATE_FIELDS
+
+    # required
+    raise_exception = True
+    permissions = {
+        "all": ('add_user', ),
+        "any": ()
+    }
 
     def get_form(self, form_class=None):
         form = super(ProjectCreateView, self).get_form(form_class)
@@ -95,8 +104,15 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
         return super(ProjectCreateView, self).post(
             self, request, *args, **kwargs)
 
+    def form_valid(self, form):
+        """ Add created_by to form """
+        obj = form.save()
+        obj.created_by = self.request.user
+        obj.save()
+        return super(ProjectCreateView, self).form_valid(form)
 
-class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+
+class ProjectUpdateView(views.LoginRequiredMixin, UpdateView):
 
     """
     View for updating an object, with a response rendered by template.
@@ -116,15 +132,9 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
         return super(ProjectUpdateView, self).post(
             self, request, *args, **kwargs)
 
-    def get_object(self, queryset=None):
-        """ force obj.save() on updated model """
-        obj = super(ProjectUpdateView, self).get_object()
-        obj.save()
-        return obj
 
-
-# HELPER FUNCTIONS
 # -----------------------------------------------------------------------------
+# HELPER FUNCTIONS
 
 def update_project_form_widgets(form):
     form.fields['pi'].widget = forms.TextInput()
@@ -137,7 +147,9 @@ def update_project_form_widgets(form):
 
 def clean_participants_in_request(request):
     try:
-        participants = request.POST['participants'].split(',')
+        POST = request.POST
+        participants = POST['participants'].split(',')
+        participants += [POST['pi'], POST['analyst'], POST['requestor']]
         request.POST['participants'] = [int(p) for p in participants]
     except Exception:
         pass

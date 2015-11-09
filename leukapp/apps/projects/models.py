@@ -1,9 +1,7 @@
-import inspect
-
-
 # django imports
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 # apps imports
 from leukapp.apps.core.models import LeukappModel
@@ -78,6 +76,12 @@ class Project(LeukappModel):
         unique=True,
         editable=False,
         )
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("created by"),
+        null=True,
+        blank=True
+        )
 
     class Meta:
         verbose_name = _(constants.APP_NAME[:-1])
@@ -93,4 +97,7 @@ class Project(LeukappModel):
 
     def if_save(self):
         """ if_save() is run everytime the object is saved"""
+        self.update_participants()
+
+    def update_participants(self):
         self.participants.add(self.pi, self.analyst, self.requestor)
