@@ -43,26 +43,25 @@ class LeukformDetailView(LoginRequiredMixin, DetailView):
     model = Leukform
 
     def get_context_data(self, **kwargs):
-            super_function = super(LeukformDetailView, self).get_context_data
-            context = super_function(**kwargs)
+        super_function = super(LeukformDetailView, self).get_context_data
+        context = super_function(**kwargs)
 
-            # Add new context
-            obj = self.get_object()
-            path = obj.result.file.name
-            with open(path, 'r') as result:
-                reader = csv.reader(result)
-                columns = list(next(reader))
-                result.seek(0)
-                result = list(csv.DictReader(result, delimiter=","))
+        obj = self.get_object()
+        path = obj.result.file.name
+        with open(path, 'r') as result:
+            reader = csv.reader(result)
+            columns = list(next(reader))
+            result.seek(0)
+            result = list(csv.DictReader(result, delimiter=","))
 
-            context['MODELS'] = constants.MODELS_LIST
-            context['COLUMNS'] = columns
-            context['RESULT'] = result
-            context['SUMMARY'] = eval(obj.summary)
-            context['SUMMARY_COLS'] = ['valid', 'existed', 'rejected']
-            context['APP_NAME'] = constants.APP_NAME
-            context['CREATE_URL'] = constants.LEUKFORM_CREATE_URL
-            return context
+        context['MODELS'] = constants.MODELS_LIST
+        context['COLUMNS'] = columns
+        context['RESULT'] = result
+        context['SUMMARY'] = eval(obj.summary)
+        context['SUMMARY_COLS'] = ['valid', 'existed', 'rejected']
+        context['APP_NAME'] = constants.APP_NAME
+        context['CREATE_URL'] = constants.LEUKFORM_CREATE_URL
+        return context
 
 
 class LeukformListView(LoginRequiredMixin, ListView):
@@ -77,12 +76,13 @@ class LeukformListView(LoginRequiredMixin, ListView):
     paginated_by = 20
 
     def get_context_data(self, **kwargs):
-            context = super(LeukformListView, self).get_context_data(**kwargs)
+        context = super(LeukformListView, self).get_context_data(**kwargs)
+        context['APP_NAME'] = constants.APP_NAME
+        context['CREATE_URL'] = constants.LEUKFORM_CREATE_URL
+        return context
 
-            # Add new context
-            context['APP_NAME'] = constants.APP_NAME
-            context['CREATE_URL'] = constants.LEUKFORM_CREATE_URL
-            return context
+    def get_queryset(self):
+        return Leukform.objects.filter(created_by=self.request.user)
 
 
 class LeukformRedirectView(LoginRequiredMixin, RedirectView):
@@ -109,10 +109,12 @@ class LeukformCreateView(LoginRequiredMixin, CreateView):
     fields = constants.LEUKFORM_CREATE_FIELDS
     succes_msg = "Leukform Created!"
 
-    @never_cache
-    def dispatch(self, request, *args, **kwargs):
-        return super(LeukformCreateView, self).dispatch(
-            request, *args, **kwargs)
+    def form_valid(self, form):
+        """ Add created_by to form """
+        obj = form.save(commit=False)
+        obj.created_by = self.request.user
+        obj.save()
+        return super(LeukformCreateView, self).form_valid(form)
 
 
 class LeukformUpdateView(LoginRequiredMixin, UpdateView):
@@ -128,11 +130,16 @@ class LeukformUpdateView(LoginRequiredMixin, UpdateView):
 
 
 def download_result(request, slug):
+    """ FBV to download leukform results """
     leukform = Leukform.objects.get(slug=slug)
     filename = leukform.result.name.split('/')[-1]
     response = HttpResponse(leukform.result, content_type='text/csv')
     response['Content-Disposition'] = "attachment; filename=%s" % filename
     return response
+
+
+# -----------------------------------------------------------------------------
+# HELPER FUNCTIONS
 
 @register.filter
 def get_item(dictionary, key):

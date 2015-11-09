@@ -82,9 +82,9 @@ class Leukform(LeukappModel):
         unique=True,
         editable=False,
         )
-    user = models.ForeignKey(
+    created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        verbose_name=_("user"),
+        verbose_name=_("created by"),
         null=True,
         blank=True
         )
