@@ -15,25 +15,23 @@
 {% endwith %}
 
 <br/>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          {% block panel_title %} {{ object }} {% endblock %}
-        </div>
-        <div class="panel-body">
-        {% block detail_body %}
-          <div class="row">
-            <div class="col-sm-12 ">
-              <a  class="btn btn-primary"
-                  href="{{ object.get_update_url }}">
-                  Update
-              </a>
-            </div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {% block panel_title %} {{ object }} {% endblock %}
+      </div>
+      <div class="panel-body">
+      {% block detail_body %}
+        <div class="row">
+          <div class="col-sm-12 ">
+            <a  class="btn btn-primary"
+                href="{{ object.get_update_url }}">
+                Update
+            </a>
           </div>
-        {% endblock %}
         </div>
+      {% endblock %}
       </div>
     </div>
   </div>

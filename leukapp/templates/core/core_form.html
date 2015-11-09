@@ -24,43 +24,41 @@
 {% endif %}
 
 <br/>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-        {% if object %}
-            {{ object.APP_NAME|title }}: {{ object }}
-        {% else %}
-            Create Form
-        {% endif %}
-        </div>
-        <div class="panel-body">
-        {% block panel_body %}
-        {% endblock %}
-          <form method="post"
-                action="."
-                enctype="multipart/form-data">
-              {% csrf_token %}
-              {{ form|crispy }}
-              <div class="control-group">
-                <div class="controls">
-                  <button class="btn btn-primary btn-block"
-                          name="action_add"
-                          type="submit"
-                          onClick="this.form.submit(); this.disabled=true;">
-                    Submit
-                  </button>
-                </div>
-              </div>
-          </form>
-        </div>
-        {% if footer %}
-        <div class="panel-footer">
-            {{ footer }}
-        </div>
-        {% endif %}
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+      {% if object %}
+          {{ object.APP_NAME|title }}: {{ object }}
+      {% else %}
+          Create Form
+      {% endif %}
       </div>
+      <div class="panel-body">
+      {% block panel_body %}
+      {% endblock %}
+        <form method="post"
+              action="."
+              enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="control-group">
+              <div class="controls">
+                <button class="btn btn-primary btn-block"
+                        name="action_add"
+                        type="submit"
+                        onClick="this.form.submit(); this.disabled=true;">
+                  Submit
+                </button>
+              </div>
+            </div>
+        </form>
+      </div>
+      {% if footer %}
+      <div class="panel-footer">
+          {{ footer }}
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>

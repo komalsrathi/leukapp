@@ -19,12 +19,6 @@
     {% endblock head %}
 
     {% block css %}
-
-      <!-- Leukapp CSS -->
-      <link
-      href="{% static 'css/project.css' %}"
-      rel="stylesheet">
-
       <!-- Bootstrap Core CSS -->
       <link
       href="{% static 'sbadmin2/bower_components/bootstrap/dist/css/bootstrap.min.css' %}"
@@ -64,6 +58,10 @@
       href="{% static 'tokeninput/css/token-input-facebook.css' %}"
       rel="stylesheet">
 
+      <!-- Leukapp CSS -->
+      <link
+      href="{% static 'css/project.css' %}"
+      rel="stylesheet">
     {% endblock %}
 
     {% block extra_css %}
@@ -80,6 +78,15 @@
     {% block body%}
       <div id="wrapper">
 
+        <!-- Messegaes Handling -->
+        {% if messages %}
+        <nav id="message_nav" class="navbar navbar-static-top">
+          {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+          {% endfor %}
+        </nav>
+        {% endif %}
+
         <!-- Navigation -->
         {% block navigation%}
         {% include "sbadmin2/navigation/navigation.html" %}
@@ -87,19 +94,12 @@
 
         <!-- Page Content -->
         <div id="page-wrapper">
-          <!-- Messegaes Handling -->
-          {% if messages %}
-              {% for message in messages %}
-                  <br/>
-                  <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
-              {% endfor %}
-          {% endif %}
-
-          <!-- Block Content -->
-          {% block content%}
-          {% endblock content %}
-
+        <div class="container-fluid">
+        {% block content%}
+        {% endblock content %}
+        </div>
         </div> <!-- /#page-wrapper -->
+
       </div> <!-- /#wrapper -->
     {% endblock body %}
 
@@ -152,6 +152,12 @@
       <!-- Tokeinput JavaScript -->
       <script
       src="{% static 'tokeninput/js/jquery.tokeninput.js' %}">
+      </script>
+
+      <script type="text/javascript">
+      $(document).ready( function() {
+        $('#message_nav').delay(9000).fadeOut();
+      });
       </script>
     {% endblock javascript %}
 
