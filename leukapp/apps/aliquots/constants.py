@@ -24,7 +24,6 @@ ALIQUOT_LEUKFORM_FIELDS = (
     )
 
 ALIQUOT_UPDATE_FIELDS = (
-    'bio_source',
     )
 
 ALIQUOT_UNIQUE_TOGETHER = (

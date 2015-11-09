@@ -24,8 +24,6 @@ INDIVIDUAL_LEUKFORM_FIELDS = (
     )
 
 INDIVIDUAL_UPDATE_FIELDS = (
-    'institution',
-    'species',
     )
 
 INDIVIDUAL_UNIQUE_TOGETHER = (
