@@ -6,29 +6,25 @@ Most of these views inherits from Django's `Class Based Views`. See:
     • http://ccbv.co.uk/projects/Django/1.8/
     • http://www.pydanny.com/stay-with-the-django-cbv-defaults.html
     • http://www.pydanny.com/tag/class-based-views.html
-
-The `views.LoginRequiredMixin` is also used:
-    • http://django-braces.readthedocs.org/en/latest/access.html
 """
 
 # python
 from __future__ import absolute_import, unicode_literals
 
-# djano
+# django
 from django import forms
+from django.views import generic
+from django.contrib.auth import mixins
 from django.core.urlresolvers import reverse
-from django.views.generic import \
-    DetailView, ListView, RedirectView, UpdateView, CreateView
-
-# third party
-from braces import views
+from django.contrib.messages.views import SuccessMessageMixin
 
 # local
 from .models import Project
 from . import constants
 
 
-class ProjectDetailView(views.LoginRequiredMixin, DetailView):
+class ProjectDetailView(mixins.LoginRequiredMixin,
+                        generic.DetailView):
 
     """
     Render a "detail" view of an object. By default this is a model instance
@@ -40,7 +36,8 @@ class ProjectDetailView(views.LoginRequiredMixin, DetailView):
     model = Project
 
 
-class ProjectListView(views.LoginRequiredMixin, ListView):
+class ProjectListView(mixins.LoginRequiredMixin,
+                      generic.ListView):
 
     """
     Render some list of objects, set by `self.model` or `self.queryset`.
@@ -52,18 +49,19 @@ class ProjectListView(views.LoginRequiredMixin, ListView):
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
-            context = super(ProjectListView, self).get_context_data(**kwargs)
-            context['APP_NAME'] = constants.APP_NAME
-            context['CREATE_URL'] = constants.PROJECT_CREATE_URL
-            context['LIST_URL'] = constants.PROJECT_LIST_URL
-            return context
+        context = super(ProjectListView, self).get_context_data(**kwargs)
+        context['APP_NAME'] = constants.APP_NAME
+        context['CREATE_URL'] = constants.PROJECT_CREATE_URL
+        context['LIST_URL'] = constants.PROJECT_LIST_URL
+        return context
 
     def get_queryset(self):
         email = self.request.user.email
         return Project.objects.filter(participants__email=email)
 
 
-class ProjectRedirectView(views.LoginRequiredMixin, RedirectView):
+class ProjectRedirectView(mixins.LoginRequiredMixin,
+                          generic.RedirectView):
 
     """
     A view that provides a redirect on any GET request.
@@ -76,9 +74,10 @@ class ProjectRedirectView(views.LoginRequiredMixin, RedirectView):
         return reverse(constants.PROJECT_LIST_URL)
 
 
-class ProjectCreateView(views.MultiplePermissionsRequiredMixin,
-                        views.LoginRequiredMixin,
-                        CreateView):
+class ProjectCreateView(SuccessMessageMixin,
+                        mixins.PermissionRequiredMixin,
+                        mixins.LoginRequiredMixin,
+                        generic.CreateView):
 
     """
     View for creating a new object, with a response rendered by template.
@@ -87,13 +86,12 @@ class ProjectCreateView(views.MultiplePermissionsRequiredMixin,
 
     model = Project
     fields = constants.PROJECT_CREATE_FIELDS
+    success_message = "Project Updated!"
 
-    # required
+    # Permission configuration
+    permission_required = ('projects.add_project')
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
-    permissions = {
-        "all": ('add_user', ),
-        "any": ()
-    }
 
     def get_form(self, form_class=None):
         form = super(ProjectCreateView, self).get_form(form_class)
@@ -105,14 +103,16 @@ class ProjectCreateView(views.MultiplePermissionsRequiredMixin,
             self, request, *args, **kwargs)
 
     def form_valid(self, form):
-        """ Add created_by to form """
         obj = form.save()
         obj.created_by = self.request.user
         obj.save()
         return super(ProjectCreateView, self).form_valid(form)
 
 
-class ProjectUpdateView(views.LoginRequiredMixin, UpdateView):
+class ProjectUpdateView(SuccessMessageMixin,
+                        mixins.PermissionRequiredMixin,
+                        mixins.LoginRequiredMixin,
+                        generic.UpdateView):
 
     """
     View for updating an object, with a response rendered by template.
@@ -121,7 +121,12 @@ class ProjectUpdateView(views.LoginRequiredMixin, UpdateView):
 
     model = Project
     fields = constants.PROJECT_UPDATE_FIELDS
-    # form_class = ProjectUpdateForm
+    success_message = "Project Updated!"
+
+    # Permissions
+    permission_required = ('projects.change_project')
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
 
     def get_form(self, form_class=None):
         form = super(ProjectUpdateView, self).get_form(form_class)
@@ -133,8 +138,8 @@ class ProjectUpdateView(views.LoginRequiredMixin, UpdateView):
             self, request, *args, **kwargs)
 
 
-# -----------------------------------------------------------------------------
 # HELPER FUNCTIONS
+# -----------------------------------------------------------------------------
 
 def update_project_form_widgets(form):
     form.fields['pi'].widget = forms.TextInput()

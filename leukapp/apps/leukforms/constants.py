@@ -34,14 +34,19 @@ from .forms import SpecimenForm
 from .forms import AliquotForm
 from .forms import RunForm
 
-# app name
+# APP INFO
+# -----------------------------------------------------------------------------
 APP_NAME = 'leukforms'
 
-# urls
+# URLS
+# -----------------------------------------------------------------------------
 LEUKFORM_CREATE_URL = APP_NAME + ':create'
 LEUKFORM_LIST_URL = APP_NAME + ':list'
 
-# run fields
+# FIELDS
+# -----------------------------------------------------------------------------
+
+# Leukform Model fields
 LEUKFORM_CREATE_FIELDS = [
     'description',
     'submission',
@@ -74,7 +79,8 @@ LEUKAPP_UNIQUE_TOGETHER = {
     'Run': RUN_UNIQUE_TOGETHER,
     }
 
-# Models
+# MODELS
+# -----------------------------------------------------------------------------
 MODELS_LIST = ['Individual', 'Specimen', 'Aliquot', 'Run']
 
 LEUKAPP_MODELS = {
@@ -84,7 +90,8 @@ LEUKAPP_MODELS = {
     'Run': Run,
     }
 
-# factories
+# FACTORIES
+# -----------------------------------------------------------------------------
 LEUKAPP_FACTORIES = {
     'Individual': IndividualFactory,
     'Specimen': SpecimenFactory,
@@ -93,10 +100,19 @@ LEUKAPP_FACTORIES = {
     'Project': ProjectFactory,
     }
 
-# leukapp forms
+# FORMS
+# -----------------------------------------------------------------------------
 LEUKAPP_FORMS = {
     'Individual': IndividualForm,
     'Specimen': SpecimenForm,
     'Aliquot': AliquotForm,
     'Run': RunForm
     }
+
+# MESSAGES
+# -----------------------------------------------------------------------------
+PERMISSION_DENIED_MESSAGE = \
+    '''
+    You don't have permission to perform this action, please contact a Leukgen
+    Administrator
+    '''

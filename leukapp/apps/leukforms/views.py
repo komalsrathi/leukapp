@@ -6,9 +6,6 @@ Most of these views inherits from Django's `Class Based Views`. See:
     • http://ccbv.co.uk/projects/Django/1.8/
     • http://www.pydanny.com/stay-with-the-django-cbv-defaults.html
     • http://www.pydanny.com/tag/class-based-views.html
-
-The `LoginRequiredMixin` is also used:
-    • http://django-braces.readthedocs.org/en/latest/access.html
 """
 
 # python
@@ -16,22 +13,20 @@ from __future__ import absolute_import, unicode_literals
 import csv
 
 # django
-from django.views.decorators.cache import never_cache
-from django.template.defaulttags import register
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse
-from django.views.generic import \
-    DetailView, ListView, RedirectView, UpdateView, CreateView
-
-# third party
-from braces.views import LoginRequiredMixin
+from django.views import generic
+from django.contrib.auth import mixins
+from django.core.urlresolvers import reverse
+from django.template.defaulttags import register
+from django.contrib.messages.views import SuccessMessageMixin
 
 # local
 from .models import Leukform
 from . import constants
 
 
-class LeukformDetailView(LoginRequiredMixin, DetailView):
+class LeukformDetailView(mixins.LoginRequiredMixin,
+                         generic.DetailView):
 
     """
     Render a "detail" view of an object. By default this is a model instance
@@ -64,7 +59,8 @@ class LeukformDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class LeukformListView(LoginRequiredMixin, ListView):
+class LeukformListView(mixins.LoginRequiredMixin,
+                       generic.ListView):
 
     """
     Render some list of objects, set by `self.model` or `self.queryset`.
@@ -85,7 +81,8 @@ class LeukformListView(LoginRequiredMixin, ListView):
         return Leukform.objects.filter(created_by=self.request.user)
 
 
-class LeukformRedirectView(LoginRequiredMixin, RedirectView):
+class LeukformRedirectView(mixins.LoginRequiredMixin,
+                           generic.RedirectView):
 
     """
     A view that provides a redirect on any GET request.
@@ -98,7 +95,10 @@ class LeukformRedirectView(LoginRequiredMixin, RedirectView):
         return reverse(constants.LEUKFORM_LIST_URL)
 
 
-class LeukformCreateView(LoginRequiredMixin, CreateView):
+class LeukformCreateView(SuccessMessageMixin,
+                         mixins.PermissionRequiredMixin,
+                         mixins.LoginRequiredMixin,
+                         generic.CreateView):
 
     """
     View for creating a new object, with a response rendered by template.
@@ -109,6 +109,11 @@ class LeukformCreateView(LoginRequiredMixin, CreateView):
     fields = constants.LEUKFORM_CREATE_FIELDS
     succes_msg = "Leukform Created!"
 
+    # Permission configuration
+    permission_required = ('leukforms.add_leukform')
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
+
     def form_valid(self, form):
         """ Add created_by to form """
         obj = form.save(commit=False)
@@ -117,7 +122,10 @@ class LeukformCreateView(LoginRequiredMixin, CreateView):
         return super(LeukformCreateView, self).form_valid(form)
 
 
-class LeukformUpdateView(LoginRequiredMixin, UpdateView):
+class LeukformUpdateView(SuccessMessageMixin,
+                         mixins.PermissionRequiredMixin,
+                         mixins.LoginRequiredMixin,
+                         generic.UpdateView):
 
     """
     View for updating an object, with a response rendered by template.
@@ -127,6 +135,11 @@ class LeukformUpdateView(LoginRequiredMixin, UpdateView):
     model = Leukform
     fields = constants.LEUKFORM_UPDATE_FIELDS
     succes_msg = "Leukform Updated!"
+
+    # Permissions
+    permission_required = ('leukforms.change_leukform')
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
 
 
 def download_result(request, slug):

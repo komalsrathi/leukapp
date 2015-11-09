@@ -3,14 +3,17 @@
 projects app constants
 """
 
-# app name
+# APP INFO
+# -----------------------------------------------------------------------------
 APP_NAME = 'projects'
 
-# urls
+# URLS
+# -----------------------------------------------------------------------------
 PROJECT_CREATE_URL = APP_NAME + ':create'
 PROJECT_LIST_URL = APP_NAME + ':list'
 
-# fields
+# FIELDS
+# -----------------------------------------------------------------------------
 PROJECT_CREATE_FIELDS = (
     'name',
     'description',
@@ -38,3 +41,11 @@ PROJECT_UPDATE_FIELDS = (
 PROJECT_UNIQUE_TOGETHER = (
     'name',
     )
+
+# MESSAGES
+# -----------------------------------------------------------------------------
+PERMISSION_DENIED_MESSAGE = \
+    '''
+    You don't have permission to perform this action, please contact a Leukgen
+    Administrator
+    '''

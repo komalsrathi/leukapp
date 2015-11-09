@@ -6,28 +6,24 @@ Most of these views inherits from Django's `Class Based Views`. See:
     • http://ccbv.co.uk/projects/Django/1.8/
     • http://www.pydanny.com/stay-with-the-django-cbv-defaults.html
     • http://www.pydanny.com/tag/class-based-views.html
-
-The `LoginRequiredMixin` is also used:
-    • http://django-braces.readthedocs.org/en/latest/access.html
 """
 
 # python
 from __future__ import absolute_import, unicode_literals
 
 # django
+from django.views import generic
+from django.contrib.auth import mixins
 from django.core.urlresolvers import reverse
-from django.views.generic import \
-    DetailView, ListView, RedirectView, UpdateView, CreateView
-
-# third party
-from braces.views import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 
 # local
 from .models import Specimen
 from . import constants
 
 
-class SpecimenDetailView(LoginRequiredMixin, DetailView):
+class SpecimenDetailView(mixins.LoginRequiredMixin,
+                         generic.DetailView):
 
     """
     Render a "detail" view of an object. By default this is a model instance
@@ -39,7 +35,8 @@ class SpecimenDetailView(LoginRequiredMixin, DetailView):
     model = Specimen
 
 
-class SpecimenListView(LoginRequiredMixin, ListView):
+class SpecimenListView(mixins.LoginRequiredMixin,
+                       generic.ListView):
 
     """
     Render some list of objects, set by `self.model` or `self.queryset`.
@@ -51,16 +48,14 @@ class SpecimenListView(LoginRequiredMixin, ListView):
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
-            context = super(
-                SpecimenListView, self).get_context_data(**kwargs)
-
-            # Add new context
+            context = super(SpecimenListView, self).get_context_data(**kwargs)
             context['APP_NAME'] = constants.APP_NAME
             context['CREATE_URL'] = constants.SPECIMEN_CREATE_URL
             return context
 
 
-class SpecimenRedirectView(LoginRequiredMixin, RedirectView):
+class SpecimenRedirectView(mixins.LoginRequiredMixin,
+                           generic.RedirectView):
 
     """
     A view that provides a redirect on any GET request.
@@ -73,7 +68,10 @@ class SpecimenRedirectView(LoginRequiredMixin, RedirectView):
         return reverse(constants.SPECIMEN_LIST_URL)
 
 
-class SpecimenCreateView(LoginRequiredMixin, CreateView):
+class SpecimenCreateView(SuccessMessageMixin,
+                         mixins.PermissionRequiredMixin,
+                         mixins.LoginRequiredMixin,
+                         generic.CreateView):
 
     """
     View for creating a new object, with a response rendered by template.
@@ -82,10 +80,18 @@ class SpecimenCreateView(LoginRequiredMixin, CreateView):
 
     model = Specimen
     fields = constants.SPECIMEN_CREATE_FIELDS
-    succes_msg = "Specimen Created!"
+    success_message = "Specimen Created!"
+
+    # Permissions
+    permission_required = ('specimens.add_specimen')
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
 
 
-class SpecimenUpdateView(LoginRequiredMixin, UpdateView):
+class SpecimenUpdateView(SuccessMessageMixin,
+                         mixins.PermissionRequiredMixin,
+                         mixins.LoginRequiredMixin,
+                         generic.UpdateView):
 
     """
     View for updating an object, with a response rendered by template.
@@ -94,4 +100,9 @@ class SpecimenUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Specimen
     fields = constants.SPECIMEN_UPDATE_FIELDS
-    succes_msg = "Specimen Created!"
+    success_message = "Specimen Updated!"
+
+    # Permissions
+    permission_required = ('specimens.change_specimen')
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True

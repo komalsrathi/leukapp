@@ -3,14 +3,17 @@
 individuals app constants
 """
 
-# app name
+# APP INFO
+# -----------------------------------------------------------------------------
 APP_NAME = 'individuals'
 
-# urls
+# URLS
+# -----------------------------------------------------------------------------
 INDIVIDUAL_CREATE_URL = APP_NAME + ':create'
 INDIVIDUAL_LIST_URL = APP_NAME + ':list'
 
-# models fields
+# FIELDS
+# -----------------------------------------------------------------------------
 INDIVIDUAL_CREATE_FIELDS = (
     'institution',
     'species',
@@ -32,7 +35,8 @@ INDIVIDUAL_UNIQUE_TOGETHER = (
     'ext_id',
     )
 
-# choices
+# CHOICES
+# -----------------------------------------------------------------------------
 MSK = 'MSK'
 OTHER = 'OTHER'
 INSTITUTION = (
@@ -67,3 +71,11 @@ LEUKID_SPECIES = {
     ZEBRAFISH: 'Z',
     XENOGRAFT: 'X',
     }
+
+# MESSAGES
+# -----------------------------------------------------------------------------
+PERMISSION_DENIED_MESSAGE = \
+    '''
+    You don't have permission to perform this action, please contact a Leukgen
+    Administrator
+    '''

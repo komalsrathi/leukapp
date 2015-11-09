@@ -4,14 +4,17 @@
 specimens app constants
 """
 
-# app name
+# APP INFO
+# -----------------------------------------------------------------------------
 APP_NAME = 'specimens'
 
-#  urls
+# URLS
+# -----------------------------------------------------------------------------
 SPECIMEN_CREATE_URL = APP_NAME + ':create'
 SPECIMEN_LIST_URL = APP_NAME + ':list'
 
-# models fields
+# FIELDS
+# -----------------------------------------------------------------------------
 SPECIMEN_CREATE_FIELDS = (
     'individual',
     'source',
@@ -36,8 +39,8 @@ SPECIMEN_UNIQUE_TOGETHER = (
     'source_type',
     )
 
-# choices
-
+# CHOICES
+# -----------------------------------------------------------------------------
 BLOOD = 'Blood'
 NAILS = 'Nails'
 BUCCAL = 'Buccal'
@@ -69,3 +72,11 @@ LEUKID_SOURCE_TYPE = {
     TUMOR: 'T',
     NORMAL: 'N',
     }
+
+# MESSAGES
+# -----------------------------------------------------------------------------
+PERMISSION_DENIED_MESSAGE = \
+    '''
+    You don't have permission to perform this action, please contact a Leukgen
+    Administrator
+    '''

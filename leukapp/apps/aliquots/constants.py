@@ -4,14 +4,17 @@
 specimens app constants
 """
 
-# app name
+# APP INFO
+# -----------------------------------------------------------------------------
 APP_NAME = 'aliquots'
 
-# urls
+# URLS
+# -----------------------------------------------------------------------------
 ALIQUOT_CREATE_URL = APP_NAME + ':create'
 ALIQUOT_LIST_URL = APP_NAME + ':list'
 
-# models fields
+# FIELDS
+# -----------------------------------------------------------------------------
 ALIQUOT_CREATE_FIELDS = (
     'specimen',
     'bio_source',
@@ -32,7 +35,8 @@ ALIQUOT_UNIQUE_TOGETHER = (
     'ext_id',
     )
 
-# choices
+# CHOICES
+# -----------------------------------------------------------------------------
 DNA = 'DNA'
 RNA = 'RNA'
 BIO_SOURCE = (
@@ -49,3 +53,11 @@ LEUKID_BIO_SOURCE = {
     DNA: 'D',
     RNA: 'R',
     }
+
+# MESSAGES
+# -----------------------------------------------------------------------------
+PERMISSION_DENIED_MESSAGE = \
+    '''
+    You don't have permission to perform this action, please contact a Leukgen
+    Administrator
+    '''

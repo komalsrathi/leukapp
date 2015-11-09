@@ -3,14 +3,17 @@
 individuals app constants
 """
 
-# app name
+# APP INFO
+# -----------------------------------------------------------------------------
 APP_NAME = 'participants'
 
-# urls
+# URLS
+# -----------------------------------------------------------------------------
 CREATE_URL = APP_NAME + ':create'
 LIST_URL = APP_NAME + ':list'
 
-# model fields
+# FIELDS
+# -----------------------------------------------------------------------------
 PARTICIPANT_CREATE_FIELDS = (
     'first_name',
     'last_name',
@@ -27,3 +30,11 @@ PARTICIPANT_UPDATE_FIELDS = (
 PARTICIPANT_UNIQUE_TOGETHER = (
     'email',
     )
+
+# MESSAGES
+# -----------------------------------------------------------------------------
+PERMISSION_DENIED_MESSAGE = \
+    '''
+    You don't have permission to perform this action, please contact a Leukgen
+    Administrator
+    '''

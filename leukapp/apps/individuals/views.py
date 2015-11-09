@@ -6,28 +6,24 @@ Most of these views inherits from Django's `Class Based Views`. See:
     • http://ccbv.co.uk/projects/Django/1.8/
     • http://www.pydanny.com/stay-with-the-django-cbv-defaults.html
     • http://www.pydanny.com/tag/class-based-views.html
-
-The `LoginRequiredMixin` is also used:
-    • http://django-braces.readthedocs.org/en/latest/access.html
 """
 
 # python
 from __future__ import absolute_import, unicode_literals
 
 # django
+from django.views import generic
+from django.contrib.auth import mixins
 from django.core.urlresolvers import reverse
-from django.views.generic import \
-    DetailView, ListView, RedirectView, UpdateView, CreateView
-
-# third party
-from braces.views import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 
 # local
 from .models import Individual
 from . import constants
 
 
-class IndividualDetailView(LoginRequiredMixin, DetailView):
+class IndividualDetailView(mixins.LoginRequiredMixin,
+                           generic.DetailView):
 
     """
     Render a "detail" view of an object. By default this is a model instance
@@ -39,7 +35,8 @@ class IndividualDetailView(LoginRequiredMixin, DetailView):
     model = Individual
 
 
-class IndividualListView(LoginRequiredMixin, ListView):
+class IndividualListView(mixins.LoginRequiredMixin,
+                         generic.ListView):
 
     """
     Render some list of objects, set by `self.model` or `self.queryset`.
@@ -51,16 +48,14 @@ class IndividualListView(LoginRequiredMixin, ListView):
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
-
         context = super(IndividualListView, self).get_context_data(**kwargs)
-
-        # Add new context
         context['APP_NAME'] = constants.APP_NAME
         context['CREATE_URL'] = constants.INDIVIDUAL_CREATE_URL
         return context
 
 
-class IndividualRedirectView(LoginRequiredMixin, RedirectView):
+class IndividualRedirectView(mixins.LoginRequiredMixin,
+                             generic.RedirectView):
 
     """
     A view that provides a redirect on any GET request.
@@ -73,7 +68,10 @@ class IndividualRedirectView(LoginRequiredMixin, RedirectView):
         return reverse(constants.INDIVIDUAL_LIST_URL)
 
 
-class IndividualCreateView(LoginRequiredMixin, CreateView):
+class IndividualCreateView(SuccessMessageMixin,
+                           mixins.PermissionRequiredMixin,
+                           mixins.LoginRequiredMixin,
+                           generic.CreateView):
 
     """
     View for creating a new object, with a response rendered by template.
@@ -82,10 +80,18 @@ class IndividualCreateView(LoginRequiredMixin, CreateView):
 
     model = Individual
     fields = constants.INDIVIDUAL_CREATE_FIELDS
-    succes_msg = "Individual Created!"
+    success_message = "Individual Updated!"
+
+    # Permission configuration
+    permission_required = ('individuals.create_individual')
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
 
 
-class IndividualUpdateView(LoginRequiredMixin, UpdateView):
+class IndividualUpdateView(SuccessMessageMixin,
+                           mixins.PermissionRequiredMixin,
+                           mixins.LoginRequiredMixin,
+                           generic.UpdateView):
 
     """
     View for updating an object, with a response rendered by template.
@@ -94,4 +100,9 @@ class IndividualUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Individual
     fields = constants.INDIVIDUAL_UPDATE_FIELDS
-    succes_msg = "Individual Updated!"
+    success_message = "Individual Updated!"
+
+    # Permissions
+    permission_required = ('individuals.change_individual')
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True

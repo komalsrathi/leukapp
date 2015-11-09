@@ -3,14 +3,17 @@
 runs app constants
 """
 
-# app name
+# APP INFO
+# -----------------------------------------------------------------------------
 APP_NAME = 'runs'
 
-# urls
+# URLS
+# -----------------------------------------------------------------------------
 RUN_CREATE_URL = APP_NAME + ':create'
 RUN_LIST_URL = APP_NAME + ':list'
 
-# run fields
+# FIELDS
+# -----------------------------------------------------------------------------
 RUN_CREATE_FIELDS = (
     'aliquot',
     'platform',
@@ -20,7 +23,6 @@ RUN_CREATE_FIELDS = (
     'projects',
     )
 
-# run fields
 RUN_LEUKFORM_FIELDS = (
     'platform',
     'technology',
@@ -40,7 +42,8 @@ RUN_UNIQUE_TOGETHER = (
     'ext_id',
     )
 
-# choices
+# CHOICES
+# -----------------------------------------------------------------------------
 WHOLE_EXOME = 'WHOLE-EXOME'
 WHOLE_GENOME = 'WHOLE-GENOME'
 TARGETED_DNA = 'TARGETED-DNA'
@@ -92,3 +95,11 @@ RUN_CHOICES = {
     "TECHNOLOGY": TECHNOLOGY,
     "CENTER": CENTER,
     }
+
+# MESSAGES
+# -----------------------------------------------------------------------------
+PERMISSION_DENIED_MESSAGE = \
+    '''
+    You don't have permission to perform this action, please contact a Leukgen
+    Administrator
+    '''

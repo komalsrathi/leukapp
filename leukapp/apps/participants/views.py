@@ -1,64 +1,118 @@
 # -*- coding: utf-8 -*-
 
+"""
+Most of these views inherits from Django's `Class Based Views`. See:
+    • https://docs.djangoproject.com/en/1.8/topics/class-based-views/
+    • http://ccbv.co.uk/projects/Django/1.8/
+    • http://www.pydanny.com/stay-with-the-django-cbv-defaults.html
+    • http://www.pydanny.com/tag/class-based-views.html
+"""
+
 # python
 from __future__ import absolute_import, unicode_literals
 
 # django
-from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.views.generic import \
-    DetailView, ListView, RedirectView, UpdateView, CreateView
+from django.views import generic
+from django.contrib.auth import mixins
+from django.core.urlresolvers import reverse
+from django.contrib.messages.views import SuccessMessageMixin
 
 # third party
-from braces.views import LoginRequiredMixin
 from django_modalview.generic.edit import ModalCreateView
 from django_modalview.generic.component import ModalResponse, ModalButton
 
 # local
 from .models import Participant
-from .forms import ParticipantForm
-from .constants import APP_NAME, CREATE_URL, LIST_URL
+from . import constants
 
 
-class ParticipantDetailView(LoginRequiredMixin, DetailView):
+class ParticipantDetailView(mixins.LoginRequiredMixin,
+                            generic.DetailView):
+
+    """
+    Render a "detail" view of an object. By default this is a model instance
+    looked up from `self.queryset`, but the view will support display of *any*
+    object by overriding `self.get_object()`.
+    See: http://ccbv.co.uk/DetailView/
+    """
+
     model = Participant
 
 
-class ParticipantListView(LoginRequiredMixin, ListView):
+class ParticipantListView(mixins.LoginRequiredMixin,
+                          generic.ListView):
+
+    """
+    Render some list of objects, set by `self.model` or `self.queryset`.
+    `self.queryset` can actually be any iterable of items, not just a queryset.
+    See: http://ccbv.co.uk/ListView/
+    """
+
     model = Participant
 
     def get_context_data(self, **kwargs):
-            context = super(
-                ParticipantListView, self).get_context_data(**kwargs)
-
-            # Add new context
-            context['APP_NAME'] = APP_NAME
-            context['CREATE_URL'] = CREATE_URL
-            context['LIST_URL'] = LIST_URL
-            return context
+        super_function = super(ParticipantListView, self).get_context_data
+        context = super_function(**kwargs)
+        context['APP_NAME'] = constants.APP_NAME
+        context['CREATE_URL'] = constants.CREATE_URL
+        context['LIST_URL'] = constants.LIST_URL
+        return context
 
 
-class ParticipantRedirectView(LoginRequiredMixin, RedirectView):
+class ParticipantRedirectView(mixins.LoginRequiredMixin,
+                              generic.RedirectView):
+
+    """
+    A view that provides a redirect on any GET request.
+    See: http://ccbv.co.uk/RedirectView/
+    """
+
     permanent = False
 
     def get_redirect_url(self):
-        return reverse(APP_NAME + ":detail",
-                       kwargs={"slug": self.request.object.slug})
+        kargs = {"slug": self.request.object.slug}
+        return reverse(constants.APP_NAME + ":detail", kwargs=kwargs)
 
 
-class ParticipantCreateView(LoginRequiredMixin, CreateView):
+class ParticipantCreateView(SuccessMessageMixin,
+                            mixins.PermissionRequiredMixin,
+                            mixins.LoginRequiredMixin,
+                            generic.CreateView):
 
-    # we already imported Participant in the view code above, remember?
+    """
+    View for creating a new object, with a response rendered by template.
+    See: http://ccbv.co.uk/CreateView/
+    """
+
     model = Participant
-    form_class = ParticipantForm
+    fields = constants.PARTICIPANT_CREATE_FIELDS
     succes_msg = "Participant Created!"
 
+    # Permission configuration
+    permission_required = ('participants.add_participant')
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
 
-class ParticipantUpdateView(LoginRequiredMixin, UpdateView):
 
-    # we already imported Participant in the view code above, remember?
+class ParticipantUpdateView(SuccessMessageMixin,
+                            mixins.PermissionRequiredMixin,
+                            mixins.LoginRequiredMixin,
+                            generic.UpdateView):
+
+    """
+    View for updating an object, with a response rendered by template.
+    See: http://ccbv.co.uk/UpdateView/
+    """
+
     model = Participant
-    form_class = ParticipantForm
+    fields = constants.PARTICIPANT_UPDATE_FIELDS
+    success_message = "Participant Updated!"
+
+    # Permission configuration
+    permission_required = ('participants.change_participant')
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
 
 
 class ParticipantCreateModal(ModalCreateView):
@@ -76,13 +130,12 @@ class ParticipantCreateModal(ModalCreateView):
 
 
 def search_participant(request):
-    response = []
     try:
+        response = []
         q = request.GET.get('q')
         queryset = Participant.objects.filter(email__icontains=q)
         for i in queryset:
-            out = {'id': str(i.pk), "name": i.email}
-            response.append(out)
+            response.append({'id': str(i.pk), "name": i.email})
         return JsonResponse(response)
     except Exception:
-        return JsonResponse(response, safe=False)
+        return JsonResponse([], safe=False)
