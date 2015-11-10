@@ -56,7 +56,8 @@ class Leukform(LeukappModel):
         default=False,
         )
 
-    # internal
+
+    """ TENTATIVE
     created_individuals = models.ManyToManyField(
         Individual,
         verbose_name=_("created individuals"),
@@ -77,6 +78,9 @@ class Leukform(LeukappModel):
         verbose_name=_("created runs"),
         blank=True,
         )
+    """
+
+    # internal
     slug = models.SlugField(
         _("slug"),
         unique=True,
@@ -99,7 +103,7 @@ class Leukform(LeukappModel):
     def if_new(self, **kwargs):
         """ if_new is executed the first time the object is created """
 
-        # validate is  False in .submit because it has already been validated
+        # validate is  False because it has already been validated
         loader = LeukformLoader()
         filepath = self.submission.file.name
         out = loader.submit(filepath=filepath, validate=False, mock=self.mock)
