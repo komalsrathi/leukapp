@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*-
+
+# django
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.db import transaction
 
 
 class TimeStampedModel(models.Model):
@@ -26,6 +30,7 @@ class LeukappModel(TimeStampedModel):
     class Meta:
         abstract = True
 
+    @transaction.atomic
     def save(self, *args, **kwargs):
         """
         slug requires pk for new objects
@@ -47,14 +52,10 @@ class LeukappModel(TimeStampedModel):
         super(LeukappModel, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse(
-            self.APP_NAME + ':detail', kwargs={'slug': self.slug}
-        )
+        return reverse(self.APP_NAME + ':detail', kwargs={'slug': self.slug})
 
     def get_update_url(self):
-        return reverse(
-            self.APP_NAME + ':update', kwargs={'slug': self.slug}
-        )
+        return reverse(self.APP_NAME + ':update', kwargs={'slug': self.slug})
 
     def if_new(self, **kwargs):
         pass
