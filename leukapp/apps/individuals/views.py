@@ -80,10 +80,10 @@ class IndividualCreateView(SuccessMessageMixin,
 
     model = Individual
     fields = constants.INDIVIDUAL_CREATE_FIELDS
-    success_message = "Individual Updated!"
+    success_message = constants.SUCCESS_MESAGE
 
     # Permission configuration
-    permission_required = ('individuals.create_individual')
+    permission_required = constants.INDIVIDUAL_CREATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
 
@@ -100,9 +100,9 @@ class IndividualUpdateView(SuccessMessageMixin,
 
     model = Individual
     fields = constants.INDIVIDUAL_UPDATE_FIELDS
-    success_message = "Individual Updated!"
+    success_message = constants.SUCCESS_MESAGE
 
     # Permissions
-    permission_required = ('individuals.change_individual')
+    permission_required = constants.INDIVIDUAL_UPDATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
