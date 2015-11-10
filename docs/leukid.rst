@@ -1,9 +1,9 @@
 .. This is a comment.
 .. |date| date::
 
-======
+******
 leukid
-======
+******
 
 .. bibliographic fields (which also require a transform):
 :author: Juan Medina

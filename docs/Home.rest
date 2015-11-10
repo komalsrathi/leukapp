@@ -1,3 +1,5 @@
+..https://github.com/mgaitan/sublime-rst-completion
+
 ************
 leukwen wiki
 ************
