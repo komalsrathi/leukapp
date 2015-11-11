@@ -25,6 +25,7 @@ from django_modalview.generic.component import ModalResponse, ModalButton
 # local
 from .models import Participant
 from . import constants
+from .forms import ParticipantForm
 
 
 class ParticipantDetailView(mixins.LoginRequiredMixin,
@@ -71,7 +72,7 @@ class ParticipantRedirectView(mixins.LoginRequiredMixin,
     permanent = False
 
     def get_redirect_url(self):
-        kargs = {"slug": self.request.object.slug}
+        kwargs = {"slug": self.request.object.slug}
         return reverse(constants.APP_NAME + ":detail", kwargs=kwargs)
 
 
@@ -130,12 +131,13 @@ class ParticipantCreateModal(ModalCreateView):
 
 
 def search_participant(request):
+    response = []
     try:
-        response = []
         q = request.GET.get('q')
         queryset = Participant.objects.filter(email__icontains=q)
         for i in queryset:
-            response.append({'id': str(i.pk), "name": i.email})
+            out = {'id': str(i.pk), "name": i.email}
+            response.append(out)
         return JsonResponse(response)
     except Exception:
-        return JsonResponse([], safe=False)
+        return JsonResponse(response, safe=False)
