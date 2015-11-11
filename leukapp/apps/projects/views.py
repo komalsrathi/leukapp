@@ -86,7 +86,7 @@ class ProjectCreateView(SuccessMessageMixin,
 
     model = Project
     fields = constants.PROJECT_CREATE_FIELDS
-    success_message = "Project Updated!"
+    success_message = constants.SUCCESS_MESSAGE
 
     # Permission configuration
     permission_required = ('projects.add_project')
@@ -121,7 +121,7 @@ class ProjectUpdateView(SuccessMessageMixin,
 
     model = Project
     fields = constants.PROJECT_UPDATE_FIELDS
-    success_message = "Project Updated!"
+    success_message = constants.SUCCESS_MESSAGE
 
     # Permissions
     permission_required = ('projects.change_project')
@@ -142,6 +142,8 @@ class ProjectUpdateView(SuccessMessageMixin,
 # -----------------------------------------------------------------------------
 
 def update_project_form_widgets(form):
+    """ Prepare form widgets for tokeninput. """
+
     form.fields['pi'].widget = forms.TextInput()
     form.fields['analyst'].widget = forms.TextInput()
     form.fields['requestor'].widget = forms.TextInput()
@@ -151,6 +153,8 @@ def update_project_form_widgets(form):
 
 
 def clean_participants_in_request(request):
+    """ Clean participants list returned by tokeninput. """
+
     try:
         POST = request.POST
         participants = POST['participants'].split(',')
