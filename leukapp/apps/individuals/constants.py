@@ -84,7 +84,7 @@ INDIVIDUAL_UPDATE_PERMISSIONS = ('individuals.change_individual',)
 
 # MESSAGES
 # -----------------------------------------------------------------------------
-SUCCESS_MESAGE = "Looking good"
+SUCCESS_MESSAGE = "Looking good"
 PERMISSION_DENIED_MESSAGE = \
     '''
     You don't have permission to perform this action, please contact a Leukgen

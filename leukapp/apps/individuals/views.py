@@ -80,7 +80,7 @@ class IndividualCreateView(SuccessMessageMixin,
 
     model = Individual
     fields = constants.INDIVIDUAL_CREATE_FIELDS
-    success_message = constants.SUCCESS_MESAGE
+    success_message = constants.SUCCESS_MESSAGE
 
     # Permission configuration
     permission_required = constants.INDIVIDUAL_CREATE_PERMISSIONS
@@ -100,7 +100,7 @@ class IndividualUpdateView(SuccessMessageMixin,
 
     model = Individual
     fields = constants.INDIVIDUAL_UPDATE_FIELDS
-    success_message = constants.SUCCESS_MESAGE
+    success_message = constants.SUCCESS_MESSAGE
 
     # Permissions
     permission_required = constants.INDIVIDUAL_UPDATE_PERMISSIONS
