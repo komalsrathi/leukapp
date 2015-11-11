@@ -96,8 +96,14 @@ RUN_CHOICES = {
     "CENTER": CENTER,
     }
 
+# PERMISSIONS
+# -----------------------------------------------------------------------------
+RUN_CREATE_PERMISSIONS = ('runs.add_run',)
+RUN_UPDATE_PERMISSIONS = ('runs.change_run',)
+
 # MESSAGES
 # -----------------------------------------------------------------------------
+SUCCESS_MESSAGE = "Looking good"
 PERMISSION_DENIED_MESSAGE = \
     '''
     You don't have permission to perform this action, please contact a Leukgen

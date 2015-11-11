@@ -2,48 +2,43 @@
 
 # django imports
 from django.test import TestCase, RequestFactory
-from django.core.urlresolvers import reverse
 
 # leukapp
-from leukapp.apps.users.factories import UserFactory
+from leukapp.apps.core.tests.test_views import LeukappViewsTest
 
 # local imports
 from .. import views
 from .. import constants
+from ..factories import RunFactory
 
 
-class RunsViewsTest(TestCase):
+class RunViewsTest(LeukappViewsTest, TestCase):
 
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.user = UserFactory()
+    """ See LeukappViewsTest for more information. """
 
-    def test_run_list_view_adds_app_name_to_context(self):
-        request = self.factory.get(reverse(constants.APP_NAME + ':list'))
-        request.user = self.user
-        view = views.RunListView.as_view()
-        response = view(request)
-        self.assertEqual(response.context_data["APP_NAME"], constants.APP_NAME)
+    # factories
+    objectfactory = RunFactory
+    requestfactory = RequestFactory()
 
-    def test_run_list_view_adds_create_url_to_context(self):
-        request = self.factory.get(reverse(constants.APP_NAME + ':list'))
-        request.user = self.user
-        view = views.RunListView.as_view()
-        response = view(request)
-        url = constants.RUN_CREATE_URL
-        self.assertEqual(response.context_data["CREATE_URL"], url)
+    # views
+    listview = views.RunListView
+    createview = views.RunCreateView
+    updateview = views.RunUpdateView
+    redirectview = views.RunRedirectView
 
-    def test_redirect_view(self):
-        view = views.RunRedirectView()
-        url = reverse(constants.RUN_LIST_URL)
-        self.assertEqual(url, view.get_redirect_url())
+    # fields
+    CREATE_FIELDS = constants.RUN_CREATE_FIELDS
+    UPDATE_FIELDS = constants.RUN_UPDATE_FIELDS
 
-    def test_create_view_fields(self):
-        view = views.RunCreateView()
-        fields = constants.RUN_CREATE_FIELDS
-        self.assertEqual(fields, view.fields)
+    # urls
+    URL = 'fake/url'
+    LIST_URL = constants.RUN_LIST_URL
+    CREATE_URL = constants.RUN_CREATE_URL
 
-    def test_update_view_fields(self):
-        view = views.RunUpdateView()
-        fields = constants.RUN_UPDATE_FIELDS
-        self.assertEqual(fields, view.fields)
+    # permissions
+    createpermissions = constants.RUN_CREATE_PERMISSIONS
+    updatepermissions = constants.RUN_UPDATE_PERMISSIONS
+
+    # APP Info and messages
+    APP_NAME = constants.APP_NAME
+    SUCCESS_MESSAGE = constants.SUCCESS_MESSAGE

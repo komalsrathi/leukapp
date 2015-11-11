@@ -6,28 +6,24 @@ Most of these views inherits from Django's `Class Based Views`. See:
     • http://ccbv.co.uk/projects/Django/1.8/
     • http://www.pydanny.com/stay-with-the-django-cbv-defaults.html
     • http://www.pydanny.com/tag/class-based-views.html
-
-The `LoginRequiredMixin` is also used:
-    • http://django-braces.readthedocs.org/en/latest/access.html
 """
 
 # python
 from __future__ import absolute_import, unicode_literals
 
 # django
+from django.views import generic
+from django.contrib.auth import mixins
 from django.core.urlresolvers import reverse
-from django.views.generic import \
-    DetailView, ListView, RedirectView, UpdateView, CreateView
-
-# third party
-from braces.views import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 
 # local
 from .models import Run
 from . import constants
 
 
-class RunDetailView(LoginRequiredMixin, DetailView):
+class RunDetailView(mixins.LoginRequiredMixin,
+                    generic.DetailView):
 
     """
     Render a "detail" view of an object. By default this is a model instance
@@ -39,7 +35,8 @@ class RunDetailView(LoginRequiredMixin, DetailView):
     model = Run
 
 
-class RunListView(LoginRequiredMixin, ListView):
+class RunListView(mixins.LoginRequiredMixin,
+                  generic.ListView):
 
     """
     Render some list of objects, set by `self.model` or `self.queryset`.
@@ -59,7 +56,8 @@ class RunListView(LoginRequiredMixin, ListView):
             return context
 
 
-class RunRedirectView(LoginRequiredMixin, RedirectView):
+class RunRedirectView(mixins.LoginRequiredMixin,
+                      generic.RedirectView):
 
     """
     A view that provides a redirect on any GET request.
@@ -72,7 +70,10 @@ class RunRedirectView(LoginRequiredMixin, RedirectView):
         return reverse(constants.RUN_LIST_URL)
 
 
-class RunCreateView(LoginRequiredMixin, CreateView):
+class RunCreateView(SuccessMessageMixin,
+                    mixins.PermissionRequiredMixin,
+                    mixins.LoginRequiredMixin,
+                    generic.CreateView):
 
     """
     View for creating a new object, with a response rendered by template.
@@ -81,10 +82,18 @@ class RunCreateView(LoginRequiredMixin, CreateView):
 
     model = Run
     fields = constants.RUN_CREATE_FIELDS
-    succes_msg = "Run Created!"
+    success_message = constants.SUCCESS_MESSAGE
+
+    # Permissions
+    permission_required = constants.RUN_CREATE_PERMISSIONS
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
 
 
-class RunUpdateView(LoginRequiredMixin, UpdateView):
+class RunUpdateView(SuccessMessageMixin,
+                    mixins.PermissionRequiredMixin,
+                    mixins.LoginRequiredMixin,
+                    generic.UpdateView):
 
     """
     View for updating an object, with a response rendered by template.
@@ -93,4 +102,9 @@ class RunUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Run
     fields = constants.RUN_UPDATE_FIELDS
-    succes_msg = "Run Updated!"
+    success_message = constants.SUCCESS_MESSAGE
+
+    # Permissions
+    permission_required = constants.RUN_UPDATE_PERMISSIONS
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
