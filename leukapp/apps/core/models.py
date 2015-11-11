@@ -3,7 +3,6 @@
 # django
 from django.db import models
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 
 
@@ -12,6 +11,8 @@ class TimeStampedModel(models.Model):
     """
     An abstract base class model that provides self-updating
     ``created`` and ``modified`` fields.
+
+    See: http://blog.kevinastone.com/django-model-behaviors.html
     """
 
     created = models.DateTimeField(auto_now_add=True)

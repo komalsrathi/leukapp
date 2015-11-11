@@ -10,6 +10,7 @@ from django.test import TestCase
 # local
 from ..models import LeukappTestModel
 
+
 class BehaviorTestCaseMixin(object):
 
     def get_model(self):
@@ -17,6 +18,7 @@ class BehaviorTestCaseMixin(object):
 
     def create_instance(self, **kwargs):
         raise NotImplementedError("Implement me")
+
 
 class TimeStampedModelTest(BehaviorTestCaseMixin):
 
@@ -35,13 +37,14 @@ class TimeStampedModelTest(BehaviorTestCaseMixin):
         diff = first_timestamped.modified - first_timestamped.created
         self.assertTrue(diff.total_seconds() >= 0.01)
 
+
 class LeukappModelTest(BehaviorTestCaseMixin):
 
     def test_something(self):
         pass
 
-class LeukappTestModelTest(
-    LeukappModelTest, TimeStampedModelTest, TestCase):
+
+class LeukappTestModelTest(LeukappModelTest, TimeStampedModelTest, TestCase):
 
     # required due to ModelMixin
     # http://blog.kevinastone.com/django-model-behaviors.html
@@ -52,3 +55,8 @@ class LeukappTestModelTest(
     def create_instance(self, **kwargs):
         return self.model.objects.create(**kwargs)
 
+
+class CoreModelsTest(object):
+
+    def setUp(self):
+        pass
