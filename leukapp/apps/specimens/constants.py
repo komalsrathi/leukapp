@@ -73,8 +73,14 @@ LEUKID_SOURCE_TYPE = {
     NORMAL: 'N',
     }
 
+# PERMISSIONS
+# -----------------------------------------------------------------------------
+SPECIMEN_CREATE_PERMISSIONS = ('specimens.add_specimen',)
+SPECIMEN_UPDATE_PERMISSIONS = ('specimens.change_specimen',)
+
 # MESSAGES
 # -----------------------------------------------------------------------------
+SUCCESS_MESSAGE = "Looking good"
 PERMISSION_DENIED_MESSAGE = \
     '''
     You don't have permission to perform this action, please contact a Leukgen

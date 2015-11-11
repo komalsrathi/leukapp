@@ -80,10 +80,10 @@ class SpecimenCreateView(SuccessMessageMixin,
 
     model = Specimen
     fields = constants.SPECIMEN_CREATE_FIELDS
-    success_message = "Specimen Created!"
+    success_message = constants.SUCCESS_MESSAGE
 
     # Permissions
-    permission_required = ('specimens.add_specimen')
+    permission_required = constants.SPECIMEN_CREATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
 
@@ -100,9 +100,9 @@ class SpecimenUpdateView(SuccessMessageMixin,
 
     model = Specimen
     fields = constants.SPECIMEN_UPDATE_FIELDS
-    success_message = "Specimen Updated!"
+    success_message = constants.SUCCESS_MESSAGE
 
     # Permissions
-    permission_required = ('specimens.change_specimen')
+    permission_required = constants.SPECIMEN_UPDATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
