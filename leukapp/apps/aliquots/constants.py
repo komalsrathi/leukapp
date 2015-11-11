@@ -54,8 +54,14 @@ LEUKID_BIO_SOURCE = {
     RNA: 'R',
     }
 
+# PERMISSIONS
+# -----------------------------------------------------------------------------
+ALIQUOT_CREATE_PERMISSIONS = ('aliquots.add_aliquot',)
+ALIQUOT_UPDATE_PERMISSIONS = ('aliquots.change_aliquot',)
+
 # MESSAGES
 # -----------------------------------------------------------------------------
+SUCCESS_MESSAGE = "Looking good"
 PERMISSION_DENIED_MESSAGE = \
     '''
     You don't have permission to perform this action, please contact a Leukgen

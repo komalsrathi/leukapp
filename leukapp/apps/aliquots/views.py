@@ -80,10 +80,10 @@ class AliquotCreateView(SuccessMessageMixin,
 
     model = Aliquot
     fields = constants.ALIQUOT_CREATE_FIELDS
-    success_message = "Aliquot Created!"
+    success_message = constants.SUCCESS_MESSAGE
 
     # Permissions
-    permission_required = ('aliquots.change_aliquot')
+    permission_required = constants.ALIQUOT_CREATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
 
@@ -100,9 +100,9 @@ class AliquotUpdateView(SuccessMessageMixin,
 
     model = Aliquot
     fields = constants.ALIQUOT_UPDATE_FIELDS
-    success_message = "Aliquot Updated!"
+    success_message = constants.SUCCESS_MESSAGE
 
     # Permissions
-    permission_required = ('aliquots.change_aliquot')
+    permission_required = constants.ALIQUOT_UPDATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
