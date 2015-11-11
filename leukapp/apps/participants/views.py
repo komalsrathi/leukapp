@@ -56,8 +56,8 @@ class ParticipantListView(mixins.LoginRequiredMixin,
         super_function = super(ParticipantListView, self).get_context_data
         context = super_function(**kwargs)
         context['APP_NAME'] = constants.APP_NAME
-        context['CREATE_URL'] = constants.CREATE_URL
-        context['LIST_URL'] = constants.LIST_URL
+        context['CREATE_URL'] = constants.PARTICIPANT_CREATE_URL
+        context['LIST_URL'] = constants.PARTICIPANT_LIST_URL
         return context
 
 
@@ -72,8 +72,7 @@ class ParticipantRedirectView(mixins.LoginRequiredMixin,
     permanent = False
 
     def get_redirect_url(self):
-        kwargs = {"slug": self.request.object.slug}
-        return reverse(constants.APP_NAME + ":detail", kwargs=kwargs)
+        return reverse(constants.PARTICIPANT_LIST_URL)
 
 
 class ParticipantCreateView(SuccessMessageMixin,
@@ -88,10 +87,10 @@ class ParticipantCreateView(SuccessMessageMixin,
 
     model = Participant
     fields = constants.PARTICIPANT_CREATE_FIELDS
-    succes_msg = "Participant Created!"
+    success_message = constants.SUCCESS_MESSAGE
 
     # Permission configuration
-    permission_required = ('participants.add_participant')
+    permission_required = constants.PARTICIPANT_CREATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
 
@@ -108,15 +107,27 @@ class ParticipantUpdateView(SuccessMessageMixin,
 
     model = Participant
     fields = constants.PARTICIPANT_UPDATE_FIELDS
-    success_message = "Participant Updated!"
+    success_message = constants.SUCCESS_MESSAGE
 
     # Permission configuration
-    permission_required = ('participants.change_participant')
+    permission_required = constants.PARTICIPANT_UPDATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
 
 
-class ParticipantCreateModal(ModalCreateView):
+class ParticipantCreateModal(mixins.PermissionRequiredMixin,
+                             mixins.LoginRequiredMixin,
+                             ModalCreateView):
+
+    """
+    Simple class based view to create participants in a modal window.
+    See: https://github.com/optiflows/django-modalview
+    """
+
+    # Permission configuration
+    permission_required = constants.PARTICIPANT_CREATE_PERMISSIONS
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
 
     def __init__(self, *args, **kwargs):
         super(ParticipantCreateModal, self).__init__(*args, **kwargs)
@@ -131,6 +142,12 @@ class ParticipantCreateModal(ModalCreateView):
 
 
 def search_participant(request):
+
+    """
+    View used to return participants for a token-input jQuery plugin.
+    see: http://loopj.com/jquery-tokeninput/
+    """
+
     response = []
     try:
         q = request.GET.get('q')

@@ -9,8 +9,8 @@ APP_NAME = 'participants'
 
 # URLS
 # -----------------------------------------------------------------------------
-CREATE_URL = APP_NAME + ':create'
-LIST_URL = APP_NAME + ':list'
+PARTICIPANT_CREATE_URL = APP_NAME + ':create'
+PARTICIPANT_LIST_URL = APP_NAME + ':list'
 
 # FIELDS
 # -----------------------------------------------------------------------------
@@ -31,8 +31,14 @@ PARTICIPANT_UNIQUE_TOGETHER = (
     'email',
     )
 
+# PERMISSIONS
+# -----------------------------------------------------------------------------
+PARTICIPANT_CREATE_PERMISSIONS = ('participants.add_participant',)
+PARTICIPANT_UPDATE_PERMISSIONS = ('participants.change_participant',)
+
 # MESSAGES
 # -----------------------------------------------------------------------------
+SUCCESS_MESSAGE = "Looking good"
 PERMISSION_DENIED_MESSAGE = \
     '''
     You don't have permission to perform this action, please contact a Leukgen

@@ -1,13 +1,21 @@
+# -*- coding: utf-8 -*-
+
+# django
 from django import forms
 
+# third party
 from crispy_forms.helper import FormHelper
-# from crispy_forms.layout import Layout, Field
-# from crispy_forms.bootstrap import TabHolder, Tab
 
+# local
 from .models import Participant
+from . import constants
 
 
 class ParticipantForm(forms.ModelForm):
+
+    """
+    This form is mainly used in vies.ModalCreateForm, please dont get rid of it
+    """
 
     def __init__(self, *args, **kwargs):
         super(ParticipantForm, self).__init__(*args, **kwargs)
@@ -15,4 +23,4 @@ class ParticipantForm(forms.ModelForm):
 
     class Meta:
         model = Participant
-        fields = ['first_name', 'last_name', 'email', 'phone']
+        fields = constants.PARTICIPANT_CREATE_FIELDS

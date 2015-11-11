@@ -1,51 +1,68 @@
 # -*- coding: utf-8 -*-
 
+# python
+import json
+
 # django imports
-# from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase, RequestFactory
-from django.core.urlresolvers import reverse
-from django.conf import settings
 
 # leukapp
-from leukapp.apps.users.factories import UserFactory
+from leukapp.apps.core.tests.test_views import LeukappViewsTest
 
 # local imports
 from .. import views
 from .. import constants
+from ..factories import ParticipantFactory
+from ..forms import ParticipantForm
 
 
-class ParticipantsViewsTest(TestCase):
+class ParticipantViewsTest(LeukappViewsTest, TestCase):
 
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.user = UserFactory()
+    """ See LeukappViewsTest for more information. """
 
-    def test_list_view_adds_app_name_to_context(self):
-        request = self.factory.get(reverse(constants.APP_NAME + ':list'))
-        request.user = self.user
-        view = views.ParticipantListView.as_view()
-        response = view(request)
-        self.assertEqual(response.context_data["APP_NAME"], constants.APP_NAME)
+    # factories
+    objectfactory = ParticipantFactory
+    requestfactory = RequestFactory()
 
-    def test_list_view_adds_create_url_to_context(self):
-        request = self.factory.get(reverse(constants.APP_NAME + ':list'))
-        request.user = self.user
-        view = views.ParticipantListView.as_view()
-        response = view(request)
-        url = constants.PARTICIPANT_CREATE_URL
-        self.assertEqual(response.context_data["CREATE_URL"], url)
+    # views
+    listview = views.ParticipantListView
+    createview = views.ParticipantCreateView
+    updateview = views.ParticipantUpdateView
+    redirectview = views.ParticipantRedirectView
 
-    def test_redirect_view(self):
-        view = views.ParticipantRedirectView()
-        url = reverse(constants.PARTICIPANT_LIST_URL)
-        self.assertEqual(url, view.get_redirect_url())
+    # fields
+    CREATE_FIELDS = constants.PARTICIPANT_CREATE_FIELDS
+    UPDATE_FIELDS = constants.PARTICIPANT_UPDATE_FIELDS
 
-    def test_create_view_fields(self):
-        view = views.ParticipantCreateView()
-        fields = constants.PARTICIPANT_CREATE_FIELDS
-        self.assertEqual(fields, view.fields)
+    # urls
+    URL = 'fake/url'
+    LIST_URL = constants.PARTICIPANT_LIST_URL
+    CREATE_URL = constants.PARTICIPANT_CREATE_URL
 
-    def test_update_view_fields(self):
-        view = views.ParticipantUpdateView()
-        fields = constants.PARTICIPANT_UPDATE_FIELDS
-        self.assertEqual(fields, view.fields)
+    # permissions
+    createpermissions = constants.PARTICIPANT_CREATE_PERMISSIONS
+    updatepermissions = constants.PARTICIPANT_UPDATE_PERMISSIONS
+
+    # APP Info and messages
+    APP_NAME = constants.APP_NAME
+    SUCCESS_MESSAGE = constants.SUCCESS_MESSAGE
+
+    def test_search_participant(self):
+        """
+        search_participant must return a JsonResponse with a list of results
+        """
+        p = ParticipantFactory()
+        request = self.requestfactory.get(self.URL)
+        request.GET = request.GET.copy()
+        request.GET['q'] = p.email[:2]
+        expected = [{'id': str(p.pk), 'name': p.email}]
+        obtained = views.search_participant(request).content.decode("utf-8")
+        obtained = json.loads(obtained)
+        self.assertCountEqual(expected, obtained)
+
+    def test_create_modal_has_correct_form(self):
+        """
+        CreateModalView must have ParticipantForm as form_class
+        """
+        view = views.ParticipantCreateModal()
+        self.assertEqual(view.form_class, ParticipantForm)
