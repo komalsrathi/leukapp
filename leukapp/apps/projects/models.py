@@ -22,7 +22,7 @@ class Project(LeukappModel):
 
     # external
     title = models.CharField(
-        _("project name"),
+        _("project title"),
         max_length=100,
         validators=[object_name_validator],
         unique=True,
@@ -35,6 +35,7 @@ class Project(LeukappModel):
         Participant,
         verbose_name=_("principal investigator"),
         related_name='projects_as_pi',
+        help_text='Laboratory head or principal investigator'
         )
     analyst = models.ForeignKey(
         Participant,

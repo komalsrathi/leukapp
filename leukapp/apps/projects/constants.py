@@ -15,7 +15,7 @@ PROJECT_LIST_URL = APP_NAME + ':list'
 # FIELDS
 # -----------------------------------------------------------------------------
 PROJECT_CREATE_FIELDS = (
-    'name',
+    'title',
     'description',
     'pi',
     'analyst',
@@ -27,7 +27,7 @@ PROJECT_CREATE_FIELDS = (
     )
 
 PROJECT_UPDATE_FIELDS = (
-    'name',
+    'title',
     'description',
     'pi',
     'analyst',
@@ -39,7 +39,7 @@ PROJECT_UPDATE_FIELDS = (
     )
 
 PROJECT_UNIQUE_TOGETHER = (
-    'name',
+    'title',
     )
 
 # PERMISSIONS
