@@ -78,18 +78,31 @@ class Individual(LeukappModel):
         else:
             return 'E'
 
-    def if_new(self, **kwargs):
-        """ if_new is executed the first time the object is created """
-        self.tumors_count = 0
-        self.normals_count = 0
-        self.get_int_id()
+    def _if_new(self, **kwargs):
+        """ _if_new is executed the first time the object is created """
 
-    def if_save(self):
-        """ if_save() is executed everytime the object is saved """
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
+
+        # get internal id
+        self._get_int_id()
+
+    def _if_save(self):
+        """ _if_save() is executed everytime the object is saved """
+
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
+
+        # update object slug
         self.slug = self.int_id
 
-    def get_int_id(self):
+    def _get_int_id(self):
         """ returns Individual internal ID """
+
+        # This function can only be called from _if_new()
+        self._check_if_caller_is_if_new()
+
+        # get internal id
         species_id = constants.LEUKID_SPECIES[self.species]
         institution_id = self.check_institution()
         join = [institution_id, species_id, str(self.pk + 100000)]
