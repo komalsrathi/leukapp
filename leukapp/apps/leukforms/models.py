@@ -100,8 +100,11 @@ class Leukform(LeukappModel):
     def __str__(self):
         return self.slug
 
-    def if_new(self, **kwargs):
-        """ if_new is executed the first time the object is created """
+    def _if_new(self, **kwargs):
+        """ _if_new is executed the first time the object is created """
+
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
 
         # validate is  False because it has already been validated
         loader = LeukformLoader()
@@ -119,8 +122,8 @@ class Leukform(LeukappModel):
         # update slug
         self.slug = '-'.join(['leukform', str(self.pk)])
 
-    def if_save(self):
-        """ if_save() is executed everytime the object is saved """
+    def _if_save(self):
+        """ _if_save() is executed everytime the object is saved """
         pass
 
 

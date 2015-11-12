@@ -58,7 +58,7 @@ class LeukformSamplesFactory(object):
 
         # projects used
         ProjectFactory = LEUKAPP_FACTORIES['Project']
-        self.projects = [ProjectFactory(name=str(i)) for i in range(10)]
+        self.projects = [ProjectFactory(title=str(i)) for i in range(10)]
 
     def create_batch(self, individuals, specimens=0, aliquots=0, runs=0,
             delete=True, slug=False):
