@@ -61,8 +61,11 @@ class Participant(LeukappModel):
     def __str__(self):
         return self.slug
 
-    def if_save(self):
-        """ if_save is run everytime the object is saved"""
+    def _if_save(self):
+        """ _if_save is run everytime the object is saved"""
+
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
 
         # see if there is any user with the email registered
         try:
