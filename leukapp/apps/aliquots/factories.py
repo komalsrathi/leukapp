@@ -5,7 +5,7 @@ import string
 
 # third party
 import factory
-from factory.fuzzy import FuzzyChoice, FuzzyText
+from factory.fuzzy import FuzzyText
 
 # leukapp
 from leukapp.apps.specimens.factories import SpecimenFactory
@@ -22,5 +22,4 @@ class AliquotFactory(factory.django.DjangoModelFactory):
         django_get_or_create = constants.ALIQUOT_UNIQUE_TOGETHER
 
     specimen = factory.SubFactory(SpecimenFactory)
-    bio_source = FuzzyChoice(constants.BIO_SOURCE_VALUE)
     ext_id = FuzzyText(length=12, chars=string.hexdigits)

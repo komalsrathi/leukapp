@@ -27,11 +27,6 @@ class Aliquot(LeukappModel):
         Specimen,
         verbose_name=_("specimen"),
         )
-    bio_source = models.CharField(
-        _("biological material"),
-        max_length=100,
-        choices=CHOICES["BIO_SOURCE"]
-        )
     ext_id = models.CharField(
         _("external id"),
         max_length=100,
@@ -46,7 +41,12 @@ class Aliquot(LeukappModel):
         null=True,
         editable=False,
         )
-    runs_count = models.PositiveSmallIntegerField(
+    dna_runs_count = models.PositiveSmallIntegerField(
+        _("number of runs created"),
+        default=0,
+        editable=False,
+        )
+    rna_runs_count = models.PositiveSmallIntegerField(
         _("number of runs created"),
         default=0,
         editable=False,
@@ -66,23 +66,17 @@ class Aliquot(LeukappModel):
     def __str__(self):
         return self.slug
 
-    def if_new(self, **kwargs):
-        """ if_new is executed the first time the object is created """
-        self.runs_count = 0
-        self.get_int_id()
+    def _if_new(self, **kwargs):
+        """ _if_new is executed the first time the object is created """
+        self._get_int_id()
 
-    def if_save(self):
-        """ if_save is always excecuted when saving """
+    def _if_save(self):
+        """ _if_save is always excecuted when saving """
         self.slug = '-'.join([self.specimen.slug, self.int_id])
 
-    def get_int_id(self):
-        """ return int_id based on count of tumors/normals per Individual """
-        bio_source_id = constants.LEUKID_BIO_SOURCE[self.bio_source]
-        if self.bio_source == constants.DNA:
-            self.specimen.dna_count += 1
-            self.int_id = bio_source_id + str(self.specimen.dna_count)
-        elif self.bio_source == constants.RNA:
-            self.specimen.rna_count += 1
-            self.int_id = bio_source_id + str(self.specimen.rna_count)
+    def _get_int_id(self):
+        """ return int_id based on count of Aliquots per Specimen """
+        self.specimen.aliquots_count += 1
+        self.int_id = self.specimen.aliquots_count
         self.specimen.save()
         return self.int_id
