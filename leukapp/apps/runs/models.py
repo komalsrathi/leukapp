@@ -72,7 +72,7 @@ class Run(LeukappModel):
     # internal fields
     int_id = models.CharField(
         _("internal id"),
-        max_length=8,
+        max_length=100,
         null=True,
         )
     slug = models.SlugField(
