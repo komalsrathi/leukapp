@@ -56,7 +56,6 @@ class Leukform(LeukappModel):
         default=False,
         )
 
-
     """ TENTATIVE
     created_individuals = models.ManyToManyField(
         Individual,

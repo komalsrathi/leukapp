@@ -4,6 +4,7 @@
 import csv
 import io
 import json
+import time
 
 # local
 from . import constants
@@ -78,6 +79,7 @@ class LeukformLoader(object):
         if mock:
             self.VALID = 'VALID'
 
+        print("Validation completed.")
         rows = self._process_leukform(rows)
         output = self._write_output(rows, columns, mock)
         return output
@@ -90,10 +92,18 @@ class LeukformLoader(object):
         """
 
         processed_rows = []
+
+        print("Sorting rows.")
         rows = self._sort_rows(rows)
+
+        count = 0
+        start = time.time()
         for row in rows:
             processed_row = self._process_row(row)
             processed_rows.append(processed_row)
+            count += 1
+            print("%s rows processed in %s." % (count, time.time() - start))
+        print(time.time() - start)
         return processed_rows
 
     def _sort_rows(self, rows):
@@ -202,9 +212,9 @@ class LeukformLoader(object):
         c1 = c0 and row['Individual.ext_id']
         c2 = c1 and {'Aliquot.ext_id'}.issubset(columns)
         if c1 and (row['Specimen.ext_id'] == ''):
-            row['Specimen.ext_id'] = '1'
+            row['Specimen.ext_id'] = 'UNKNOWN'
         if c2 and (row['Aliquot.ext_id'] == ''):
-            row['Aliquot.ext_id'] = '1'
+            row['Aliquot.ext_id'] = 'UNKNOWN'
         return row
 
     def _get_or_create(self, model, fields):
