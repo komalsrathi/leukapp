@@ -53,12 +53,7 @@ class Specimen(LeukappModel):
         )
 
     # internal fields
-    dna_count = models.PositiveSmallIntegerField(
-        _("number of aliquots created"),
-        default=0,
-        editable=False,
-        )
-    rna_count = models.PositiveSmallIntegerField(
+    aliquots_count = models.PositiveSmallIntegerField(
         _("number of aliquots created"),
         default=0,
         editable=False,
@@ -84,18 +79,31 @@ class Specimen(LeukappModel):
     def __str__(self):
         return self.slug
 
-    def if_new(self, **kwargs):
-        """ if_new is executed the first time the object is created """
-        self.dna_count = 0
-        self.rna_count = 0
-        self.get_int_id()
+    def _if_new(self, **kwargs):
+        """ _if_new is executed the first time the object is created """
 
-    def if_save(self):
-        """ if_save is executed everytime the object is saved """
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
+
+        # get internal id
+        self._get_int_id()
+
+    def _if_save(self):
+        """ _if_save is executed everytime the object is saved """
+
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
+
+        # update object slug
         self.slug = '-'.join([self.individual.slug, self.int_id])
 
-    def get_int_id(self):
+    def _get_int_id(self):
         """ return int_id based on count of tumors/normals per Individual """
+
+        # This function can only be called from _if_new()
+        self._check_if_caller_is_if_new()
+
+        # get internal id
         source_type_id = constants.LEUKID_SOURCE_TYPE[self.source_type]
         if self.source_type == constants.TUMOR:
             self.individual.tumors_count += 1

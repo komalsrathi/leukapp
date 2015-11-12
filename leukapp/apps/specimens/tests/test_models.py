@@ -70,9 +70,8 @@ class SpecimenModelTest(TestCase):
         slug = '-'.join([s.individual.slug, s.int_id])
         self.assertEqual(slug, s.__str__())
 
-    def test_if_new_initializes_aliquots_counters_with_zero(self):
-        self.assertEqual(SpecimenFactory().dna_count, 0)
-        self.assertEqual(SpecimenFactory().rna_count, 0)
+    def test__if_new_initializes_aliquots_counters_with_zero(self):
+        self.assertEqual(SpecimenFactory().aliquots_count, 0)
 
     def test_get_absolute_url(self):
         s = SpecimenFactory()
