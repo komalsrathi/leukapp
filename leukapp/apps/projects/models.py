@@ -21,7 +21,7 @@ class Project(LeukappModel):
     APP_NAME = constants.APP_NAME
 
     # external
-    name = models.CharField(
+    title = models.CharField(
         _("project name"),
         max_length=100,
         validators=[object_name_validator],

@@ -34,7 +34,10 @@ def deploy():
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder, repo)
     _update_nginx_conf(host, project_dir)
-    _update_virtualenv(virtualenv, virtualenv_folder, requirements, source_folder)
+    _update_virtualenv(virtualenv,
+                       virtualenv_folder,
+                       requirements,
+                       source_folder)
     _update_settings(source_folder)
     _update_static_files(virtualenv, settings)
     _update_database(virtualenv, settings)
@@ -101,7 +104,7 @@ def _update_static_files(virtualenv, settings):
 
 def _update_database(virtualenv, settings):
     workon = 'workon ' + virtualenv
-    makemigrations = workon + ' && python manage.py makemigrations --noinput'
+    makemigrations = workon + ' && python manage.py makemigrations'
     command = makemigrations + ' --settings=' + settings
     run(command)
     migrate = workon + ' && python manage.py migrate --noinput'
