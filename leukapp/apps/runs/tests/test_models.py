@@ -30,26 +30,28 @@ class RunsModelTest(TestCase):
     def test_unique_together_functionality(self):
         s = RunFactory()
         with self.assertRaises(IntegrityError):
-            Run.objects.create(aliquot=s.aliquot, ext_id=s.ext_id)
+            kwargs = {
+                "aliquot": s.aliquot,
+                "ext_id": s.ext_id,
+                "bio_source": s.bio_source,
+                }
+            Run.objects.create(**kwargs)
 
     def test_if_runs_count_keep_count_correctly(self):
         a = AliquotFactory()
-        RunFactory(aliquot=a)
-        RunFactory(aliquot=a)
-        self.assertEqual(2, a.runs_count)
+        for i in range(2):
+            RunFactory(aliquot=a, bio_source=constants.DNA)
+            RunFactory(aliquot=a, bio_source=constants.RNA)
+        self.assertEqual(2, a.dna_runs_count)
+        self.assertEqual(2, a.rna_runs_count)
 
     def test_if_runs_count_is_correct_after_delete_runs(self):
         a = AliquotFactory()
-        RunFactory(aliquot=a).delete()
-        RunFactory(aliquot=a).delete()
-        RunFactory(aliquot=a).delete()
-        self.assertEqual(3, a.runs_count)
-
-    def test_int_id_returns_expected_value(self):
-        a = AliquotFactory()
-        s = RunFactory(aliquot=a)
-        int_id = str(a.runs_count)
-        self.assertEqual(s.int_id, int_id)
+        for i in range(2):
+            RunFactory(aliquot=a, bio_source=constants.DNA).delete()
+            RunFactory(aliquot=a, bio_source=constants.RNA).delete()
+        self.assertEqual(2, a.dna_runs_count)
+        self.assertEqual(2, a.rna_runs_count)
 
     def test_str_returns_slug(self):
         s = RunFactory()
@@ -67,3 +69,14 @@ class RunsModelTest(TestCase):
         slug = s.slug
         url = reverse(constants.APP_NAME + ':update', kwargs={'slug': slug})
         self.assertEqual(url, s.get_update_url())
+
+    def test_int_id_returns_expected_value(self):
+        a = AliquotFactory()
+        rdna = RunFactory(aliquot=a, bio_source=constants.DNA)
+        rrna = RunFactory(aliquot=a, bio_source=constants.RNA)
+        rdna_int_id = constants.LEUKID_BIO_SOURCE[rdna.bio_source]
+        rdna_int_id += str(a.dna_runs_count)
+        rrna_int_id = constants.LEUKID_BIO_SOURCE[rrna.bio_source]
+        rrna_int_id += str(a.rna_runs_count)
+        self.assertEqual(rdna.int_id, rdna_int_id)
+        self.assertEqual(rrna.int_id, rrna_int_id)

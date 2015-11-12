@@ -29,6 +29,11 @@ class Run(LeukappModel):
         Aliquot,
         verbose_name=_("aliquot"),
         )
+    bio_source = models.CharField(
+        _("biological material"),
+        max_length=100,
+        choices=CHOICES["BIO_SOURCE"]
+        )
     projects = models.ManyToManyField(
         Project,
         verbose_name=_("projects"),
@@ -85,15 +90,25 @@ class Run(LeukappModel):
     def __str__(self):
         return self.slug
 
-    def if_new(self, **kwargs):
-        """ if_new is executed the first time the object is created """
-        self.aliquot.runs_count += 1
-        self.aliquot.save()
-        self.int_id = str(self.aliquot.runs_count)
+    def _if_new(self, **kwargs):
+        """ _if_new is executed the first time the object is created """
 
-    def if_save(self):
-        """ NOTTESTED if_save() is executed everytime the object is saved """
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
+
+        # get internal id
+        self.int_id = self._get_int_id()
+
+    def _if_save(self):
+        """ NOTTESTED _if_save() is executed everytime the object is saved """
+
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
+
+        # update object slug
         self.slug = '-'.join([self.aliquot.slug, self.int_id])
+
+        # update projects
         self._get_projects_from_list()
 
     def _get_projects_from_list(self):
@@ -101,3 +116,20 @@ class Run(LeukappModel):
         if self.projects_list:
             projects = [int(p) for p in self.projects_list.split("|")]
             [self.projects.add(p) for p in projects]
+
+    def _get_int_id(self):
+        """ return int_id based on count of tumors/normals per Individual """
+
+        # This function can only be called from _if_new()
+        self._check_if_caller_is_if_new()
+
+        # get internal id
+        bio_source_id = constants.LEUKID_BIO_SOURCE[self.bio_source]
+        if self.bio_source == constants.DNA:
+            self.aliquot.dna_runs_count += 1
+            self.int_id = bio_source_id + str(self.aliquot.dna_runs_count)
+        elif self.bio_source == constants.RNA:
+            self.aliquot.rna_runs_count += 1
+            self.int_id = bio_source_id + str(self.aliquot.rna_runs_count)
+        self.aliquot.save()
+        return self.int_id

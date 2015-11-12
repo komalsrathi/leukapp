@@ -9,20 +9,21 @@ from leukapp.apps.aliquots.factories import AliquotFactory
 # local
 from ..models import Run
 from ..factories import RunFactory
+from .. import constants
 
 
-class AliquotUtilsTest(TestCase):
+class RunFactoriesTest(TestCase):
 
-    def test_aliquotfactory_creates_aliquot(self):
+    def test_runfactory_creates_run(self):
         a = RunFactory()
         b = Run.objects.get(pk=a.pk)
         self.assertEqual(a, b)
 
-    def test_aliquotfactory_doesnt_create_existing_run(self):
+    def test_runfactory_doesnt_create_existing_run(self):
         a = AliquotFactory()
-        s_a = RunFactory(aliquot=a, ext_id='1')
-        s_b = RunFactory(aliquot=a, ext_id='1')
-        self.assertEqual(s_a, s_b)
+        r_a = RunFactory(aliquot=a, ext_id='1', bio_source=constants.DNA)
+        r_b = RunFactory(aliquot=a, ext_id='1', bio_source=constants.DNA)
+        self.assertEqual(r_a, r_b)
 
     def test_aliquotfactory_ext_id_len_is_correct(self):
         a = RunFactory()

@@ -21,6 +21,7 @@ RUN_CREATE_FIELDS = (
     'center',
     'ext_id',
     'projects',
+    'bio_source',
     )
 
 RUN_LEUKFORM_FIELDS = (
@@ -29,6 +30,7 @@ RUN_LEUKFORM_FIELDS = (
     'center',
     'ext_id',
     'projects_list',
+    'bio_source',
     )
 
 RUN_UPDATE_FIELDS = (
@@ -40,10 +42,13 @@ RUN_UPDATE_FIELDS = (
 RUN_UNIQUE_TOGETHER = (
     'aliquot',
     'ext_id',
+    'bio_source',
     )
 
 # CHOICES
 # -----------------------------------------------------------------------------
+
+# platform
 WHOLE_EXOME = 'WHOLE-EXOME'
 WHOLE_GENOME = 'WHOLE-GENOME'
 TARGETED_DNA = 'TARGETED-DNA'
@@ -66,6 +71,7 @@ PLATFORM = (
     )
 PLATFORM_VALUE = [e[0] for e in PLATFORM]
 
+# technology
 AGILENTV4 = 'AGILENTV4'
 AGILENTV5 = 'AGILENTV5'
 WHOLEGENOMELIBRARYV1 = 'WHOLEGENOMELIBRARYV1'
@@ -90,10 +96,29 @@ CENTER = (
     )
 CENTER_VALUE = [e[0] for e in CENTER]
 
+# extracted material
+DNA = 'DNA'
+RNA = 'RNA'
+BIO_SOURCE = (
+    (DNA, 'DNA'),
+    (RNA, 'RNA'),
+    )
+BIO_SOURCE_VALUE = [b[0] for b in BIO_SOURCE]
+
+ALIQUOT_CHOICES = {
+    "BIO_SOURCE": BIO_SOURCE,
+    }
+
+LEUKID_BIO_SOURCE = {
+    DNA: 'D',
+    RNA: 'R',
+    }
+
 RUN_CHOICES = {
     "PLATFORM": PLATFORM,
     "TECHNOLOGY": TECHNOLOGY,
     "CENTER": CENTER,
+    "BIO_SOURCE": BIO_SOURCE,
     }
 
 # PERMISSIONS
