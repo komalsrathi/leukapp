@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+# python
+import inspect
+
 # django
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -44,25 +47,51 @@ class LeukappModel(TimeStampedModel):
         if new:
             super(LeukappModel, self).save(*args, **kwargs)  # get pk
             kwargs['force_insert'] = False  # set to avoid error in create()
-            self.if_new()
-            self.if_save()
+            self._if_new()
+            self._if_save()
 
         else:
-            self.if_save()
+            self._if_save()
 
         super(LeukappModel, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
+        """ Returns the object detail url. """
         return reverse(self.APP_NAME + ':detail', kwargs={'slug': self.slug})
 
     def get_update_url(self):
+        """ Returns the object's update url. """
         return reverse(self.APP_NAME + ':update', kwargs={'slug': self.slug})
 
-    def if_new(self, **kwargs):
+    def _if_new(self, **kwargs):
+        """ _if_new is executed the first time the object is created. """
         pass
 
-    def if_save(self, **kwargs):
+    def _if_save(self, **kwargs):
+        """ _if_save is executed everytime the object is saved. """
         pass
+
+    def _check_if_caller_is_if_new(self):
+        """ Checks if current function is been called from _if_new(). """
+
+        # NOTTESTED
+        msg = "This function can only be called from _if_new()."
+        try:
+            if inspect.stack()[2][3] != '_if_new':
+                raise(Exception(msg))
+        except IndexError:
+            raise(Exception(msg))
+
+    def _check_if_caller_is_save(self):
+        """ Checks if current function is been called from save(). """
+
+        # NOTTESTED
+        msg = "This function can only be called from save()."
+        try:
+            if inspect.stack()[2][3] != 'save':
+                raise(Exception(msg))
+        except IndexError:
+            raise(Exception(msg))
 
 
 class LeukappTestModel(LeukappModel):
@@ -71,9 +100,9 @@ class LeukappTestModel(LeukappModel):
     this model only serves the purpose of testing the abstract models above
     """
 
-    def if_save(self):
+    def _if_save(self):
         """
-        if_save is executed everytime the object is saved
+        _if_save is executed everytime the object is saved
         test: test_str_returns_slug
         """
 
