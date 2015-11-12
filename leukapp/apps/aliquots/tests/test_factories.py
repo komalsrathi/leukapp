@@ -9,7 +9,6 @@ from leukapp.apps.specimens.factories import SpecimenFactory
 # local
 from ..models import Aliquot
 from ..factories import AliquotFactory
-from .. import constants
 
 
 class AliquotUtilsTest(TestCase):
@@ -21,8 +20,8 @@ class AliquotUtilsTest(TestCase):
 
     def test_aliquotfactory_doesnt_create_existing_aliquot(self):
         s = SpecimenFactory()
-        a = AliquotFactory(specimen=s, bio_source=constants.DNA, ext_id='1')
-        b = AliquotFactory(specimen=s, bio_source=constants.DNA, ext_id='1')
+        a = AliquotFactory(specimen=s, ext_id='1')
+        b = AliquotFactory(specimen=s, ext_id='1')
         self.assertEqual(a, b)
 
     def test_aliquotfactory_ext_id_len_is_correct(self):

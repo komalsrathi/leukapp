@@ -68,15 +68,30 @@ class Aliquot(LeukappModel):
 
     def _if_new(self, **kwargs):
         """ _if_new is executed the first time the object is created """
+
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
+
+        # get internal id
         self._get_int_id()
 
     def _if_save(self):
         """ _if_save is always excecuted when saving """
+
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
+
+        # update object slug
         self.slug = '-'.join([self.specimen.slug, self.int_id])
 
     def _get_int_id(self):
         """ return int_id based on count of Aliquots per Specimen """
+
+        # This function can only be called from _if_new()
+        self._check_if_caller_is_if_new()
+
+        # get internal id
         self.specimen.aliquots_count += 1
-        self.int_id = self.specimen.aliquots_count
+        self.int_id = str(self.specimen.aliquots_count)
         self.specimen.save()
         return self.int_id

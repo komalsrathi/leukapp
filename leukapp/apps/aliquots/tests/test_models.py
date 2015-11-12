@@ -29,7 +29,6 @@ class AliquotModelTest(TestCase):
         kw = {
             'specimen': SpecimenFactory(),
             'ext_id': '1',
-            'bio_source': constants.DNA
             }
         with self.assertRaises(IntegrityError):
             AliquotFactory(**kw)
@@ -38,30 +37,20 @@ class AliquotModelTest(TestCase):
     def test_if_aliquots_counters_keep_count_correctly(self):
         s = SpecimenFactory()
         for i in range(3):
-            AliquotFactory(specimen=s, bio_source=constants.DNA)
-        for i in range(2):
-            AliquotFactory(specimen=s, bio_source=constants.RNA)
-        self.assertEqual(3, s.dna_count)
-        self.assertEqual(2, s.rna_count)
+            AliquotFactory(specimen=s)
+        self.assertEqual(3, s.aliquots_count)
 
     def test_if_aliquots_created_is_correct_after_delete_aliquots(self):
         s = SpecimenFactory()
         for i in range(3):
-            AliquotFactory(specimen=s, bio_source=constants.DNA).delete()
-            AliquotFactory(specimen=s, bio_source=constants.RNA).delete()
-        self.assertEqual(3, s.dna_count)
-        self.assertEqual(3, s.rna_count)
+            AliquotFactory(specimen=s).delete()
+        self.assertEqual(3, s.aliquots_count)
 
     def test_int_id_returns_expected_value(self):
         s = SpecimenFactory()
-        ad = AliquotFactory(specimen=s, bio_source=constants.DNA)
-        ar = AliquotFactory(specimen=s, bio_source=constants.RNA)
-        ad_int_id = constants.LEUKID_BIO_SOURCE[ad.bio_source]
-        ad_int_id += str(s.dna_count)
-        ar_int_id = constants.LEUKID_BIO_SOURCE[ar.bio_source]
-        ar_int_id += str(s.rna_count)
-        self.assertEqual(ad.int_id, ad_int_id)
-        self.assertEqual(ar.int_id, ar_int_id)
+        a = AliquotFactory(specimen=s)
+        a_int_id = str(s.aliquots_count)
+        self.assertEqual(a.int_id, a_int_id)
 
     def test_str_returns_slug(self):
         a = AliquotFactory()
@@ -82,4 +71,5 @@ class AliquotModelTest(TestCase):
 
     def test__if_new_initializes_runs_count_with_zero(self):
         a = AliquotFactory()
-        self.assertEqual(a.runs_count, 0)
+        self.assertEqual(a.dna_runs_count, 0)
+        self.assertEqual(a.rna_runs_count, 0)
