@@ -18,7 +18,7 @@ from fabric.api import env, local, run
 
 def deploy():
 
-    # settings
+    # load settings
     project_dir = env.PROJECT_DIR
     user = env.user
     host = env.host
@@ -41,15 +41,22 @@ def deploy():
     _update_settings(source_folder)
     _update_static_files(virtualenv, settings)
     _update_database(virtualenv, settings)
-    _restart_server()
+    _restart_server(host)
 
 
 def _create_directory_structure_if_necessary(site_folder):
+    """
+    The -p setting makes directory only if necessary
+    """
     for subfolder in ['source']:
         run('mkdir -p {0}/{1}'.format(site_folder, subfolder))
 
 
 def _get_latest_source(source_folder, repo):
+    """
+    If there is no .git folder, the repo is cloned.
+    Otherwise the repo fetched, and reset to the latest commit.
+    """
     if exists(source_folder + '/.git'):
         run('cd {0} && git fetch'.format(source_folder))
     else:
@@ -61,9 +68,13 @@ def _get_latest_source(source_folder, repo):
 
 
 def _update_nginx_conf(host, project_dir):
+    """
+    Updates the nginx sites-available, sites-enabled files using the template
+    available at /deploy/nginx.template.conf
+    """
     with open(project_dir + '/deploy/nginx.template.conf', 'r') as f:
         conf = f.read()
-    conf = conf.replace("SITENAME", host)
+    conf = conf.replace("HOST", host)
     available = '/etc/nginx/sites-available'
     enabled = '/etc/nginx/sites-enabled'
     c1 = 'dzdo mkdir -p {0} {1}'.format(available, enabled)
@@ -77,6 +88,10 @@ def _update_nginx_conf(host, project_dir):
 
 def _update_virtualenv(
         virtualenv, virtualenv_folder, requirements, source_folder):
+    """
+    Creates or updates the virtual environment. Postactivate script is also
+    updated based on template found at /.env/staging_postactivate
+    """
     if not exists(virtualenv_folder):
         run('mkvirtualenv ' + virtualenv)
 
@@ -88,6 +103,9 @@ def _update_virtualenv(
 
 
 def _update_settings(source_folder):
+    """
+    Adds a randomly generated DJANGO_SECRET_KEY to the postactivate script.
+    """
     postsource = source_folder + '/.env/staging_postactivate'
     chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&'
     key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
@@ -96,6 +114,9 @@ def _update_settings(source_folder):
 
 
 def _update_static_files(virtualenv, settings):
+    """
+    Simply updates the static files.
+    """
     workon = 'workon ' + virtualenv
     collectstatic = workon + ' && python manage.py collectstatic --noinput'
     command = collectstatic + ' --settings=' + settings
@@ -103,6 +124,9 @@ def _update_static_files(virtualenv, settings):
 
 
 def _update_database(virtualenv, settings):
+    """
+    Runs makemigrations and migrate commands.
+    """
     workon = 'workon ' + virtualenv
     makemigrations = workon + ' && python manage.py makemigrations'
     command = makemigrations + ' --settings=' + settings
@@ -112,5 +136,12 @@ def _update_database(virtualenv, settings):
     run(command)
 
 
-def _restart_server():
-    run("workon staging && gunicorn --bind unix:/tmp/plvleukweb1.mskcc.org.socket config.wsgi:application")
+def _restart_server(host):
+    """
+    Restarts the server.
+    """
+    staging = "workon staging && "
+    gunicorn = "gunicorn --bind unix:/tmp/HOST.socket "
+    gunicorn = gunicorn.replace("HOST", host)
+    gunicorn_config = "config.wsgi:application "
+    run(staging + gunicorn + gunicorn_config)
