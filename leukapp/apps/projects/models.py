@@ -91,14 +91,23 @@ class Project(LeukappModel):
     def __str__(self):
         return self.slug
 
-    def if_new(self):
+    def _if_new(self):
         """ ran when object is created """
+
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
+
+        # get internal id
         self.int_id = str(self.pk + 100)
+
+    def _if_save(self):
+        """ _if_save() is run everytime the object is saved"""
+
+        # This function can only be called from save()
+        self._check_if_caller_is_save()
+
+        # update object slug
         self.slug = self.int_id
 
-    def if_save(self):
-        """ if_save() is run everytime the object is saved"""
-        self.update_participants()
-
-    def update_participants(self):
+        # update paticipants
         self.participants.add(self.pi, self.analyst, self.requestor)

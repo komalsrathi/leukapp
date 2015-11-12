@@ -21,7 +21,7 @@ class ProjectFactory(factory.django.DjangoModelFactory):
         model = Project
         django_get_or_create = constants.PROJECT_UNIQUE_TOGETHER
 
-    name = FuzzyText(length=10, chars=string.ascii_lowercase)
+    title = FuzzyText(length=10, chars=string.ascii_lowercase)
     description = FuzzyText(length=140, chars=string.ascii_lowercase)
     pi = factory.SubFactory(ParticipantFactory)
     analyst = factory.SubFactory(ParticipantFactory)
