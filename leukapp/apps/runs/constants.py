@@ -20,17 +20,8 @@ RUN_CREATE_FIELDS = (
     'technology',
     'center',
     'ext_id',
-    'projects',
     'bio_source',
-    )
-
-RUN_LEUKFORM_FIELDS = (
-    'platform',
-    'technology',
-    'center',
-    'ext_id',
     'projects_list',
-    'bio_source',
     )
 
 RUN_UPDATE_FIELDS = (

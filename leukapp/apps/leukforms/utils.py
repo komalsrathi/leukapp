@@ -79,7 +79,7 @@ class LeukformLoader(object):
         if mock:
             self.VALID = 'VALID'
 
-        print("Validation completed.")
+        # print("Validation completed.")
         rows = self._process_leukform(rows)
         output = self._write_output(rows, columns, mock)
         return output
@@ -92,18 +92,16 @@ class LeukformLoader(object):
         """
 
         processed_rows = []
-
-        print("Sorting rows.")
         rows = self._sort_rows(rows)
 
         count = 0
-        start = time.time()
+        # start = time.time()
         for row in rows:
             processed_row = self._process_row(row)
             processed_rows.append(processed_row)
             count += 1
-            print("%s rows processed in %s." % (count, time.time() - start))
-        print(time.time() - start)
+            # print("%s rows processed in %s." % (count, time.time() - start))
+        # print(time.time() - start)
         return processed_rows
 
     def _sort_rows(self, rows):

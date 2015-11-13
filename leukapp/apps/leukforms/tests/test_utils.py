@@ -263,8 +263,8 @@ class TestLeukformLoader(TestCase):
             }
         expected = {
             'Individual': {'ext_id': '123'},
-            'Specimen': {'ext_id': '1'},
-            'Aliquot': {'ext_id': '1'},
+            'Specimen': {'ext_id': 'UNKNOWN'},
+            'Aliquot': {'ext_id': 'UNKNOWN'},
             }
         obtained = LeukformLoader()._get_fields(row)
         self.assertDictEqual(obtained, expected)

@@ -12,7 +12,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 
 # local
-from .constants import LEUKFORM_FIELDS, LEUKAPP_FACTORIES
+from .constants import CREATE_FIELDS, LEUKAPP_FACTORIES
 
 
 class LeukformSamplesFactory(object):
@@ -178,10 +178,10 @@ class LeukformSamplesFactory(object):
             self._row = {}
             self._row[model + '.slug'] = instance.slug
         else:
-            for field in LEUKFORM_FIELDS[model]:
+            for field in CREATE_FIELDS[model]:
                 column = "{0}.{1}".format(model, field)
                 value = eval('instance.{0}'.format(field))
-                self._row[column] = value
+                self._row[column] = str(value)
         if self._last:
             instance.delete()
             self.rows.append(self._row.copy())

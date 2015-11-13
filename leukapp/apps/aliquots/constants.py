@@ -20,10 +20,6 @@ ALIQUOT_CREATE_FIELDS = (
     'ext_id',
     )
 
-ALIQUOT_LEUKFORM_FIELDS = (
-    'ext_id',
-    )
-
 ALIQUOT_UPDATE_FIELDS = (
     )
 

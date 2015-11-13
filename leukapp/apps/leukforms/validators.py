@@ -11,7 +11,7 @@ from django.core.files.storage import default_storage
 from django.conf import settings
 
 # local
-from .constants import MODELS_LIST, LEUKFORM_FIELDS
+from .constants import MODELS_LIST, CREATE_FIELDS
 # used to map csv headers to location fields
 
 
@@ -72,7 +72,7 @@ def leukform_columns_validator(rows):
         msg = u"Invalid leukform: invalid column '%s'." % column
         try:
             model, field = column.split('.')
-            fieldnotinleukform = (field not in LEUKFORM_FIELDS[model])
+            fieldnotinleukform = (field not in CREATE_FIELDS[model])
             notslug = (field != 'slug')
             if model not in MODELS_LIST:
                 raise ValidationError(msg)

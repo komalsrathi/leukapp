@@ -10,10 +10,10 @@ from leukapp.apps.aliquots.constants import ALIQUOT_UNIQUE_TOGETHER
 from leukapp.apps.runs.constants import RUN_UNIQUE_TOGETHER
 
 # leukform fields
-from leukapp.apps.individuals.constants import INDIVIDUAL_LEUKFORM_FIELDS
-from leukapp.apps.specimens.constants import SPECIMEN_LEUKFORM_FIELDS
-from leukapp.apps.aliquots.constants import ALIQUOT_LEUKFORM_FIELDS
-from leukapp.apps.runs.constants import RUN_LEUKFORM_FIELDS
+from leukapp.apps.individuals.constants import INDIVIDUAL_CREATE_FIELDS
+from leukapp.apps.specimens.constants import SPECIMEN_CREATE_FIELDS
+from leukapp.apps.aliquots.constants import ALIQUOT_CREATE_FIELDS
+from leukapp.apps.runs.constants import RUN_CREATE_FIELDS
 
 # leukapp models
 from leukapp.apps.individuals.models import Individual
@@ -64,11 +64,11 @@ LEUKFORM_GET_OR_CREATE_FIELDS = (
     )
 
 # leukform fields
-LEUKFORM_FIELDS = {
-    'Individual': INDIVIDUAL_LEUKFORM_FIELDS,
-    'Specimen': SPECIMEN_LEUKFORM_FIELDS,
-    'Aliquot': ALIQUOT_LEUKFORM_FIELDS,
-    'Run': RUN_LEUKFORM_FIELDS,
+CREATE_FIELDS = {
+    'Individual': INDIVIDUAL_CREATE_FIELDS,
+    'Specimen': SPECIMEN_CREATE_FIELDS,
+    'Aliquot': ALIQUOT_CREATE_FIELDS,
+    'Run': RUN_CREATE_FIELDS,
     }
 
 # unique together

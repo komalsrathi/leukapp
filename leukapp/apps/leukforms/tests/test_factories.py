@@ -12,7 +12,7 @@ from leukapp.apps.leukforms.factories import LeukformSamplesFactory
 from leukapp.apps.aliquots.factories import AliquotFactory
 
 # local
-from ..constants import LEUKFORM_FIELDS, MODELS_LIST
+from ..constants import CREATE_FIELDS, MODELS_LIST
 
 
 class LeukformCsvFactoryTest(TestCase):
@@ -84,10 +84,10 @@ class LeukformCsvFactoryTest(TestCase):
         batch._slug = False
         instance = AliquotFactory()
         row = {}
-        for field in LEUKFORM_FIELDS['Aliquot']:
+        for field in CREATE_FIELDS['Aliquot']:
                 column = "{0}.{1}".format('Aliquot', field)
                 value = eval('instance.{0}'.format(field))
-                row[column] = value
+                row[column] = str(value)
         batch._write_row(instance, model='Aliquot')
         self.assertDictEqual(batch._row, row)
 
@@ -99,10 +99,10 @@ class LeukformCsvFactoryTest(TestCase):
         instance = AliquotFactory()
         row = {}
         rows = []
-        for field in LEUKFORM_FIELDS['Aliquot']:
+        for field in CREATE_FIELDS['Aliquot']:
                 column = "{0}.{1}".format('Aliquot', field)
                 value = eval('instance.{0}'.format(field))
-                row[column] = value
+                row[column] = str(value)
         rows.append(row.copy())
         batch._write_row(instance, model='Aliquot')
         self.assertDictEqual(batch._row, row)
@@ -142,6 +142,7 @@ class LeukformCsvFactoryTest(TestCase):
         [self.assertIn(p, batch_projects) for p in projects_list]
 
     def test_csv_from_rows(self):
+        self.maxDiff = None
         batch = LeukformSamplesFactory()
         batch.create_batch(1, 1, 1, 1)
         path = batch.create_csv_from_rows()
