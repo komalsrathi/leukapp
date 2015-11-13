@@ -23,12 +23,6 @@ SPECIMEN_CREATE_FIELDS = (
     'order',
     )
 
-SPECIMEN_LEUKFORM_FIELDS = (
-    'source_type',
-    'ext_id',
-    'order',
-    )
-
 SPECIMEN_UPDATE_FIELDS = (
     'source',
     )
