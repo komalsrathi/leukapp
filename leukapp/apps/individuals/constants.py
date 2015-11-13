@@ -20,12 +20,6 @@ INDIVIDUAL_CREATE_FIELDS = (
     'ext_id',
     )
 
-INDIVIDUAL_LEUKFORM_FIELDS = (
-    'institution',
-    'species',
-    'ext_id',
-    )
-
 INDIVIDUAL_UPDATE_FIELDS = (
     )
 
