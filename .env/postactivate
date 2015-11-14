@@ -1,11 +1,21 @@
 #!/bin/bash
 # This hook is run after this virtualenv is activated.
 
-# leukapp environmental variables
+# deploy
 export PROJECT_DIR=/Users/medinaj/Documents/msk/projects/leukapp_project
+
+# django
+export DEPLOYMENT="local"
 export DATABASE_TEST_URL=postgres:///leukapp_test
 export DATABASE_URL=postgres:///leukapp
-export DJANGO_SETTINGS_MODULE="config.settings.local"
+export DJANGO_SETTINGS_MODULE="config.settings."$DEPLOYMENT
 
-# cd to leukapp directory
+# leukapp
+export LEUKDC_PROJECTS_DIR="/ifs/res/papaemme/leukgen/"$DEPLOYMENT"/projects"
+export LEUKDC_HOST="luna.mskcc.org"
+export LEUKDC_USER="medinaj"
+export LEUKDC_PASSWORD=""
+export LEUKDC_SSHKEY=$HOME"/.ssh/id_rsa.pub"
+
+# leukapp directory
 cd ~/Documents/msk/projects/leukapp_project
