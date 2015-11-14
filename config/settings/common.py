@@ -8,17 +8,25 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
-from __future__ import absolute_import, unicode_literals
 
-import environ
+# python
+from __future__ import absolute_import, unicode_literals
 import sys
 
+# third party
+import environ
+
+env = environ.Env()
+
+# SET FUNDAMENTAL DIRECTORIES
+# -----------------------------------------------------------------------------
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 PROJECT_DIR = ROOT_DIR.path('leukapp')
 APPS_DIR = PROJECT_DIR.path('apps')
-# sys.path.insert(str(APPS_DIR))
 
-env = environ.Env()
+# DETECT TESTING ENVIRONMENT
+# -----------------------------------------------------------------------------
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 # APP CONFIGURATION
 # -----------------------------------------------------------------------------
