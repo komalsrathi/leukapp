@@ -6,6 +6,7 @@ from django.conf import settings
 # apps imports
 from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import object_name_validator
+from leukapp.apps.core.utils import LeukConnect
 from leukapp.apps.participants.models import Participant
 
 # local imports
@@ -100,6 +101,9 @@ class Project(LeukappModel):
         # get internal id
         self.int_id = str(self.pk + 100)
 
+        # create project folder at leukdc
+        self._create_leukc_project_dir()
+
     def _if_save(self):
         """ _if_save() is run everytime the object is saved"""
 
@@ -111,3 +115,22 @@ class Project(LeukappModel):
 
         # update paticipants
         self.participants.add(self.pi, self.analyst, self.requestor)
+
+    def _create_leukc_project_dir(self):
+        """ This function ssh to leukdc and creates a project directory."""
+
+        leukcd = LeukConnect()
+
+        # set project directory
+        if settings.TESTING:
+            directory = leukcd.LEUKDC_PROJECTS_DIR + '/tests/' + self.int_id
+        else:
+            directory = leukcd.LEUKDC_PROJECTS_DIR + '/' + self.int_id
+
+        try:
+            leukcd.connect()
+            command = 'mkdir -p %s' % directory
+            leukcd.exec_command(command)
+            leukcd.close()
+        except Exception as e:
+            print(e)
