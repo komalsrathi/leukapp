@@ -14,6 +14,8 @@ from django.conf import settings
 # local
 from .constants import CREATE_FIELDS, LEUKAPP_FACTORIES
 
+ProjectFactory = LEUKAPP_FACTORIES['Project']
+
 
 class LeukformSamplesFactory(object):
 
@@ -33,9 +35,13 @@ class LeukformSamplesFactory(object):
         create_stringio_from_rows: creates StringIO from rows
     """
 
+    projects = [ProjectFactory(title='test ' + str(i)) for i in range(3)]
+
     def __init__(self):
         super(LeukformSamplesFactory, self).__init__()
+        self._set_variables()
 
+    def _set_variables(self):
         # initialize rows
         self.rows = []
         self._row = {}
@@ -55,10 +61,6 @@ class LeukformSamplesFactory(object):
             'Aliquot': 0,
             'Run': 0,
             }
-
-        # projects used
-        ProjectFactory = LEUKAPP_FACTORIES['Project']
-        self.projects = [ProjectFactory(title=str(i)) for i in range(10)]
 
     def create_batch(self, individuals, specimens=0, aliquots=0, runs=0,
             delete=True, slug=False):
@@ -85,7 +87,7 @@ class LeukformSamplesFactory(object):
             rows (list): a list of dictoaries ready to be submitted
         """
         if self.instances['Individual']:
-            self.__init__()
+            self._set_variables()
 
         if slug:  # if slug, instances won't be deleted, slugs will be returned
             self._delete = False
