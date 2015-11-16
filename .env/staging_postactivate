@@ -10,10 +10,12 @@ export DJANGO_SECRET_KEY=CHANGE_ME
 
 # leukapp
 export LEUKDC_PROJECTS_DIR="/ifs/res/papaemme/leukgen/"$DEPLOYMENT"/projects"
+export LEUKDC_SAMPLES_DIR="/ifs/res/papaemme/leukgen/"$DEPLOYMENT"/samples/"
 export LEUKDC_HOST="luna.mskcc.org"
 export LEUKDC_USER="medinaj"
 export LEUKDC_PASSWORD=""
 export LEUKDC_SSHKEY=$HOME"/.ssh/id_rsa.pub"
+export LEUKDC_ACTIVE="TRUE"
 
 # leukapp directory
 cd /home/medinaj/sites/plvleukweb1.mskcc.org/source/

@@ -11,11 +11,13 @@ export DATABASE_TEST_URL=postgres:///leukapp_test
 export DATABASE_URL=postgres:///leukapp
 
 # leukapp
-export LEUKDC_PROJECTS_DIR="/ifs/res/papaemme/leukgen/"$DEPLOYMENT"/projects"
+export LEUKDC_PROJECTS_DIR="/ifs/res/papaemme/leukgen/"$DEPLOYMENT"/projects/"
+export LEUKDC_SAMPLES_DIR="/ifs/res/papaemme/leukgen/"$DEPLOYMENT"/samples/"
 export LEUKDC_HOST="luna.mskcc.org"
 export LEUKDC_USER="medinaj"
 export LEUKDC_PASSWORD=""
 export LEUKDC_SSHKEY=$HOME"/.ssh/id_rsa.pub"
+export LEUKDC_ACTIVE="TRUE"
 
 # leukapp directory
 cd ~/Documents/msk/projects/leukapp_project
