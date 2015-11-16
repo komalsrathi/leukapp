@@ -4,6 +4,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 # apps imports
 from leukapp.apps.core.models import LeukappModel
@@ -104,7 +105,7 @@ class Project(LeukappModel):
         self.int_id = str(self.pk + 100)
 
         # create project folder at leukdc
-        self._create_leukc_project_dir()
+        self._create_leukcd_project_dir()
 
     def _if_save(self):
         """ _if_save() is run everytime the object is saved"""
@@ -118,22 +119,22 @@ class Project(LeukappModel):
         # update paticipants
         self.participants.add(self.pi, self.analyst, self.requestor)
 
-    def _create_leukc_project_dir(self):
+    def _create_leukcd_project_dir(self):
         """ This function ssh to leukdc and creates a project directory."""
         # NOTTESTED
 
-        leukcd = LeukConnect()
+        try:  # if LEUKCD_ACTIVE is TRUE, creates a dir at the Data Center
+            leukcd = LeukConnect()
+            projectsdir = leukcd.LEUKDC_PROJECTS_DIR
 
-        # set project directory
-        if settings.TESTING:
-            directory = leukcd.LEUKDC_PROJECTS_DIR + '/tests/' + self.int_id
-        else:
-            directory = leukcd.LEUKDC_PROJECTS_DIR + '/' + self.int_id
+            if settings.TESTING:  # set project directory
+                directory = projectsdir + 'tests/' + self.int_id
+            else:
+                directory = projectsdir + self.int_id
 
-        try:
             leukcd.connect()
             command = 'mkdir -p %s' % directory
             leukcd.exec_command(command)
             leukcd.close()
-        except Exception as e:
-            print(e)
+        except ImproperlyConfigured:
+            pass
