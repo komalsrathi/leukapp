@@ -1,16 +1,26 @@
 # -*- coding: utf-8 -*-
 
 # python
+# import time
 import csv
 import io
 import json
-import time
 
 # local
 from . import constants
 from .validators import leukform_csv_validator, leukform_rows_validator
 
-# useful dictionaries
+
+def get_out_columns(columns):
+    """NOTTESTED NOTDOCUMENTED"""
+    out_columns = []
+    for model in constants.MODELS_LIST:
+        fields = constants.CREATE_FIELDS[model]
+        fields = ['.'.join([model, field]) for field in fields]
+        for column in columns:
+            if column in fields:
+                out_columns.append(column)
+    return out_columns
 
 
 class LeukformLoader(object):
@@ -80,6 +90,7 @@ class LeukformLoader(object):
             self.VALID = 'VALID'
 
         # print("Validation completed.")
+        columns = get_out_columns(columns)
         rows = self._process_leukform(rows)
         output = self._write_output(rows, columns, mock)
         return output

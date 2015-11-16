@@ -11,8 +11,11 @@ import io
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 
+# leukapp
+from leukapp.apps.leukforms.utils import get_out_columns
+
 # local
-from .constants import CREATE_FIELDS, LEUKAPP_FACTORIES
+from .constants import CREATE_FIELDS, LEUKAPP_FACTORIES, MODELS_LIST
 
 ProjectFactory = LEUKAPP_FACTORIES['Project']
 
@@ -200,7 +203,7 @@ class LeukformSamplesFactory(object):
         timestamp = datetime.datetime.now().isoformat().split('.')[0]
         file_name = 'test_leukform_' + timestamp + '.csv'
         path = os.path.join(settings.MEDIA_ROOT, 'csv', 'outrows', file_name)
-        keys = set(self.rows[0])
+        keys = get_out_columns(columns=list(self.rows[0]))
 
         with open(path, 'w') as output_file:
             dict_writer = csv.DictWriter(output_file, keys)
