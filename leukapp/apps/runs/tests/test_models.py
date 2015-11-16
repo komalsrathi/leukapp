@@ -74,9 +74,9 @@ class RunsModelTest(TestCase):
         a = AliquotFactory()
         rdna = RunFactory(aliquot=a, analyte=constants.DNA)
         rrna = RunFactory(aliquot=a, analyte=constants.RNA)
-        rdna_int_id = constants.LEUKID_BIO_SOURCE[rdna.analyte]
+        rdna_int_id = constants.LEUKID_ANALYTE[rdna.analyte]
         rdna_int_id += str(a.dna_runs_count)
-        rrna_int_id = constants.LEUKID_BIO_SOURCE[rrna.analyte]
+        rrna_int_id = constants.LEUKID_ANALYTE[rrna.analyte]
         rrna_int_id += str(a.rna_runs_count)
         self.assertEqual(rdna.int_id, rdna_int_id)
         self.assertEqual(rrna.int_id, rrna_int_id)

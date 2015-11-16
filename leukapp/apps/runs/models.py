@@ -3,10 +3,13 @@
 # django
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 # leukapp
 from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import ext_id_validator
+from leukapp.apps.core.utils import LeukConnect
 from leukapp.apps.aliquots.models import Aliquot
 from leukapp.apps.projects.models import Project
 
@@ -32,7 +35,7 @@ class Run(LeukappModel):
     analyte = models.CharField(
         _("biological material"),
         max_length=100,
-        choices=CHOICES["BIO_SOURCE"]
+        choices=CHOICES["ANALYTE"]
         )
     projects = models.ManyToManyField(
         Project,
@@ -111,6 +114,9 @@ class Run(LeukappModel):
         # update projects
         self._get_projects_from_list()
 
+        # update data center
+        self._create_leukcd_run_dir()
+
     def _get_projects_from_list(self):
         """ NOTTESTED NOTDOCUMENTED """
         if self.projects_list:
@@ -124,7 +130,7 @@ class Run(LeukappModel):
         self._check_if_caller_is_if_new()
 
         # get internal id
-        analyte_id = constants.LEUKID_BIO_SOURCE[self.analyte]
+        analyte_id = constants.LEUKID_ANALYTE[self.analyte]
         if self.analyte == constants.DNA:
             self.aliquot.dna_runs_count += 1
             self.int_id = analyte_id + str(self.aliquot.dna_runs_count)
@@ -133,3 +139,45 @@ class Run(LeukappModel):
             self.int_id = analyte_id + str(self.aliquot.rna_runs_count)
         self.aliquot.save()
         return self.int_id
+
+    def _create_leukcd_run_dir(self):
+        """ This function ssh to leukdc and creates a run directory."""
+        # NOTTESTED
+
+        try:  # if LEUKCD_ACTIVE is TRUE, creates a dir at the Data Center
+            leukcd = LeukConnect()
+            projects = self.projects.all()
+
+            # root directories
+            projectsroot = leukcd.LEUKDC_PROJECTS_DIR
+            samplesroot = leukcd.LEUKDC_SAMPLES_DIR
+
+            # specific paths
+            projectspathlist = [self.technology, self.slug]
+            samplespathlist = [self.slug]
+            pdirs = ['/'.join([p.int_id] + projectspathlist) for p in projects]
+
+            if settings.TESTING:  # set project directory
+                pdirs = [projectsroot + 'tests/' + pdir for pdir in pdirs]
+                sdir = samplesroot + 'tests/' + '/'.join(samplespathlist)
+            else:
+                pdirs = [projectsroot + pdir for pdir in pdirs]
+                sdir = samplesroot + '/'.join(samplespathlist)
+
+            # create sample directory
+            leukcd.connect()
+            command = 'mkdir -p %s' % sdir
+            leukcd.exec_command(command)
+
+            # create directories at projects
+            command = 'mkdir -p {0}'
+            [leukcd.exec_command(command.format(pdir)) for pdir in pdirs]
+
+            # create symlinks from samples to projects
+            command = 'ln -s {0} {1}'
+            [leukcd.exec_command(command.format(sdir, pdir)) for pdir in pdirs]
+
+            # close connection
+            leukcd.close()
+        except ImproperlyConfigured:
+            print('LEUKCD_ACTIVE is FALSE')
