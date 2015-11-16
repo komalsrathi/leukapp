@@ -3,10 +3,10 @@
 
 # django
 export DEPLOYMENT="staging"
+export DJANGO_SETTINGS_MODULE="config.settings."$DEPLOYMENT
 export DJANGO_ALLOWED_HOSTS=plvleukweb1.mskcc.org
 export DATABASE_URL=postgres:///staging
 export DJANGO_SECRET_KEY=CHANGE_ME
-export DJANGO_SETTINGS_MODULE="config.settings."$DEPLOYMENT
 
 # leukapp
 export LEUKDC_PROJECTS_DIR="/ifs/res/papaemme/leukgen/"$DEPLOYMENT"/projects"

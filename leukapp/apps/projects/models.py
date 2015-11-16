@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # django imports
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -118,6 +120,7 @@ class Project(LeukappModel):
 
     def _create_leukc_project_dir(self):
         """ This function ssh to leukdc and creates a project directory."""
+        # NOTTESTED
 
         leukcd = LeukConnect()
 

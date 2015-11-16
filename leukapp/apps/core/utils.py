@@ -12,7 +12,7 @@ env = environ.Env()
 
 class LeukConnect(object):
 
-    """
+    """NOTTESTED
     This class is used to send commands to the Leukgen Data Center (leukdc)
     """
 
