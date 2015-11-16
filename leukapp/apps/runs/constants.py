@@ -20,7 +20,7 @@ RUN_CREATE_FIELDS = (
     'technology',
     'center',
     'ext_id',
-    'bio_source',
+    'analyte',
     'projects_list',
     )
 
@@ -33,7 +33,7 @@ RUN_UPDATE_FIELDS = (
 RUN_UNIQUE_TOGETHER = (
     'aliquot',
     'ext_id',
-    'bio_source',
+    'analyte',
     )
 
 # CHOICES

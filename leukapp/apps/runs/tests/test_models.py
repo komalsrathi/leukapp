@@ -33,23 +33,23 @@ class RunsModelTest(TestCase):
             kwargs = {
                 "aliquot": s.aliquot,
                 "ext_id": s.ext_id,
-                "bio_source": s.bio_source,
+                "analyte": s.analyte,
                 }
             Run.objects.create(**kwargs)
 
     def test_if_runs_count_keep_count_correctly(self):
         a = AliquotFactory()
         for i in range(2):
-            RunFactory(aliquot=a, bio_source=constants.DNA)
-            RunFactory(aliquot=a, bio_source=constants.RNA)
+            RunFactory(aliquot=a, analyte=constants.DNA)
+            RunFactory(aliquot=a, analyte=constants.RNA)
         self.assertEqual(2, a.dna_runs_count)
         self.assertEqual(2, a.rna_runs_count)
 
     def test_if_runs_count_is_correct_after_delete_runs(self):
         a = AliquotFactory()
         for i in range(2):
-            RunFactory(aliquot=a, bio_source=constants.DNA).delete()
-            RunFactory(aliquot=a, bio_source=constants.RNA).delete()
+            RunFactory(aliquot=a, analyte=constants.DNA).delete()
+            RunFactory(aliquot=a, analyte=constants.RNA).delete()
         self.assertEqual(2, a.dna_runs_count)
         self.assertEqual(2, a.rna_runs_count)
 
@@ -72,11 +72,11 @@ class RunsModelTest(TestCase):
 
     def test_int_id_returns_expected_value(self):
         a = AliquotFactory()
-        rdna = RunFactory(aliquot=a, bio_source=constants.DNA)
-        rrna = RunFactory(aliquot=a, bio_source=constants.RNA)
-        rdna_int_id = constants.LEUKID_BIO_SOURCE[rdna.bio_source]
+        rdna = RunFactory(aliquot=a, analyte=constants.DNA)
+        rrna = RunFactory(aliquot=a, analyte=constants.RNA)
+        rdna_int_id = constants.LEUKID_BIO_SOURCE[rdna.analyte]
         rdna_int_id += str(a.dna_runs_count)
-        rrna_int_id = constants.LEUKID_BIO_SOURCE[rrna.bio_source]
+        rrna_int_id = constants.LEUKID_BIO_SOURCE[rrna.analyte]
         rrna_int_id += str(a.rna_runs_count)
         self.assertEqual(rdna.int_id, rdna_int_id)
         self.assertEqual(rrna.int_id, rrna_int_id)

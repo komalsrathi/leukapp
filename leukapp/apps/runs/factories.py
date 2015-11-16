@@ -22,7 +22,7 @@ class RunFactory(factory.django.DjangoModelFactory):
         django_get_or_create = constants.RUN_UNIQUE_TOGETHER
 
     aliquot = factory.SubFactory(AliquotFactory)
-    bio_source = FuzzyChoice(constants.BIO_SOURCE_VALUE)
+    analyte = FuzzyChoice(constants.BIO_SOURCE_VALUE)
     platform = FuzzyChoice(constants.PLATFORM_VALUE)
     technology = FuzzyChoice(constants.TECHNOLOGY_VALUE)
     center = FuzzyChoice(constants.CENTER_VALUE)

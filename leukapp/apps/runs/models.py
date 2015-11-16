@@ -29,7 +29,7 @@ class Run(LeukappModel):
         Aliquot,
         verbose_name=_("aliquot"),
         )
-    bio_source = models.CharField(
+    analyte = models.CharField(
         _("biological material"),
         max_length=100,
         choices=CHOICES["BIO_SOURCE"]
@@ -124,12 +124,12 @@ class Run(LeukappModel):
         self._check_if_caller_is_if_new()
 
         # get internal id
-        bio_source_id = constants.LEUKID_BIO_SOURCE[self.bio_source]
-        if self.bio_source == constants.DNA:
+        analyte_id = constants.LEUKID_BIO_SOURCE[self.analyte]
+        if self.analyte == constants.DNA:
             self.aliquot.dna_runs_count += 1
-            self.int_id = bio_source_id + str(self.aliquot.dna_runs_count)
-        elif self.bio_source == constants.RNA:
+            self.int_id = analyte_id + str(self.aliquot.dna_runs_count)
+        elif self.analyte == constants.RNA:
             self.aliquot.rna_runs_count += 1
-            self.int_id = bio_source_id + str(self.aliquot.rna_runs_count)
+            self.int_id = analyte_id + str(self.aliquot.rna_runs_count)
         self.aliquot.save()
         return self.int_id

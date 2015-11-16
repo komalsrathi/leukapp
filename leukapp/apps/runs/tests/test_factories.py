@@ -21,8 +21,8 @@ class RunFactoriesTest(TestCase):
 
     def test_runfactory_doesnt_create_existing_run(self):
         a = AliquotFactory()
-        r_a = RunFactory(aliquot=a, ext_id='1', bio_source=constants.DNA)
-        r_b = RunFactory(aliquot=a, ext_id='1', bio_source=constants.DNA)
+        r_a = RunFactory(aliquot=a, ext_id='1', analyte=constants.DNA)
+        r_b = RunFactory(aliquot=a, ext_id='1', analyte=constants.DNA)
         self.assertEqual(r_a, r_b)
 
     def test_aliquotfactory_ext_id_len_is_correct(self):
