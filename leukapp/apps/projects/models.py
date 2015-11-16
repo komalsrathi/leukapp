@@ -123,15 +123,13 @@ class Project(LeukappModel):
         """ This function ssh to leukdc and creates a project directory."""
         # NOTTESTED
 
+        if settings.TESTING:
+            return
+
         try:  # if LEUKCD_ACTIVE is TRUE, creates a dir at the Data Center
             leukcd = LeukConnect()
-            projectsdir = leukcd.LEUKDC_PROJECTS_DIR
-
-            if settings.TESTING:  # set project directory
-                directory = projectsdir + 'tests/' + self.int_id
-            else:
-                directory = projectsdir + self.int_id
-
+            projectsdir = leukcd.LEUKDC_PROJECTS_DIRå
+            directory = projectsdir + self.int_id
             leukcd.connect()
             command = 'mkdir -p %s' % directory
             leukcd.exec_command(command)
