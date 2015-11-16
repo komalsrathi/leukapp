@@ -56,8 +56,11 @@ class ProjectListView(mixins.LoginRequiredMixin,
         return context
 
     def get_queryset(self):
-        email = self.request.user.email
-        return Project.objects.filter(participants__email=email)
+        if self.request.user.is_superuser:
+            return super(ProjectListView, self).get_queryset()
+        else:
+            email = self.request.user.email
+            return Project.objects.filter(participants__email=email)
 
 
 class ProjectRedirectView(mixins.LoginRequiredMixin,
