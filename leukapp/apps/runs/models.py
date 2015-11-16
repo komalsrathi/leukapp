@@ -144,6 +144,9 @@ class Run(LeukappModel):
         """ This function ssh to leukdc and creates a run directory."""
         # NOTTESTED
 
+        if settings.TESTING:
+            return
+
         try:  # if LEUKCD_ACTIVE is TRUE, creates a dir at the Data Center
             leukcd = LeukConnect()
             projects = self.projects.all()
@@ -156,13 +159,8 @@ class Run(LeukappModel):
             projectspathlist = [self.technology, self.slug]
             samplespathlist = [self.slug]
             pdirs = ['/'.join([p.int_id] + projectspathlist) for p in projects]
-
-            if settings.TESTING:  # set project directory
-                pdirs = [projectsroot + 'tests/' + pdir for pdir in pdirs]
-                sdir = samplesroot + 'tests/' + '/'.join(samplespathlist)
-            else:
-                pdirs = [projectsroot + pdir for pdir in pdirs]
-                sdir = samplesroot + '/'.join(samplespathlist)
+            pdirs = [projectsroot + pdir for pdir in pdirs]
+            sdir = samplesroot + '/'.join(samplespathlist)
 
             # create sample directory
             leukcd.connect()
