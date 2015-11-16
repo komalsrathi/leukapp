@@ -3,6 +3,9 @@
 individuals app constants
 """
 
+# django
+from django.core.exceptions import ImproperlyConfigured
+
 # thirdparty
 import environ
 import paramiko
@@ -17,14 +20,19 @@ class LeukConnect(object):
     """
 
     def __init__(self):
-        self.ssh = paramiko.SSHClient()
-        self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        self.LEUKDC_PROJECTS_DIR = env('LEUKDC_PROJECTS_DIR')
-        self.LEUKDC_HOST = env('LEUKDC_HOST')
-        self.LEUKDC_USER = env('LEUKDC_USER')
-        self.LEUKDC_PASSWORD = env('LEUKDC_PASSWORD')
-        self.LEUKDC_SSHKEY = env('LEUKDC_SSHKEY')
-        self.DEPLOYMENT = env('DEPLOYMENT')
+        if env('LEUKDC_ACTIVE') == 'TRUE':
+            self.ssh = paramiko.SSHClient()
+            self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            self.LEUKDC_PROJECTS_DIR = env('LEUKDC_PROJECTS_DIR')
+            self.LEUKDC_SAMPLES_DIR = env('LEUKDC_SAMPLES_DIR')
+            self.LEUKDC_HOST = env('LEUKDC_HOST')
+            self.LEUKDC_USER = env('LEUKDC_USER')
+            self.LEUKDC_PASSWORD = env('LEUKDC_PASSWORD')
+            self.LEUKDC_SSHKEY = env('LEUKDC_SSHKEY')
+            self.DEPLOYMENT = env('DEPLOYMENT')
+        else:
+            msg = 'LEUKDC_ACTIVE environment variable must be set to TRUE'
+            raise(ImproperlyConfigured(msg))
 
     def connect(self):
         self.ssh.connect(
