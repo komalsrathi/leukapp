@@ -13,7 +13,7 @@ class CoreValidatorsTest(TestCase):
         with self.assertRaises(ValidationError):
             ext_id_validator("Juan San")
 
-    def test_ext_id_validator_doesnt_allow_white_spaces(self):
+    def test_ext_id_validator_does_allow_periods(self):
         self.assertEqual(None, ext_id_validator("asdf.asfs.sdaf"))
 
     def test_ext_id_validator_displays_correct_msg(self):

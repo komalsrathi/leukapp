@@ -11,7 +11,7 @@ from leukapp.apps.users.factories import UserFactory
 
 class LeukappViewsTest(object):
 
-    """ This class contains shared views' tests for leukapp applications. """
+    """ This class contains Leukapp views' tests. """
 
     def setUp(self):
         self.user = UserFactory(username='juan')
