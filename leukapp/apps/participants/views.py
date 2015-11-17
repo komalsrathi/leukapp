@@ -21,12 +21,17 @@ from django.contrib.messages.views import SuccessMessageMixin
 # third party
 from django_modalview.generic.edit import ModalCreateView
 from django_modalview.generic.component import ModalResponse, ModalButton
+from rest_framework.generics import ListCreateAPIView
 
 # local
 from .models import Participant
-from . import constants
 from .forms import ParticipantForm
+from .serializers import ParticipantCreateSerializer
+from . import constants
 
+
+# Class Based Views
+# -----------------------------------------------------------------------------
 
 class ParticipantDetailView(mixins.LoginRequiredMixin,
                             generic.DetailView):
@@ -141,11 +146,13 @@ class ParticipantCreateModal(mixins.PermissionRequiredMixin,
         return super(ParticipantCreateModal, self).form_valid(form, **kwargs)
 
 
-def search_participant(request):
+# Function Based Views
+# -----------------------------------------------------------------------------
 
+def search_participant(request):
     """
     View used to return participants for a token-input jQuery plugin.
-    see: http://loopj.com/jquery-tokeninput/
+    See: http://loopj.com/jquery-tokeninput/
     """
 
     response = []
@@ -158,3 +165,20 @@ def search_participant(request):
         return JsonResponse(response)
     except Exception:
         return JsonResponse(response, safe=False)
+
+
+# API
+# -----------------------------------------------------------------------------
+
+class ParticipantCreateReadView(mixins.PermissionRequiredMixin,
+                                mixins.LoginRequiredMixin,
+                                ListCreateAPIView):
+
+    """
+    Concrete view for listing a queryset or creating a model instance.
+    See: http://www.cdrf.co/3.3/rest_framework.generics/ListCreateAPIView.html
+    """
+
+    queryset = Participant.objects.all()
+    serializer_class = ParticipantCreateSerializer
+    lookup_field = 'slug'
