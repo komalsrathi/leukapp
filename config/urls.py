@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
+
+# python
 from __future__ import unicode_literals
 
+# django
 from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.views import defaults
 
+# local
 from .views import ConfigTemplateView
 
 urlpatterns = [
@@ -33,10 +36,10 @@ urlpatterns = [
         r'^accounts/',
         include('allauth.urls')),
 
-    # autocomplete
+    # autocomplete // NOTUSED
     url(r'^autocomplete/', include('autocomplete_light.urls')),
 
-    # Your stuff: custom urls includes go here
+    # leukapp
     url(
         r'^lists/',
         include("leukapp.apps.lists.urls",
@@ -74,9 +77,9 @@ urlpatterns = [
     ),
 
     url(
-        r'^runs/',
-        include("leukapp.apps.runs.urls",
-        namespace="runs")
+        r'^extractions/',
+        include("leukapp.apps.extractions.urls",
+        namespace="extractions")
     ),
 
     url(
@@ -85,5 +88,10 @@ urlpatterns = [
         namespace="leukforms")
     ),
 
+    url(
+        r'^api/',
+        include("leukapp.apps.core.api",
+        namespace="api")
+    ),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

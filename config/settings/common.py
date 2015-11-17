@@ -47,11 +47,12 @@ DJANGO_APPS = (
 )
 THIRD_PARTY_APPS = (
     'crispy_forms',  # Form layouts
-    'allauth',  # registration
-    'allauth.account',  # registration
-    'allauth.socialaccount',  # registration
-    'autocomplete_light',  # autocomplete
-    'django_modalview',  # modela class based views
+    'allauth',  # Registration
+    'allauth.account',  # Registration
+    'allauth.socialaccount',  # Registration
+    'autocomplete_light',  # Autocomplete
+    'django_modalview',  # Modals class based views
+    'rest_framework',  # API rest framework
 )
 
 # Apps specific for this project go here.
@@ -67,7 +68,7 @@ LOCAL_APPS = (
     'leukapp.apps.aliquots',
     'leukapp.apps.participants',
     'leukapp.apps.core',
-    'leukapp.apps.runs',
+    'leukapp.apps.extractions',
     'leukapp.apps.leukforms',
 )
 
@@ -299,3 +300,14 @@ LOGGING = {
 }
 
 # Your common stuff: Below this line define 3rd party library settings
+
+# DJANGO REST FRAMEWORK
+# -----------------------------------------------------------------------------
+
+# See: http://www.django-rest-framework.org/api-guide/authentication/
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}

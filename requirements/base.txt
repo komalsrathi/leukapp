@@ -38,7 +38,6 @@ pytz==2015.4
 django-redis==4.2.0
 redis>=2.10.0
 
-
 # Your custom requirements go here
 
 # Modal Class Based Views
@@ -50,3 +49,5 @@ django-autocomplete-light==2.2.8
 # Factories!
 factory-boy==2.5.2
 
+# Api framework
+djangorestframework==3.3.1
