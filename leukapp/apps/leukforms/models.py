@@ -13,7 +13,7 @@ from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.individuals.models import Individual
 from leukapp.apps.specimens.models import Specimen
 from leukapp.apps.aliquots.models import Aliquot
-from leukapp.apps.runs.models import Run
+from leukapp.apps.extractions.models import Extraction
 
 # local
 from .constants import APP_NAME
@@ -72,9 +72,9 @@ class Leukform(LeukappModel):
         verbose_name=_("created aliquots"),
         blank=True,
         )
-    created_runs = models.ManyToManyField(
-        Run,
-        verbose_name=_("created runs"),
+    created_extractions = models.ManyToManyField(
+        Extraction,
+        verbose_name=_("created extractions"),
         blank=True,
         )
     """

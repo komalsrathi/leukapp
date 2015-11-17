@@ -7,11 +7,11 @@ from django import forms
 from leukapp.apps.individuals.constants import INDIVIDUAL_CREATE_FIELDS
 from leukapp.apps.specimens.constants import SPECIMEN_CREATE_FIELDS
 from leukapp.apps.aliquots.constants import ALIQUOT_CREATE_FIELDS
-from leukapp.apps.runs.constants import RUN_CREATE_FIELDS
+from leukapp.apps.extractions.constants import EXTRACTION_CREATE_FIELDS
 from leukapp.apps.individuals.models import Individual
 from leukapp.apps.specimens.models import Specimen
 from leukapp.apps.aliquots.models import Aliquot
-from leukapp.apps.runs.models import Run
+from leukapp.apps.extractions.models import Extraction
 
 
 class IndividualForm(forms.ModelForm):
@@ -35,12 +35,12 @@ class AliquotForm(forms.ModelForm):
         fields = ALIQUOT_CREATE_FIELDS
 
 
-class RunForm(forms.ModelForm):
+class ExtractionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-            super(RunForm, self).__init__(*args, **kwargs)
+            super(ExtractionForm, self).__init__(*args, **kwargs)
             self.fields['projects_list'].required = True
 
     class Meta:
-        model = Run
-        fields = RUN_CREATE_FIELDS + ('projects_list', )
+        model = Extraction
+        fields = EXTRACTION_CREATE_FIELDS + ('projects_list', )

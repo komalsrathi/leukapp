@@ -18,6 +18,6 @@ from leukapp.apps.specimens.utils import SpecimenFactory
 from leukapp.apps.aliquots.utils import AliquotFactory
 
 # local imports
-from ..management.commands import submit_runs_from_csv
+from ..management.commands import submit_extractions_from_csv
 from ..utils import LeukformSamplesFactory
 """

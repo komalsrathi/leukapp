@@ -38,19 +38,19 @@ class LeukformCsvFactoryTest(TestCase):
     def test_set_parameters_aliquot(self):
         batch = LeukformSamplesFactory()
         parent = 'juan'
-        batch.request['Run'] = 2
+        batch.request['Extraction'] = 2
         kwargs, child = batch._update_parameters(
             model='Aliquot', parent=parent)
         self.assertDictEqual(kwargs, {'specimen': parent})
-        self.assertEqual(child, 'Run')
+        self.assertEqual(child, 'Extraction')
         self.assertEqual(batch._last, False)
 
     def test_set_parameters_run(self):
         batch = LeukformSamplesFactory()
         parent = 'juan'
-        batch.request['Run'] = 2
+        batch.request['Extraction'] = 2
         kwargs, child = batch._update_parameters(
-            model='Run', parent=parent)
+            model='Extraction', parent=parent)
         self.assertEqual(kwargs['aliquot'], parent)
         self.assertEqual(batch._last, True)
         self.assertEqual(child, None)
@@ -132,12 +132,12 @@ class LeukformCsvFactoryTest(TestCase):
             self.assertEqual(len(instance_list), len(instance_set))
 
         # test that rows has not repeated elements
-        setrows = {d['Run.ext_id']: d for d in rows}.values()
+        setrows = {d['Extraction.ext_id']: d for d in rows}.values()
         self.assertCountEqual(rows, setrows)
 
-        # test runs projects lists are being assigned correctly
+        # test extractions projects lists are being assigned correctly
         batch_projects = [p.pk for p in batch.projects]
-        projects_list = batch.rows[0]['Run.projects_list'].split('|')
+        projects_list = batch.rows[0]['Extraction.projects_list'].split('|')
         projects_list = [int(e) for e in projects_list]
         [self.assertIn(p, batch_projects) for p in projects_list]
 

@@ -69,7 +69,7 @@ class LeukformListView(mixins.LoginRequiredMixin,
     """
 
     model = Leukform
-    paginated_by = 20
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super(LeukformListView, self).get_context_data(**kwargs)
@@ -107,10 +107,10 @@ class LeukformCreateView(SuccessMessageMixin,
 
     model = Leukform
     fields = constants.LEUKFORM_CREATE_FIELDS
-    succes_msg = "Leukform Created!"
+    succes_msg = constants.SUCCESS_MESSAGE
 
     # Permission configuration
-    permission_required = ('leukforms.add_leukform')
+    permission_required = constants.LEUKFORM_CREATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
 
@@ -134,10 +134,10 @@ class LeukformUpdateView(SuccessMessageMixin,
 
     model = Leukform
     fields = constants.LEUKFORM_UPDATE_FIELDS
-    succes_msg = "Leukform Updated!"
+    succes_msg = constants.SUCCESS_MESSAGE
 
     # Permissions
-    permission_required = ('leukforms.change_leukform')
+    permission_required = constants.LEUKFORM_UPDATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
 

@@ -1,38 +1,38 @@
 # -*- coding: utf-8 -*-
 """
-runs app constants
+extractions app constants
 """
 
 # leukapp unique together
 from leukapp.apps.individuals.constants import INDIVIDUAL_UNIQUE_TOGETHER
 from leukapp.apps.specimens.constants import SPECIMEN_UNIQUE_TOGETHER
 from leukapp.apps.aliquots.constants import ALIQUOT_UNIQUE_TOGETHER
-from leukapp.apps.runs.constants import RUN_UNIQUE_TOGETHER
+from leukapp.apps.extractions.constants import EXTRACTION_UNIQUE_TOGETHER
 
 # leukform fields
 from leukapp.apps.individuals.constants import INDIVIDUAL_CREATE_FIELDS
 from leukapp.apps.specimens.constants import SPECIMEN_CREATE_FIELDS
 from leukapp.apps.aliquots.constants import ALIQUOT_CREATE_FIELDS
-from leukapp.apps.runs.constants import RUN_CREATE_FIELDS
+from leukapp.apps.extractions.constants import EXTRACTION_CREATE_FIELDS
 
 # leukapp models
 from leukapp.apps.individuals.models import Individual
 from leukapp.apps.specimens.models import Specimen
 from leukapp.apps.aliquots.models import Aliquot
-from leukapp.apps.runs.models import Run
+from leukapp.apps.extractions.models import Extraction
 
 # leukapp factories
 from leukapp.apps.projects.factories import ProjectFactory
 from leukapp.apps.individuals.factories import IndividualFactory
 from leukapp.apps.specimens.factories import SpecimenFactory
 from leukapp.apps.aliquots.factories import AliquotFactory
-from leukapp.apps.runs.factories import RunFactory
+from leukapp.apps.extractions.factories import ExtractionFactory
 
 # local
 from .forms import IndividualForm
 from .forms import SpecimenForm
 from .forms import AliquotForm
-from .forms import RunForm
+from .forms import ExtractionForm
 
 # APP INFO
 # -----------------------------------------------------------------------------
@@ -68,7 +68,7 @@ CREATE_FIELDS = {
     'Individual': INDIVIDUAL_CREATE_FIELDS,
     'Specimen': SPECIMEN_CREATE_FIELDS,
     'Aliquot': ALIQUOT_CREATE_FIELDS,
-    'Run': RUN_CREATE_FIELDS,
+    'Extraction': EXTRACTION_CREATE_FIELDS,
     }
 
 # unique together
@@ -76,18 +76,18 @@ LEUKAPP_UNIQUE_TOGETHER = {
     'Individual': INDIVIDUAL_UNIQUE_TOGETHER,
     'Specimen': SPECIMEN_UNIQUE_TOGETHER,
     'Aliquot': ALIQUOT_UNIQUE_TOGETHER,
-    'Run': RUN_UNIQUE_TOGETHER,
+    'Extraction': EXTRACTION_UNIQUE_TOGETHER,
     }
 
 # MODELS
 # -----------------------------------------------------------------------------
-MODELS_LIST = ['Individual', 'Specimen', 'Aliquot', 'Run']
+MODELS_LIST = ['Individual', 'Specimen', 'Aliquot', 'Extraction']
 
 LEUKAPP_MODELS = {
     'Individual': Individual,
     'Specimen': Specimen,
     'Aliquot': Aliquot,
-    'Run': Run,
+    'Extraction': Extraction,
     }
 
 # FACTORIES
@@ -96,7 +96,7 @@ LEUKAPP_FACTORIES = {
     'Individual': IndividualFactory,
     'Specimen': SpecimenFactory,
     'Aliquot': AliquotFactory,
-    'Run': RunFactory,
+    'Extraction': ExtractionFactory,
     'Project': ProjectFactory,
     }
 
@@ -106,11 +106,18 @@ LEUKAPP_FORMS = {
     'Individual': IndividualForm,
     'Specimen': SpecimenForm,
     'Aliquot': AliquotForm,
-    'Run': RunForm
+    'Extraction': ExtractionForm
     }
+
+
+# PERMISSIONS
+# -----------------------------------------------------------------------------
+LEUKFORM_CREATE_PERMISSIONS = ('leukforms.add_leukform',)
+LEUKFORM_UPDATE_PERMISSIONS = ('leukforms.change_leukform',)
 
 # MESSAGES
 # -----------------------------------------------------------------------------
+SUCCESS_MESSAGE = "Looking good"
 PERMISSION_DENIED_MESSAGE = \
     '''
     You don't have permission to perform this action, please contact a Leukgen

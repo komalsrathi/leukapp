@@ -18,14 +18,14 @@ from . import constants
 from .validators import projects_list_validator
 
 
-class Run(LeukappModel):
+class Extraction(LeukappModel):
 
     """
     requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627
     """
 
     APP_NAME = constants.APP_NAME
-    CHOICES = constants.RUN_CHOICES
+    CHOICES = constants.EXTRACTION_CHOICES
 
     # external fields
     aliquot = models.ForeignKey(
@@ -87,8 +87,8 @@ class Run(LeukappModel):
     class Meta:
         verbose_name = _(constants.APP_NAME[:-1])
         verbose_name_plural = _(constants.APP_NAME)
-        unique_together = (constants.RUN_UNIQUE_TOGETHER)
-        index_together = (constants.RUN_UNIQUE_TOGETHER)
+        unique_together = (constants.EXTRACTION_UNIQUE_TOGETHER)
+        index_together = (constants.EXTRACTION_UNIQUE_TOGETHER)
 
     def __str__(self):
         return self.slug
@@ -132,11 +132,11 @@ class Run(LeukappModel):
         # get internal id
         analyte_id = constants.LEUKID_ANALYTE[self.analyte]
         if self.analyte == constants.DNA:
-            self.aliquot.dna_runs_count += 1
-            self.int_id = analyte_id + str(self.aliquot.dna_runs_count)
+            self.aliquot.dna_extractions_count += 1
+            self.int_id = analyte_id + str(self.aliquot.dna_extractions_count)
         elif self.analyte == constants.RNA:
-            self.aliquot.rna_runs_count += 1
-            self.int_id = analyte_id + str(self.aliquot.rna_runs_count)
+            self.aliquot.rna_extractions_count += 1
+            self.int_id = analyte_id + str(self.aliquot.rna_extractions_count)
         self.aliquot.save()
         return self.int_id
 

@@ -69,7 +69,7 @@ class AliquotModelTest(TestCase):
         url = reverse(constants.APP_NAME + ':update', kwargs={'slug': slug})
         self.assertEqual(url, a.get_update_url())
 
-    def test__if_new_initializes_runs_count_with_zero(self):
+    def test__if_new_initializes_extractions_count_with_zero(self):
         a = AliquotFactory()
-        self.assertEqual(a.dna_runs_count, 0)
-        self.assertEqual(a.rna_runs_count, 0)
+        self.assertEqual(a.dna_extractions_count, 0)
+        self.assertEqual(a.rna_extractions_count, 0)

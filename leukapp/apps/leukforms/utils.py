@@ -285,8 +285,8 @@ class LeukformLoader(object):
             fields['Specimen']['individual'] = instance.pk
         elif model == 'Specimen' and instance and ('Aliquot' in fields):
             fields['Aliquot']['specimen'] = instance.pk
-        elif model == 'Aliquot' and instance and ('Run' in fields):
-            fields['Run']['aliquot'] = instance.pk
+        elif model == 'Aliquot' and instance and ('Extraction' in fields):
+            fields['Extraction']['aliquot'] = instance.pk
         return fields
 
     def _write_output(self, rows, columns, mock=False):

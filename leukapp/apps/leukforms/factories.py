@@ -54,7 +54,7 @@ class LeukformSamplesFactory(object):
             'Individual': [],
             'Specimen': [],
             'Aliquot': [],
-            'Run': [],
+            'Extraction': [],
             }
 
         # requested instances
@@ -62,10 +62,10 @@ class LeukformSamplesFactory(object):
             'Individual': 0,
             'Specimen': 0,
             'Aliquot': 0,
-            'Run': 0,
+            'Extraction': 0,
             }
 
-    def create_batch(self, individuals, specimens=0, aliquots=0, runs=0,
+    def create_batch(self, individuals, specimens=0, aliquots=0, extractions=0,
             delete=True, slug=False):
         """
         Creates a batch of samples and returns them in a leukform format.
@@ -83,7 +83,7 @@ class LeukformSamplesFactory(object):
             individuals (int): number of individuals
             specimens (int): number of specimens per individual
             aliquots (int): number of aliquots per specimen
-            runs (int): number of runs per aliquot
+            extractions (int): number of extractions per aliquot
             delete (boolean): if True, delete all created instances
             slug (boolean): if True, delete is depreciated, slugs are returned
         Returns:
@@ -103,7 +103,7 @@ class LeukformSamplesFactory(object):
             'Individual': int(individuals),
             'Specimen': int(specimens),
             'Aliquot': int(aliquots),
-            'Run': int(runs),
+            'Extraction': int(extractions),
             }
 
         self._create_instances()
@@ -161,9 +161,9 @@ class LeukformSamplesFactory(object):
             self._last = (self.request['Aliquot'] == 0)
             return {'individual': parent, 'order': str(order)}, 'Aliquot'
         if model == 'Aliquot':
-            self._last = (self.request['Run'] == 0)
-            return {'specimen': parent}, 'Run'
-        if model == 'Run':
+            self._last = (self.request['Extraction'] == 0)
+            return {'specimen': parent}, 'Extraction'
+        if model == 'Extraction':
             self._last = True
             pl = '|'.join(str(p.pk) for p in random.sample(self.projects, 3))
             return {'aliquot': parent, 'projects_list': pl}, None

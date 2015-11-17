@@ -18,11 +18,11 @@ from django.core.urlresolvers import reverse
 from django.contrib.messages.views import SuccessMessageMixin
 
 # local
-from .models import Run
+from .models import Extraction
 from . import constants
 
 
-class RunDetailView(mixins.LoginRequiredMixin,
+class ExtractionDetailView(mixins.LoginRequiredMixin,
                     generic.DetailView):
 
     """
@@ -32,10 +32,10 @@ class RunDetailView(mixins.LoginRequiredMixin,
     See: http://ccbv.co.uk/DetailView/
     """
 
-    model = Run
+    model = Extraction
 
 
-class RunListView(mixins.LoginRequiredMixin,
+class ExtractionListView(mixins.LoginRequiredMixin,
                   generic.ListView):
 
     """
@@ -44,19 +44,19 @@ class RunListView(mixins.LoginRequiredMixin,
     See: http://ccbv.co.uk/ListView/
     """
 
-    model = Run
+    model = Extraction
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
-            context = super(RunListView, self).get_context_data(**kwargs)
+            context = super(ExtractionListView, self).get_context_data(**kwargs)
 
             # Add new context
             context['APP_NAME'] = constants.APP_NAME
-            context['CREATE_URL'] = constants.RUN_CREATE_URL
+            context['CREATE_URL'] = constants.EXTRACTION_CREATE_URL
             return context
 
 
-class RunRedirectView(mixins.LoginRequiredMixin,
+class ExtractionRedirectView(mixins.LoginRequiredMixin,
                       generic.RedirectView):
 
     """
@@ -67,10 +67,10 @@ class RunRedirectView(mixins.LoginRequiredMixin,
     permanent = False
 
     def get_redirect_url(self):
-        return reverse(constants.RUN_LIST_URL)
+        return reverse(constants.EXTRACTION_LIST_URL)
 
 
-class RunCreateView(SuccessMessageMixin,
+class ExtractionCreateView(SuccessMessageMixin,
                     mixins.PermissionRequiredMixin,
                     mixins.LoginRequiredMixin,
                     generic.CreateView):
@@ -80,17 +80,17 @@ class RunCreateView(SuccessMessageMixin,
     See: http://ccbv.co.uk/CreateView/
     """
 
-    model = Run
-    fields = constants.RUN_CREATE_FIELDS
+    model = Extraction
+    fields = constants.EXTRACTION_CREATE_FIELDS
     success_message = constants.SUCCESS_MESSAGE
 
     # Permissions
-    permission_required = constants.RUN_CREATE_PERMISSIONS
+    permission_required = constants.EXTRACTION_CREATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True
 
 
-class RunUpdateView(SuccessMessageMixin,
+class ExtractionUpdateView(SuccessMessageMixin,
                     mixins.PermissionRequiredMixin,
                     mixins.LoginRequiredMixin,
                     generic.UpdateView):
@@ -100,11 +100,11 @@ class RunUpdateView(SuccessMessageMixin,
     See: http://ccbv.co.uk/UpdateView/
     """
 
-    model = Run
-    fields = constants.RUN_UPDATE_FIELDS
+    model = Extraction
+    fields = constants.EXTRACTION_UPDATE_FIELDS
     success_message = constants.SUCCESS_MESSAGE
 
     # Permissions
-    permission_required = constants.RUN_UPDATE_PERMISSIONS
+    permission_required = constants.EXTRACTION_UPDATE_PERMISSIONS
     permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
     raise_exception = True

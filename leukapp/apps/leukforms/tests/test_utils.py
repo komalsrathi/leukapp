@@ -17,7 +17,7 @@ from ..constants import MODELS_LIST, LEUKAPP_FACTORIES
 
 class TestLeukformLoader(TestCase):
 
-    models = ['Individual', 'Specimen', 'Aliquot', 'Run']
+    models = ['Individual', 'Specimen', 'Aliquot', 'Extraction']
     loader = LeukformLoader()
     batch = LeukformSamplesFactory()
     batch.create_batch(1, 1, 1, 1)
@@ -28,7 +28,7 @@ class TestLeukformLoader(TestCase):
 
     def test_update_fields_individual(self):
         models = ['Individual', 'Specimen', 'Aliquot']
-        children = ['Specimen', 'Aliquot', 'Run']
+        children = ['Specimen', 'Aliquot', 'Extraction']
         for i in range(3):
             model, child = models[i], children[i]
             loader, fields = LeukformLoader(), {child: {}}
@@ -157,7 +157,7 @@ class TestLeukformLoader(TestCase):
         loader = LeukformLoader()
         loader._columns_submitted = list(batch.rows[0])
         loader._process_leukform(batch.rows)
-        added = len(loader.added["Run"])
+        added = len(loader.added["Extraction"])
         self.assertEqual(added, 2 ** 4)
 
     def test_sort_rows_not_specimen_order(self):
@@ -191,9 +191,9 @@ class TestLeukformLoader(TestCase):
         path = batch.create_csv_from_rows()
         loader = LeukformLoader()
         output = loader.submit(filepath=path, validate=True)
-        batch_runs = [r.ext_id for r in batch.instances["Run"]]
-        out_runs = [r.ext_id for r in output["added"]["Run"]]
-        self.assertCountEqual(batch_runs, out_runs)
+        batch_extractions = [r.ext_id for r in batch.instances["Extraction"]]
+        out_extractions = [r.ext_id for r in output["added"]["Extraction"]]
+        self.assertCountEqual(batch_extractions, out_extractions)
         os.remove(path)
 
     def test_submit_leukform_rows(self):
@@ -201,9 +201,9 @@ class TestLeukformLoader(TestCase):
         rows = batch.create_batch(2, 2, 2, 2, delete=False)
         loader = LeukformLoader()
         output = loader.submit(rows=rows, validate=True)
-        batch_runs = [r.ext_id for r in batch.instances["Run"]]
-        out_runs = [r.ext_id for r in output["added"]["Run"]]
-        self.assertCountEqual(batch_runs, out_runs)
+        batch_extractions = [r.ext_id for r in batch.instances["Extraction"]]
+        out_extractions = [r.ext_id for r in output["added"]["Extraction"]]
+        self.assertCountEqual(batch_extractions, out_extractions)
 
     def test_submit_leukform_no_rows_no_filename(self):
         with self.assertRaises(Exception):

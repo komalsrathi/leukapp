@@ -14,35 +14,35 @@ urlpatterns = [
     # URL pattern for the AliquotDetailView
     url(
         regex=r'^(?P<slug>[\w.@+-]+)/$',
-        view=views.RunDetailView.as_view(),
+        view=views.ExtractionDetailView.as_view(),
         name='detail'
     ),
 
-    # URL pattern for the RunListView
+    # URL pattern for the ExtractionListView
     url(
         regex=r'^$',
-        view=views.RunListView.as_view(),
+        view=views.ExtractionListView.as_view(),
         name='list'
     ),
 
-    # URL pattern for the RunRedirectView
+    # URL pattern for the ExtractionRedirectView
     url(
         regex=r'^~redirect/$',
-        view=views.RunRedirectView.as_view(),
+        view=views.ExtractionRedirectView.as_view(),
         name='redirect'
     ),
 
-    # URL pattern for the RunUpdateView
+    # URL pattern for the ExtractionUpdateView
     url(
         regex=r'^~create/$',
-        view=views.RunCreateView.as_view(),
+        view=views.ExtractionCreateView.as_view(),
         name='create'
     ),
 
-    # URL pattern for the RunUpdateView
+    # URL pattern for the ExtractionUpdateView
     url(
         regex=r'^~update/(?P<slug>[\w.@+-]+)/$',
-        view=views.RunUpdateView.as_view(),
+        view=views.ExtractionUpdateView.as_view(),
         name='update'
     ),
 

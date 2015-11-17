@@ -11,15 +11,15 @@ from factory.fuzzy import FuzzyChoice, FuzzyText
 from leukapp.apps.aliquots.factories import AliquotFactory
 
 # local
-from .models import Run
+from .models import Extraction
 from . import constants
 
 
-class RunFactory(factory.django.DjangoModelFactory):
+class ExtractionFactory(factory.django.DjangoModelFactory):
 
     class Meta:
-        model = Run
-        django_get_or_create = constants.RUN_UNIQUE_TOGETHER
+        model = Extraction
+        django_get_or_create = constants.EXTRACTION_UNIQUE_TOGETHER
 
     aliquot = factory.SubFactory(AliquotFactory)
     analyte = FuzzyChoice(constants.ANALYTE_VALUE)

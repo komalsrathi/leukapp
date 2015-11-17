@@ -41,13 +41,13 @@ class Aliquot(LeukappModel):
         null=True,
         editable=False,
         )
-    dna_runs_count = models.PositiveSmallIntegerField(
-        _("number of runs created"),
+    dna_extractions_count = models.PositiveSmallIntegerField(
+        _("number of extractions created"),
         default=0,
         editable=False,
         )
-    rna_runs_count = models.PositiveSmallIntegerField(
-        _("number of runs created"),
+    rna_extractions_count = models.PositiveSmallIntegerField(
+        _("number of extractions created"),
         default=0,
         editable=False,
         )

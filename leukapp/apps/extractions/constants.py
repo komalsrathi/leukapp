@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-runs app constants
+extractions app constants
 """
 
 # APP INFO
 # -----------------------------------------------------------------------------
-APP_NAME = 'runs'
+APP_NAME = 'extractions'
 
 # URLS
 # -----------------------------------------------------------------------------
-RUN_CREATE_URL = APP_NAME + ':create'
-RUN_LIST_URL = APP_NAME + ':list'
+EXTRACTION_CREATE_URL = APP_NAME + ':create'
+EXTRACTION_LIST_URL = APP_NAME + ':list'
 
 # FIELDS
 # -----------------------------------------------------------------------------
-RUN_CREATE_FIELDS = (
+EXTRACTION_CREATE_FIELDS = (
     'aliquot',
     'platform',
     'technology',
@@ -24,13 +24,13 @@ RUN_CREATE_FIELDS = (
     'projects_list',
     )
 
-RUN_UPDATE_FIELDS = (
+EXTRACTION_UPDATE_FIELDS = (
     'platform',
     'technology',
     'center',
     )
 
-RUN_UNIQUE_TOGETHER = (
+EXTRACTION_UNIQUE_TOGETHER = (
     'aliquot',
     'ext_id',
     'analyte',
@@ -106,7 +106,7 @@ LEUKID_ANALYTE = {
     RNA: 'R',
     }
 
-RUN_CHOICES = {
+EXTRACTION_CHOICES = {
     "PLATFORM": PLATFORM,
     "TECHNOLOGY": TECHNOLOGY,
     "CENTER": CENTER,
@@ -115,8 +115,8 @@ RUN_CHOICES = {
 
 # PERMISSIONS
 # -----------------------------------------------------------------------------
-RUN_CREATE_PERMISSIONS = ('runs.add_run',)
-RUN_UPDATE_PERMISSIONS = ('runs.change_run',)
+EXTRACTION_CREATE_PERMISSIONS = ('extractions.add_extraction',)
+EXTRACTION_UPDATE_PERMISSIONS = ('extractions.change_extraction',)
 
 # MESSAGES
 # -----------------------------------------------------------------------------
