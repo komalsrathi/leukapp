@@ -4,7 +4,7 @@ required packages at server:
     * Python 3.4
     * git
     * pip
-    * virtualenv
+    * deployment
     * virtualenvwrapper
 
 fab commad example: deploy.sh
@@ -24,8 +24,8 @@ def deploy():
     host = env.host
     repo = env.REPO_URL
     settings = env.DJ_SETTINGS
-    virtualenv = env.VIRTUALENV
-    virtualenv_folder = '/home/{0}/.virtualenvs/{1}'.format(user, virtualenv)
+    deployment = env.DEPLOYMENT
+    virtualenv_folder = '/home/{0}/.virtualenvs/{1}'.format(user, deployment)
     site_folder = '/home/{0}/sites/{1}'.format(user, host)
     source_folder = site_folder + '/source'
     requirements = source_folder + '/requirements/' + env.REQUIREMENTS
@@ -34,14 +34,14 @@ def deploy():
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder, repo)
     _update_nginx_conf(host, project_dir)
-    _update_virtualenv(virtualenv,
+    _update_virtualenv(deployment,
                        virtualenv_folder,
                        requirements,
                        source_folder)
-    _update_settings(source_folder, virtualenv)
-    _update_static_files(virtualenv, settings)
-    _update_database(virtualenv, settings)
-    _restart_server(host, virtualenv)
+    _update_settings(source_folder, deployment)
+    _update_static_files(deployment, settings)
+    _update_database(deployment, settings)
+    _restart_server(host, deployment)
 
 
 def _create_directory_structure_if_necessary(site_folder):
@@ -87,27 +87,27 @@ def _update_nginx_conf(host, project_dir):
 
 
 def _update_virtualenv(
-        virtualenv, virtualenv_folder, requirements, source_folder):
+        deployment, virtualenv_folder, requirements, source_folder):
     """
     Creates or updates the virtual environment. Postactivate script is also
-    updated based on template found at /.env/`virtualenv`_postactivate
+    updated based on template found at /.env/`deployment`_postactivate
     """
     if not exists(virtualenv_folder):
-        run('mkvirtualenv ' + virtualenv)
+        run('mkvirtualenv ' + deployment)
 
-    postactivate = '/.env/{0}_postactivate'.format(virtualenv)
+    postactivate = '/.env/{0}_postactivate'.format(deployment)
     postsource = source_folder + postactivate
     postvirtual = virtualenv_folder + '/bin/postactivate'
     run('ln -sf {0} {1}'.format(postsource, postvirtual))
-    workon = 'workon ' + virtualenv
+    workon = 'workon ' + deployment
     run(workon + ' && pip install -r ' + requirements)
 
 
-def _update_settings(source_folder, virtualenv):
+def _update_settings(source_folder, deployment):
     """
     Adds a randomly generated DJANGO_SECRET_KEY to the postactivate script.
     """
-    postactivate = '/.env/{0}_postactivate'.format(virtualenv)
+    postactivate = '/.env/{0}_postactivate'.format(deployment)
     postsource = source_folder + postactivate
     chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&'
     key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
@@ -115,21 +115,21 @@ def _update_settings(source_folder, virtualenv):
     sed(postsource, "DJANGO_SECRET_KEY=CHANGE_ME", key)
 
 
-def _update_static_files(virtualenv, settings):
+def _update_static_files(deployment, settings):
     """
     Simply updates the static files.
     """
-    workon = 'workon ' + virtualenv
+    workon = 'workon ' + deployment
     collectstatic = workon + ' && python manage.py collectstatic --noinput'
     command = collectstatic + ' --settings=' + settings
     run(command)
 
 
-def _update_database(virtualenv, settings):
+def _update_database(deployment, settings):
     """
     Runs makemigrations and migrate commands.
     """
-    workon = 'workon ' + virtualenv
+    workon = 'workon ' + deployment
     makemigrations = workon + ' && python manage.py makemigrations'
     command = makemigrations + ' --settings=' + settings
     run(command)
@@ -138,11 +138,11 @@ def _update_database(virtualenv, settings):
     run(command)
 
 
-def _restart_server(host, virtualenv):
+def _restart_server(host, deployment):
     """
     Restarts the server.
     """
-    venv = "workon {0} && ".format(virtualenv)
+    venv = "workon {0} && ".format(deployment)
     gunicorn = "gunicorn --bind unix:/tmp/HOST.socket "
     gunicorn = gunicorn.replace("HOST", host)
     gunicorn_config = "config.wsgi:application "
