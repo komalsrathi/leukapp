@@ -38,10 +38,10 @@ def deploy():
                        virtualenv_folder,
                        requirements,
                        source_folder)
-    _update_settings(source_folder)
+    _update_settings(source_folder, virtualenv)
     _update_static_files(virtualenv, settings)
     _update_database(virtualenv, settings)
-    _restart_server(host)
+    _restart_server(host, virtualenv)
 
 
 def _create_directory_structure_if_necessary(site_folder):
@@ -90,23 +90,25 @@ def _update_virtualenv(
         virtualenv, virtualenv_folder, requirements, source_folder):
     """
     Creates or updates the virtual environment. Postactivate script is also
-    updated based on template found at /.env/staging_postactivate
+    updated based on template found at /.env/`virtualenv`_postactivate
     """
     if not exists(virtualenv_folder):
         run('mkvirtualenv ' + virtualenv)
 
-    postsource = source_folder + '/.env/staging_postactivate'
+    postactivate = '/.env/{0}_postactivate'.format(virtualenv)
+    postsource = source_folder + postactivate
     postvirtual = virtualenv_folder + '/bin/postactivate'
     run('ln -sf {0} {1}'.format(postsource, postvirtual))
     workon = 'workon ' + virtualenv
     run(workon + ' && pip install -r ' + requirements)
 
 
-def _update_settings(source_folder):
+def _update_settings(source_folder, virtualenv):
     """
     Adds a randomly generated DJANGO_SECRET_KEY to the postactivate script.
     """
-    postsource = source_folder + '/.env/staging_postactivate'
+    postactivate = '/.env/{0}_postactivate'.format(virtualenv)
+    postsource = source_folder + postactivate
     chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&'
     key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
     key = "DJANGO_SECRET_KEY={0}".format(key)
@@ -136,12 +138,12 @@ def _update_database(virtualenv, settings):
     run(command)
 
 
-def _restart_server(host):
+def _restart_server(host, virtualenv):
     """
     Restarts the server.
     """
-    staging = "workon staging && "
+    venv = "workon {0} && ".format(virtualenv)
     gunicorn = "gunicorn --bind unix:/tmp/HOST.socket "
     gunicorn = gunicorn.replace("HOST", host)
     gunicorn_config = "config.wsgi:application "
-    run(staging + gunicorn + gunicorn_config)
+    run(venv + gunicorn + gunicorn_config)
