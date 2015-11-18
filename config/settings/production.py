@@ -20,7 +20,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # properly on Heroku.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# DJANGO SECURE
+""" DJANGO SECURE
 # -----------------------------------------------------------------------------
 INSTALLED_APPS += ("djangosecure", )
 
@@ -42,6 +42,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
     "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
+"""
 
 # SITE CONFIGURATION
 # -----------------------------------------------------------------------------
