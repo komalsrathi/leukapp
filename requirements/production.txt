@@ -9,12 +9,12 @@ gunicorn==19.3.0
 
 # Static and Media Storage
 # ------------------------------------------------
-boto==2.38.0
+# boto==2.38.0
 django-storages-redux==1.3
 
 
 # Mailgun Support
 # ---------------
-django-mailgun-redux==0.3.0
+# django-mailgun-redux==0.3.0
 
 
