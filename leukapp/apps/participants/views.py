@@ -21,7 +21,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 # third party
 from django_modalview.generic.edit import ModalCreateView
 from django_modalview.generic.component import ModalResponse, ModalButton
-from rest_framework.generics import ListCreateAPIView
+from rest_framework import generics
+from rest_framework import filters
 
 # local
 from .models import Participant
@@ -172,7 +173,7 @@ def search_participant(request):
 
 class ParticipantCreateReadView(mixins.PermissionRequiredMixin,
                                 mixins.LoginRequiredMixin,
-                                ListCreateAPIView):
+                                generics.ListCreateAPIView):
 
     """
     Concrete view for listing a queryset or creating a model instance.
@@ -182,7 +183,11 @@ class ParticipantCreateReadView(mixins.PermissionRequiredMixin,
     queryset = Participant.objects.all()
     serializer_class = ParticipantCreateSerializer
     lookup_field = 'slug'
-    paginate_by = 10
+
+    # Search configuration
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    filter_fields = ('email', 'first_name')
+    search_fields = ('email', 'first_name')
 
     # Permission configuration
     permission_required = constants.PARTICIPANT_CREATE_PERMISSIONS

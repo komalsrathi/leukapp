@@ -9,14 +9,21 @@ Url patterns for the leukapp API. See:
 from django.conf.urls import url
 
 # leukapp
-from leukapp.apps.participants.views import ParticipantCreateReadView
+from leukapp.apps.participants import views as participant_views
 
 urlpatterns = [
 
     # Participants API
     url(
         r'^v0/participants/$',
-        ParticipantCreateReadView.as_view(),
-        name="particpants"
+        participant_views.ParticipantCreateReadView.as_view(),
+        name="participants"
+    ),
+
+    # URL pattern for the ParticipantUpdateView
+    url(
+        regex=r'^v0/participants/(?P<slug>[\w.@+-]+)/$',
+        view=participant_views.ParticipantCreateReadView.as_view(),
+        name='participants'
     ),
 ]
