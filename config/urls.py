@@ -34,7 +34,8 @@ urlpatterns = [
 
     url(
         r'^accounts/',
-        include('allauth.urls')),
+        include('allauth.urls')
+    ),
 
     # autocomplete // NOTUSED
     url(r'^autocomplete/', include('autocomplete_light.urls')),
