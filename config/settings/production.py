@@ -37,7 +37,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # SecurityMiddleware settings
 # set this to 60 seconds and then to 518400 when you can prove it works
-SECURE_HSTS_SECONDS = 0
+SECURE_HSTS_SECONDS = 60
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
