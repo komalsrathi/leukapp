@@ -182,3 +182,9 @@ class ParticipantCreateReadView(mixins.PermissionRequiredMixin,
     queryset = Participant.objects.all()
     serializer_class = ParticipantCreateSerializer
     lookup_field = 'slug'
+    paginate_by = 10
+
+    # Permission configuration
+    permission_required = constants.PARTICIPANT_CREATE_PERMISSIONS
+    permission_denied_message = constants.PERMISSION_DENIED_MESSAGE
+    raise_exception = True
