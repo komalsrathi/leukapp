@@ -80,6 +80,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 DATABASES['default'] = env.db("DATABASE_URL")
 
+"""
 # CACHING
 # -----------------------------------------------------------------------------
 # Heroku URL does not pass the DB number, so we parse it in
@@ -95,5 +96,5 @@ CACHES = {
         }
     }
 }
-
+"""
 # Your production stuff: Below this line define 3rd party library settings
