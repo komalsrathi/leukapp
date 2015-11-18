@@ -34,9 +34,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 """
-X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # SecurityMiddleware settings
 # set this to 60 seconds and then to 518400 when you can prove it works
