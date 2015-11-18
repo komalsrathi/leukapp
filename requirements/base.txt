@@ -2,8 +2,8 @@
 django==1.9.b1
 
 # Configuration
+# django-secure==1.0.1 # this was removed and replaced by django's built in
 django-environ==0.3.0
-django-secure==1.0.1
 whitenoise==2.0.3
 
 # ipython

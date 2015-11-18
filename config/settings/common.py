@@ -31,19 +31,14 @@ TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 # APP CONFIGURATION
 # -----------------------------------------------------------------------------
 DJANGO_APPS = (
-    # Default Django apps:
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Useful template tags:
-    # 'django.contrib.humanize',
-
-    # Admin
-    'django.contrib.admin',
+    'django.contrib.admin',  # Admin
+    # 'django.contrib.humanize',  # Useful template tags:
 )
 THIRD_PARTY_APPS = (
     'crispy_forms',  # Form layouts
@@ -56,12 +51,8 @@ THIRD_PARTY_APPS = (
     'django_filters',  # django-filters for API
 )
 
-# Apps specific for this project go here.
 LOCAL_APPS = (
-    # custom users app
-    'leukapp.apps.users',
-
-    # Your stuff: custom apps go here
+    'leukapp.apps.users',  # custom users app
     'leukapp.apps.lists',
     'leukapp.apps.projects',
     'leukapp.apps.individuals',
@@ -79,7 +70,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # -----------------------------------------------------------------------------
 MIDDLEWARE_CLASSES = (
-    # Make sure djangosecure.middleware.SecurityMiddleware is listed first
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
