@@ -26,6 +26,7 @@ SECURITY_MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
 )
 
+"""
 MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
@@ -44,6 +45,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
 SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
     "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
+"""
 
 # SITE CONFIGURATION
 # -----------------------------------------------------------------------------
