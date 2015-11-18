@@ -20,7 +20,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # properly on Heroku.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# DJANGO SECURE
+# MIDDLEWARE SECURITY
 # -----------------------------------------------------------------------------
 SECURITY_MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
@@ -28,6 +28,13 @@ SECURITY_MIDDLEWARE = (
 
 MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
 
+# changes suggested by python manage.py check --deploy
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# SecurityMiddleware settings
 # set this to 60 seconds and then to 518400 when you can prove it works
 SECURE_HSTS_SECONDS = 60
 SECURE_BROWSER_XSS_FILTER = True
@@ -50,7 +57,6 @@ INSTALLED_APPS += ("gunicorn", )
 # STATIC FILES
 # -----------------------------------------------------------------------------
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
 
 # EMAIL
 # -----------------------------------------------------------------------------
