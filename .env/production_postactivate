@@ -2,9 +2,10 @@
 # This hook is run after this virtualenv is activated.
 
 # django
+export DJANGO_HOST=leukgen.mskcc.org
 export DEPLOYMENT="production"
 export DJANGO_SETTINGS_MODULE="config.settings."$DEPLOYMENT
-export DJANGO_ALLOWED_HOSTS=leukgen.mskcc.org
+export DJANGO_ALLOWED_HOSTS=$DJANGO_HOST
 export DATABASE_URL=postgres:///$DEPLOYMENT
 export DJANGO_SECRET_KEY=CHANGE_ME
 
@@ -18,4 +19,4 @@ export LEUKDC_SSHKEY=$HOME"/.ssh/id_rsa.pub"
 export LEUKDC_ACTIVE="TRUE"
 
 # leukapp directory
-cd /home/medinaj/sites/plvleukweb1.mskcc.org/source/
+cd /home/medinaj/sites/$DJANGO_HOST/source/
