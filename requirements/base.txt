@@ -52,3 +52,6 @@ factory-boy==2.5.2
 # Api framework and django filter
 djangorestframework==3.3.1
 django-filter==0.11.0
+
+# SSH
+paramiko==1.16.0
