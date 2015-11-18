@@ -53,6 +53,7 @@ THIRD_PARTY_APPS = (
     'autocomplete_light',  # Autocomplete
     'django_modalview',  # Modals class based views
     'rest_framework',  # API rest framework
+    'django_filters',  # django-filters for API
 )
 
 # Apps specific for this project go here.
@@ -306,8 +307,5 @@ LOGGING = {
 
 # See: http://www.django-rest-framework.org/api-guide/authentication/
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ),
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
 }

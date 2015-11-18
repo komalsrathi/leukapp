@@ -22,7 +22,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 SECRET_KEY = env("DJANGO_SECRET_KEY",
     default='CHANGEME!!!lp#7%-y6+lsk0yv$9d-22=n^ab8x5hkb!(#d$u2vi5+2-2w&@@')
 
-# Mail settings
+# MAIL
 # -----------------------------------------------------------------------------
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
