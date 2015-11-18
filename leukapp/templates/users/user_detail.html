@@ -4,15 +4,16 @@
 {% block title %}User: {{ object.username }}{% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-12">
-      <h2>{{ object.username }}</h2>
+
+<div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">{{ object.username }}</h1>
       {% if object.name %}
         <p>{{ object.name }}</p>
       {% endif %}
     </div>
-  </div>
+    <!-- /.col-lg-12 -->
+</div>
 
 {% if object == request.user %}
 <!-- Action buttons -->
@@ -27,8 +28,5 @@
 </div>
 <!-- End Action buttons -->
 {% endif %}
-
-
-</div>
 {% endblock content %}
 
