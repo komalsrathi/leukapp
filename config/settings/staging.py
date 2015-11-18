@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-'''
-Staging configuration
+"""
+Production Configurations
+    - Use djangosecure
+"""
 
-'''
+# python
 from __future__ import absolute_import, unicode_literals
 
+# local
 from .common import *  # noqa
 
 # SECRET CONFIGURATION
@@ -12,6 +15,34 @@ from .common import *  # noqa
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Raises ImproperlyConfigured exception if DJANGO_SECRET_KEY not in os.environ
 SECRET_KEY = env("DJANGO_SECRET_KEY")
+
+# This ensures that Django will be able to detect a secure connection
+# properly on Heroku.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# DJANGO SECURE
+# -----------------------------------------------------------------------------
+INSTALLED_APPS += ("djangosecure", )
+
+SECURITY_MIDDLEWARE = (
+    'djangosecure.middleware.SecurityMiddleware',
+)
+
+# Make sure djangosecure.middleware.SecurityMiddleware is listed first
+MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
+
+# set this to 60 seconds and then to 518400 when you can prove it works
+SECURE_HSTS_SECONDS = 60
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_FRAME_DENY = env.bool("DJANGO_SECURE_FRAME_DENY", default=True)
+SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
+SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
+    "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
+    "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
+
 
 # SITE CONFIGURATION
 # -----------------------------------------------------------------------------
@@ -23,9 +54,16 @@ ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['leukgen.mskcc.org'])
 # -----------------------------------------------------------------------------
 INSTALLED_APPS += ("gunicorn", )
 
-# Static Assests
-# ------------------------
+# STATIC FILES
+# -----------------------------------------------------------------------------
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+# EMAIL
+# -----------------------------------------------------------------------------
+DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
+                         default='leukapp <noreply@leukgen.mskcc.org>')
+EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default='[leukapp] ')
 
 # TEMPLATE CONFIGURATION
 # -----------------------------------------------------------------------------
@@ -42,7 +80,6 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 DATABASES['default'] = env.db("DATABASE_URL")
 
-"""
 # CACHING
 # -----------------------------------------------------------------------------
 # Heroku URL does not pass the DB number, so we parse it in
@@ -58,6 +95,5 @@ CACHES = {
         }
     }
 }
-"""
 
 # Your production stuff: Below this line define 3rd party library settings
