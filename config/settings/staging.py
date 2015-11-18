@@ -16,29 +16,35 @@ from .common import *  # noqa
 # Raises ImproperlyConfigured exception if DJANGO_SECRET_KEY not in os.environ
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
-# DJANGO SECURE
-# -----------------------------------------------------------------------------
-INSTALLED_APPS += ("djangosecure", )
+# This ensures that Django will be able to detect a secure connection
+# properly on Heroku.
 
+"""
+# MIDDLEWARE SECURITY
+# -----------------------------------------------------------------------------
 SECURITY_MIDDLEWARE = (
-    'djangosecure.middleware.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 )
 
-# Make sure djangosecure.middleware.SecurityMiddleware is listed first
 MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
+# changes suggested by python manage.py check --deploy
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# SecurityMiddleware settings
 # set this to 60 seconds and then to 518400 when you can prove it works
-SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
 SECURE_HSTS_SECONDS = 60
-SESSION_COOKIE_SECURE = False
-SESSION_COOKIE_HTTPONLY = True
 SECURE_BROWSER_XSS_FILTER = True
-SECURE_FRAME_DENY = env.bool("DJANGO_SECURE_FRAME_DENY", default=True)
-SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
-    "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
-
+SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
+    "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
+SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
+"""
 
 # SITE CONFIGURATION
 # -----------------------------------------------------------------------------
@@ -53,7 +59,6 @@ INSTALLED_APPS += ("gunicorn", )
 # STATIC FILES
 # -----------------------------------------------------------------------------
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
 
 # EMAIL
 # -----------------------------------------------------------------------------
