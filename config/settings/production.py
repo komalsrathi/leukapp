@@ -21,21 +21,18 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 SECURITY_MIDDLEWARE = ('django.middleware.security.SecurityMiddleware', )
 MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
 
-
-# coulnd't manage to make django work behind SSL :(
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = True
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = 'DENY'
 SECURE_HSTS_SECONDS = 60  # set to 60 seconds, then to 518400 when works
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
 SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
     "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
-
 
 # SITE CONFIGURATION
 # -----------------------------------------------------------------------------
