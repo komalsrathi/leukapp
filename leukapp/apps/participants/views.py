@@ -177,6 +177,7 @@ class ParticipantCreateReadView(generics.ListCreateAPIView):
     See: http://www.cdrf.co/3.3/rest_framework.generics/ListCreateAPIView.html
     """
 
+    # API settings
     queryset = Participant.objects.all()
     serializer_class = ParticipantCreateSerializer
     lookup_field = 'slug'
