@@ -21,7 +21,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 SECURITY_MIDDLEWARE = ('django.middleware.security.SecurityMiddleware', )
 MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
 
-"""
+
 # coulnd't manage to make django work behind SSL :(
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
@@ -35,7 +35,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
 SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
     "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
-"""
+
 
 # SITE CONFIGURATION
 # -----------------------------------------------------------------------------
