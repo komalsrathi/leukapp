@@ -29,7 +29,7 @@ urlpatterns = [
     url(
         r'^users/',
         include("leukapp.apps.users.urls",
-        namespace="users")
+                namespace="users")
     ),
 
     url(
@@ -40,59 +40,65 @@ urlpatterns = [
     # autocomplete // NOTUSED
     url(r'^autocomplete/', include('autocomplete_light.urls')),
 
+    url(
+        r'^api-auth/',
+        include('rest_framework.urls',
+                namespace='rest_framework')
+    ),
+
     # leukapp
     url(
         r'^lists/',
         include("leukapp.apps.lists.urls",
-        namespace="lists")
+                namespace="lists")
     ),
 
     url(
         r'^projects/',
         include("leukapp.apps.projects.urls",
-        namespace="projects")
+                namespace="projects")
     ),
 
     url(
         r'^aliquots/',
         include("leukapp.apps.aliquots.urls",
-        namespace="aliquots")
+                namespace="aliquots")
     ),
 
     url(
         r'^specimens/',
         include("leukapp.apps.specimens.urls",
-        namespace="specimens")
+                namespace="specimens")
     ),
 
     url(
         r'^individuals/',
         include("leukapp.apps.individuals.urls",
-        namespace="individuals")
+                namespace="individuals")
     ),
 
     url(
         r'^participants/',
         include("leukapp.apps.participants.urls",
-        namespace="participants")
+                namespace="participants")
     ),
 
     url(
         r'^extractions/',
         include("leukapp.apps.extractions.urls",
-        namespace="extractions")
+                namespace="extractions")
     ),
 
     url(
         r'^leukforms/',
         include("leukapp.apps.leukforms.urls",
-        namespace="leukforms")
+                namespace="leukforms")
     ),
 
     url(
         r'^api/',
         include("leukapp.apps.core.api",
-        namespace="api")
+                namespace="api")
     ),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
