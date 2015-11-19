@@ -4,7 +4,7 @@
 # django
 export DJANGO_HOST=leukgen.mskcc.org
 export DEPLOYMENT="production"
-export DJANGO_SETTINGS_MODULE="config.settings."$DEPLOYMENT
+export DJANGO_SETTINGS_MODULE="config.settings.production"
 export DJANGO_ALLOWED_HOSTS=$DJANGO_HOST
 export DATABASE_URL=postgres:///$DEPLOYMENT
 export DJANGO_SECRET_KEY=CHANGE_ME
