@@ -102,7 +102,7 @@ class Project(LeukappModel):
         self._check_if_caller_is_save()
 
         # get internal id
-        self.int_id = str(self.pk + 100)
+        self.int_id = str(self.pk)
 
     def _if_save(self):
         """ _if_save() is run everytime the object is saved"""
