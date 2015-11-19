@@ -105,6 +105,6 @@ class Individual(LeukappModel):
         # get internal id
         species_id = constants.LEUKID_SPECIES[self.species]
         institution_id = self.check_institution()
-        join = [institution_id, species_id, str(self.pk + 100000)]
+        join = [institution_id, species_id, str(self.pk)]
         self.int_id = "-".join(join)
         return self.int_id

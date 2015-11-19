@@ -38,7 +38,7 @@ class IndividualModelTest(TestCase):
     def test_int_id_returns_expected_value(self):
         i = IndividualFactory(institution=MSK)
         species = LEUKID_SPECIES[i.species]
-        int_id = "-".join([i.check_institution(), species, str(i.pk + 100000)])
+        int_id = "-".join([i.check_institution(), species, str(i.pk)])
         self.assertEqual(i.int_id, int_id)
 
     def test_str_returns_slug(self):
