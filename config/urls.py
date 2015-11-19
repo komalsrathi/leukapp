@@ -40,6 +40,7 @@ urlpatterns = [
     # autocomplete // NOTUSED
     url(r'^autocomplete/', include('autocomplete_light.urls')),
 
+    # browsable api
     url(
         r'^api-auth/',
         include('rest_framework.urls',
