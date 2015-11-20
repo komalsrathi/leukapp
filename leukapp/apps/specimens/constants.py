@@ -4,6 +4,9 @@
 specimens app constants
 """
 
+# leukapp
+from leukapp.apps.core import constants as coreconstants
+
 # APP INFO
 # -----------------------------------------------------------------------------
 APP_NAME = 'specimens'
@@ -74,9 +77,5 @@ SPECIMEN_UPDATE_PERMISSIONS = ('specimens.change_specimen',)
 
 # MESSAGES
 # -----------------------------------------------------------------------------
-SUCCESS_MESSAGE = "Looking good"
-PERMISSION_DENIED_MESSAGE = \
-    '''
-    You don't have permission to perform this action, please contact a Leukgen
-    Administrator
-    '''
+SUCCESS_MESSAGE = coreconstants.SUCCESS_MESSAGE
+PERMISSION_DENIED_MESSAGE = coreconstants.PERMISSION_DENIED_MESSAGE

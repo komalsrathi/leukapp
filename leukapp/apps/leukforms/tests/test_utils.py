@@ -10,6 +10,7 @@ from django.test import TestCase
 # leukapp
 from leukapp.apps.leukforms.utils import LeukformLoader
 from leukapp.apps.leukforms.factories import LeukformSamplesFactory
+from leukapp.apps.core.constants import UNKNOWN
 
 # local
 from ..constants import MODELS_LIST, LEUKAPP_FACTORIES
@@ -263,8 +264,8 @@ class TestLeukformLoader(TestCase):
             }
         expected = {
             'Individual': {'ext_id': '123'},
-            'Specimen': {'ext_id': 'UNKNOWN'},
-            'Aliquot': {'ext_id': 'UNKNOWN'},
+            'Specimen': {'ext_id': UNKNOWN},
+            'Aliquot': {'ext_id': UNKNOWN},
             }
         obtained = LeukformLoader()._get_fields(row)
         self.assertDictEqual(obtained, expected)

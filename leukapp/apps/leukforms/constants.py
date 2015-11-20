@@ -3,6 +3,9 @@
 extractions app constants
 """
 
+# leukapp
+from leukapp.apps.core import constants as coreconstants
+
 # leukapp unique together
 from leukapp.apps.individuals.constants import INDIVIDUAL_UNIQUE_TOGETHER
 from leukapp.apps.specimens.constants import SPECIMEN_UNIQUE_TOGETHER
@@ -117,9 +120,5 @@ LEUKFORM_UPDATE_PERMISSIONS = ('leukforms.change_leukform',)
 
 # MESSAGES
 # -----------------------------------------------------------------------------
-SUCCESS_MESSAGE = "Looking good"
-PERMISSION_DENIED_MESSAGE = \
-    '''
-    You don't have permission to perform this action, please contact a Leukgen
-    Administrator
-    '''
+SUCCESS_MESSAGE = coreconstants.SUCCESS_MESSAGE
+PERMISSION_DENIED_MESSAGE = coreconstants.PERMISSION_DENIED_MESSAGE

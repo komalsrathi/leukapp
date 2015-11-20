@@ -10,6 +10,7 @@ from django.core.exceptions import ImproperlyConfigured
 from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import ext_id_validator
 from leukapp.apps.core.utils import LeukConnect
+from leukapp.apps.core.constants import UNKNOWN
 from leukapp.apps.aliquots.models import Aliquot
 from leukapp.apps.projects.models import Project
 
@@ -68,8 +69,10 @@ class Extraction(LeukappModel):
         _("sequencing center id"),
         max_length=100,
         validators=[ext_id_validator],
-        help_text=_("The sequencing center id should be unique at the "
-            "Aliquot level."),
+        default=UNKNOWN,
+        help_text=_(
+            "The sequencing center id."
+            ),
         )
 
     # internal fields

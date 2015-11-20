@@ -3,6 +3,9 @@
 extractions app constants
 """
 
+# leukapp
+from leukapp.apps.core import constants as coreconstants
+
 # APP INFO
 # -----------------------------------------------------------------------------
 APP_NAME = 'extractions'
@@ -25,15 +28,9 @@ EXTRACTION_CREATE_FIELDS = (
     )
 
 EXTRACTION_UPDATE_FIELDS = (
-    'platform',
-    'technology',
-    'center',
     )
 
 EXTRACTION_UNIQUE_TOGETHER = (
-    'aliquot',
-    'ext_id',
-    'analyte',
     )
 
 # CHOICES
@@ -120,9 +117,5 @@ EXTRACTION_UPDATE_PERMISSIONS = ('extractions.change_extraction',)
 
 # MESSAGES
 # -----------------------------------------------------------------------------
-SUCCESS_MESSAGE = "Looking good"
-PERMISSION_DENIED_MESSAGE = \
-    '''
-    You don't have permission to perform this action, please contact a Leukgen
-    Administrator
-    '''
+SUCCESS_MESSAGE = coreconstants.SUCCESS_MESSAGE
+PERMISSION_DENIED_MESSAGE = coreconstants.PERMISSION_DENIED_MESSAGE

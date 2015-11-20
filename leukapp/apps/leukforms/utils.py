@@ -6,6 +6,9 @@ import csv
 import io
 import json
 
+# leukapp
+from leukapp.apps.core.constants import UNKNOWN
+
 # local
 from . import constants
 from .validators import leukform_csv_validator, leukform_rows_validator
@@ -221,9 +224,9 @@ class LeukformLoader(object):
         c1 = c0 and row['Individual.ext_id']
         c2 = c1 and {'Aliquot.ext_id'}.issubset(columns)
         if c1 and (row['Specimen.ext_id'] == ''):
-            row['Specimen.ext_id'] = 'UNKNOWN'
+            row['Specimen.ext_id'] = UNKNOWN
         if c2 and (row['Aliquot.ext_id'] == ''):
-            row['Aliquot.ext_id'] = 'UNKNOWN'
+            row['Aliquot.ext_id'] = UNKNOWN
         return row
 
     def _get_or_create(self, model, fields):
