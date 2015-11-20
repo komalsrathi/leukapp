@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>leukapp.apps.leukforms.models &mdash; leukapp 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="leukapp 0.1 documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for leukapp.apps.leukforms.models</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># django</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.core.files</span> <span class="kn">import</span> <span class="n">File</span>
+<span class="kn">from</span> <span class="nn">django.db.models.signals</span> <span class="kn">import</span> <span class="n">post_delete</span>
+<span class="kn">from</span> <span class="nn">django.dispatch.dispatcher</span> <span class="kn">import</span> <span class="n">receiver</span>
+
+<span class="c"># leukapp</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.core.models</span> <span class="kn">import</span> <span class="n">LeukappModel</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.individuals.models</span> <span class="kn">import</span> <span class="n">Individual</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.specimens.models</span> <span class="kn">import</span> <span class="n">Specimen</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.aliquots.models</span> <span class="kn">import</span> <span class="n">Aliquot</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.extractions.models</span> <span class="kn">import</span> <span class="n">Extraction</span>
+
+<span class="c"># local</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">APP_NAME</span>
+<span class="kn">from</span> <span class="nn">.validators</span> <span class="kn">import</span> <span class="n">leukform_csv_validator</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">LeukformLoader</span>
+
+
+<div class="viewcode-block" id="Leukform"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.html#leukapp.apps.leukforms.models.Leukform">[docs]</a><span class="k">class</span> <span class="nc">Leukform</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=2010180721</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">APP_NAME</span> <span class="o">=</span> <span class="n">APP_NAME</span>
+
+    <span class="c"># external fields</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;description&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&#39;This is for your future self.&#39;</span>
+        <span class="p">)</span>
+    <span class="n">submission</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span>
+        <span class="n">upload_to</span><span class="o">=</span><span class="s">&#39;leukform/submissions/%Y/%m&#39;</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;leukform&quot;</span><span class="p">),</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">leukform_csv_validator</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span>
+        <span class="n">upload_to</span><span class="o">=</span><span class="s">&#39;leukform/results/%Y/%m&#39;</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;sumbission result&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;summary&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">mock</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;test leukform&quot;</span><span class="p">),</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&#39;if True, records will not be saved.&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="sd">&quot;&quot;&quot; TENTATIVE</span>
+<span class="sd">    created_individuals = models.ManyToManyField(</span>
+<span class="sd">        Individual,</span>
+<span class="sd">        verbose_name=_(&quot;created individuals&quot;),</span>
+<span class="sd">        blank=True,</span>
+<span class="sd">        )</span>
+<span class="sd">    created_specimens = models.ManyToManyField(</span>
+<span class="sd">        Specimen,</span>
+<span class="sd">        verbose_name=_(&quot;created specimens&quot;),</span>
+<span class="sd">        blank=True,</span>
+<span class="sd">        )</span>
+<span class="sd">    created_aliquots = models.ManyToManyField(</span>
+<span class="sd">        Aliquot,</span>
+<span class="sd">        verbose_name=_(&quot;created aliquots&quot;),</span>
+<span class="sd">        blank=True,</span>
+<span class="sd">        )</span>
+<span class="sd">    created_extractions = models.ManyToManyField(</span>
+<span class="sd">        Extraction,</span>
+<span class="sd">        verbose_name=_(&quot;created extractions&quot;),</span>
+<span class="sd">        blank=True,</span>
+<span class="sd">        )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># internal</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
+        <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">created_by</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">AUTH_USER_MODEL</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;created by&quot;</span><span class="p">),</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span>
+        <span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">APP_NAME</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">APP_NAME</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
+
+    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; _if_new is executed the first time the object is created &quot;&quot;&quot;</span>
+
+        <span class="c"># This function can only be called from save()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
+
+        <span class="c"># validate is  False because it has already been validated</span>
+        <span class="n">loader</span> <span class="o">=</span> <span class="n">LeukformLoader</span><span class="p">()</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submission</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">filepath</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">mock</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mock</span><span class="p">)</span>
+
+        <span class="c"># create result</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mock</span><span class="p">:</span>
+            <span class="n">result_name</span> <span class="o">=</span> <span class="s">&#39;result-leukform-test-</span><span class="si">%s</span><span class="s">.csv&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result_name</span> <span class="o">=</span> <span class="s">&#39;result-leukform-</span><span class="si">%s</span><span class="s">.csv&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="s">&#39;summary&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">result_name</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">out</span><span class="p">[</span><span class="s">&#39;result&#39;</span><span class="p">])</span>
+
+        <span class="c"># update slug</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;leukform&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; _if_save() is executed everytime the object is saved &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+</div>
+<span class="nd">@receiver</span><span class="p">(</span><span class="n">post_delete</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="n">Leukform</span><span class="p">)</span>
+<div class="viewcode-block" id="leukform_delete"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.html#leukapp.apps.leukforms.models.leukform_delete">[docs]</a><span class="k">def</span> <span class="nf">leukform_delete</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c"># Pass false so FileField doesn&#39;t save the model.</span>
+    <span class="n">instance</span><span class="o">.</span><span class="n">submission</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">instance</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Juan Medina.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

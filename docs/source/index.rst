@@ -14,12 +14,7 @@ Contents:
     leukid
     install
     deploy
-    docker_ec2
     leukapp/modules
-
-.. automodule:: leukapp.samples
-    :members:
-    :undoc-members:
 
 Indices and tables
 ==================

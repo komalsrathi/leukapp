@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>leukapp.apps.users.views &mdash; leukapp 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="leukapp 0.1 documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for leukapp.apps.users.views</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">DetailView</span><span class="p">,</span> <span class="n">ListView</span><span class="p">,</span> <span class="n">RedirectView</span><span class="p">,</span> <span class="n">UpdateView</span>
+
+<span class="kn">from</span> <span class="nn">braces.views</span> <span class="kn">import</span> <span class="n">LoginRequiredMixin</span>
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">User</span>
+
+
+<div class="viewcode-block" id="UserDetailView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserDetailView">[docs]</a><span class="k">class</span> <span class="nc">UserDetailView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">DetailView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+    <span class="c"># These next two lines tell the view to index lookups by username</span>
+    <span class="n">slug_field</span> <span class="o">=</span> <span class="s">&quot;username&quot;</span>
+    <span class="n">slug_url_kwarg</span> <span class="o">=</span> <span class="s">&quot;username&quot;</span>
+
+</div>
+<div class="viewcode-block" id="UserRedirectView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserRedirectView">[docs]</a><span class="k">class</span> <span class="nc">UserRedirectView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">RedirectView</span><span class="p">):</span>
+    <span class="n">permanent</span> <span class="o">=</span> <span class="bp">False</span>
+
+<div class="viewcode-block" id="UserRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&quot;users:detail&quot;</span><span class="p">,</span>
+                       <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">})</span>
+
+</div></div>
+<div class="viewcode-block" id="UserUpdateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserUpdateView">[docs]</a><span class="k">class</span> <span class="nc">UserUpdateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">UpdateView</span><span class="p">):</span>
+
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">,</span> <span class="s">&#39;phone&#39;</span><span class="p">]</span>
+
+    <span class="c"># we already imported User in the view code above, remember?</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+
+    <span class="c"># send the user back to their own page after a successful update</span>
+<div class="viewcode-block" id="UserUpdateView.get_success_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserUpdateView.get_success_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&quot;users:detail&quot;</span><span class="p">,</span>
+                       <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">})</span>
+</div>
+<div class="viewcode-block" id="UserUpdateView.get_object"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserUpdateView.get_object">[docs]</a>    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Only get the User record for the user making the request</span>
+        <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="UserListView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserListView">[docs]</a><span class="k">class</span> <span class="nc">UserListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+    <span class="c"># These next two lines tell the view to index lookups by username</span>
+    <span class="n">slug_field</span> <span class="o">=</span> <span class="s">&quot;username&quot;</span>
+    <span class="n">slug_url_kwarg</span> <span class="o">=</span> <span class="s">&quot;username&quot;</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Juan Medina.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

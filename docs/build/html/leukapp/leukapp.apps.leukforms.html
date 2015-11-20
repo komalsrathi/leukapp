@@ -1,0 +1,735 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>leukapp.apps.leukforms package &mdash; leukapp 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="leukapp 0.1 documentation" href="../index.html" />
+    <link rel="up" title="leukapp.apps package" href="leukapp.apps.html" />
+    <link rel="next" title="leukapp.apps.leukforms.management package" href="leukapp.apps.leukforms.management.html" />
+    <link rel="prev" title="leukapp.apps.individuals package" href="leukapp.apps.individuals.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="leukapp-apps-leukforms-package">
+<h1>leukapp.apps.leukforms package<a class="headerlink" href="#leukapp-apps-leukforms-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="leukapp.apps.leukforms.management.html">leukapp.apps.leukforms.management package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="leukapp.apps.leukforms.management.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.leukforms.management.commands.html">leukapp.apps.leukforms.management.commands package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="leukapp.apps.leukforms.management.commands.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="leukapp.apps.leukforms.management.commands.html#module-leukapp.apps.leukforms.management.commands.submit_samples_from_csv">leukapp.apps.leukforms.management.commands.submit_samples_from_csv module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="leukapp.apps.leukforms.management.commands.html#module-leukapp.apps.leukforms.management.commands">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="leukapp.apps.leukforms.management.html#module-leukapp.apps.leukforms.management">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-leukapp.apps.leukforms.admin">
+<span id="leukapp-apps-leukforms-admin-module"></span><h2>leukapp.apps.leukforms.admin module<a class="headerlink" href="#module-leukapp.apps.leukforms.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-leukapp.apps.leukforms.constants">
+<span id="leukapp-apps-leukforms-constants-module"></span><h2>leukapp.apps.leukforms.constants module<a class="headerlink" href="#module-leukapp.apps.leukforms.constants" title="Permalink to this headline">¶</a></h2>
+<p>extractions app constants</p>
+</div>
+<div class="section" id="module-leukapp.apps.leukforms.factories">
+<span id="leukapp-apps-leukforms-factories-module"></span><h2>leukapp.apps.leukforms.factories module<a class="headerlink" href="#module-leukapp.apps.leukforms.factories" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.factories.</code><code class="descname">LeukformSamplesFactory</code><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>A leukform samples factory. This factory is mainly used to test the
+LeukformLoader module.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>instances (dict): keys are models, values are created instances
+request (dict): keys are models, values are requested instances
+delete (boolean): whether or not instances are deleted at the end
+rows (list): each element is a valid leukform dictionary</dd>
+<dt>Methods:</dt>
+<dd>create_batch: creates a batch of samples and returns rows
+get_rows: returns the rows shuffled
+create_csv_from_rows: creates csv from rows
+create_stringio_from_rows: creates StringIO from rows</dd>
+</dl>
+<dl class="method">
+<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_batch">
+<code class="descname">create_batch</code><span class="sig-paren">(</span><em>individuals</em>, <em>specimens=0</em>, <em>aliquots=0</em>, <em>extractions=0</em>, <em>delete=True</em>, <em>slug=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory.create_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a batch of samples and returns them in a leukform format.</p>
+<p>Instances for the last model requested are always deleted.
+For instance, if you request individuals=10, specimens=2 and
+delete=False, the 10 individuals will not be deleted. However, the
+specimens will be.</p>
+<p>When using slug=True in LeukformSamplesFactory, only two sets of data
+are provided: the data of the object to be created and the slug of the
+parent object.</p>
+<dl class="docutils">
+<dt>Input:</dt>
+<dd>individuals (int): number of individuals
+specimens (int): number of specimens per individual
+aliquots (int): number of aliquots per specimen
+extractions (int): number of extractions per aliquot
+delete (boolean): if True, delete all created instances
+slug (boolean): if True, delete is depreciated, slugs are returned</dd>
+<dt>Returns:</dt>
+<dd>rows (list): a list of dictoaries ready to be submitted</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_csv_from_rows">
+<code class="descname">create_csv_from_rows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory.create_csv_from_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_csv_from_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a csv from rows.
+Returns: Path of csv
+Raises: ImproperlyConfigured(&#8220;create batch first&#8221;)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_stringio_from_rows">
+<code class="descname">create_stringio_from_rows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory.create_stringio_from_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_stringio_from_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a StringIO from rows.
+Returns: StringIO
+Raises:ImproperlyConfigured(&#8220;create batch first&#8221;)
+NOTTESTED</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory.get_rows">
+<code class="descname">get_rows</code><span class="sig-paren">(</span><em>shuffle=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory.get_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.get_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>if shuffle, returns shuffled rows; else, returns rows</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory.projects">
+<code class="descname">projects</code><em class="property"> = [&lt;Project: 104&gt;, &lt;Project: 102&gt;, &lt;Project: 103&gt;]</em><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.projects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-leukapp.apps.leukforms.forms">
+<span id="leukapp-apps-leukforms-forms-module"></span><h2>leukapp.apps.leukforms.forms module<a class="headerlink" href="#module-leukapp.apps.leukforms.forms" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="leukapp.apps.leukforms.forms.AliquotForm">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.forms.</code><code class="descname">AliquotForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/forms.html#AliquotForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.forms.AliquotForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<dl class="class">
+<dt id="leukapp.apps.leukforms.forms.AliquotForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/leukapp/apps/leukforms/forms.html#AliquotForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.forms.AliquotForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.AliquotForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('specimen', 'ext_id')</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.AliquotForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.AliquotForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.leukforms.forms.AliquotForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Aliquot</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.AliquotForm.base_fields">
+<code class="descclassname">AliquotForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('specimen', &lt;django.forms.models.ModelChoiceField object at 0x10a198dd8&gt;), ('ext_id', &lt;django.forms.fields.CharField object at 0x10a198fd0&gt;)])</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.AliquotForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.AliquotForm.declared_fields">
+<code class="descclassname">AliquotForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.AliquotForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.AliquotForm.media">
+<code class="descclassname">AliquotForm.</code><code class="descname">media</code><a class="headerlink" href="#leukapp.apps.leukforms.forms.AliquotForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.leukforms.forms.ExtractionForm">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.forms.</code><code class="descname">ExtractionForm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/forms.html#ExtractionForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.forms.ExtractionForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<dl class="class">
+<dt id="leukapp.apps.leukforms.forms.ExtractionForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/leukapp/apps/leukforms/forms.html#ExtractionForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.forms.ExtractionForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.ExtractionForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('aliquot', 'platform', 'technology', 'center', 'ext_id', 'analyte', 'projects_list', 'projects_list')</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.ExtractionForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.ExtractionForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.leukforms.forms.ExtractionForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.ExtractionForm.base_fields">
+<code class="descclassname">ExtractionForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('aliquot', &lt;django.forms.models.ModelChoiceField object at 0x10a1a4278&gt;), ('platform', &lt;django.forms.fields.TypedChoiceField object at 0x10a1a46a0&gt;), ('technology', &lt;django.forms.fields.TypedChoiceField object at 0x10a1a47f0&gt;), ('center', &lt;django.forms.fields.TypedChoiceField object at 0x10a1a48d0&gt;), ('ext_id', &lt;django.forms.fields.CharField object at 0x10a1a49b0&gt;), ('analyte', &lt;django.forms.fields.TypedChoiceField object at 0x10a1a4470&gt;), ('projects_list', &lt;django.forms.fields.CharField object at 0x10a1a4588&gt;)])</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.ExtractionForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.ExtractionForm.declared_fields">
+<code class="descclassname">ExtractionForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.ExtractionForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.ExtractionForm.media">
+<code class="descclassname">ExtractionForm.</code><code class="descname">media</code><a class="headerlink" href="#leukapp.apps.leukforms.forms.ExtractionForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.leukforms.forms.IndividualForm">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.forms.</code><code class="descname">IndividualForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/forms.html#IndividualForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.forms.IndividualForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<dl class="class">
+<dt id="leukapp.apps.leukforms.forms.IndividualForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/leukapp/apps/leukforms/forms.html#IndividualForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.forms.IndividualForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.IndividualForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('institution', 'species', 'ext_id')</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.IndividualForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.IndividualForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.leukforms.forms.IndividualForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Individual</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.IndividualForm.base_fields">
+<code class="descclassname">IndividualForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('institution', &lt;django.forms.fields.TypedChoiceField object at 0x10a198390&gt;), ('species', &lt;django.forms.fields.TypedChoiceField object at 0x10a1984e0&gt;), ('ext_id', &lt;django.forms.fields.CharField object at 0x10a1985c0&gt;)])</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.IndividualForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.IndividualForm.declared_fields">
+<code class="descclassname">IndividualForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.IndividualForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.IndividualForm.media">
+<code class="descclassname">IndividualForm.</code><code class="descname">media</code><a class="headerlink" href="#leukapp.apps.leukforms.forms.IndividualForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.leukforms.forms.SpecimenForm">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.forms.</code><code class="descname">SpecimenForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/forms.html#SpecimenForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.forms.SpecimenForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<dl class="class">
+<dt id="leukapp.apps.leukforms.forms.SpecimenForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/leukapp/apps/leukforms/forms.html#SpecimenForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.forms.SpecimenForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.SpecimenForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('individual', 'source', 'source_type', 'ext_id', 'order')</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.SpecimenForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.SpecimenForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.leukforms.forms.SpecimenForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Specimen</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.SpecimenForm.base_fields">
+<code class="descclassname">SpecimenForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('individual', &lt;django.forms.models.ModelChoiceField object at 0x10a198710&gt;), ('source', &lt;django.forms.fields.TypedChoiceField object at 0x10a198898&gt;), ('source_type', &lt;django.forms.fields.TypedChoiceField object at 0x10a1989b0&gt;), ('ext_id', &lt;django.forms.fields.CharField object at 0x10a198a90&gt;), ('order', &lt;django.forms.fields.IntegerField object at 0x10a198be0&gt;)])</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.SpecimenForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.SpecimenForm.declared_fields">
+<code class="descclassname">SpecimenForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em><a class="headerlink" href="#leukapp.apps.leukforms.forms.SpecimenForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.forms.SpecimenForm.media">
+<code class="descclassname">SpecimenForm.</code><code class="descname">media</code><a class="headerlink" href="#leukapp.apps.leukforms.forms.SpecimenForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="leukapp-apps-leukforms-models-module">
+<h2>leukapp.apps.leukforms.models module<a class="headerlink" href="#leukapp-apps-leukforms-models-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-leukapp.apps.leukforms.models"></span><dl class="class">
+<dt id="leukapp.apps.leukforms.models.Leukform">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.models.</code><code class="descname">Leukform</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/models.html#Leukform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="leukapp.apps.core.html#leukapp.apps.core.models.LeukappModel" title="leukapp.apps.core.models.LeukappModel"><code class="xref py py-class docutils literal"><span class="pre">leukapp.apps.core.models.LeukappModel</span></code></a></p>
+<p>requirements: <a class="reference external" href="https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=2010180721">https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=2010180721</a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.models.Leukform.APP_NAME">
+<code class="descname">APP_NAME</code><em class="property"> = 'leukforms'</em><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform.APP_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="leukapp.apps.leukforms.models.Leukform.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="leukapp.apps.leukforms.models.Leukform.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">Leukform.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.models.Leukform.created_by">
+<code class="descclassname">Leukform.</code><code class="descname">created_by</code><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform.created_by" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.models.Leukform.get_next_by_created">
+<code class="descclassname">Leukform.</code><code class="descname">get_next_by_created</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform.get_next_by_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.models.Leukform.get_next_by_modified">
+<code class="descclassname">Leukform.</code><code class="descname">get_next_by_modified</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform.get_next_by_modified" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.models.Leukform.get_previous_by_created">
+<code class="descclassname">Leukform.</code><code class="descname">get_previous_by_created</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform.get_previous_by_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.models.Leukform.get_previous_by_modified">
+<code class="descclassname">Leukform.</code><code class="descname">get_previous_by_modified</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform.get_previous_by_modified" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.models.Leukform.mock">
+<code class="descclassname">Leukform.</code><code class="descname">mock</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform.mock" title="Permalink to this definition">¶</a></dt>
+<dd><p>TENTATIVE
+created_individuals = models.ManyToManyField(</p>
+<blockquote>
+<div>Individual,
+verbose_name=_(&#8220;created individuals&#8221;),
+blank=True,
+)</div></blockquote>
+<dl class="docutils">
+<dt>created_specimens = models.ManyToManyField(</dt>
+<dd>Specimen,
+verbose_name=_(&#8220;created specimens&#8221;),
+blank=True,
+)</dd>
+<dt>created_aliquots = models.ManyToManyField(</dt>
+<dd>Aliquot,
+verbose_name=_(&#8220;created aliquots&#8221;),
+blank=True,
+)</dd>
+<dt>created_extractions = models.ManyToManyField(</dt>
+<dd>Extraction,
+verbose_name=_(&#8220;created extractions&#8221;),
+blank=True,
+)</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.models.Leukform.objects">
+<code class="descclassname">Leukform.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#leukapp.apps.leukforms.models.Leukform.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="leukapp.apps.leukforms.models.leukform_delete">
+<code class="descclassname">leukapp.apps.leukforms.models.</code><code class="descname">leukform_delete</code><span class="sig-paren">(</span><em>sender</em>, <em>instance</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/models.html#leukform_delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.models.leukform_delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-leukapp.apps.leukforms.urls">
+<span id="leukapp-apps-leukforms-urls-module"></span><h2>leukapp.apps.leukforms.urls module<a class="headerlink" href="#module-leukapp.apps.leukforms.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-leukapp.apps.leukforms.utils">
+<span id="leukapp-apps-leukforms-utils-module"></span><h2>leukapp.apps.leukforms.utils module<a class="headerlink" href="#module-leukapp.apps.leukforms.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="leukapp.apps.leukforms.utils.LeukformLoader">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.utils.</code><code class="descname">LeukformLoader</code><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.utils.LeukformLoader.help">
+<code class="descname">help</code><em class="property"> = 'Gets create form fields for Individuals, Specimens and Aliquots'</em><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.utils.LeukformLoader.submit">
+<code class="descname">submit</code><span class="sig-paren">(</span><em>filepath=None</em>, <em>rows=None</em>, <em>validate=True</em>, <em>mock=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader.submit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader.submit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process <cite>leukform</cite> from csv file using <cite>filepath</cite> or from a list of
+dictionaries using rows. If validate, then the input is validated.</p>
+<dl class="docutils">
+<dt>Input:</dt>
+<dd>filepath (str): path to csv file
+rows (list): csv.DictReader list of dictionaries
+validate (boolean): If validate, then the input is validated</dd>
+<dt>Returns:</dt>
+<dd>json dictionary described in <cite>self._write_output()</cite></dd>
+<dt>Raises:</dt>
+<dd>Exception: if neither filepath nor rows are provided; or if both.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="leukapp.apps.leukforms.utils.get_out_columns">
+<code class="descclassname">leukapp.apps.leukforms.utils.</code><code class="descname">get_out_columns</code><span class="sig-paren">(</span><em>columns</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#get_out_columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.get_out_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>NOTTESTED NOTDOCUMENTED</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-leukapp.apps.leukforms.validators">
+<span id="leukapp-apps-leukforms-validators-module"></span><h2>leukapp.apps.leukforms.validators module<a class="headerlink" href="#module-leukapp.apps.leukforms.validators" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="leukapp.apps.leukforms.validators.leukform_columns_validator">
+<code class="descclassname">leukapp.apps.leukforms.validators.</code><code class="descname">leukform_columns_validator</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/validators.html#leukform_columns_validator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.validators.leukform_columns_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the leukform columns being submitted</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="leukapp.apps.leukforms.validators.leukform_csv_validator">
+<code class="descclassname">leukapp.apps.leukforms.validators.</code><code class="descname">leukform_csv_validator</code><span class="sig-paren">(</span><em>document</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/validators.html#leukform_csv_validator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.validators.leukform_csv_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>NOTTESTED</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="leukapp.apps.leukforms.validators.leukform_rows_validator">
+<code class="descclassname">leukapp.apps.leukforms.validators.</code><code class="descname">leukform_rows_validator</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/validators.html#leukform_rows_validator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.validators.leukform_rows_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate that rows look good</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="leukapp.apps.leukforms.validators.leukform_specimen_order_validator">
+<code class="descclassname">leukapp.apps.leukforms.validators.</code><code class="descname">leukform_specimen_order_validator</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/validators.html#leukform_specimen_order_validator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.validators.leukform_specimen_order_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate whether or not the order submitted is valid.</p>
+<p>This function makes sure that the Specimen.order is unique at the
+Individual.ext_id (or Individual.slug if the leukid is submitted)
+and Specimen.ext_id levels.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-leukapp.apps.leukforms.views">
+<span id="leukapp-apps-leukforms-views-module"></span><h2>leukapp.apps.leukforms.views module<a class="headerlink" href="#module-leukapp.apps.leukforms.views" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Most of these views inherits from Django&#8217;s <cite>Class Based Views</cite>. See:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="https://docs.djangoproject.com/en/1.8/topics/class-based-views/">https://docs.djangoproject.com/en/1.8/topics/class-based-views/</a></li>
+<li><a class="reference external" href="http://ccbv.co.uk/projects/Django/1.8/">http://ccbv.co.uk/projects/Django/1.8/</a></li>
+<li><a class="reference external" href="http://www.pydanny.com/stay-with-the-django-cbv-defaults.html">http://www.pydanny.com/stay-with-the-django-cbv-defaults.html</a></li>
+<li><a class="reference external" href="http://www.pydanny.com/tag/class-based-views.html">http://www.pydanny.com/tag/class-based-views.html</a></li>
+</ul>
+</dd>
+</dl>
+<dl class="class">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.views.</code><code class="descname">LeukformCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.messages.views.SuccessMessageMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>View for creating a new object, with a response rendered by template.
+See: <a class="reference external" href="http://ccbv.co.uk/CreateView/">http://ccbv.co.uk/CreateView/</a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.fields">
+<code class="descname">fields</code><em class="property"> = ['description', 'submission', 'mock']</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformCreateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add created_by to form</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Leukform</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.permission_denied_message">
+<code class="descname">permission_denied_message</code><em class="property"> = &quot;\n    You don't have permission to perform this action, please contact a Leukgen\n    Administrator\n    &quot;</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = ('leukforms.add_leukform',)</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.permission_required" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.raise_exception">
+<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.succes_msg">
+<code class="descname">succes_msg</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.succes_msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.leukforms.views.LeukformDetailView">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.views.</code><code class="descname">LeukformDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformDetailView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformDetailView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Render a &#8220;detail&#8221; view of an object. By default this is a model instance
+looked up from <cite>self.queryset</cite>, but the view will support display of <em>any</em>
+object by overriding <cite>self.get_object()</cite>.
+See: <a class="reference external" href="http://ccbv.co.uk/DetailView/">http://ccbv.co.uk/DetailView/</a></p>
+<dl class="method">
+<dt id="leukapp.apps.leukforms.views.LeukformDetailView.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformDetailView.get_context_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformDetailView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformDetailView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformDetailView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Leukform</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.leukforms.views.LeukformListView">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.views.</code><code class="descname">LeukformListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Render some list of objects, set by <cite>self.model</cite> or <cite>self.queryset</cite>.
+<cite>self.queryset</cite> can actually be any iterable of items, not just a queryset.
+See: <a class="reference external" href="http://ccbv.co.uk/ListView/">http://ccbv.co.uk/ListView/</a></p>
+<dl class="method">
+<dt id="leukapp.apps.leukforms.views.LeukformListView.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformListView.get_context_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformListView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.views.LeukformListView.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformListView.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformListView.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformListView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Leukform</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformListView.paginate_by">
+<code class="descname">paginate_by</code><em class="property"> = 20</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformListView.paginate_by" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.leukforms.views.LeukformRedirectView">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.views.</code><code class="descname">LeukformRedirectView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformRedirectView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformRedirectView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.base.RedirectView</span></code></p>
+<p>A view that provides a redirect on any GET request.
+See: <a class="reference external" href="http://ccbv.co.uk/RedirectView/">http://ccbv.co.uk/RedirectView/</a></p>
+<dl class="method">
+<dt id="leukapp.apps.leukforms.views.LeukformRedirectView.get_redirect_url">
+<code class="descname">get_redirect_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformRedirectView.get_redirect_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformRedirectView.get_redirect_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformRedirectView.permanent">
+<code class="descname">permanent</code><em class="property"> = False</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformRedirectView.permanent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView">
+<em class="property">class </em><code class="descclassname">leukapp.apps.leukforms.views.</code><code class="descname">LeukformUpdateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformUpdateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.messages.views.SuccessMessageMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>View for updating an object, with a response rendered by template.
+See: <a class="reference external" href="http://ccbv.co.uk/UpdateView/">http://ccbv.co.uk/UpdateView/</a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.fields">
+<code class="descname">fields</code><em class="property"> = ['description']</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Leukform</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.permission_denied_message">
+<code class="descname">permission_denied_message</code><em class="property"> = &quot;\n    You don't have permission to perform this action, please contact a Leukgen\n    Administrator\n    &quot;</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = ('leukforms.change_leukform',)</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.permission_required" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.raise_exception">
+<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.succes_msg">
+<code class="descname">succes_msg</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.succes_msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="leukapp.apps.leukforms.views.download_result">
+<code class="descclassname">leukapp.apps.leukforms.views.</code><code class="descname">download_result</code><span class="sig-paren">(</span><em>request</em>, <em>slug</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#download_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.download_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>FBV to download leukform results</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="leukapp.apps.leukforms.views.get_item">
+<code class="descclassname">leukapp.apps.leukforms.views.</code><code class="descname">get_item</code><span class="sig-paren">(</span><em>dictionary</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#get_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.get_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-leukapp.apps.leukforms">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-leukapp.apps.leukforms" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">leukapp.apps.leukforms package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-leukapp.apps.leukforms.admin">leukapp.apps.leukforms.admin module</a></li>
+<li><a class="reference internal" href="#module-leukapp.apps.leukforms.constants">leukapp.apps.leukforms.constants module</a></li>
+<li><a class="reference internal" href="#module-leukapp.apps.leukforms.factories">leukapp.apps.leukforms.factories module</a></li>
+<li><a class="reference internal" href="#module-leukapp.apps.leukforms.forms">leukapp.apps.leukforms.forms module</a></li>
+<li><a class="reference internal" href="#leukapp-apps-leukforms-models-module">leukapp.apps.leukforms.models module</a></li>
+<li><a class="reference internal" href="#module-leukapp.apps.leukforms.urls">leukapp.apps.leukforms.urls module</a></li>
+<li><a class="reference internal" href="#module-leukapp.apps.leukforms.utils">leukapp.apps.leukforms.utils module</a></li>
+<li><a class="reference internal" href="#module-leukapp.apps.leukforms.validators">leukapp.apps.leukforms.validators module</a></li>
+<li><a class="reference internal" href="#module-leukapp.apps.leukforms.views">leukapp.apps.leukforms.views module</a></li>
+<li><a class="reference internal" href="#module-leukapp.apps.leukforms">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">leukapp</a><ul>
+  <li><a href="leukapp.html">leukapp package</a><ul>
+  <li><a href="leukapp.apps.html">leukapp.apps package</a><ul>
+      <li>Previous: <a href="leukapp.apps.individuals.html" title="previous chapter">leukapp.apps.individuals package</a></li>
+      <li>Next: <a href="leukapp.apps.leukforms.management.html" title="next chapter">leukapp.apps.leukforms.management package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/leukapp/leukapp.apps.leukforms.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Juan Medina.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../_sources/leukapp/leukapp.apps.leukforms.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

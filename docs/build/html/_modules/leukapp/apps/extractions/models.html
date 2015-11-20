@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>leukapp.apps.extractions.models &mdash; leukapp 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="leukapp 0.1 documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for leukapp.apps.extractions.models</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># django</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+
+<span class="c"># leukapp</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.core.models</span> <span class="kn">import</span> <span class="n">LeukappModel</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.core.validators</span> <span class="kn">import</span> <span class="n">ext_id_validator</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.core.utils</span> <span class="kn">import</span> <span class="n">LeukConnect</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.core.constants</span> <span class="kn">import</span> <span class="n">UNKNOWN</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.aliquots.models</span> <span class="kn">import</span> <span class="n">Aliquot</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.projects.models</span> <span class="kn">import</span> <span class="n">Project</span>
+
+<span class="c"># local</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span>
+<span class="kn">from</span> <span class="nn">.validators</span> <span class="kn">import</span> <span class="n">projects_list_validator</span>
+
+
+<div class="viewcode-block" id="Extraction"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.extractions.html#leukapp.apps.extractions.models.Extraction">[docs]</a><span class="k">class</span> <span class="nc">Extraction</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">APP_NAME</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
+    <span class="n">CHOICES</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_CHOICES</span>
+
+    <span class="c"># external fields</span>
+    <span class="n">aliquot</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">Aliquot</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;aliquot&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="n">analyte</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;biological material&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;ANALYTE&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="n">projects</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span>
+        <span class="n">Project</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;projects&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">projects_list</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;list of projetcs&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">projects_list_validator</span><span class="p">],</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;Include the projects pks separated by a &#39;|&#39; character&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">platform</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;platform&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;PLATFORM&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="n">technology</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;technology&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;TECHNOLOGY&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing center&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;CENTER&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="n">ext_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing center id&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">ext_id_validator</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">UNKNOWN</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
+            <span class="s">&quot;The sequencing center id.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c"># internal fields</span>
+    <span class="n">int_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;internal id&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
+        <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span><span class="p">)</span>
+        <span class="n">unique_together</span> <span class="o">=</span> <span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_UNIQUE_TOGETHER</span><span class="p">)</span>
+        <span class="n">index_together</span> <span class="o">=</span> <span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_UNIQUE_TOGETHER</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
+
+    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; _if_new is executed the first time the object is created &quot;&quot;&quot;</span>
+
+        <span class="c"># This function can only be called from save()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
+
+        <span class="c"># get internal id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_int_id</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; NOTTESTED _if_save() is executed everytime the object is saved &quot;&quot;&quot;</span>
+
+        <span class="c"># This function can only be called from save()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
+
+        <span class="c"># update object slug</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span><span class="p">])</span>
+
+        <span class="c"># update projects</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_projects_from_list</span><span class="p">()</span>
+
+        <span class="c"># update data center</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_leukcd_run_dir</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_projects_from_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; NOTTESTED NOTDOCUMENTED &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">projects_list</span><span class="p">:</span>
+            <span class="n">projects</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">projects_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;|&quot;</span><span class="p">)]</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_get_int_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; return int_id based on count of tumors/normals per Individual &quot;&quot;&quot;</span>
+
+        <span class="c"># This function can only be called from _if_new()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_if_new</span><span class="p">()</span>
+
+        <span class="c"># get internal id</span>
+        <span class="n">analyte_id</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">LEUKID_ANALYTE</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">analyte</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyte</span> <span class="o">==</span> <span class="n">constants</span><span class="o">.</span><span class="n">DNA</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">dna_extractions_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="n">analyte_id</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">dna_extractions_count</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyte</span> <span class="o">==</span> <span class="n">constants</span><span class="o">.</span><span class="n">RNA</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">rna_extractions_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="n">analyte_id</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">rna_extractions_count</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span>
+
+    <span class="k">def</span> <span class="nf">_create_leukcd_run_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function ssh to leukdc and creates a run directory.&quot;&quot;&quot;</span>
+        <span class="c"># NOTTESTED</span>
+
+        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">TESTING</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">try</span><span class="p">:</span>  <span class="c"># if LEUKCD_ACTIVE is TRUE, creates a dir at the Data Center</span>
+            <span class="n">leukcd</span> <span class="o">=</span> <span class="n">LeukConnect</span><span class="p">()</span>
+            <span class="n">projects</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+            <span class="c"># root directories</span>
+            <span class="n">projectsroot</span> <span class="o">=</span> <span class="n">leukcd</span><span class="o">.</span><span class="n">LEUKDC_PROJECTS_DIR</span>
+            <span class="n">samplesroot</span> <span class="o">=</span> <span class="n">leukcd</span><span class="o">.</span><span class="n">LEUKDC_SAMPLES_DIR</span>
+
+            <span class="c"># specific paths</span>
+            <span class="n">projectspathlist</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">technology</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">]</span>
+            <span class="n">samplespathlist</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">]</span>
+            <span class="n">pdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">int_id</span><span class="p">]</span> <span class="o">+</span> <span class="n">projectspathlist</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">]</span>
+            <span class="n">pdirs</span> <span class="o">=</span> <span class="p">[</span><span class="n">projectsroot</span> <span class="o">+</span> <span class="n">pdir</span> <span class="k">for</span> <span class="n">pdir</span> <span class="ow">in</span> <span class="n">pdirs</span><span class="p">]</span>
+            <span class="n">sdir</span> <span class="o">=</span> <span class="n">samplesroot</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">samplespathlist</span><span class="p">)</span>
+
+            <span class="c"># create sample directory</span>
+            <span class="n">leukcd</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="s">&#39;mkdir -p </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">sdir</span>
+            <span class="n">leukcd</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+
+            <span class="c"># create directories at projects</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="s">&#39;mkdir -p {0}&#39;</span>
+            <span class="p">[</span><span class="n">leukcd</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdir</span><span class="p">))</span> <span class="k">for</span> <span class="n">pdir</span> <span class="ow">in</span> <span class="n">pdirs</span><span class="p">]</span>
+
+            <span class="c"># create symlinks from samples to projects</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="s">&#39;ln -s {0} {1}&#39;</span>
+            <span class="p">[</span><span class="n">leukcd</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sdir</span><span class="p">,</span> <span class="n">pdir</span><span class="p">))</span> <span class="k">for</span> <span class="n">pdir</span> <span class="ow">in</span> <span class="n">pdirs</span><span class="p">]</span>
+
+            <span class="c"># close connection</span>
+            <span class="n">leukcd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">ImproperlyConfigured</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;LEUKCD_ACTIVE is FALSE&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Juan Medina.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

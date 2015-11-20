@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>leukapp.apps.participants.views &mdash; leukapp 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="leukapp 0.1 documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for leukapp.apps.participants.views</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Most of these views inherits from Django&#39;s `Class Based Views`. See:</span>
+<span class="sd">    • https://docs.djangoproject.com/en/1.8/topics/class-based-views/</span>
+<span class="sd">    • http://ccbv.co.uk/projects/Django/1.8/</span>
+<span class="sd">    • http://www.pydanny.com/stay-with-the-django-cbv-defaults.html</span>
+<span class="sd">    • http://www.pydanny.com/tag/class-based-views.html</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c"># python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="c"># django</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">JsonResponse</span>
+<span class="kn">from</span> <span class="nn">django.views</span> <span class="kn">import</span> <span class="n">generic</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">mixins</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.contrib.messages.views</span> <span class="kn">import</span> <span class="n">SuccessMessageMixin</span>
+
+<span class="c"># third party</span>
+<span class="kn">from</span> <span class="nn">django_modalview.generic.edit</span> <span class="kn">import</span> <span class="n">ModalCreateView</span>
+<span class="kn">from</span> <span class="nn">django_modalview.generic.component</span> <span class="kn">import</span> <span class="n">ModalResponse</span><span class="p">,</span> <span class="n">ModalButton</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">generics</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">permissions</span><span class="p">,</span> <span class="n">authentication</span>
+
+<span class="c"># local</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Participant</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">ParticipantForm</span>
+<span class="kn">from</span> <span class="nn">.serializers</span> <span class="kn">import</span> <span class="n">ParticipantCreateSerializer</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span>
+
+
+<span class="c"># Class Based Views</span>
+<span class="c"># -----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="ParticipantDetailView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.ParticipantDetailView">[docs]</a><span class="k">class</span> <span class="nc">ParticipantDetailView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+                            <span class="n">generic</span><span class="o">.</span><span class="n">DetailView</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render a &quot;detail&quot; view of an object. By default this is a model instance</span>
+<span class="sd">    looked up from `self.queryset`, but the view will support display of *any*</span>
+<span class="sd">    object by overriding `self.get_object()`.</span>
+<span class="sd">    See: http://ccbv.co.uk/DetailView/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Participant</span>
+
+</div>
+<div class="viewcode-block" id="ParticipantListView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.ParticipantListView">[docs]</a><span class="k">class</span> <span class="nc">ParticipantListView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+                          <span class="n">generic</span><span class="o">.</span><span class="n">ListView</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render some list of objects, set by `self.model` or `self.queryset`.</span>
+<span class="sd">    `self.queryset` can actually be any iterable of items, not just a queryset.</span>
+<span class="sd">    See: http://ccbv.co.uk/ListView/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Participant</span>
+
+<div class="viewcode-block" id="ParticipantListView.get_context_data"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.ParticipantListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">super_function</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ParticipantListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">super_function</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">[</span><span class="s">&#39;APP_NAME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
+        <span class="n">context</span><span class="p">[</span><span class="s">&#39;CREATE_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PARTICIPANT_CREATE_URL</span>
+        <span class="n">context</span><span class="p">[</span><span class="s">&#39;LIST_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PARTICIPANT_LIST_URL</span>
+        <span class="k">return</span> <span class="n">context</span>
+
+</div></div>
+<div class="viewcode-block" id="ParticipantRedirectView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.ParticipantRedirectView">[docs]</a><span class="k">class</span> <span class="nc">ParticipantRedirectView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+                              <span class="n">generic</span><span class="o">.</span><span class="n">RedirectView</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A view that provides a redirect on any GET request.</span>
+<span class="sd">    See: http://ccbv.co.uk/RedirectView/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">permanent</span> <span class="o">=</span> <span class="bp">False</span>
+
+<div class="viewcode-block" id="ParticipantRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.ParticipantRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">PARTICIPANT_LIST_URL</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="ParticipantCreateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.ParticipantCreateView">[docs]</a><span class="k">class</span> <span class="nc">ParticipantCreateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
+                            <span class="n">mixins</span><span class="o">.</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span>
+                            <span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+                            <span class="n">generic</span><span class="o">.</span><span class="n">CreateView</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for creating a new object, with a response rendered by template.</span>
+<span class="sd">    See: http://ccbv.co.uk/CreateView/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Participant</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PARTICIPANT_CREATE_FIELDS</span>
+    <span class="n">success_message</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">SUCCESS_MESSAGE</span>
+
+    <span class="c"># Permission configuration</span>
+    <span class="n">permission_required</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PARTICIPANT_CREATE_PERMISSIONS</span>
+    <span class="n">permission_denied_message</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PERMISSION_DENIED_MESSAGE</span>
+    <span class="n">raise_exception</span> <span class="o">=</span> <span class="bp">True</span>
+
+</div>
+<div class="viewcode-block" id="ParticipantUpdateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.ParticipantUpdateView">[docs]</a><span class="k">class</span> <span class="nc">ParticipantUpdateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
+                            <span class="n">mixins</span><span class="o">.</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span>
+                            <span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+                            <span class="n">generic</span><span class="o">.</span><span class="n">UpdateView</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for updating an object, with a response rendered by template.</span>
+<span class="sd">    See: http://ccbv.co.uk/UpdateView/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Participant</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PARTICIPANT_UPDATE_FIELDS</span>
+    <span class="n">success_message</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">SUCCESS_MESSAGE</span>
+
+    <span class="c"># Permission configuration</span>
+    <span class="n">permission_required</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PARTICIPANT_UPDATE_PERMISSIONS</span>
+    <span class="n">permission_denied_message</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PERMISSION_DENIED_MESSAGE</span>
+    <span class="n">raise_exception</span> <span class="o">=</span> <span class="bp">True</span>
+
+</div>
+<div class="viewcode-block" id="ParticipantCreateModal"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.ParticipantCreateModal">[docs]</a><span class="k">class</span> <span class="nc">ParticipantCreateModal</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span>
+                             <span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+                             <span class="n">ModalCreateView</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple class based view to create participants in a modal window.</span>
+<span class="sd">    See: https://github.com/optiflows/django-modalview</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># Permission configuration</span>
+    <span class="n">permission_required</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PARTICIPANT_CREATE_PERMISSIONS</span>
+    <span class="n">permission_denied_message</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PERMISSION_DENIED_MESSAGE</span>
+    <span class="n">raise_exception</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ParticipantCreateModal</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Create Participant&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span> <span class="o">=</span> <span class="n">ParticipantForm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">submit_button</span> <span class="o">=</span> <span class="n">ModalButton</span><span class="p">(</span><span class="s">&quot;Submit&quot;</span><span class="p">,</span> <span class="n">button_type</span><span class="o">=</span><span class="s">&#39;primary&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_button</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="ParticipantCreateModal.form_valid"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.ParticipantCreateModal.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">ModalResponse</span><span class="p">(</span><span class="s">&quot;Added&quot;</span><span class="p">,</span> <span class="s">&quot;success&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ParticipantCreateModal</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="c"># Function Based Views</span>
+<span class="c"># -----------------------------------------------------------------------------</span>
+</div></div>
+<div class="viewcode-block" id="search_participant"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.search_participant">[docs]</a><span class="k">def</span> <span class="nf">search_participant</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View used to return participants for a token-input jQuery plugin.</span>
+<span class="sd">    See: http://loopj.com/jquery-tokeninput/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;q&#39;</span><span class="p">)</span>
+        <span class="n">queryset</span> <span class="o">=</span> <span class="n">Participant</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">email__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">queryset</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">pk</span><span class="p">),</span> <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">email</span><span class="p">}</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+
+<span class="c"># API</span>
+<span class="c"># -----------------------------------------------------------------------------</span>
+</div>
+<div class="viewcode-block" id="ParticipantCreateReadView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.participants.html#leukapp.apps.participants.views.ParticipantCreateReadView">[docs]</a><span class="k">class</span> <span class="nc">ParticipantCreateReadView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListCreateAPIView</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Concrete view for listing a queryset or creating a model instance.</span>
+<span class="sd">    See: http://www.cdrf.co/3.3/rest_framework.generics/ListCreateAPIView.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># API settings</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Participant</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ParticipantCreateSerializer</span>
+    <span class="n">lookup_field</span> <span class="o">=</span> <span class="s">&#39;slug&#39;</span>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">DjangoModelPermissions</span><span class="p">,)</span>
+    <span class="n">authentication_classes</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">authentication</span><span class="o">.</span><span class="n">SessionAuthentication</span><span class="p">,</span>
+        <span class="n">authentication</span><span class="o">.</span><span class="n">BasicAuthentication</span>
+        <span class="p">)</span>
+
+    <span class="c"># Search configuration</span>
+    <span class="n">filter_backends</span> <span class="o">=</span> <span class="p">(</span><span class="n">filters</span><span class="o">.</span><span class="n">SearchFilter</span><span class="p">,</span> <span class="n">filters</span><span class="o">.</span><span class="n">DjangoFilterBackend</span><span class="p">)</span>
+    <span class="n">filter_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;email&#39;</span><span class="p">,</span> <span class="s">&#39;first_name&#39;</span><span class="p">)</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;email&#39;</span><span class="p">,</span> <span class="s">&#39;first_name&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Juan Medina.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
