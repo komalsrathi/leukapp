@@ -14,7 +14,8 @@ from .common import *  # noqa
 # -----------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Raises ImproperlyConfigured exception if DJANGO_SECRET_KEY not in os.environ
-SECRET_KEY = env("DJANGO_SECRET_KEY")
+SECRET_KEY = env("DJANGO_SECRET_KEY",
+    default='CHANGEME!!!lp#7%-y6+lsk0yv$9d-22=n^ab8x5hkb!(#d$u2vi5+2-2w&@@')
 
 # MIDDLEWARE SECURITY
 # -----------------------------------------------------------------------------
