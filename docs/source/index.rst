@@ -15,6 +15,7 @@ Contents:
     install
     deploy
     leukapp/modules
+    leukapp/leukapp.apps.individuals
 
 Indices and tables
 ==================
