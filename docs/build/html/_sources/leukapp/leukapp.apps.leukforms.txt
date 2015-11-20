@@ -11,78 +11,17 @@ Subpackages
 Submodules
 ----------
 
-leukapp.apps.leukforms.admin module
------------------------------------
+.. toctree::
 
-.. automodule:: leukapp.apps.leukforms.admin
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.leukforms.constants module
----------------------------------------
-
-.. automodule:: leukapp.apps.leukforms.constants
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.leukforms.factories module
----------------------------------------
-
-.. automodule:: leukapp.apps.leukforms.factories
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.leukforms.forms module
------------------------------------
-
-.. automodule:: leukapp.apps.leukforms.forms
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.leukforms.models module
-------------------------------------
-
-.. automodule:: leukapp.apps.leukforms.models
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.leukforms.urls module
-----------------------------------
-
-.. automodule:: leukapp.apps.leukforms.urls
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.leukforms.utils module
------------------------------------
-
-.. automodule:: leukapp.apps.leukforms.utils
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.leukforms.validators module
-----------------------------------------
-
-.. automodule:: leukapp.apps.leukforms.validators
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.leukforms.views module
------------------------------------
-
-.. automodule:: leukapp.apps.leukforms.views
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   leukapp.apps.leukforms.admin
+   leukapp.apps.leukforms.constants
+   leukapp.apps.leukforms.factories
+   leukapp.apps.leukforms.forms
+   leukapp.apps.leukforms.models
+   leukapp.apps.leukforms.urls
+   leukapp.apps.leukforms.utils
+   leukapp.apps.leukforms.validators
+   leukapp.apps.leukforms.views
 
 Module contents
 ---------------

@@ -11,62 +11,15 @@ Subpackages
 Submodules
 ----------
 
-leukapp.apps.extractions.admin module
--------------------------------------
+.. toctree::
 
-.. automodule:: leukapp.apps.extractions.admin
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.extractions.constants module
------------------------------------------
-
-.. automodule:: leukapp.apps.extractions.constants
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.extractions.factories module
------------------------------------------
-
-.. automodule:: leukapp.apps.extractions.factories
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.extractions.models module
---------------------------------------
-
-.. automodule:: leukapp.apps.extractions.models
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.extractions.urls module
-------------------------------------
-
-.. automodule:: leukapp.apps.extractions.urls
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.extractions.validators module
-------------------------------------------
-
-.. automodule:: leukapp.apps.extractions.validators
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.extractions.views module
--------------------------------------
-
-.. automodule:: leukapp.apps.extractions.views
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   leukapp.apps.extractions.admin
+   leukapp.apps.extractions.constants
+   leukapp.apps.extractions.factories
+   leukapp.apps.extractions.models
+   leukapp.apps.extractions.urls
+   leukapp.apps.extractions.validators
+   leukapp.apps.extractions.views
 
 Module contents
 ---------------

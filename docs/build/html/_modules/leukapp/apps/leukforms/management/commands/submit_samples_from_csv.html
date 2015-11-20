@@ -51,7 +51,7 @@
 <span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
 
 
-<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../../../leukapp/leukapp.apps.leukforms.management.commands.html#leukapp.apps.leukforms.management.commands.submit_samples_from_csv.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../../../leukapp/leukapp.apps.leukforms.management.commands.submit_samples_from_csv.html#leukapp.apps.leukforms.management.commands.submit_samples_from_csv.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets create form fields for Individuals, Specimens and Aliquots</span>
@@ -59,11 +59,11 @@
 
     <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;Gets create form fields for Individuals, Specimens and Aliquots&#39;</span>
 
-<div class="viewcode-block" id="Command.add_arguments"><a class="viewcode-back" href="../../../../../../leukapp/leukapp.apps.leukforms.management.commands.html#leukapp.apps.leukforms.management.commands.submit_samples_from_csv.Command.add_arguments">[docs]</a>    <span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
+<div class="viewcode-block" id="Command.add_arguments"><a class="viewcode-back" href="../../../../../../leukapp/leukapp.apps.leukforms.management.commands.submit_samples_from_csv.html#leukapp.apps.leukforms.management.commands.submit_samples_from_csv.Command.add_arguments">[docs]</a>    <span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;filename&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
     <span class="c"># raise CommandError(&#39;Poll &quot;%s&quot; does not exist&#39; % poll_id)</span>
 </div>
-<div class="viewcode-block" id="Command.handle"><a class="viewcode-back" href="../../../../../../leukapp/leukapp.apps.leukforms.management.commands.html#leukapp.apps.leukforms.management.commands.submit_samples_from_csv.Command.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<div class="viewcode-block" id="Command.handle"><a class="viewcode-back" href="../../../../../../leukapp/leukapp.apps.leukforms.management.commands.submit_samples_from_csv.html#leukapp.apps.leukforms.management.commands.submit_samples_from_csv.Command.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span> <span class="o">+</span> <span class="n">options</span><span class="p">[</span><span class="s">&#39;filename&#39;</span><span class="p">]</span>
 
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">leukform</span><span class="p">:</span>

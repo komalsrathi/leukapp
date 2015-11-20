@@ -4,14 +4,9 @@ leukapp.apps.core.templatetags package
 Submodules
 ----------
 
-leukapp.apps.core.templatetags.core_tags module
------------------------------------------------
+.. toctree::
 
-.. automodule:: leukapp.apps.core.templatetags.core_tags
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   leukapp.apps.core.templatetags.core_tags
 
 Module contents
 ---------------

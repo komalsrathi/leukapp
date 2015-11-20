@@ -4,14 +4,9 @@ leukapp.taskapp package
 Submodules
 ----------
 
-leukapp.taskapp.celery module
------------------------------
+.. toctree::
 
-.. automodule:: leukapp.taskapp.celery
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   leukapp.taskapp.celery
 
 Module contents
 ---------------

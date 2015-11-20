@@ -54,7 +54,7 @@
 <span class="n">env</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">Env</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="LeukConnect"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.utils.LeukConnect">[docs]</a><span class="k">class</span> <span class="nc">LeukConnect</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukConnect"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.utils.html#leukapp.apps.core.utils.LeukConnect">[docs]</a><span class="k">class</span> <span class="nc">LeukConnect</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;NOTTESTED</span>
 <span class="sd">    This class is used to send commands to the Leukgen Data Center (leukdc)</span>
@@ -75,7 +75,7 @@
             <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;LEUKDC_ACTIVE environment variable must be set to TRUE&#39;</span>
             <span class="k">raise</span><span class="p">(</span><span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
 
-<div class="viewcode-block" id="LeukConnect.connect"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.utils.LeukConnect.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukConnect.connect"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.utils.html#leukapp.apps.core.utils.LeukConnect.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ssh</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">LEUKDC_HOST</span><span class="p">,</span>
             <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">LEUKDC_USER</span><span class="p">,</span>
@@ -83,10 +83,10 @@
             <span class="n">key_filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">LEUKDC_SSHKEY</span><span class="p">,</span>
             <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="LeukConnect.exec_command"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.utils.LeukConnect.exec_command">[docs]</a>    <span class="k">def</span> <span class="nf">exec_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukConnect.exec_command"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.utils.html#leukapp.apps.core.utils.LeukConnect.exec_command">[docs]</a>    <span class="k">def</span> <span class="nf">exec_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ssh</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="LeukConnect.close"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.utils.LeukConnect.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukConnect.close"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.utils.html#leukapp.apps.core.utils.LeukConnect.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ssh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
 </pre></div>
 

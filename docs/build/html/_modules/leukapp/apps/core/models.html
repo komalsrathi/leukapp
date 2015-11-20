@@ -50,7 +50,7 @@
 <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">transaction</span>
 
 
-<div class="viewcode-block" id="TimeStampedModel"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.models.TimeStampedModel">[docs]</a><span class="k">class</span> <span class="nc">TimeStampedModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="TimeStampedModel"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.models.html#leukapp.apps.core.models.TimeStampedModel">[docs]</a><span class="k">class</span> <span class="nc">TimeStampedModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An abstract base class model that provides self-updating</span>
@@ -62,21 +62,21 @@
     <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">modified</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TimeStampedModel.Meta"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.models.TimeStampedModel.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="TimeStampedModel.Meta"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.models.html#leukapp.apps.core.models.TimeStampedModel.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">abstract</span> <span class="o">=</span> <span class="bp">True</span>
 
 </div></div>
-<div class="viewcode-block" id="LeukappModel"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.models.LeukappModel">[docs]</a><span class="k">class</span> <span class="nc">LeukappModel</span><span class="p">(</span><span class="n">TimeStampedModel</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukappModel"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel">[docs]</a><span class="k">class</span> <span class="nc">LeukappModel</span><span class="p">(</span><span class="n">TimeStampedModel</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Leukapp Base Model</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="LeukappModel.Meta"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.models.LeukappModel.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="LeukappModel.Meta"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">abstract</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
     <span class="nd">@transaction.atomic</span>
-<div class="viewcode-block" id="LeukappModel.save"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.models.LeukappModel.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukappModel.save"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        slug requires pk for new objects</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -96,11 +96,11 @@
 
         <span class="nb">super</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="LeukappModel.get_absolute_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.models.LeukappModel.get_absolute_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukappModel.get_absolute_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel.get_absolute_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns the object detail url. &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">APP_NAME</span> <span class="o">+</span> <span class="s">&#39;:detail&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;slug&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">})</span>
 </div>
-<div class="viewcode-block" id="LeukappModel.get_update_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.models.LeukappModel.get_update_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_update_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukappModel.get_update_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel.get_update_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_update_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns the object&#39;s update url. &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">APP_NAME</span> <span class="o">+</span> <span class="s">&#39;:update&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;slug&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">})</span>
 </div>
@@ -135,7 +135,7 @@
             <span class="k">raise</span><span class="p">(</span><span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="LeukappTestModel"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.html#leukapp.apps.core.models.LeukappTestModel">[docs]</a><span class="k">class</span> <span class="nc">LeukappTestModel</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukappTestModel"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappTestModel">[docs]</a><span class="k">class</span> <span class="nc">LeukappTestModel</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    this model only serves the purpose of testing the abstract models above</span>

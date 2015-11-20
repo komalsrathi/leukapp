@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>leukapp.apps.individuals.admin module &mdash; leukapp 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="leukapp 0.1 documentation" href="../index.html" />
+    <link rel="up" title="leukapp.apps.individuals package" href="leukapp.apps.individuals.html" />
+    <link rel="next" title="leukapp.apps.individuals.constants module" href="leukapp.apps.individuals.constants.html" />
+    <link rel="prev" title="leukapp.apps.individuals package" href="leukapp.apps.individuals.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-leukapp.apps.individuals.admin">
+<span id="leukapp-apps-individuals-admin-module"></span><h1>leukapp.apps.individuals.admin module<a class="headerlink" href="#module-leukapp.apps.individuals.admin" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="leukapp.apps.individuals.admin.IndividualAdmin">
+<em class="property">class </em><code class="descclassname">leukapp.apps.individuals.admin.</code><code class="descname">IndividualAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/individuals/admin.html#IndividualAdmin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.individuals.admin.IndividualAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.admin.options.ModelAdmin</span></code></p>
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.admin.IndividualAdmin.inlines">
+<code class="descname">inlines</code><em class="property"> = [&lt;class 'leukapp.apps.individuals.admin.SpecimenInline'&gt;]</em><a class="headerlink" href="#leukapp.apps.individuals.admin.IndividualAdmin.inlines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.admin.IndividualAdmin.media">
+<code class="descname">media</code><a class="headerlink" href="#leukapp.apps.individuals.admin.IndividualAdmin.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.individuals.admin.SpecimenInline">
+<em class="property">class </em><code class="descclassname">leukapp.apps.individuals.admin.</code><code class="descname">SpecimenInline</code><span class="sig-paren">(</span><em>parent_model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/individuals/admin.html#SpecimenInline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.admin.options.StackedInline</span></code></p>
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.admin.SpecimenInline.extra">
+<code class="descname">extra</code><em class="property"> = 2</em><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.admin.SpecimenInline.media">
+<code class="descname">media</code><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.admin.SpecimenInline.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Specimen</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="leukapp.apps.individuals.html">leukapp.apps.individuals package</a><ul>
+      <li>Previous: <a href="leukapp.apps.individuals.html" title="previous chapter">leukapp.apps.individuals package</a></li>
+      <li>Next: <a href="leukapp.apps.individuals.constants.html" title="next chapter">leukapp.apps.individuals.constants module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/leukapp/leukapp.apps.individuals.admin.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Juan Medina.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../_sources/leukapp/leukapp.apps.individuals.admin.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

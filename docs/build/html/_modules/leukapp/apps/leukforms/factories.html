@@ -61,7 +61,7 @@
 <span class="n">ProjectFactory</span> <span class="o">=</span> <span class="n">LEUKAPP_FACTORIES</span><span class="p">[</span><span class="s">&#39;Project&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="LeukformSamplesFactory"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory">[docs]</a><span class="k">class</span> <span class="nc">LeukformSamplesFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformSamplesFactory"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory">[docs]</a><span class="k">class</span> <span class="nc">LeukformSamplesFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A leukform samples factory. This factory is mainly used to test the</span>
@@ -106,7 +106,7 @@
             <span class="s">&#39;Extraction&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
             <span class="p">}</span>
 
-<div class="viewcode-block" id="LeukformSamplesFactory.create_batch"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_batch">[docs]</a>    <span class="k">def</span> <span class="nf">create_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individuals</span><span class="p">,</span> <span class="n">specimens</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">aliquots</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">extractions</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<div class="viewcode-block" id="LeukformSamplesFactory.create_batch"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_batch">[docs]</a>    <span class="k">def</span> <span class="nf">create_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individuals</span><span class="p">,</span> <span class="n">specimens</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">aliquots</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">extractions</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">delete</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a batch of samples and returns them in a leukform format.</span>
@@ -157,7 +157,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span>
 </div>
-<div class="viewcode-block" id="LeukformSamplesFactory.get_rows"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.get_rows">[docs]</a>    <span class="k">def</span> <span class="nf">get_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformSamplesFactory.get_rows"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.get_rows">[docs]</a>    <span class="k">def</span> <span class="nf">get_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; if shuffle, returns shuffled rows; else, returns rows &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">shuffle</span><span class="p">:</span>
             <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span>
@@ -232,7 +232,7 @@
             <span class="n">instance</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_row</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
 
-<div class="viewcode-block" id="LeukformSamplesFactory.create_csv_from_rows"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_csv_from_rows">[docs]</a>    <span class="k">def</span> <span class="nf">create_csv_from_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformSamplesFactory.create_csv_from_rows"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_csv_from_rows">[docs]</a>    <span class="k">def</span> <span class="nf">create_csv_from_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a csv from rows.</span>
 <span class="sd">        Returns: Path of csv</span>
@@ -253,7 +253,7 @@
 
         <span class="k">return</span> <span class="n">path</span>
 </div>
-<div class="viewcode-block" id="LeukformSamplesFactory.create_stringio_from_rows"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_stringio_from_rows">[docs]</a>    <span class="k">def</span> <span class="nf">create_stringio_from_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformSamplesFactory.create_stringio_from_rows"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_stringio_from_rows">[docs]</a>    <span class="k">def</span> <span class="nf">create_stringio_from_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a StringIO from rows.</span>
 <span class="sd">        Returns: StringIO</span>

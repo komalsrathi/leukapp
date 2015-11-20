@@ -4,54 +4,14 @@ leukapp.apps.individuals package
 Submodules
 ----------
 
-leukapp.apps.individuals.admin module
--------------------------------------
+.. toctree::
 
-.. automodule:: leukapp.apps.individuals.admin
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.individuals.constants module
------------------------------------------
-
-.. automodule:: leukapp.apps.individuals.constants
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.individuals.factories module
------------------------------------------
-
-.. automodule:: leukapp.apps.individuals.factories
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.individuals.models module
---------------------------------------
-
-.. automodule:: leukapp.apps.individuals.models
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.individuals.urls module
-------------------------------------
-
-.. automodule:: leukapp.apps.individuals.urls
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-leukapp.apps.individuals.views module
--------------------------------------
-
-.. automodule:: leukapp.apps.individuals.views
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   leukapp.apps.individuals.admin
+   leukapp.apps.individuals.constants
+   leukapp.apps.individuals.factories
+   leukapp.apps.individuals.models
+   leukapp.apps.individuals.urls
+   leukapp.apps.individuals.views
 
 Module contents
 ---------------

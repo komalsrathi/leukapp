@@ -3,6 +3,7 @@ rm -rf source/leukapp
 mkdir -p source/leukapp
 
 sphinx-apidoc \
+    -e \
     -o source/leukapp \
     $PROJECT_DIR/leukapp \
     $PROJECT_DIR/leukapp/contrib \

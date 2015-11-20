@@ -4,14 +4,9 @@ leukapp.apps.extractions.management.commands package
 Submodules
 ----------
 
-leukapp.apps.extractions.management.commands.get_sample_fields module
----------------------------------------------------------------------
+.. toctree::
 
-.. automodule:: leukapp.apps.extractions.management.commands.get_sample_fields
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   leukapp.apps.extractions.management.commands.get_sample_fields
 
 Module contents
 ---------------

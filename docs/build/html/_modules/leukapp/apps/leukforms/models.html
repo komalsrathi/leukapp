@@ -62,7 +62,7 @@
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">LeukformLoader</span>
 
 
-<div class="viewcode-block" id="Leukform"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.html#leukapp.apps.leukforms.models.Leukform">[docs]</a><span class="k">class</span> <span class="nc">Leukform</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
+<div class="viewcode-block" id="Leukform"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.models.html#leukapp.apps.leukforms.models.Leukform">[docs]</a><span class="k">class</span> <span class="nc">Leukform</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=2010180721</span>
@@ -168,7 +168,7 @@
 
 </div>
 <span class="nd">@receiver</span><span class="p">(</span><span class="n">post_delete</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="n">Leukform</span><span class="p">)</span>
-<div class="viewcode-block" id="leukform_delete"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.html#leukapp.apps.leukforms.models.leukform_delete">[docs]</a><span class="k">def</span> <span class="nf">leukform_delete</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="leukform_delete"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.models.html#leukapp.apps.leukforms.models.leukform_delete">[docs]</a><span class="k">def</span> <span class="nf">leukform_delete</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="c"># Pass false so FileField doesn&#39;t save the model.</span>
     <span class="n">instance</span><span class="o">.</span><span class="n">submission</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
     <span class="n">instance</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></div>

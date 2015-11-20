@@ -4,14 +4,9 @@ leukapp.apps.leukforms.management.commands package
 Submodules
 ----------
 
-leukapp.apps.leukforms.management.commands.submit_samples_from_csv module
--------------------------------------------------------------------------
+.. toctree::
 
-.. automodule:: leukapp.apps.leukforms.management.commands.submit_samples_from_csv
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   leukapp.apps.leukforms.management.commands.submit_samples_from_csv
 
 Module contents
 ---------------

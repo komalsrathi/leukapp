@@ -50,22 +50,22 @@
 <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">User</span>
 
 
-<div class="viewcode-block" id="UserDetailView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserDetailView">[docs]</a><span class="k">class</span> <span class="nc">UserDetailView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">DetailView</span><span class="p">):</span>
+<div class="viewcode-block" id="UserDetailView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.views.html#leukapp.apps.users.views.UserDetailView">[docs]</a><span class="k">class</span> <span class="nc">UserDetailView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">DetailView</span><span class="p">):</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
     <span class="c"># These next two lines tell the view to index lookups by username</span>
     <span class="n">slug_field</span> <span class="o">=</span> <span class="s">&quot;username&quot;</span>
     <span class="n">slug_url_kwarg</span> <span class="o">=</span> <span class="s">&quot;username&quot;</span>
 
 </div>
-<div class="viewcode-block" id="UserRedirectView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserRedirectView">[docs]</a><span class="k">class</span> <span class="nc">UserRedirectView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">RedirectView</span><span class="p">):</span>
+<div class="viewcode-block" id="UserRedirectView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.views.html#leukapp.apps.users.views.UserRedirectView">[docs]</a><span class="k">class</span> <span class="nc">UserRedirectView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">RedirectView</span><span class="p">):</span>
     <span class="n">permanent</span> <span class="o">=</span> <span class="bp">False</span>
 
-<div class="viewcode-block" id="UserRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="UserRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.views.html#leukapp.apps.users.views.UserRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&quot;users:detail&quot;</span><span class="p">,</span>
                        <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">})</span>
 
 </div></div>
-<div class="viewcode-block" id="UserUpdateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserUpdateView">[docs]</a><span class="k">class</span> <span class="nc">UserUpdateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">UpdateView</span><span class="p">):</span>
+<div class="viewcode-block" id="UserUpdateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.views.html#leukapp.apps.users.views.UserUpdateView">[docs]</a><span class="k">class</span> <span class="nc">UserUpdateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">UpdateView</span><span class="p">):</span>
 
     <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">,</span> <span class="s">&#39;phone&#39;</span><span class="p">]</span>
 
@@ -73,16 +73,16 @@
     <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
 
     <span class="c"># send the user back to their own page after a successful update</span>
-<div class="viewcode-block" id="UserUpdateView.get_success_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserUpdateView.get_success_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="UserUpdateView.get_success_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.views.html#leukapp.apps.users.views.UserUpdateView.get_success_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&quot;users:detail&quot;</span><span class="p">,</span>
                        <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">})</span>
 </div>
-<div class="viewcode-block" id="UserUpdateView.get_object"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserUpdateView.get_object">[docs]</a>    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="UserUpdateView.get_object"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.views.html#leukapp.apps.users.views.UserUpdateView.get_object">[docs]</a>    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c"># Only get the User record for the user making the request</span>
         <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="UserListView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.html#leukapp.apps.users.views.UserListView">[docs]</a><span class="k">class</span> <span class="nc">UserListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+<div class="viewcode-block" id="UserListView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.users.views.html#leukapp.apps.users.views.UserListView">[docs]</a><span class="k">class</span> <span class="nc">UserListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
     <span class="c"># These next two lines tell the view to index lookups by username</span>
     <span class="n">slug_field</span> <span class="o">=</span> <span class="s">&quot;username&quot;</span>
