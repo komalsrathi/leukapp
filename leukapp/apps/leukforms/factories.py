@@ -15,9 +15,7 @@ from django.conf import settings
 from leukapp.apps.leukforms.utils import get_out_columns
 
 # local
-from .constants import CREATE_FIELDS, LEUKAPP_FACTORIES, MODELS_LIST
-
-ProjectFactory = LEUKAPP_FACTORIES['Project']
+from .constants import CREATE_FIELDS, LEUKAPP_FACTORIES
 
 
 class LeukformSamplesFactory(object):
@@ -38,7 +36,8 @@ class LeukformSamplesFactory(object):
         create_stringio_from_rows: creates StringIO from rows
     """
 
-    projects = [ProjectFactory(title='test ' + str(i)) for i in range(3)]
+    projects = [
+        LEUKAPP_FACTORIES['Project'](title='test ' + str(i)) for i in range(3)]
 
     def __init__(self):
         super(LeukformSamplesFactory, self).__init__()
@@ -230,3 +229,10 @@ class LeukformSamplesFactory(object):
         out.seek(0)
 
         return out
+
+
+# ROUTINE PROTECTION
+# -----------------------------------------------------------------------------
+
+if __name__ == '__main__':
+    pass

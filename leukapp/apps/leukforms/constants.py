@@ -112,7 +112,6 @@ LEUKAPP_FORMS = {
     'Extraction': ExtractionForm
     }
 
-
 # PERMISSIONS
 # -----------------------------------------------------------------------------
 LEUKFORM_CREATE_PERMISSIONS = ('leukforms.add_leukform',)
