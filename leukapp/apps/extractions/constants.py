@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-extractions app constants
+This module contains the :py:mod:`~leukapp.apps.extractions` app constants.
+Information that isn't likely to change and that is used across
+:py:mod:`~leukapp.apps.extractions` and :py:mod:`~leukapp` should be stored
+here.
+
+.. important::
+    Please, **DO NOT** change any constant unless you are sure of what you are
+    doing.
 """
 
 # leukapp
@@ -8,11 +15,16 @@ from leukapp.apps.core import constants as coreconstants
 
 # APP INFO
 # -----------------------------------------------------------------------------
+
 APP_NAME = 'extractions'
+""" Application's name. """
 
 # URLS
 # -----------------------------------------------------------------------------
+
 EXTRACTION_CREATE_URL = APP_NAME + ':create'
+""" :py:class:`~leukapp.apps.extractions.models.Extraction` create url. """
+
 EXTRACTION_LIST_URL = APP_NAME + ':list'
 
 # FIELDS
