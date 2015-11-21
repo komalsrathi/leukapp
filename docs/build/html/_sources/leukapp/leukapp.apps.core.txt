@@ -1,6 +1,11 @@
 leukapp.apps.core package
 =========================
 
+.. automodule:: leukapp.apps.core
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Subpackages
 -----------
 
@@ -20,10 +25,3 @@ Submodules
    leukapp.apps.core.validators
    leukapp.apps.core.views
 
-Module contents
----------------
-
-.. automodule:: leukapp.apps.core
-    :members:
-    :undoc-members:
-    :show-inheritance:

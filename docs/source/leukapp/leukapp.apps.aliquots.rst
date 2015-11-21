@@ -1,6 +1,11 @@
 leukapp.apps.aliquots package
 =============================
 
+.. automodule:: leukapp.apps.aliquots
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Submodules
 ----------
 
@@ -14,10 +19,3 @@ Submodules
    leukapp.apps.aliquots.urls
    leukapp.apps.aliquots.views
 
-Module contents
----------------
-
-.. automodule:: leukapp.apps.aliquots
-    :members:
-    :undoc-members:
-    :show-inheritance:

@@ -1,6 +1,11 @@
 leukapp.apps.leukforms package
 ==============================
 
+.. automodule:: leukapp.apps.leukforms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Subpackages
 -----------
 
@@ -23,10 +28,3 @@ Submodules
    leukapp.apps.leukforms.validators
    leukapp.apps.leukforms.views
 
-Module contents
----------------
-
-.. automodule:: leukapp.apps.leukforms
-    :members:
-    :undoc-members:
-    :show-inheritance:

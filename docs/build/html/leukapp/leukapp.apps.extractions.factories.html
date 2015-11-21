@@ -1,51 +1,259 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>leukapp.apps.extractions.factories module &mdash; leukapp 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="leukapp 0.1 documentation" href="../index.html" />
-    <link rel="up" title="leukapp.apps.extractions package" href="leukapp.apps.extractions.html" />
-    <link rel="next" title="leukapp.apps.extractions.models module" href="leukapp.apps.extractions.models.html" />
-    <link rel="prev" title="leukapp.apps.extractions.constants module" href="leukapp.apps.extractions.constants.html" />
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>leukapp.apps.extractions.factories module &mdash; leukapp 0.1 documentation</title>
+  
 
-  </head>
-  <body role="document">  
+  
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="leukapp 0.1 documentation" href="../index.html"/>
+        <link rel="up" title="leukapp.apps.extractions package" href="leukapp.apps.extractions.html"/>
+        <link rel="next" title="leukapp.apps.extractions.models module" href="leukapp.apps.extractions.models.html"/>
+        <link rel="prev" title="leukapp.apps.extractions.constants module" href="leukapp.apps.extractions.constants.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> leukapp
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../leukid.html">leukid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy.html">Deploy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="leukapp.apps.html">Leukapp</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="leukapp.apps.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.aliquots.html">leukapp.apps.aliquots package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.core.html">leukapp.apps.core package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="leukapp.apps.extractions.html">leukapp.apps.extractions package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="leukapp.apps.extractions.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="leukapp.apps.extractions.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.individuals.html">leukapp.apps.individuals package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.leukforms.html">leukapp.apps.leukforms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.participants.html">leukapp.apps.participants package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.projects.html">leukapp.apps.projects package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.specimens.html">leukapp.apps.specimens package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.users.html">leukapp.apps.users package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">leukapp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="leukapp.apps.html">leukapp.apps package</a> &raquo;</li>
+      
+          <li><a href="leukapp.apps.extractions.html">leukapp.apps.extractions package</a> &raquo;</li>
+      
+    <li>leukapp.apps.extractions.factories module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/leukapp/leukapp.apps.extractions.factories.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="module-leukapp.apps.extractions.factories">
 <span id="leukapp-apps-extractions-factories-module"></span><h1>leukapp.apps.extractions.factories module<a class="headerlink" href="#module-leukapp.apps.extractions.factories" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory">
-<em class="property">class </em><code class="descclassname">leukapp.apps.extractions.factories.</code><code class="descname">ExtractionFactory</code><a class="reference internal" href="../_modules/leukapp/apps/extractions/factories.html#ExtractionFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">ExtractionFactory</code><a class="reference internal" href="../_modules/leukapp/apps/extractions/factories.html#ExtractionFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">factory.django.DjangoModelFactory</span></code></p>
+<p>Creates <a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></a> object, mainly
+for testing purposes.</p>
+<p>If no keyword argument is provided, <code class="docutils literal"><span class="pre">ExtractionFactory</span></code> will generate the
+appropriate attributes.
+See <a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-func docutils literal"><span class="pre">Extraction()</span></code></a> for parameter
+details.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">blabla</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>aliquot</strong> &#8211; <a class="reference internal" href="leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot" title="leukapp.apps.aliquots.models.Aliquot"><code class="xref py py-func docutils literal"><span class="pre">Aliquot()</span></code></a> object. If not provided,
+factory.SubFactory(AliquotFactory) will be used.</li>
+<li><strong>analyte</strong> &#8211; <code class="xref py py-const docutils literal"><span class="pre">ANALYTE</span></code></li>
+<li><strong>platform</strong> &#8211; juan</li>
+<li><strong>technology</strong> &#8211; juan</li>
+<li><strong>center</strong> &#8211; juan</li>
+<li><strong>ext_id</strong> &#8211; juan</li>
+<li><strong>projects_list</strong> &#8211; juan</li>
+<li><strong>projects</strong> &#8211; juan</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+</tbody>
+</table>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-func docutils literal"><span class="pre">Extraction()</span></code></a> object.</td>
+</tr>
+</tbody>
+</table>
+<p>Creates Many to Many relationships to <cite>Project</cite> instances passed
+through the <cite>projects</cite> keyword argument. for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">projects</span> <span class="o">=</span> <span class="p">[</span><span class="n">ProjectFactory</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="n">extraction</span> <span class="o">=</span> <span class="n">ExtractionFactory</span><span class="p">(</span><span class="n">analyte</span><span class="o">=</span><span class="n">DNA</span><span class="p">,</span> <span class="n">projects</span><span class="o">=</span><span class="n">projects</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Example::</dt>
+<dd>extraction = ExtractionFactory(aliquot=AliquotFactory(), analyte=&#8217;DNA&#8217;)</dd>
+</dl>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-func docutils literal"><span class="pre">Extraction()</span></code></a>
+<a class="reference internal" href="leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot" title="leukapp.apps.aliquots.models.Aliquot"><code class="xref py py-func docutils literal"><span class="pre">Aliquot()</span></code></a>
+<a class="reference internal" href="leukapp.apps.aliquots.factories.html#leukapp.apps.aliquots.factories.AliquotFactory" title="leukapp.apps.aliquots.factories.AliquotFactory"><code class="xref py py-func docutils literal"><span class="pre">AliquotFactory()</span></code></a></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">blabla</p>
+</div>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">blabla</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<dl class="last docutils">
+<dt>There are many other Info fields but they may be redundant:</dt>
+<dd><ul class="first last simple">
+<li>param, parameter, arg, argument, key, keyword: Description of a
+parameter.</li>
+<li>type: Type of a parameter.</li>
+<li>raises, raise, except, exception: That (and when) a specific
+exception is raised.</li>
+<li>var, ivar, cvar: Description of a variable.</li>
+<li>returns, return: Description of the return value.</li>
+<li>rtype: Return type.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There are many other directives such as versionadded, versionchanged,
+rubric, centered, ... See the sphinx documentation for more details.</p>
+</div>
+<p>Creates Many to Many relationships to <cite>Project</cite> instances passed
+through the <cite>projects</cite> keyword argument. for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">projects</span> <span class="o">=</span> <span class="p">[</span><span class="n">ProjectFactory</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="n">extraction</span> <span class="o">=</span> <span class="n">ExtractionFactory</span><span class="p">(</span><span class="n">analyte</span><span class="o">=</span><span class="n">DNA</span><span class="p">,</span> <span class="n">projects</span><span class="o">=</span><span class="n">projects</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory.aliquot">
 <code class="descname">aliquot</code><em class="property"> = &lt;factory.declarations.SubFactory object&gt;</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.aliquot" title="Permalink to this definition">¶</a></dt>
@@ -91,65 +299,72 @@
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="modules.html">leukapp</a><ul>
-  <li><a href="leukapp.html">leukapp package</a><ul>
-  <li><a href="leukapp.apps.html">leukapp.apps package</a><ul>
-  <li><a href="leukapp.apps.extractions.html">leukapp.apps.extractions package</a><ul>
-      <li>Previous: <a href="leukapp.apps.extractions.constants.html" title="previous chapter">leukapp.apps.extractions.constants module</a></li>
-      <li>Next: <a href="leukapp.apps.extractions.models.html" title="next chapter">leukapp.apps.extractions.models module</a></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/leukapp/leukapp.apps.extractions.factories.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="leukapp.apps.extractions.models.html" class="btn btn-neutral float-right" title="leukapp.apps.extractions.models module" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="leukapp.apps.extractions.constants.html" class="btn btn-neutral" title="leukapp.apps.extractions.constants module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Juan Medina.
+
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2015, Juan Medina.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
-      
-      |
-      <a href="../_sources/leukapp/leukapp.apps.extractions.factories.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

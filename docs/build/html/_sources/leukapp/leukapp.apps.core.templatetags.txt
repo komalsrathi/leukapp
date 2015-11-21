@@ -1,6 +1,11 @@
 leukapp.apps.core.templatetags package
 ======================================
 
+.. automodule:: leukapp.apps.core.templatetags
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Submodules
 ----------
 
@@ -8,10 +13,3 @@ Submodules
 
    leukapp.apps.core.templatetags.core_tags
 
-Module contents
----------------
-
-.. automodule:: leukapp.apps.core.templatetags
-    :members:
-    :undoc-members:
-    :show-inheritance:

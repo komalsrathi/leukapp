@@ -1,6 +1,11 @@
 leukapp.taskapp package
 =======================
 
+.. automodule:: leukapp.taskapp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Submodules
 ----------
 
@@ -8,10 +13,3 @@ Submodules
 
    leukapp.taskapp.celery
 
-Module contents
----------------
-
-.. automodule:: leukapp.taskapp
-    :members:
-    :undoc-members:
-    :show-inheritance:

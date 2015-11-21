@@ -1,6 +1,11 @@
 leukapp.apps.leukforms.management package
 =========================================
 
+.. automodule:: leukapp.apps.leukforms.management
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Subpackages
 -----------
 
@@ -8,10 +13,3 @@ Subpackages
 
     leukapp.apps.leukforms.management.commands
 
-Module contents
----------------
-
-.. automodule:: leukapp.apps.leukforms.management
-    :members:
-    :undoc-members:
-    :show-inheritance:

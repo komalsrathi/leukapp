@@ -1,6 +1,11 @@
 leukapp.apps.extractions package
 ================================
 
+.. automodule:: leukapp.apps.extractions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Subpackages
 -----------
 
@@ -21,10 +26,3 @@ Submodules
    leukapp.apps.extractions.validators
    leukapp.apps.extractions.views
 
-Module contents
----------------
-
-.. automodule:: leukapp.apps.extractions
-    :members:
-    :undoc-members:
-    :show-inheritance:

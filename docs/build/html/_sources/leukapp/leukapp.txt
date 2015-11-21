@@ -1,6 +1,11 @@
 leukapp package
 ===============
 
+.. automodule:: leukapp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Subpackages
 -----------
 
@@ -9,10 +14,3 @@ Subpackages
     leukapp.apps
     leukapp.taskapp
 
-Module contents
----------------
-
-.. automodule:: leukapp
-    :members:
-    :undoc-members:
-    :show-inheritance:

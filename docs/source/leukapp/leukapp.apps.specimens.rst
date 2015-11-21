@@ -1,6 +1,11 @@
 leukapp.apps.specimens package
 ==============================
 
+.. automodule:: leukapp.apps.specimens
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Submodules
 ----------
 
@@ -14,10 +19,3 @@ Submodules
    leukapp.apps.specimens.urls
    leukapp.apps.specimens.views
 
-Module contents
----------------
-
-.. automodule:: leukapp.apps.specimens
-    :members:
-    :undoc-members:
-    :show-inheritance:

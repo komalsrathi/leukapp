@@ -1,6 +1,11 @@
 leukapp.apps package
 ====================
 
+.. automodule:: leukapp.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Subpackages
 -----------
 
@@ -16,10 +21,3 @@ Subpackages
     leukapp.apps.specimens
     leukapp.apps.users
 
-Module contents
----------------
-
-.. automodule:: leukapp.apps
-    :members:
-    :undoc-members:
-    :show-inheritance:

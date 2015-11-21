@@ -1,6 +1,11 @@
 leukapp.apps.projects package
 =============================
 
+.. automodule:: leukapp.apps.projects
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Submodules
 ----------
 
@@ -12,10 +17,3 @@ Submodules
    leukapp.apps.projects.urls
    leukapp.apps.projects.views
 
-Module contents
----------------
-
-.. automodule:: leukapp.apps.projects
-    :members:
-    :undoc-members:
-    :show-inheritance:

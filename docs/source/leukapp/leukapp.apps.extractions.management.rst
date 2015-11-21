@@ -1,6 +1,11 @@
 leukapp.apps.extractions.management package
 ===========================================
 
+.. automodule:: leukapp.apps.extractions.management
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Subpackages
 -----------
 
@@ -8,10 +13,3 @@ Subpackages
 
     leukapp.apps.extractions.management.commands
 
-Module contents
----------------
-
-.. automodule:: leukapp.apps.extractions.management
-    :members:
-    :undoc-members:
-    :show-inheritance:

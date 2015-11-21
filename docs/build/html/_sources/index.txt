@@ -9,13 +9,12 @@ Welcome to leukapp's documentation!
 Contents:
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     leukid
     install
     deploy
-    leukapp/modules
-    leukapp/leukapp.apps.individuals
+    Leukapp <leukapp/leukapp.apps>
 
 Indices and tables
 ==================
