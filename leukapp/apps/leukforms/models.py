@@ -34,26 +34,31 @@ class Leukform(LeukappModel):
         _("description"),
         max_length=140,
         blank=True,
-        help_text='This is for your future self.'
+        help_text='This is for your future self.',
+        null=True,
         )
     submission = models.FileField(
         upload_to='leukform/submissions/%Y/%m',
         verbose_name=_("leukform"),
         validators=[leukform_csv_validator],
+        null=True,
         )
     result = models.FileField(
         upload_to='leukform/results/%Y/%m',
         verbose_name=_("sumbission result"),
         blank=True,
+        null=True,
         )
     summary = models.TextField(
         _("summary"),
         blank=True,
+        null=True,
         )
     mock = models.BooleanField(
         _("test leukform"),
         help_text='if True, records will not be saved.',
         default=False,
+        null=True,
         )
 
     """ TENTATIVE
@@ -61,21 +66,25 @@ class Leukform(LeukappModel):
         Individual,
         verbose_name=_("created individuals"),
         blank=True,
+        null=True,
         )
     created_specimens = models.ManyToManyField(
         Specimen,
         verbose_name=_("created specimens"),
         blank=True,
+        null=True,
         )
     created_aliquots = models.ManyToManyField(
         Aliquot,
         verbose_name=_("created aliquots"),
         blank=True,
+        null=True,
         )
     created_extractions = models.ManyToManyField(
         Extraction,
         verbose_name=_("created extractions"),
         blank=True,
+        null=True,
         )
     """
 
@@ -84,12 +93,13 @@ class Leukform(LeukappModel):
         _("slug"),
         unique=True,
         editable=False,
+        null=True,
         )
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("created by"),
+        blank=True,
         null=True,
-        blank=True
         )
 
     class Meta:

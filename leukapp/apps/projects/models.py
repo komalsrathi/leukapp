@@ -30,44 +30,53 @@ class Project(LeukappModel):
         max_length=100,
         validators=[object_name_validator],
         unique=True,
+        null=True,
         )
     description = models.CharField(
         _("project description"),
         max_length=140,
+        null=True,
         )
     pi = models.ForeignKey(
         Participant,
         verbose_name=_("principal investigator"),
         related_name='projects_as_pi',
         help_text='Laboratory head or principal investigator'
+        null=True,
         )
     analyst = models.ForeignKey(
         Participant,
         verbose_name=_("data analyst"),
         related_name='projects_as_analyst',
+        null=True,
         )
     requestor = models.ForeignKey(
         Participant,
         verbose_name=_("requestor"),
         related_name='projects_as_requestor',
+        null=True,
         )
     participants = models.ManyToManyField(
         Participant,
         verbose_name=_("participants"),
         related_name='projects_as_participant',
         blank=True,
+        null=True,
         )
     cost_center_no = models.CharField(
         _("cost center number"),
         max_length=100,
+        null=True,
         )
     fund_no = models.CharField(
         _("fund number"),
         max_length=100,
+        null=True,
         )
     protocol_no = models.CharField(
         _("protocol number"),
         max_length=100,
+        null=True,
         )
 
     # internal
@@ -75,17 +84,19 @@ class Project(LeukappModel):
         _("slug"),
         unique=True,
         editable=False,
+        null=True,
         )
     int_id = models.SlugField(
         _("int_id"),
         unique=True,
         editable=False,
+        null=True,
         )
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("created by"),
+        blank=True,
         null=True,
-        blank=True
         )
 
     class Meta:

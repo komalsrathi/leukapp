@@ -24,21 +24,25 @@ class Participant(LeukappModel):
     first_name = models.CharField(
         _("first name"),
         max_length=100,
+        null=True,
         )
     last_name = models.CharField(
         _("last name"),
         max_length=100,
+        null=True,
         )
     email = models.EmailField(
         _("email"),
         max_length=254,
         unique=True,
+        null=True,
         )
     phone = models.CharField(
         _("phone"),
         max_length=15,
         validators=[phone_validator],
-        blank=True
+        blank=True,
+        null=True,
         )
 
     # internal
@@ -52,6 +56,7 @@ class Participant(LeukappModel):
         _("slug"),
         unique=True,
         editable=False,
+        null=True,
         )
 
     class Meta:

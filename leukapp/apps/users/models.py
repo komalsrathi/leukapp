@@ -24,7 +24,8 @@ class User(AbstractUser):
         _("phone"),
         max_length=15,
         validators=[phone_validator],
-        blank=True
+        blank=True,
+        null=True,
         )
 
     def __str__(self):

@@ -26,30 +26,37 @@ class Specimen(LeukappModel):
     individual = models.ForeignKey(
         Individual,
         verbose_name=_("individual"),
+        null=True,
         )
     source = models.CharField(
         _("source"),
         max_length=100,
         blank=True,
-        choices=CHOICES["SOURCE"]
+        choices=CHOICES["SOURCE"],
+        null=True,
         )
     source_type = models.CharField(
         _("source_type"),
         max_length=100,
-        choices=CHOICES["SOURCE_TYPE"]
+        choices=CHOICES["SOURCE_TYPE"],
+        null=True,
         )
     ext_id = models.CharField(
         _("external id"),
         max_length=100,
         validators=[ext_id_validator],
-        help_text=_("The external id should be unique at the Individual "
-            "and Source levels."),
+        help_text=_(
+            "The external id should be unique at the Individual "
+            "and Source levels."
+            ),
+        null=True,
         )
     order = models.PositiveSmallIntegerField(
         _("desired order"),
         null=True,
         blank=True,
         default=0,
+        null=True,
         )
 
     # internal fields
@@ -57,17 +64,20 @@ class Specimen(LeukappModel):
         _("number of aliquots created"),
         default=0,
         editable=False,
+        null=True,
         )
     int_id = models.CharField(
         _("internal id"),
         max_length=8,
         null=True,
         editable=False,
+        null=True,
         )
     slug = models.SlugField(
         _("slug"),
         unique=True,
         editable=False,
+        null=True,
         )
 
     class Meta:

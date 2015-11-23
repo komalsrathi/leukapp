@@ -41,16 +41,19 @@ class Extraction(LeukappModel):
     aliquot = models.ForeignKey(
         Aliquot,
         verbose_name=_("aliquot"),
+        null=True,
         )
     analyte = models.CharField(
         _("biological material"),
         max_length=100,
-        choices=CHOICES["ANALYTE"]
+        choices=CHOICES["ANALYTE"],
+        null=True,
         )
     projects = models.ManyToManyField(
         Project,
         verbose_name=_("projects"),
         blank=True,
+        null=True,
         )
     projects_string = models.CharField(
         _("list of projetcs"),
@@ -58,30 +61,33 @@ class Extraction(LeukappModel):
         validators=[projects_string_validator],
         help_text=_("Include the projects pks separated by a '|' character"),
         blank=True,
+        null=True,
         )
     platform = models.CharField(
         _("platform"),
         max_length=100,
-        choices=CHOICES["PLATFORM"]
+        choices=CHOICES["PLATFORM"],
+        null=True,
         )
     technology = models.CharField(
         _("technology"),
         max_length=100,
-        choices=CHOICES["TECHNOLOGY"]
+        choices=CHOICES["TECHNOLOGY"],
+        null=True,
         )
     center = models.CharField(
         _("sequencing center"),
         max_length=100,
-        choices=CHOICES["CENTER"]
+        choices=CHOICES["CENTER"],
+        null=True,
         )
     ext_id = models.CharField(
         _("sequencing center id"),
         max_length=100,
         validators=[ext_id_validator],
         default=UNKNOWN,
-        help_text=_(
-            "The sequencing center id."
-            ),
+        help_text=_("The sequencing center id."),
+        null=True,
         )
 
     # internal fields
@@ -94,6 +100,7 @@ class Extraction(LeukappModel):
         _("slug"),
         unique=True,
         editable=False,
+        null=True,
         )
 
     class Meta:

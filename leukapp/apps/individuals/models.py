@@ -25,19 +25,24 @@ class Individual(LeukappModel):
     institution = models.CharField(
         _("institution"),
         max_length=100,
-        choices=CHOICES["INSTITUTION"]
+        choices=CHOICES["INSTITUTION"],
+        null=True,
         )
     species = models.CharField(
         _("species"),
         max_length=100,
         choices=CHOICES["SPECIES"],
+        null=True,
         )
     ext_id = models.CharField(
         _("external id"),
         max_length=100,
         validators=[ext_id_validator],
-        help_text=_("The external id should be unique at the "
-            "Institution and Species levels."),
+        help_text=_(
+            "The external id should be unique at the "
+            "Institution and Species levels."
+            ),
+        null=True,
         )
 
     # internal fields
@@ -45,21 +50,25 @@ class Individual(LeukappModel):
         _("number of tumor specimens created"),
         default=0,
         editable=False,
+        null=True,
         )
     normals_count = models.PositiveSmallIntegerField(
         _("number of normal specimens created"),
         default=0,
         editable=False,
+        null=True,
         )
     int_id = models.CharField(
         _("internal id"),
         max_length=100,
         editable=False,
+        null=True,
         )
     slug = models.SlugField(
         _("slug"),
         unique=True,
         editable=False,
+        null=True,
         )
 
     class Meta:

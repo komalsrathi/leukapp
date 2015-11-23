@@ -17,6 +17,7 @@ class Aliquot(LeukappModel):
 
     """
     requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627
+    https://docs.djangoproject.com/en/1.9/topics/migrations/#postgresql
     """
 
     APP_NAME = constants.APP_NAME
@@ -26,35 +27,40 @@ class Aliquot(LeukappModel):
     specimen = models.ForeignKey(
         Specimen,
         verbose_name=_("specimen"),
+        null=True,
         )
     ext_id = models.CharField(
         _("external id"),
         max_length=100,
         validators=[ext_id_validator],
         help_text=_("The external id should be unique at the Specimen level."),
+        null=True,
         )
 
     # internal fields
     int_id = models.CharField(
         _("internal id"),
         max_length=100,
-        null=True,
         editable=False,
+        null=True,
         )
     dna_extractions_count = models.PositiveSmallIntegerField(
         _("number of extractions created"),
         default=0,
         editable=False,
+        null=True,
         )
     rna_extractions_count = models.PositiveSmallIntegerField(
         _("number of extractions created"),
         default=0,
         editable=False,
+        null=True,
         )
     slug = models.SlugField(
         _("slug"),
         unique=True,
         editable=False,
+        null=True,
         )
 
     class Meta:
