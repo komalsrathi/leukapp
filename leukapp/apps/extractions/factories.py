@@ -1,5 +1,15 @@
 # -*- coding: utf-8 -*-
 
+"""
+.. py:currentmodule:: leukapp.apps.extractions
+
+Testing factories for the :mod:`~leukapp.apps.extractions`. This module relies
+heavily on the `factory_boy`_ python package.
+
+.. _factory_boy: https://factoryboy.readthedocs.org/en/latest/
+
+"""
+
 # python
 import string
 
@@ -18,18 +28,16 @@ from . import constants
 class ExtractionFactory(factory.django.DjangoModelFactory):
 
     """
-    Creates an :class:`~leukapp.apps.extractions.models.Extraction` instance.
+    .. py:currentmodule:: leukapp.apps.extractions
+
+    Creates an :class:`~models.Extraction` instance.
 
     Mainly used for testing purposes. If no keyword arguments are provided,
-    ``ExtractionFactory`` will generate the appropriate attributes using the
-    rules described in the attributes definition. For more information see:
+    this class will generate the appropriate field values using the
+    rules described in the **attributes**. For more information see:
     `DjangoModelFactory`_.
 
-    .. _DjangoModelFactory:
-        https://factoryboy.readthedocs.org/en/latest/orms.html#factory.django.DjangoModelFactory
-
-    .. returns
-    :return: :class:`~leukapp.apps.extractions.models.Extraction` instance.
+    :return: :class:`~models.Extraction` instance.
 
     Examples::
 
@@ -44,13 +52,15 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
         extraction = ExtractionFactory(analyte=DNA, projects=projects)
 
     .. warning::
-        Everytime ``ExtractionFactory`` is used without passing the ``Aliquot``
-        attribute, a new aliquot and its parents will be created recursively.
+        Everytime ``ExtractionFactory`` is used without passing the
+        :attr:`~factories.ExtractionFactory.aliquot` attribute, a new
+        :class:`~leukapp.apps.aliquots.models.Aliquot` (and its parents
+        :class:`~leukapp.apps.specimens.models.Specimen` and
+        :class:`~leukapp.apps.individuals.models.Individual`) will be created.
 
-    .. seealso::
-        :func:`~leukapp.apps.extractions.models.Extraction`
-        :func:`~leukapp.apps.aliquots.models.Aliquot`
-        :func:`~leukapp.apps.aliquots.factories.AliquotFactory`
+    .. _DjangoModelFactory:
+        https://factoryboy.readthedocs.org/en/latest/orms.html#factory.django.DjangoModelFactory
+
     """
 
     class Meta:
@@ -117,22 +127,27 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
 
     projects_string = ''
     """
+    .. py:currentmodule:: leukapp.apps.extractions
+
     By default, this attribute is set to ``''``. However, pass a string with
-    :class:`~leukapp.apps.projects.models.Project`s pks separated by the ``|``
-    character to link the :class:`~leukapp.apps.extractions.models.Extraction`
-    instance to one or more :class:`~leukapp.apps.projects.models.Project`s.
-    To understand better this behavior see:
-    :method:`~leukapp.apps.extractions.models.Extraction._get_projects_from_string`.
+    :class:`Projects <leukapp.apps.projects.models.Project>` primary keys
+    separated by a ``|`` character to link the new :class:`~leukapp.apps.
+    extractions.models.Extraction` to one or more
+    :class:`Projects <leukapp.apps.projects.models.Project>`. To understand
+    better this behavior see:
+    :meth:`~models.Extraction._get_projects_from_string`.
+    """
+
+    projects = None
+    """
+    Pass a list of projects to create ManyToMany relationship. To learn
+    more see Factory's documentation for `simple ManyToMany relationship`_.
+
+    .. _simple ManyToMany relationship: https://factoryboy.readthedocs.org/en/latest/recipes.html#simple-many-to-many-relationship
     """
 
     @factory.post_generation
     def projects(self, create, extracted, **kwargs):
-        """
-        Pass a list of projects to create ManyToMany relationship. To learn
-        more see Factory's documentation for `simple ManyToMany relationship`_.
-
-        .. _simple ManyToMany relationship: https://factoryboy.readthedocs.org/en/latest/recipes.html#simple-many-to-many-relationship
-        """
         if not create:  # Simple build, do nothing.
             return
         if extracted:   # A list of project were passed in, use them

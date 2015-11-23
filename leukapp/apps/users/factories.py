@@ -16,7 +16,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = User
-        django_get_or_create = constants.USER_GET_OR_CREATE_FIELDS
+        django_get_or_create = constants.USER_UNIQUE_TOGETHER
 
     first_name = FuzzyText(length=3, chars=string.ascii_lowercase)
     last_name = FuzzyText(length=3, chars=string.ascii_lowercase)
