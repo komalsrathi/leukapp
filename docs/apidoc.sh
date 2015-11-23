@@ -5,9 +5,10 @@ sphinx-apidoc \
     -f `# remove files` \
     -M `# put module first` \
     -e `# put submodules in separate directories` \
+    -P `# Include “_private” modules` \
     -d 2 `# Maximum depth generated in table of contents file.`\
     -o source/leukapp `# output directory` \
-    $PROJECT_DIR/leukapp `# source directory` \
+    $PROJECT_DIR/ `# source directory` \
     $PROJECT_DIR/leukapp/contrib `# exclude path` \
     $PROJECT_DIR/leukapp/apps/lists `# exclude path` \
     $PROJECT_DIR/leukapp/apps/*/tests `# exclude path` \
