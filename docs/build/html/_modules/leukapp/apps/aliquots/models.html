@@ -151,6 +151,7 @@
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627</span>
+<span class="sd">    https://docs.djangoproject.com/en/1.9/topics/migrations/#postgresql</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">APP_NAME</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
@@ -160,35 +161,40 @@
     <span class="n">specimen</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
         <span class="n">Specimen</span><span class="p">,</span>
         <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;specimen&quot;</span><span class="p">),</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">ext_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;external id&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">ext_id_validator</span><span class="p">],</span>
         <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;The external id should be unique at the Specimen level.&quot;</span><span class="p">),</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="c"># internal fields</span>
     <span class="n">int_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;internal id&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">dna_extractions_count</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;number of extractions created&quot;</span><span class="p">),</span>
         <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">rna_extractions_count</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;number of extractions created&quot;</span><span class="p">),</span>
         <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
         <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>

@@ -134,6 +134,13 @@
   <h1>Source code for leukapp.apps.individuals.admin</h1><div class="highlight"><pre>
 <span class="c"># -*- coding: utf-8 -*-</span>
 
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Admin settings for the :mod:`~leukapp.apps.individuals` application.</span>
+<span class="sd">To learn more see the `Django admin site`_ documentation.</span>
+
+<span class="sd">.. _Django admin site: https://docs.djangoproject.com/en/1.8/ref/contrib/admin/</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
 <span class="c"># django</span>
 <span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
 
@@ -145,12 +152,36 @@
 
 
 <div class="viewcode-block" id="SpecimenInline"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.individuals.admin.html#leukapp.apps.individuals.admin.SpecimenInline">[docs]</a><span class="k">class</span> <span class="nc">SpecimenInline</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">StackedInline</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Specimen</span>
-    <span class="n">extra</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. py:currentmodule:: leukapp.apps.individuals</span>
+
+<span class="sd">    Enable the creation of :attr:`~admin.SpecimenInline.extra`</span>
+<span class="sd">    :class:`Specimens &lt;~leukapp.apps.specimens.models.Specimen&gt;`.</span>
+
+<span class="sd">    The admin interface has the ability to edit models on the same page as a</span>
+<span class="sd">    parent model. These are called inlines. See `InLineModelAdmin` objects.</span>
+
+<span class="sd">    .. _InLineModelAdmin: https://docs.djangoproject.com/en/1.8/ref/contrib/admin/#inlinemodeladmin-objects</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Specimen</span>    <span class="c">#: Name of InLine model.</span>
+    <span class="n">extra</span> <span class="o">=</span> <span class="mi">2</span>           <span class="c">#: Number of extra ``Specimens`` that can be created.</span>
 
 </div>
 <div class="viewcode-block" id="IndividualAdmin"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.individuals.admin.html#leukapp.apps.individuals.admin.IndividualAdmin">[docs]</a><span class="k">class</span> <span class="nc">IndividualAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
-    <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">SpecimenInline</span><span class="p">]</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to manage :class:`Individuals &lt;models.Indiviual&gt;` from the admin</span>
+<span class="sd">    site.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">SpecimenInline</span><span class="p">]</span>  <span class="c">#: List InLine objects to be added.</span>
+
+
+<span class="c"># Individual Admin Registration</span>
+<span class="c"># -----------------------------------------------------------------------------</span>
 </div>
 <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Individual</span><span class="p">,</span> <span class="n">IndividualAdmin</span><span class="p">)</span>
 </pre></div>

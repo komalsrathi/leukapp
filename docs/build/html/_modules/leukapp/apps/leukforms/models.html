@@ -168,26 +168,31 @@
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;description&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span>
         <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="n">help_text</span><span class="o">=</span><span class="s">&#39;This is for your future self.&#39;</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&#39;This is for your future self.&#39;</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">submission</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span>
         <span class="n">upload_to</span><span class="o">=</span><span class="s">&#39;leukform/submissions/%Y/%m&#39;</span><span class="p">,</span>
         <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;leukform&quot;</span><span class="p">),</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">leukform_csv_validator</span><span class="p">],</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span>
         <span class="n">upload_to</span><span class="o">=</span><span class="s">&#39;leukform/results/%Y/%m&#39;</span><span class="p">,</span>
         <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;sumbission result&quot;</span><span class="p">),</span>
         <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">summary</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;summary&quot;</span><span class="p">),</span>
         <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="n">mock</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span>
+    <span class="n">mock</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">NullBooleanField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;test leukform&quot;</span><span class="p">),</span>
         <span class="n">help_text</span><span class="o">=</span><span class="s">&#39;if True, records will not be saved.&#39;</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="sd">&quot;&quot;&quot; TENTATIVE</span>
@@ -195,21 +200,25 @@
 <span class="sd">        Individual,</span>
 <span class="sd">        verbose_name=_(&quot;created individuals&quot;),</span>
 <span class="sd">        blank=True,</span>
+<span class="sd">        null=True,</span>
 <span class="sd">        )</span>
 <span class="sd">    created_specimens = models.ManyToManyField(</span>
 <span class="sd">        Specimen,</span>
 <span class="sd">        verbose_name=_(&quot;created specimens&quot;),</span>
 <span class="sd">        blank=True,</span>
+<span class="sd">        null=True,</span>
 <span class="sd">        )</span>
 <span class="sd">    created_aliquots = models.ManyToManyField(</span>
 <span class="sd">        Aliquot,</span>
 <span class="sd">        verbose_name=_(&quot;created aliquots&quot;),</span>
 <span class="sd">        blank=True,</span>
+<span class="sd">        null=True,</span>
 <span class="sd">        )</span>
 <span class="sd">    created_extractions = models.ManyToManyField(</span>
 <span class="sd">        Extraction,</span>
 <span class="sd">        verbose_name=_(&quot;created extractions&quot;),</span>
 <span class="sd">        blank=True,</span>
+<span class="sd">        null=True,</span>
 <span class="sd">        )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -218,12 +227,13 @@
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
         <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">created_by</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
         <span class="n">settings</span><span class="o">.</span><span class="n">AUTH_USER_MODEL</span><span class="p">,</span>
         <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;created by&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span>
         <span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>

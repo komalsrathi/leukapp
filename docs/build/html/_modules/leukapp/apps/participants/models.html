@@ -158,21 +158,25 @@
     <span class="n">first_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;first name&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">last_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;last name&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;email&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">254</span><span class="p">,</span>
         <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">phone</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;phone&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">phone_validator</span><span class="p">],</span>
-        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="c"># internal</span>
@@ -186,6 +190,7 @@
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
         <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>

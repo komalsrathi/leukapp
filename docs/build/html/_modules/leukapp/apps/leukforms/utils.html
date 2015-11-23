@@ -390,8 +390,11 @@
 
         <span class="k">else</span><span class="p">:</span>  <span class="c"># if not slug, find or create the object using all its data</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXISTED</span>
                 <span class="n">unique</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">LEUKAPP_UNIQUE_TOGETHER</span><span class="p">[</span><span class="n">model</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">unique</span><span class="p">:</span>  <span class="c"># if there isn&#39;t unique condition, create it!</span>
+                    <span class="k">raise</span> <span class="n">MODEL</span><span class="o">.</span><span class="n">DoesNotExist</span>
+
+                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXISTED</span>
                 <span class="n">search</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">fields</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">unique</span><span class="p">}</span>
                 <span class="n">instance</span> <span class="o">=</span> <span class="n">MODEL</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">**</span><span class="n">search</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">instance</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">added</span><span class="p">[</span><span class="n">model</span><span class="p">]:</span>

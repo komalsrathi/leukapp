@@ -159,19 +159,24 @@
     <span class="n">institution</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;institution&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;INSTITUTION&quot;</span><span class="p">]</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;INSTITUTION&quot;</span><span class="p">],</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">species</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;species&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;SPECIES&quot;</span><span class="p">],</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">ext_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;external id&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">ext_id_validator</span><span class="p">],</span>
-        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;The external id should be unique at the &quot;</span>
-            <span class="s">&quot;Institution and Species levels.&quot;</span><span class="p">),</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
+            <span class="s">&quot;The external id should be unique at the &quot;</span>
+            <span class="s">&quot;Institution and Species levels.&quot;</span>
+            <span class="p">),</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="c"># internal fields</span>
@@ -179,21 +184,25 @@
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;number of tumor specimens created&quot;</span><span class="p">),</span>
         <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">normals_count</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;number of normal specimens created&quot;</span><span class="p">),</span>
         <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">int_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;internal id&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
         <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>

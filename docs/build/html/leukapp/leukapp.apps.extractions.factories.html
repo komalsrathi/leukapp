@@ -157,144 +157,108 @@
             
   <div class="section" id="module-leukapp.apps.extractions.factories">
 <span id="leukapp-apps-extractions-factories-module"></span><h1>leukapp.apps.extractions.factories module<a class="headerlink" href="#module-leukapp.apps.extractions.factories" title="Permalink to this headline">¶</a></h1>
+<p>Testing factories for the <a class="reference internal" href="leukapp.apps.extractions.html#module-leukapp.apps.extractions" title="leukapp.apps.extractions"><code class="xref py py-mod docutils literal"><span class="pre">extractions</span></code></a>. This module relies
+heavily on the <a class="reference external" href="https://factoryboy.readthedocs.org/en/latest/">factory_boy</a> python package.</p>
 <dl class="class">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory">
 <em class="property">class </em><code class="descname">ExtractionFactory</code><a class="reference internal" href="../_modules/leukapp/apps/extractions/factories.html#ExtractionFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">factory.django.DjangoModelFactory</span></code></p>
-<p>Creates <a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></a> object, mainly
-for testing purposes.</p>
-<p>If no keyword argument is provided, <code class="docutils literal"><span class="pre">ExtractionFactory</span></code> will generate the
-appropriate attributes.
-See <a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-func docutils literal"><span class="pre">Extraction()</span></code></a> for parameter
-details.</p>
+<p>Creates an <a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></a> instance.</p>
+<p>Mainly used for testing purposes. If no keyword arguments are provided,
+this class will generate the appropriate field values using the
+rules described in the <strong>attributes</strong>. For more information see:
+<a class="reference external" href="https://factoryboy.readthedocs.org/en/latest/orms.html#factory.django.DjangoModelFactory">DjangoModelFactory</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></a> instance.</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># No arguments, attributes will be assigned randomly</span>
+<span class="n">extraction</span> <span class="o">=</span> <span class="n">ExtractionFactory</span><span class="p">()</span>
+
+<span class="c"># Passing specific values to specific attributes</span>
+<span class="n">extraction</span> <span class="o">=</span> <span class="n">ExtractionFactory</span><span class="p">(</span><span class="n">aliquot</span><span class="o">=</span><span class="n">AliquotFactory</span><span class="p">(),</span> <span class="n">analyte</span><span class="o">=</span><span class="s">&#39;DNA&#39;</span><span class="p">)</span>
+
+<span class="c"># passing a list of projects for ManyToMany relationship</span>
+<span class="n">projects</span> <span class="o">=</span> <span class="p">[</span><span class="n">ProjectFactory</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="n">extraction</span> <span class="o">=</span> <span class="n">ExtractionFactory</span><span class="p">(</span><span class="n">analyte</span><span class="o">=</span><span class="n">DNA</span><span class="p">,</span> <span class="n">projects</span><span class="o">=</span><span class="n">projects</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">blabla</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>aliquot</strong> &#8211; <a class="reference internal" href="leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot" title="leukapp.apps.aliquots.models.Aliquot"><code class="xref py py-func docutils literal"><span class="pre">Aliquot()</span></code></a> object. If not provided,
-factory.SubFactory(AliquotFactory) will be used.</li>
-<li><strong>analyte</strong> &#8211; <code class="xref py py-const docutils literal"><span class="pre">ANALYTE</span></code></li>
-<li><strong>platform</strong> &#8211; juan</li>
-<li><strong>technology</strong> &#8211; juan</li>
-<li><strong>center</strong> &#8211; juan</li>
-<li><strong>ext_id</strong> &#8211; juan</li>
-<li><strong>projects_list</strong> &#8211; juan</li>
-<li><strong>projects</strong> &#8211; juan</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-</tbody>
-</table>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-func docutils literal"><span class="pre">Extraction()</span></code></a> object.</td>
-</tr>
-</tbody>
-</table>
-<p>Creates Many to Many relationships to <cite>Project</cite> instances passed
-through the <cite>projects</cite> keyword argument. for example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">projects</span> <span class="o">=</span> <span class="p">[</span><span class="n">ProjectFactory</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
-<span class="n">extraction</span> <span class="o">=</span> <span class="n">ExtractionFactory</span><span class="p">(</span><span class="n">analyte</span><span class="o">=</span><span class="n">DNA</span><span class="p">,</span> <span class="n">projects</span><span class="o">=</span><span class="n">projects</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="docutils">
-<dt>Example::</dt>
-<dd>extraction = ExtractionFactory(aliquot=AliquotFactory(), analyte=&#8217;DNA&#8217;)</dd>
-</dl>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-func docutils literal"><span class="pre">Extraction()</span></code></a>
-<a class="reference internal" href="leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot" title="leukapp.apps.aliquots.models.Aliquot"><code class="xref py py-func docutils literal"><span class="pre">Aliquot()</span></code></a>
-<a class="reference internal" href="leukapp.apps.aliquots.factories.html#leukapp.apps.aliquots.factories.AliquotFactory" title="leukapp.apps.aliquots.factories.AliquotFactory"><code class="xref py py-func docutils literal"><span class="pre">AliquotFactory()</span></code></a></p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">blabla</p>
-</div>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">blabla</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<dl class="last docutils">
-<dt>There are many other Info fields but they may be redundant:</dt>
-<dd><ul class="first last simple">
-<li>param, parameter, arg, argument, key, keyword: Description of a
-parameter.</li>
-<li>type: Type of a parameter.</li>
-<li>raises, raise, except, exception: That (and when) a specific
-exception is raised.</li>
-<li>var, ivar, cvar: Description of a variable.</li>
-<li>returns, return: Description of the return value.</li>
-<li>rtype: Return type.</li>
-</ul>
-</dd>
-</dl>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There are many other directives such as versionadded, versionchanged,
-rubric, centered, ... See the sphinx documentation for more details.</p>
-</div>
-<p>Creates Many to Many relationships to <cite>Project</cite> instances passed
-through the <cite>projects</cite> keyword argument. for example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">projects</span> <span class="o">=</span> <span class="p">[</span><span class="n">ProjectFactory</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
-<span class="n">extraction</span> <span class="o">=</span> <span class="n">ExtractionFactory</span><span class="p">(</span><span class="n">analyte</span><span class="o">=</span><span class="n">DNA</span><span class="p">,</span> <span class="n">projects</span><span class="o">=</span><span class="n">projects</span><span class="p">)</span>
-</pre></div>
+<p class="last">Everytime <code class="docutils literal"><span class="pre">ExtractionFactory</span></code> is used without passing the
+<a class="reference internal" href="#leukapp.apps.extractions.factories.ExtractionFactory.aliquot" title="leukapp.apps.extractions.factories.ExtractionFactory.aliquot"><code class="xref py py-attr docutils literal"><span class="pre">aliquot</span></code></a> attribute, a new
+<a class="reference internal" href="leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot" title="leukapp.apps.aliquots.models.Aliquot"><code class="xref py py-class docutils literal"><span class="pre">Aliquot</span></code></a> (and its parents
+<a class="reference internal" href="leukapp.apps.specimens.models.html#leukapp.apps.specimens.models.Specimen" title="leukapp.apps.specimens.models.Specimen"><code class="xref py py-class docutils literal"><span class="pre">Specimen</span></code></a> and
+<a class="reference internal" href="leukapp.apps.individuals.models.html#leukapp.apps.individuals.models.Individual" title="leukapp.apps.individuals.models.Individual"><code class="xref py py-class docutils literal"><span class="pre">Individual</span></code></a>) will be created.</p>
 </div>
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory.aliquot">
 <code class="descname">aliquot</code><em class="property"> = &lt;factory.declarations.SubFactory object&gt;</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.aliquot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>If not passed, creates a new <a class="reference internal" href="leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot" title="leukapp.apps.aliquots.models.Aliquot"><code class="xref py py-class docutils literal"><span class="pre">Aliquot</span></code></a>
+instance. To learn more see <a class="reference external" href="https://factoryboy.readthedocs.org/en/latest/reference.html#factory.SubFactory">SubFactory</a>.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory.analyte">
 <code class="descname">analyte</code><em class="property"> = &lt;factory.fuzzy.FuzzyChoice object&gt;</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.analyte" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>If not passed, picks randomly one choice from
+<code class="xref py py-data docutils literal"><span class="pre">ANALYTE</span></code>. To learn more see:
+<a class="reference external" href="https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice">FuzzyChoice</a>.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory.center">
 <code class="descname">center</code><em class="property"> = &lt;factory.fuzzy.FuzzyChoice object&gt;</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.center" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>If not passed, picks randomly one choice from
+<code class="xref py py-data docutils literal"><span class="pre">CENTER</span></code>. To learn more see:
+<a class="reference external" href="https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice">FuzzyChoice</a>.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory.ext_id">
 <code class="descname">ext_id</code><em class="property"> = &lt;factory.fuzzy.FuzzyText object&gt;</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.ext_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>If not passed, creates a random ID. To learn more see:
+<a class="reference external" href="https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzytext">FuzzyText</a>.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory.platform">
 <code class="descname">platform</code><em class="property"> = &lt;factory.fuzzy.FuzzyChoice object&gt;</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.platform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>If not passed, picks randomly one choice from
+<code class="xref py py-data docutils literal"><span class="pre">PLATFORM</span></code>. To learn more see:
+<a class="reference external" href="https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice">FuzzyChoice</a>.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory.projects">
 <code class="descname">projects</code><em class="property"> = &lt;factory.declarations.PostGeneration object&gt;</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.projects" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Pass a list of projects to create ManyToMany relationship. To learn
+more see Factory&#8217;s documentation for <a class="reference external" href="https://factoryboy.readthedocs.org/en/latest/recipes.html#simple-many-to-many-relationship">simple ManyToMany relationship</a>.</p>
+</dd></dl>
 
 <dl class="attribute">
-<dt id="leukapp.apps.extractions.factories.ExtractionFactory.projects_list">
-<code class="descname">projects_list</code><em class="property"> = ''</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.projects_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="leukapp.apps.extractions.factories.ExtractionFactory.projects_string">
+<code class="descname">projects_string</code><em class="property"> = ''</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.projects_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>By default, this attribute is set to <code class="docutils literal"><span class="pre">''</span></code>. However, pass a string with
+<a class="reference internal" href="leukapp.apps.projects.models.html#leukapp.apps.projects.models.Project" title="leukapp.apps.projects.models.Project"><code class="xref py py-class docutils literal"><span class="pre">Projects</span></code></a> primary keys
+separated by a <code class="docutils literal"><span class="pre">|</span></code> character to link the new <code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code> to one or more
+<a class="reference internal" href="leukapp.apps.projects.models.html#leukapp.apps.projects.models.Project" title="leukapp.apps.projects.models.Project"><code class="xref py py-class docutils literal"><span class="pre">Projects</span></code></a>. To understand
+better this behavior see:
+<code class="xref py py-meth docutils literal"><span class="pre">_get_projects_from_string()</span></code>.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory.technology">
 <code class="descname">technology</code><em class="property"> = &lt;factory.fuzzy.FuzzyChoice object&gt;</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.technology" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>If not passed, picks randomly one choice from
+<code class="xref py py-data docutils literal"><span class="pre">TECHNOLOGY</span></code>. To learn more see:
+<a class="reference external" href="https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice">FuzzyChoice</a>.</p>
+</dd></dl>
 
 </dd></dl>
 

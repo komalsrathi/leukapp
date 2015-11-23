@@ -150,7 +150,7 @@
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
-        <span class="n">django_get_or_create</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">USER_GET_OR_CREATE_FIELDS</span>
+        <span class="n">django_get_or_create</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">USER_UNIQUE_TOGETHER</span>
 
     <span class="n">first_name</span> <span class="o">=</span> <span class="n">FuzzyText</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">)</span>
     <span class="n">last_name</span> <span class="o">=</span> <span class="n">FuzzyText</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">)</span>

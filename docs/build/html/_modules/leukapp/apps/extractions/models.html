@@ -150,7 +150,7 @@
 
 <span class="c"># local</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span>
-<span class="kn">from</span> <span class="nn">.validators</span> <span class="kn">import</span> <span class="n">projects_list_validator</span>
+<span class="kn">from</span> <span class="nn">.validators</span> <span class="kn">import</span> <span class="n">projects_string_validator</span>
 
 
 <div class="viewcode-block" id="Extraction"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction">[docs]</a><span class="k">class</span> <span class="nc">Extraction</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
@@ -163,7 +163,7 @@
 <span class="sd">    :param technology:</span>
 <span class="sd">    :param center:</span>
 <span class="sd">    :param ext_id:</span>
-<span class="sd">    :param projects_list:</span>
+<span class="sd">    :param projects_string:</span>
 <span class="sd">    :param projects:</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -175,47 +175,52 @@
     <span class="n">aliquot</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
         <span class="n">Aliquot</span><span class="p">,</span>
         <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;aliquot&quot;</span><span class="p">),</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">analyte</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;biological material&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;ANALYTE&quot;</span><span class="p">]</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;ANALYTE&quot;</span><span class="p">],</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">projects</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span>
         <span class="n">Project</span><span class="p">,</span>
         <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;projects&quot;</span><span class="p">),</span>
         <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="n">projects_list</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+    <span class="n">projects_string</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;list of projetcs&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">projects_list_validator</span><span class="p">],</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">projects_string_validator</span><span class="p">],</span>
         <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;Include the projects pks separated by a &#39;|&#39; character&quot;</span><span class="p">),</span>
         <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">platform</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;platform&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;PLATFORM&quot;</span><span class="p">]</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;PLATFORM&quot;</span><span class="p">],</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">technology</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;technology&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;TECHNOLOGY&quot;</span><span class="p">]</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;TECHNOLOGY&quot;</span><span class="p">],</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">center</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing center&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;CENTER&quot;</span><span class="p">]</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;CENTER&quot;</span><span class="p">],</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">ext_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing center id&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">ext_id_validator</span><span class="p">],</span>
         <span class="n">default</span><span class="o">=</span><span class="n">UNKNOWN</span><span class="p">,</span>
-        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
-            <span class="s">&quot;The sequencing center id.&quot;</span>
-            <span class="p">),</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;The sequencing center id.&quot;</span><span class="p">),</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="c"># internal fields</span>
@@ -228,6 +233,7 @@
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
         <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
@@ -258,15 +264,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span><span class="p">])</span>
 
         <span class="c"># update projects</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_get_projects_from_list</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_projects_from_string</span><span class="p">()</span>
 
         <span class="c"># update data center</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_leukcd_run_dir</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_get_projects_from_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_projects_from_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; NOTTESTED NOTDOCUMENTED &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">projects_list</span><span class="p">:</span>
-            <span class="n">projects</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">projects_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;|&quot;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">projects_string</span><span class="p">:</span>
+            <span class="n">projects</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">projects_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;|&quot;</span><span class="p">)]</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_get_int_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

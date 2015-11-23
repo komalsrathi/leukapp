@@ -6,13 +6,6 @@ leukapp.apps.core package
     :undoc-members:
     :show-inheritance:
 
-Subpackages
------------
-
-.. toctree::
-
-    leukapp.apps.core.templatetags
-
 Submodules
 ----------
 

@@ -173,11 +173,11 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">(</span><span class="n">ExtractionForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s">&#39;projects_list&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">required</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s">&#39;projects_string&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">required</span> <span class="o">=</span> <span class="bp">True</span>
 
 <div class="viewcode-block" id="ExtractionForm.Meta"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.forms.html#leukapp.apps.leukforms.forms.ExtractionForm.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Extraction</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="n">EXTRACTION_CREATE_FIELDS</span> <span class="o">+</span> <span class="p">(</span><span class="s">&#39;projects_list&#39;</span><span class="p">,</span> <span class="p">)</span></div></div>
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">EXTRACTION_CREATE_FIELDS</span> <span class="o">+</span> <span class="p">(</span><span class="s">&#39;projects_string&#39;</span><span class="p">,</span> <span class="p">)</span></div></div>
 </pre></div>
 
            </div>

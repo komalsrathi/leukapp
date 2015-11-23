@@ -134,6 +134,16 @@
   <h1>Source code for leukapp.apps.extractions.factories</h1><div class="highlight"><pre>
 <span class="c"># -*- coding: utf-8 -*-</span>
 
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. py:currentmodule:: leukapp.apps.extractions</span>
+
+<span class="sd">Testing factories for the :mod:`~leukapp.apps.extractions`. This module relies</span>
+<span class="sd">heavily on the `factory_boy`_ python package.</span>
+
+<span class="sd">.. _factory_boy: https://factoryboy.readthedocs.org/en/latest/</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
 <span class="c"># python</span>
 <span class="kn">import</span> <span class="nn">string</span>
 
@@ -152,92 +162,123 @@
 <div class="viewcode-block" id="ExtractionFactory"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.extractions.factories.html#leukapp.apps.extractions.factories.ExtractionFactory">[docs]</a><span class="k">class</span> <span class="nc">ExtractionFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates :class:`~leukapp.apps.extractions.models.Extraction` object, mainly</span>
-<span class="sd">    for testing purposes.</span>
+<span class="sd">    .. py:currentmodule:: leukapp.apps.extractions</span>
 
-<span class="sd">    If no keyword argument is provided, ``ExtractionFactory`` will generate the</span>
-<span class="sd">    appropriate attributes.</span>
-<span class="sd">    See :func:`~leukapp.apps.extractions.models.Extraction` for parameter</span>
-<span class="sd">    details.</span>
+<span class="sd">    Creates an :class:`~models.Extraction` instance.</span>
 
-<span class="sd">    .. warning:: blabla</span>
+<span class="sd">    Mainly used for testing purposes. If no keyword arguments are provided,</span>
+<span class="sd">    this class will generate the appropriate field values using the</span>
+<span class="sd">    rules described in the **attributes**. For more information see:</span>
+<span class="sd">    `DjangoModelFactory`_.</span>
 
-<span class="sd">    .. parameter description</span>
-<span class="sd">    :param aliquot:</span>
-<span class="sd">        :func:`~leukapp.apps.aliquots.models.Aliquot` object. If not provided,</span>
-<span class="sd">        factory.SubFactory(AliquotFactory) will be used.</span>
-<span class="sd">    :param analyte: :py:const:`~leukapp.apps.extractions.constants.ANALYTE`</span>
-<span class="sd">    :param platform: juan</span>
-<span class="sd">    :param technology: juan</span>
-<span class="sd">    :param center: juan</span>
-<span class="sd">    :param ext_id: juan</span>
-<span class="sd">    :param projects_list: juan</span>
-<span class="sd">    :param projects: juan</span>
+<span class="sd">    :return: :class:`~models.Extraction` instance.</span>
 
-<span class="sd">    .. parameter types</span>
-<span class="sd">    :type aliquot: :func:`~leukapp.apps.aliquots.models.Aliquot`</span>
-<span class="sd">    :type analyte: str</span>
-<span class="sd">    :type platform: str</span>
-<span class="sd">    :type technology: str</span>
-<span class="sd">    :type center: str</span>
-<span class="sd">    :type ext_id: str</span>
-<span class="sd">    :type projects_list: str</span>
-<span class="sd">    :type projects: list</span>
+<span class="sd">    Examples::</span>
 
-<span class="sd">    .. returns</span>
-<span class="sd">    :return: :func:`~leukapp.apps.extractions.models.Extraction` object.</span>
+<span class="sd">        # No arguments, attributes will be assigned randomly</span>
+<span class="sd">        extraction = ExtractionFactory()</span>
 
-<span class="sd">    Creates Many to Many relationships to `Project` instances passed</span>
-<span class="sd">    through the `projects` keyword argument. for example::</span>
-
-<span class="sd">            projects = [ProjectFactory() for i in range(3)]</span>
-<span class="sd">            extraction = ExtractionFactory(analyte=DNA, projects=projects)</span>
-
-<span class="sd">    Example::</span>
+<span class="sd">        # Passing specific values to specific attributes</span>
 <span class="sd">        extraction = ExtractionFactory(aliquot=AliquotFactory(), analyte=&#39;DNA&#39;)</span>
 
-<span class="sd">    .. seealso::</span>
-<span class="sd">        :func:`~leukapp.apps.extractions.models.Extraction`</span>
-<span class="sd">        :func:`~leukapp.apps.aliquots.models.Aliquot`</span>
-<span class="sd">        :func:`~leukapp.apps.aliquots.factories.AliquotFactory`</span>
+<span class="sd">        # passing a list of projects for ManyToMany relationship</span>
+<span class="sd">        projects = [ProjectFactory() for i in range(3)]</span>
+<span class="sd">        extraction = ExtractionFactory(analyte=DNA, projects=projects)</span>
 
-<span class="sd">    .. warnings also:: blabla</span>
-<span class="sd">    .. note:: blabla</span>
-<span class="sd">    .. todo:: blabla</span>
+<span class="sd">    .. warning::</span>
+<span class="sd">        Everytime ``ExtractionFactory`` is used without passing the</span>
+<span class="sd">        :attr:`~factories.ExtractionFactory.aliquot` attribute, a new</span>
+<span class="sd">        :class:`~leukapp.apps.aliquots.models.Aliquot` (and its parents</span>
+<span class="sd">        :class:`~leukapp.apps.specimens.models.Specimen` and</span>
+<span class="sd">        :class:`~leukapp.apps.individuals.models.Individual`) will be created.</span>
 
-<span class="sd">    .. note::</span>
-<span class="sd">        There are many other Info fields but they may be redundant:</span>
-<span class="sd">            * param, parameter, arg, argument, key, keyword: Description of a</span>
-<span class="sd">              parameter.</span>
-<span class="sd">            * type: Type of a parameter.</span>
-<span class="sd">            * raises, raise, except, exception: That (and when) a specific</span>
-<span class="sd">              exception is raised.</span>
-<span class="sd">            * var, ivar, cvar: Description of a variable.</span>
-<span class="sd">            * returns, return: Description of the return value.</span>
-<span class="sd">            * rtype: Return type.</span>
+<span class="sd">    .. _DjangoModelFactory:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/orms.html#factory.django.DjangoModelFactory</span>
 
-<span class="sd">    .. note::</span>
-<span class="sd">        There are many other directives such as versionadded, versionchanged,</span>
-<span class="sd">        rubric, centered, ... See the sphinx documentation for more details.</span>
-
-
-<span class="sd">    Creates Many to Many relationships to `Project` instances passed</span>
-<span class="sd">    through the `projects` keyword argument. for example::</span>
-
-<span class="sd">            projects = [ProjectFactory() for i in range(3)]</span>
-<span class="sd">            extraction = ExtractionFactory(analyte=DNA, projects=projects)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Extraction</span>
+        <span class="n">django_get_or_create</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_UNIQUE_TOGETHER</span>
 
     <span class="n">aliquot</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">SubFactory</span><span class="p">(</span><span class="n">AliquotFactory</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, creates a new :class:`~leukapp.apps.aliquots.models.Aliquot`</span>
+<span class="sd">    instance. To learn more see `SubFactory`_.</span>
+
+<span class="sd">    .. _SubFactory:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/reference.html#factory.SubFactory</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">analyte</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">ANALYTE_VALUE</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks randomly one choice from</span>
+<span class="sd">    :data:`~leukapp.apps.extractions.constants.ANALYTE`. To learn more see:</span>
+<span class="sd">    `FuzzyChoice`_.</span>
+
+<span class="sd">    .. _FuzzyChoice:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">platform</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">PLATFORM_VALUE</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks randomly one choice from</span>
+<span class="sd">    :data:`~leukapp.apps.extractions.constants.PLATFORM`. To learn more see:</span>
+<span class="sd">    `FuzzyChoice`_.</span>
+
+<span class="sd">    .. _FuzzyChoice:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">technology</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">TECHNOLOGY_VALUE</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks randomly one choice from</span>
+<span class="sd">    :data:`~leukapp.apps.extractions.constants.TECHNOLOGY`. To learn more see:</span>
+<span class="sd">    `FuzzyChoice`_.</span>
+
+<span class="sd">    .. _FuzzyChoice:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">center</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">CENTER_VALUE</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks randomly one choice from</span>
+<span class="sd">    :data:`~leukapp.apps.extractions.constants.CENTER`. To learn more see:</span>
+<span class="sd">    `FuzzyChoice`_.</span>
+
+<span class="sd">    .. _FuzzyChoice:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">ext_id</span> <span class="o">=</span> <span class="n">FuzzyText</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">hexdigits</span><span class="p">)</span>
-    <span class="n">projects_list</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, creates a random ID. To learn more see:</span>
+<span class="sd">    `FuzzyText`_.</span>
+
+<span class="sd">    .. _FuzzyText:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzytext</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">projects_string</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. py:currentmodule:: leukapp.apps.extractions</span>
+
+<span class="sd">    By default, this attribute is set to ``&#39;&#39;``. However, pass a string with</span>
+<span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;` primary keys</span>
+<span class="sd">    separated by a ``|`` character to link the new :class:`~leukapp.apps.</span>
+<span class="sd">    extractions.models.Extraction` to one or more</span>
+<span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;`. To understand</span>
+<span class="sd">    better this behavior see:</span>
+<span class="sd">    :meth:`~models.Extraction._get_projects_from_string`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">projects</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pass a list of projects to create ManyToMany relationship. To learn</span>
+<span class="sd">    more see Factory&#39;s documentation for `simple ManyToMany relationship`_.</span>
+
+<span class="sd">    .. _simple ManyToMany relationship: https://factoryboy.readthedocs.org/en/latest/recipes.html#simple-many-to-many-relationship</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@factory.post_generation</span>
     <span class="k">def</span> <span class="nf">projects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">extracted</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
