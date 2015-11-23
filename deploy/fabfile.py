@@ -130,9 +130,6 @@ def _update_database(deployment, settings):
     Runs makemigrations and migrate commands.
     """
     workon = 'workon ' + deployment
-    makemigrations = workon + ' && python manage.py makemigrations'
-    command = makemigrations + ' --settings=' + settings
-    run(command)
     migrate = workon + ' && python manage.py migrate --noinput'
     command = migrate + ' --settings=' + settings
     run(command)
