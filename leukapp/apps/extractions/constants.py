@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
+
 """
-This module contains the :py:mod:`~leukapp.apps.extractions` app constants.
+This module contains the :mod:`~leukapp.apps.extractions` app constants.
 Information that isn't likely to change and that is used across
-:py:mod:`~leukapp.apps.extractions` and :py:mod:`~leukapp` should be stored
+:mod:`~leukapp.apps.extractions` and :mod:`~leukapp` should be stored
 here.
 
 .. important::
-    Please, **DO NOT** change any constant unless you are sure of what you are
-    doing.
+    **DO NOT** change any constant unless you know what you are doing.
 """
 
 # leukapp
@@ -15,20 +15,17 @@ from leukapp.apps.core import constants as coreconstants
 
 # APP INFO
 # -----------------------------------------------------------------------------
-
-APP_NAME = 'extractions'
-""" Application's name. """
+APP_NAME = 'extractions'  #: Application's name.
 
 # URLS
 # -----------------------------------------------------------------------------
-
-EXTRACTION_CREATE_URL = APP_NAME + ':create'
-""" :py:class:`~leukapp.apps.extractions.models.Extraction` create url. """
-
-EXTRACTION_LIST_URL = APP_NAME + ':list'
+EXTRACTION_CREATE_URL = APP_NAME + ':create'  #: Create URL reverse string.
+EXTRACTION_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
 
 # FIELDS
 # -----------------------------------------------------------------------------
+
+#: Fields required to create a new instance.
 EXTRACTION_CREATE_FIELDS = (
     'aliquot',
     'platform',
@@ -39,13 +36,14 @@ EXTRACTION_CREATE_FIELDS = (
     'projects_string',
     )
 
+#: Enabled fields to update an existing instance.
 EXTRACTION_UPDATE_FIELDS = tuple()
+
+#: Fields that are required to be unique together.
 EXTRACTION_UNIQUE_TOGETHER = tuple()
 
 # CHOICES
 # -----------------------------------------------------------------------------
-
-# technology
 WHOLE_EXOME = 'WHOLE-EXOME'
 WHOLE_GENOME = 'WHOLE-GENOME'
 TARGETED_DNA = 'TARGETED-DNA'
@@ -66,9 +64,17 @@ TECHNOLOGY = (
     (CHIP_SEQ, 'CHIP-SEQ'),
     (ATAC_SEQ, 'ATAC-SEQ'),
     )
-TECHNOLOGY_VALUE = [e[0] for e in TECHNOLOGY]
+"""
+List of value, verbose_name pairs for the
+:attr:`~leukapp.apps.extractions.models.Extraction.technology` attribute.
+"""
 
-# platform
+TECHNOLOGY_VALUE = [e[0] for e in TECHNOLOGY]
+"""
+Values for the :attr:`~leukapp.apps.extractions.models.Extraction.technology`
+attribute.
+"""
+
 AGILENTV4 = 'AGILENTV4'
 AGILENTV5 = 'AGILENTV5'
 WHOLEGENOMELIBRARYV1 = 'WHOLEGENOMELIBRARYV1'
@@ -81,9 +87,17 @@ PLATFORM = (
     (HEMEPACTV1, 'HEMEPACTV1'),
     (HEMEPACTV2, 'HEMEPACTV2'),
     )
-PLATFORM_VALUE = [e[0] for e in PLATFORM]
+"""
+List of value, verbose_name pairs for the
+:attr:`~leukapp.apps.extractions.models.Extraction.platform` attribute.
+"""
 
-# sequencing center
+PLATFORM_VALUE = [e[0] for e in PLATFORM]
+"""
+Values for the :attr:`~leukapp.apps.extractions.models.Extraction.platform`
+attribute.
+"""
+
 CMO = 'CMO'
 NYGC = 'NYGC'
 FOUNDATION = 'FOUNDATION'
@@ -92,25 +106,33 @@ CENTER = (
     (NYGC, 'NYGC'),
     (FOUNDATION, 'FOUNDATION'),
     )
-CENTER_VALUE = [e[0] for e in CENTER]
+"""
+List of value, verbose_name pairs for the
+:attr:`~leukapp.apps.extractions.models.Extraction.center` attribute.
+"""
 
-# extracted material
+CENTER_VALUE = [e[0] for e in CENTER]
+"""
+Values for the :attr:`~leukapp.apps.extractions.models.Extraction.center`
+attribute.
+"""
+
 DNA = 'DNA'
 RNA = 'RNA'
 ANALYTE = (
     (DNA, 'DNA'),
     (RNA, 'RNA'),
     )
+"""
+List of value, verbose_name pairs for the
+:attr:`~leukapp.apps.extractions.models.Extraction.analyte` attribute.
+"""
+
 ANALYTE_VALUE = [b[0] for b in ANALYTE]
-
-ALIQUOT_CHOICES = {
-    "ANALYTE": ANALYTE,
-    }
-
-LEUKID_ANALYTE = {
-    DNA: 'D',
-    RNA: 'R',
-    }
+"""
+Values for the :attr:`~leukapp.apps.extractions.models.Extraction.analyte`
+attribute.
+"""
 
 EXTRACTION_CHOICES = {
     "PLATFORM": PLATFORM,
@@ -118,13 +140,34 @@ EXTRACTION_CHOICES = {
     "CENTER": CENTER,
     "ANALYTE": ANALYTE,
     }
+"""
+Dictionary including all
+:class:`Extraction's <~leukapp.apps.extractions.models.Extraction>` choices.
+"""
+
+LEUKID_ANALYTE = {
+    DNA: 'D',
+    RNA: 'R',
+    }
+"""
+Characters used in the **leukid** to describe the `Extraction's`
+:attr:`~leukapp.apps.extractions.models.Extraction.analyte` attribute.
+"""
 
 # PERMISSIONS
 # -----------------------------------------------------------------------------
+
+#: Tuple of permissions required to create a new instance.
 EXTRACTION_CREATE_PERMISSIONS = ('extractions.add_extraction',)
+
+#: Tuple of permissions required to update an existing instance.
 EXTRACTION_UPDATE_PERMISSIONS = ('extractions.change_extraction',)
 
 # MESSAGES
 # -----------------------------------------------------------------------------
+
+#: Sucess message.
 SUCCESS_MESSAGE = coreconstants.SUCCESS_MESSAGE
+
+#: Permission denied message.
 PERMISSION_DENIED_MESSAGE = coreconstants.PERMISSION_DENIED_MESSAGE
