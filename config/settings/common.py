@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 """
 Django settings for leukapp project.
+For more information on this file, see `Django settings`_.
+For the full list of settings and their values, see `settings reference`_:
 
-For more information on this file, see
-https://docs.djangoproject.com/en/dev/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/dev/ref/settings/
+.. _Django settings: https://docs.djangoproject.com/en/dev/topics/settings/
+.. _settings reference: https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 # python
@@ -20,36 +19,77 @@ env = environ.Env()
 
 # SET FUNDAMENTAL DIRECTORIES
 # -----------------------------------------------------------------------------
+
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
-PROJECT_DIR = ROOT_DIR.path('leukapp')
-APPS_DIR = PROJECT_DIR.path('apps')
+"""
+
+.. autoclass:: django.core.exceptions.FieldDoesNotExist
+
+Project Root directory.
+
+``ROOT_DIR`` includes::
+
+    .
+    ├── config              # Global app settings
+    ├── deploy              # Deploy scripts and templates
+    ├── docs                # Documentation
+    ├── leukapp             # Django applications
+    ├── requirements        # Python  environment requirements
+    └── tests               # Project level tests
+"""
+
+PROJECT_DIR = ROOT_DIR.path('leukapp')  #: Leukapp project directory
+APPS_DIR = PROJECT_DIR.path('apps')     #: Leukapp APPs directory
 
 # DETECT TESTING ENVIRONMENT
 # -----------------------------------------------------------------------------
+
+#: ``True`` if testing environment is active.
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 # APP CONFIGURATION
 # -----------------------------------------------------------------------------
 DJANGO_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',  # Admin
-    # 'django.contrib.humanize',  # Useful template tags:
-)
+    'django.contrib.auth',          # Django auth
+    'django.contrib.contenttypes',  # Django Content Tyes
+    'django.contrib.sessions',      # Django sessions
+    'django.contrib.sites',         # Django Sites
+    'django.contrib.messages',      # Django Messages
+    'django.contrib.staticfiles',   # Static Files
+    'django.contrib.admin',         # Django Default Admin suit
+    'django.contrib.humanize',      # Useful template tags
+    )
+
 THIRD_PARTY_APPS = (
-    'crispy_forms',  # Form layouts
-    'allauth',  # Registration
-    'allauth.account',  # Registration
-    'allauth.socialaccount',  # Registration
-    'autocomplete_light',  # Autocomplete
-    'django_modalview',  # Modals class based views
-    'rest_framework',  # API rest framework
-    'django_filters',  # django-filters for API
-)
+    'crispy_forms',                 # Form layouts
+    'allauth',                      # Registration
+    'allauth.account',              # Registration
+    'allauth.socialaccount',        # Registration
+    'django_modalview',             # Modals CBV
+    'rest_framework',               # API rest framework
+    'django_filters',               # Filters for API
+    'autocomplete_light',           # Autocomplete
+    )
+"""
+Leukapp third party applications.
+
+See for full documentation at:
+
+    * `crispy_forms`_: Form layouts
+    * `allauth`_: Registration
+    * `django_modalview`_: Modals CBV
+    * `rest_framework`_: API rest framework
+    * `django_filters`_: Filters for API
+    * `autocomplete_light`_: Autocomplete
+
+.. _crispy_forms: http://django-crispy-forms.readthedocs.org/en/latest/
+.. _allauth: http://django-allauth.readthedocs.org/en/latest/
+.. _django_modalview: https://github.com/optiflows/django-modalview
+.. _rest_framework: http://www.django-rest-framework.org/
+.. _django_filters: http://django-filter.readthedocs.org/en/latest/usage.html
+.. _autocomplete_light:
+    https://django-autocomplete-light.readthedocs.org/en/master/
+"""
 
 LOCAL_APPS = (
     'leukapp.apps.users',  # custom users app
@@ -91,7 +131,8 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 
 # FIXTURE CONFIGURATION
 # -----------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
+# See:
+# https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
 FIXTURE_DIRS = (
     str(PROJECT_DIR.path('fixtures')),
 )
@@ -123,11 +164,15 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # GENERAL CONFIGURATION
 # -----------------------------------------------------------------------------
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# In a Windows environment this must be set to your system time zone.
+
 TIME_ZONE = 'America/New_York'
+"""
+Local time zone for this installation. Choices can be found `here`_.
+although not all choices may be available on all operating systems.
+In a Windows environment this must be set to your system time zone.
+
+.. _here: http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+"""
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = 'en-us'
@@ -146,6 +191,10 @@ USE_TZ = True
 
 # TEMPLATE CONFIGURATION
 # -----------------------------------------------------------------------------
+
+# See: http://django-crispy-forms.readthedocs.org/en/latest/install.html#template-packs
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#templates
 TEMPLATES = [
     {
@@ -156,14 +205,18 @@ TEMPLATES = [
             str(PROJECT_DIR.path('templates')),
         ],
         'OPTIONS': {
+
             # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
             'debug': DEBUG,
-            # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
+
+            # See:
+            #https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
             # https://docs.djangoproject.com/en/dev/ref/templates/api/#loader-types
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
+
             # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -174,27 +227,18 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+
                 # Your stuff: custom template context processors go here
             ],
         },
     },
 ]
 
-# See: http://django-crispy-forms.readthedocs.org/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
-
 # STATIC FILE CONFIGURATION
 # -----------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = str(ROOT_DIR('staticfiles'))
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = '/static/'
-
-# See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = (
-    str(PROJECT_DIR.path('static')),
-)
 
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = (
@@ -202,13 +246,44 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
+STATIC_ROOT = str(ROOT_DIR('staticfiles'))
+"""
+Static files root directory.
+
+Directory where static files will be saved during production.
+For more information, see: `STATIC_ROOT`_.
+
+.. _STATIC_ROOT:
+    https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+"""
+
+STATICFILES_DIRS = (
+    str(PROJECT_DIR.path('static')),
+)
+"""
+Static files directory.
+
+This is where the template tag {% static %} will look for static files during
+local development. For more information, see: `STATICFILES_DIRS`_.
+
+.. _STATICFILES_DIRS:
+    https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+"""
+
 # MEDIA CONFIGURATION
 # -----------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = str(PROJECT_DIR('media'))
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
+
+MEDIA_ROOT = str(PROJECT_DIR('media'))
+"""
+Media root directory.
+
+Media files are saved here. For more information, see: `MEDIA_ROOT`_.
+
+.. _MEDIA_ROOT: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+"""
 
 # URL Configuration
 # -----------------------------------------------------------------------------
@@ -299,3 +374,10 @@ LOGGING = {
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
 }
+
+
+# ROUTINE PROTECTION
+# -----------------------------------------------------------------------------
+
+if __name__ == '__main__':
+    pass
