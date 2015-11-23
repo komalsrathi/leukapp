@@ -42,8 +42,7 @@ htmlcov
 # Pycharm
 .idea
 
-# Vim
-
+# Vimå
 *~
 *.swp
 *.swo
@@ -62,8 +61,6 @@ node_modules/
 
 ### Django
 /staticfiles
-migrations/
-!*/migrations/__init__.py
 
 # CSV
 *.csv
