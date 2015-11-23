@@ -1,8 +1,5 @@
-.. This is a comment.
-.. |date| date::
-
 ******
-leukid
+Leukid
 ******
 
 .. bibliographic fields (which also require a transform):
@@ -11,6 +8,7 @@ leukid
 :organization: Memorial Sloan-Kettering
 :status: This is "work in progress"
 :date: |date|
+:version: |version|
 
 :abstract:
     This wiki describes the **leukid** and it's models. The **leukid** is constructed based on the information provided by the **sample_form**.

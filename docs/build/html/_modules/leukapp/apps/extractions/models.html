@@ -81,10 +81,12 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukid.html">leukid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukid.html">Leukid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../deploy.html">Deploy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/leukapp.apps.html">Leukapp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/modules.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/leukapp.apps.individuals.html">Individuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/config.html">System Configuration</a></li>
 </ul>
 
             
@@ -154,7 +156,16 @@
 <div class="viewcode-block" id="Extraction"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction">[docs]</a><span class="k">class</span> <span class="nc">Extraction</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627</span>
+
+<span class="sd">    :param aliquot: Parent `~leukapp.apps.aliquots.models.Aliquot` object.</span>
+<span class="sd">    :param analyte:</span>
+<span class="sd">    :param platform:</span>
+<span class="sd">    :param technology:</span>
+<span class="sd">    :param center:</span>
+<span class="sd">    :param ext_id:</span>
+<span class="sd">    :param projects_list:</span>
+<span class="sd">    :param projects:</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">APP_NAME</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>

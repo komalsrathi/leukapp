@@ -83,28 +83,26 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../leukid.html">leukid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../leukid.html">Leukid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../deploy.html">Deploy</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="leukapp.apps.html">Leukapp</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="leukapp.apps.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.aliquots.html">leukapp.apps.aliquots package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.core.html">leukapp.apps.core package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="leukapp.apps.extractions.html">leukapp.apps.extractions package</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="leukapp.apps.extractions.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="leukapp.apps.extractions.html#submodules">Submodules</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.individuals.html">leukapp.apps.individuals package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.leukforms.html">leukapp.apps.leukforms package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.participants.html">leukapp.apps.participants package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.projects.html">leukapp.apps.projects package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.specimens.html">leukapp.apps.specimens package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="leukapp.apps.users.html">leukapp.apps.users package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Applications</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="config.html">config package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docs.html">docs package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="leukapp.html">leukapp package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="leukapp.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="leukapp.apps.html">leukapp.apps package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="leukapp.taskapp.html">leukapp.taskapp package</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="manage.html">manage module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">tests package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="leukapp.apps.individuals.html">Individuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">System Configuration</a></li>
 </ul>
 
             
@@ -135,6 +133,10 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
+          <li><a href="modules.html">leukapp_project</a> &raquo;</li>
+      
+          <li><a href="leukapp.html">leukapp package</a> &raquo;</li>
+      
           <li><a href="leukapp.apps.html">leukapp.apps package</a> &raquo;</li>
       
           <li><a href="leukapp.apps.extractions.html">leukapp.apps.extractions package</a> &raquo;</li>
@@ -159,7 +161,24 @@
 <dt id="leukapp.apps.extractions.models.Extraction">
 <em class="property">class </em><code class="descname">Extraction</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/extractions/models.html#Extraction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.extractions.models.Extraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel" title="leukapp.apps.core.models.LeukappModel"><code class="xref py py-class docutils literal"><span class="pre">leukapp.apps.core.models.LeukappModel</span></code></a></p>
-<p>requirements: <a class="reference external" href="https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627">https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>aliquot</strong> &#8211; Parent <cite>~leukapp.apps.aliquots.models.Aliquot</cite> object.</li>
+<li><strong>analyte</strong> &#8211; </li>
+<li><strong>platform</strong> &#8211; </li>
+<li><strong>technology</strong> &#8211; </li>
+<li><strong>center</strong> &#8211; </li>
+<li><strong>ext_id</strong> &#8211; </li>
+<li><strong>projects_list</strong> &#8211; </li>
+<li><strong>projects</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.models.Extraction.APP_NAME">
 <code class="descname">APP_NAME</code><em class="property"> = 'extractions'</em><a class="headerlink" href="#leukapp.apps.extractions.models.Extraction.APP_NAME" title="Permalink to this definition">¶</a></dt>
@@ -167,7 +186,7 @@
 
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.models.Extraction.CHOICES">
-<code class="descname">CHOICES</code><em class="property"> = {'CENTER': (('CMO', 'CMO'), ('NYGC', 'NYGC'), ('FOUNDATION', 'FOUNDATION')), 'PLATFORM': (('AGILENTV4', 'AGILENTV4'), ('AGILENTV5', 'AGILENTV5'), ('WHOLEGENOMELIBRARYV1', 'WHOLEGENOMELIBRARYV1'), ('HEMEPACTV1', 'HEMEPACTV1'), ('HEMEPACTV2', 'HEMEPACTV2')), 'TECHNOLOGY': (('WHOLE-EXOME', 'WHOLE-EXOME'), ('WHOLE-GENOME', 'WHOLE-GENOME'), ('TARGETED-DNA', 'TARGETED-DNA'), ('RNA-SEQ-TARGETED', 'RNA-SEQ-TARGETED'), ('RNA-SEQ-WHOLE-TRANSCRIPTOME', 'RNA-SEQ-WHOLE-TRANSCRIPTOME'), ('RNA-SEQ-SINGLE-CELL', 'RNA-SEQ-SINGLE-CELL'), ('DNA-METHYLATION-SEQ', 'DNA-METHYLATION-SEQ'), ('CHIP-SEQ', 'CHIP-SEQ'), ('ATAC-SEQ', 'ATAC-SEQ')), 'ANALYTE': (('DNA', 'DNA'), ('RNA', 'RNA'))}</em><a class="headerlink" href="#leukapp.apps.extractions.models.Extraction.CHOICES" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CHOICES</code><em class="property"> = {'TECHNOLOGY': (('WHOLE-EXOME', 'WHOLE-EXOME'), ('WHOLE-GENOME', 'WHOLE-GENOME'), ('TARGETED-DNA', 'TARGETED-DNA'), ('RNA-SEQ-TARGETED', 'RNA-SEQ-TARGETED'), ('RNA-SEQ-WHOLE-TRANSCRIPTOME', 'RNA-SEQ-WHOLE-TRANSCRIPTOME'), ('RNA-SEQ-SINGLE-CELL', 'RNA-SEQ-SINGLE-CELL'), ('DNA-METHYLATION-SEQ', 'DNA-METHYLATION-SEQ'), ('CHIP-SEQ', 'CHIP-SEQ'), ('ATAC-SEQ', 'ATAC-SEQ')), 'ANALYTE': (('DNA', 'DNA'), ('RNA', 'RNA')), 'PLATFORM': (('AGILENTV4', 'AGILENTV4'), ('AGILENTV5', 'AGILENTV5'), ('WHOLEGENOMELIBRARYV1', 'WHOLEGENOMELIBRARYV1'), ('HEMEPACTV1', 'HEMEPACTV1'), ('HEMEPACTV2', 'HEMEPACTV2')), 'CENTER': (('CMO', 'CMO'), ('NYGC', 'NYGC'), ('FOUNDATION', 'FOUNDATION'))}</em><a class="headerlink" href="#leukapp.apps.extractions.models.Extraction.CHOICES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">

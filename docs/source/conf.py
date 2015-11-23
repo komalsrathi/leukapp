@@ -18,8 +18,12 @@ import os
 import shlex
 import sys
 import django
+import environ
+
+env = environ.Env()
 
 # added to load django doc
+sys.path.append(env('PATH'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 django.setup()
