@@ -53,11 +53,11 @@ DJANGO_APPS = (
     'django.contrib.auth',          # Django auth
     'django.contrib.contenttypes',  # Django Content Tyes
     'django.contrib.sessions',      # Django sessions
-    'django.contrib.sites',         # Django Sites
     'django.contrib.messages',      # Django Messages
     'django.contrib.staticfiles',   # Static Files
     'django.contrib.admin',         # Django Default Admin suit
     'django.contrib.humanize',      # Useful template tags
+    'django.contrib.sites',         # Django Sites required by allauth
     )
 
 THIRD_PARTY_APPS = (

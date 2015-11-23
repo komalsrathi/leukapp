@@ -41,7 +41,7 @@ class Project(LeukappModel):
         Participant,
         verbose_name=_("principal investigator"),
         related_name='projects_as_pi',
-        help_text='Laboratory head or principal investigator'
+        help_text='Laboratory head or principal investigator',
         null=True,
         )
     analyst = models.ForeignKey(
@@ -61,7 +61,6 @@ class Project(LeukappModel):
         verbose_name=_("participants"),
         related_name='projects_as_participant',
         blank=True,
-        null=True,
         )
     cost_center_no = models.CharField(
         _("cost center number"),

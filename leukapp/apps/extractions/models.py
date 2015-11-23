@@ -53,7 +53,6 @@ class Extraction(LeukappModel):
         Project,
         verbose_name=_("projects"),
         blank=True,
-        null=True,
         )
     projects_string = models.CharField(
         _("list of projetcs"),

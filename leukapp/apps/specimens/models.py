@@ -53,7 +53,6 @@ class Specimen(LeukappModel):
         )
     order = models.PositiveSmallIntegerField(
         _("desired order"),
-        null=True,
         blank=True,
         default=0,
         null=True,
@@ -69,7 +68,6 @@ class Specimen(LeukappModel):
     int_id = models.CharField(
         _("internal id"),
         max_length=8,
-        null=True,
         editable=False,
         null=True,
         )

@@ -54,7 +54,7 @@ class Leukform(LeukappModel):
         blank=True,
         null=True,
         )
-    mock = models.BooleanField(
+    mock = models.NullBooleanField(
         _("test leukform"),
         help_text='if True, records will not be saved.',
         default=False,
