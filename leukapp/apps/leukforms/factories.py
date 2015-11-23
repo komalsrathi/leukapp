@@ -165,7 +165,7 @@ class LeukformSamplesFactory(object):
         if model == 'Extraction':
             self._last = True
             pl = '|'.join(str(p.pk) for p in random.sample(self.projects, 3))
-            return {'aliquot': parent, 'projects_list': pl}, None
+            return {'aliquot': parent, 'projects_string': pl}, None
 
     def _write_row(self, instance, model):
         """

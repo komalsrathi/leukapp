@@ -256,8 +256,11 @@ class LeukformLoader(object):
 
         else:  # if not slug, find or create the object using all its data
             try:
-                msg = self.EXISTED
                 unique = constants.LEUKAPP_UNIQUE_TOGETHER[model]
+                if not unique:  # if there isn't unique condition, create it!
+                    raise MODEL.DoesNotExist
+
+                msg = self.EXISTED
                 search = {k: fields[model][k] for k in unique}
                 instance = MODEL.objects.get(**search)
                 if instance not in self.added[model]:

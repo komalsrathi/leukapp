@@ -16,13 +16,22 @@ from leukapp.apps.projects.models import Project
 
 # local
 from . import constants
-from .validators import projects_list_validator
+from .validators import projects_string_validator
 
 
 class Extraction(LeukappModel):
 
     """
-    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627
+
+    :param aliquot: Parent `~leukapp.apps.aliquots.models.Aliquot` object.
+    :param analyte:
+    :param platform:
+    :param technology:
+    :param center:
+    :param ext_id:
+    :param projects_string:
+    :param projects:
+
     """
 
     APP_NAME = constants.APP_NAME
@@ -43,10 +52,10 @@ class Extraction(LeukappModel):
         verbose_name=_("projects"),
         blank=True,
         )
-    projects_list = models.CharField(
+    projects_string = models.CharField(
         _("list of projetcs"),
         max_length=100,
-        validators=[projects_list_validator],
+        validators=[projects_string_validator],
         help_text=_("Include the projects pks separated by a '|' character"),
         blank=True,
         )
@@ -115,15 +124,15 @@ class Extraction(LeukappModel):
         self.slug = '-'.join([self.aliquot.slug, self.int_id])
 
         # update projects
-        self._get_projects_from_list()
+        self._get_projects_from_string()
 
         # update data center
         self._create_leukcd_run_dir()
 
-    def _get_projects_from_list(self):
+    def _get_projects_from_string(self):
         """ NOTTESTED NOTDOCUMENTED """
-        if self.projects_list:
-            projects = [int(p) for p in self.projects_list.split("|")]
+        if self.projects_string:
+            projects = [int(p) for p in self.projects_string.split("|")]
             [self.projects.add(p) for p in projects]
 
     def _get_int_id(self):

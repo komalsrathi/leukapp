@@ -36,14 +36,11 @@ EXTRACTION_CREATE_FIELDS = (
     'center',
     'ext_id',
     'analyte',
-    'projects_list',
+    'projects_string',
     )
 
-EXTRACTION_UPDATE_FIELDS = (
-    )
-
-EXTRACTION_UNIQUE_TOGETHER = (
-    )
+EXTRACTION_UPDATE_FIELDS = tuple()
+EXTRACTION_UNIQUE_TOGETHER = tuple()
 
 # CHOICES
 # -----------------------------------------------------------------------------

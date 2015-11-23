@@ -39,8 +39,8 @@ class ExtractionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
             super(ExtractionForm, self).__init__(*args, **kwargs)
-            self.fields['projects_list'].required = True
+            self.fields['projects_string'].required = True
 
     class Meta:
         model = Extraction
-        fields = EXTRACTION_CREATE_FIELDS + ('projects_list', )
+        fields = EXTRACTION_CREATE_FIELDS + ('projects_string', )

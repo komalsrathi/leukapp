@@ -55,9 +55,9 @@ class LeukformCsvFactoryTest(TestCase):
         self.assertEqual(batch._last, True)
         self.assertEqual(child, None)
         batch_projects = [p.pk for p in batch.projects]
-        projects_list = kwargs['projects_list'].split('|')
-        projects_list = [int(e) for e in projects_list]
-        [self.assertIn(p, batch_projects) for p in projects_list]
+        projects_string = kwargs['projects_string'].split('|')
+        projects_string = [int(e) for e in projects_string]
+        [self.assertIn(p, batch_projects) for p in projects_string]
 
     def test_write_row_delete_false_last_false_slug_true(self):
         batch = LeukformSamplesFactory()
@@ -137,9 +137,9 @@ class LeukformCsvFactoryTest(TestCase):
 
         # test extractions projects lists are being assigned correctly
         batch_projects = [p.pk for p in batch.projects]
-        projects_list = batch.rows[0]['Extraction.projects_list'].split('|')
-        projects_list = [int(e) for e in projects_list]
-        [self.assertIn(p, batch_projects) for p in projects_list]
+        projects_string = batch.rows[0]['Extraction.projects_string'].split('|')
+        projects_string = [int(e) for e in projects_string]
+        [self.assertIn(p, batch_projects) for p in projects_string]
 
     def test_csv_from_rows(self):
         self.maxDiff = None

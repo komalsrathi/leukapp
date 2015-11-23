@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+# python
+from unittest import skipIf
+
 # django
 from django.test import TestCase
 from django.db.utils import IntegrityError
@@ -27,14 +30,15 @@ class ExtractionsModelTest(TestCase):
         with self.assertRaises(ValidationError):
             ExtractionFactory(ext_id="1234 % ''10").full_clean()
 
+    @skipIf((not constants.EXTRACTION_UNIQUE_TOGETHER), "not unique fields")
     def test_unique_together_functionality(self):
+        """
+        """
         s = ExtractionFactory()
+        kwargs = {}
         with self.assertRaises(IntegrityError):
-            kwargs = {
-                "aliquot": s.aliquot,
-                "ext_id": s.ext_id,
-                "analyte": s.analyte,
-                }
+            for field in constants.EXTRACTION_UNIQUE_TOGETHER:
+                kwargs[field] = getattr(s, field)
             Extraction.objects.create(**kwargs)
 
     def test_if_extractions_count_keep_count_correctly(self):
