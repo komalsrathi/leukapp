@@ -12,34 +12,109 @@ from .common import *  # noqa
 
 # SECRET CONFIGURATION
 # -----------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Raises ImproperlyConfigured exception if DJANGO_SECRET_KEY not in os.environ
-SECRET_KEY = env("DJANGO_SECRET_KEY",
-    default='CHANGEME!!!lp#7%-y6+lsk0yv$9d-22=n^ab8x5hkb!(#d$u2vi5+2-2w&@@')
+
+SECRET_KEY = env(
+    "DJANGO_SECRET_KEY",
+    default='CHANGEME!!!lp#7%-y6+lsk0yv$9d-22=n^ab8x5hkb!(#d$u2vi5+2-2w&@@'
+    )
+"""
+Raises ImproperlyConfigured exception if DJANGO_SECRET_KEY not in os.environ.
+For more information, see `secret key`.
+.. _secret key: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+"""
 
 # MIDDLEWARE SECURITY
 # -----------------------------------------------------------------------------
 SECURITY_MIDDLEWARE = ('django.middleware.security.SecurityMiddleware', )
 MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
 
+
+# SECURITY SETTINGS
+# -----------------------------------------------------------------------------
+SECURE_HSTS_SECONDS = 60
+"""
+Set to 60 seconds, then to 518400 when you are sure that everything works.
+"""
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
-SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SECURE = True
-X_FRAME_OPTIONS = 'DENY'
-SECURE_HSTS_SECONDS = 60  # set to 60 seconds, then to 518400 when works
-SECURE_BROWSER_XSS_FILTER = True
+"""
+.. todo: Please describe this setting
+"""
+
+SECURE_SSL_REDIRECT = env.bool(
+    "DJANGO_SECURE_SSL_REDIRECT", default=True)
+"""
+See this `question`_.
+
+.. _question: http://stackoverflow.com/questions/33792940/django-application-crash-with-secure-ssl-redirect-using-nginx
+"""
+
+SECURE_FRAME_DENY = env.bool(
+    "DJANGO_SECURE_FRAME_DENY", default=True)
+"""
+.. todo: Please describe this setting
+"""
+
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
+"""
+.. todo: Please describe this setting
+"""
+
 SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
     "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
+"""
+.. todo: Please describe this setting
+"""
+
+SECURE_BROWSER_XSS_FILTER = env.bool(
+    "DJANGO_SECURE_BROWSER_XSS_FILTER", default=True)
+"""
+.. todo: Please describe this setting
+"""
+
+SESSION_COOKIE_SECURE = env.bool(
+    "DJANGO_SESSION_COOKIE_SECURE", default=True)
+"""
+.. todo: Please describe this setting
+"""
+
+SESSION_COOKIE_HTTPONLY = env.bool(
+    "DJANGO_SESSION_COOKIE_HTTPONLY", default=True)
+"""
+.. todo: Please describe this setting
+"""
+
+CSRF_COOKIE_SECURE = env.bool(
+    "DJANGO_CSRF_COOKIE_SECURE", default=False)
+"""
+.. todo: Please describe this setting
+"""
+
+CSRF_COOKIE_HTTPONLY = env.bool(
+    "DJANGO_CSRF_COOKIE_HTTPONLY", default=True)
+"""
+.. todo: Please describe this setting
+"""
+
+X_FRAME_OPTIONS = env(
+    "DJANGO_X_FRAME_OPTIONS", default='DENY')
+"""
+.. todo: Please describe this setting
+"""
 
 # SITE CONFIGURATION
 # -----------------------------------------------------------------------------
-# Hosts/domain names that are valid for this site
-# See https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['leukgen.mskcc.org'])
+
+ALLOWED_HOSTS = env.list(
+    'DJANGO_ALLOWED_HOSTS', default=['leukgen.mskcc.org'])
+"""
+Hosts/domain names that are valid for this site
+See `allowed hosts`_
+
+.. _allowed hosts:
+    https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
+"""
 
 # APP CONFIGURATION
 # -----------------------------------------------------------------------------
@@ -51,9 +126,24 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # EMAIL
 # -----------------------------------------------------------------------------
-DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-                         default='leukapp <noreply@leukgen.mskcc.org>')
-EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default='[leukapp] ')
+
+DEFAULT_FROM_EMAIL = env(
+    'DJANGO_DEFAULT_FROM_EMAIL', default='leukapp <noreply@leukgen.mskcc.org>')
+"""
+.. todo: Please describe this setting
+"""
+
+EMAIL_SUBJECT_PREFIX = env(
+    "DJANGO_EMAIL_SUBJECT_PREFIX", default='[leukapp] ')
+"""
+.. todo: Please describe this setting
+"""
+
+SERVER_EMAIL = env(
+    'DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+"""
+.. todo: Please describe this setting
+"""
 
 # TEMPLATE CONFIGURATION
 # -----------------------------------------------------------------------------
@@ -67,8 +157,12 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 
 # DATABASE CONFIGURATION
 # -----------------------------------------------------------------------------
-# Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-DATABASES['default'] = env.db("DATABASE_URL", default="postgres:///production")
+
+DATABASES['default'] = env.db(
+    "DATABASE_URL", default="postgres:///production")
+"""
+Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
+"""
 
 # CACHING
 # -----------------------------------------------------------------------------

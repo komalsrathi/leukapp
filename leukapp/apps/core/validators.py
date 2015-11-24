@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 
+"""
+Core validators used across :mod:`leukapp.apps` applications.
+"""
+
 # dango
 from django.core.validators import RegexValidator
 from django.utils.translation import ugettext_lazy as _
 
-# standard phone validator
+
+# PHONE VALIDATOR
+# -----------------------------------------------------------------------------
 phone_validator = RegexValidator(
     regex=r'^\+?1?\d{9,15}$',
     message=_(
@@ -12,8 +18,16 @@ phone_validator = RegexValidator(
         "Up to 15 digits allowed."
         )
     )
+"""
+Standard phone validator.
 
-# simple name validator
+Phone numbers must have at least 9 and no more than 15 digits. The `+`
+character is allowed.
+"""
+
+
+# SIMPLE NAME VALIDATOR
+# -----------------------------------------------------------------------------
 name_validator = RegexValidator(
     regex=r'^[a-zA-Z\s]$',
     message=_(
@@ -21,8 +35,15 @@ name_validator = RegexValidator(
         "and underscores."
         ),
     )
+"""
+Simple name validator.
 
-# same as name validator but includes hyphens
+This validator allows letters, numbers, white spaces and underscores.
+"""
+
+
+# OBJECT NAME VALIDATOR
+# -----------------------------------------------------------------------------
 object_name_validator = RegexValidator(
     regex=r'^[-a-zA-Z0-9_\s]+\Z',
     code='invalid',
@@ -31,8 +52,15 @@ object_name_validator = RegexValidator(
         "underscores or hyphens."
         ),
     )
+"""
+Simple object name validator.
 
-# ext_id_validator uses the same regex as django.core.validators.validate_slug
+This validator allows letters, numbers, white spaces, underscores and hyphens.
+"""
+
+
+# EXTERNAL ID VALIDATOR
+# -----------------------------------------------------------------------------
 ext_id_validator = RegexValidator(
     regex=r'^[-a-zA-Z0-9_.]+\Z',
     code='invalid',
@@ -41,3 +69,10 @@ ext_id_validator = RegexValidator(
         "letters, numbers, underscores or hyphens."
         ),
     )
+"""
+Validates an external id.
+
+This validator uses the same regex as
+:class:`django.core.validators.validate_slug`. It allows the use of letters,
+numbers, underscores and hyphens.
+"""
