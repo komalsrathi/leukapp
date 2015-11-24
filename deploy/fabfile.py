@@ -72,7 +72,7 @@ def _update_nginx_conf(host, project_dir):
     Updates the nginx sites-available, sites-enabled files using the template
     available at project_dir/deploy/template/nginxconf_template
     """
-    nginxconf_template = "/deploy/template/nginxconf_template"
+    nginxconf_template = "/deploy/templates/nginxconf_template"
     with open(project_dir + nginxconf_template, 'r') as f:
         conf = f.read()
     conf = conf.replace("HOST", host)
@@ -107,12 +107,11 @@ def _update_settings(source_folder, deployment):
     """
     Adds a randomly generated DJANGO_SECRET_KEY to the postactivate script.
     """
-    postactivate = '/.env/{0}_postactivate'.format(deployment)
-    postsource = source_folder + postactivate
+    postactivate = source_folder + '/.env/common'.format(deployment)
     chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&'
     key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
     key = "DJANGO_SECRET_KEY={0}".format(key)
-    sed(postsource, "DJANGO_SECRET_KEY=CHANGE_ME", key)
+    sed(postactivate, "DJANGO_SECRET_KEY=CHANGE_ME", key)
 
 
 def _update_static_files(deployment, settings):

@@ -7,7 +7,6 @@ export DJANGO_ALLOWED_HOSTS=$DJANGO_HOST
 export DJANGO_SECRET_KEY=CHANGE_ME
 export DJANGO_SETTINGS_MODULE="config.settings.production"
 export DATABASE_URL=postgres:///$DEPLOYMENT
-export PROJECT_DIR=/home/medinaj/sites/$DJANGO_HOST/source/
 
 # DJANGO SECURITY CONFIGURATION
 # -----------------------------------------------------------------------------
