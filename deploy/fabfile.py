@@ -70,9 +70,10 @@ def _get_latest_source(source_folder, repo):
 def _update_nginx_conf(host, project_dir):
     """
     Updates the nginx sites-available, sites-enabled files using the template
-    available at /deploy/nginx.template.conf
+    available at project_dir/deploy/template/nginxconf_template
     """
-    with open(project_dir + '/deploy/nginx.template.conf', 'r') as f:
+    nginxconf_template = "/deploy/template/nginxconf_template"
+    with open(project_dir + nginxconf_template, 'r') as f:
         conf = f.read()
     conf = conf.replace("HOST", host)
     available = '/etc/nginx/sites-available'
@@ -95,10 +96,9 @@ def _update_virtualenv(
     if not exists(virtualenv_folder):
         run('mkvirtualenv ' + deployment)
 
-    postactivate = '/.env/{0}_postactivate'.format(deployment)
-    postsource = source_folder + postactivate
+    postactivate = source_folder + '/.env/' + deployment
     postvirtual = virtualenv_folder + '/bin/postactivate'
-    run('ln -sf {0} {1}'.format(postsource, postvirtual))
+    run('ln -sf {0} {1}'.format(postactivate, postvirtual))
     workon = 'workon ' + deployment
     run(workon + ' && pip install -r ' + requirements)
 
