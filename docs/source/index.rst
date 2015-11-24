@@ -10,15 +10,10 @@ Contents:
 
 .. toctree::
     :maxdepth: 3
-    :glob:
 
-    leukid
-    install
-    deploy
-    Applications <leukapp/modules>
-    Individuals <leukapp/leukapp.apps.individuals>
-    System Configuration <leukapp/config>
-
+    Quick Start <leukapp/quickstart>
+    Leukapp <leukapp/index>
+    linktojuan
 
 Indices and tables
 ==================

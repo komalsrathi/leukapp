@@ -157,6 +157,38 @@
             
   <div class="section" id="module-leukapp.apps.core.validators">
 <span id="leukapp-apps-core-validators-module"></span><h1>leukapp.apps.core.validators module<a class="headerlink" href="#module-leukapp.apps.core.validators" title="Permalink to this headline">¶</a></h1>
+<p>Core validators used across <a class="reference internal" href="leukapp.apps.html#module-leukapp.apps" title="leukapp.apps"><code class="xref py py-mod docutils literal"><span class="pre">leukapp.apps</span></code></a> applications.</p>
+<dl class="data">
+<dt id="leukapp.apps.core.validators.ext_id_validator">
+<code class="descname">ext_id_validator</code><em class="property"> = &lt;django.core.validators.RegexValidator object&gt;</em><a class="headerlink" href="#leukapp.apps.core.validators.ext_id_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates an external id.</p>
+<p>This validator uses the same regex as
+<code class="xref py py-class docutils literal"><span class="pre">django.core.validators.validate_slug</span></code>. It allows the use of letters,
+numbers, underscores and hyphens.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="leukapp.apps.core.validators.name_validator">
+<code class="descname">name_validator</code><em class="property"> = &lt;django.core.validators.RegexValidator object&gt;</em><a class="headerlink" href="#leukapp.apps.core.validators.name_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple name validator.</p>
+<p>This validator allows letters, numbers, white spaces and underscores.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="leukapp.apps.core.validators.object_name_validator">
+<code class="descname">object_name_validator</code><em class="property"> = &lt;django.core.validators.RegexValidator object&gt;</em><a class="headerlink" href="#leukapp.apps.core.validators.object_name_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple object name validator.</p>
+<p>This validator allows letters, numbers, white spaces, underscores and hyphens.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="leukapp.apps.core.validators.phone_validator">
+<code class="descname">phone_validator</code><em class="property"> = &lt;django.core.validators.RegexValidator object&gt;</em><a class="headerlink" href="#leukapp.apps.core.validators.phone_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standard phone validator.</p>
+<p>Phone numbers must have at least 9 and no more than 15 digits. The <cite>+</cite>
+character is allowed.</p>
+</dd></dl>
+
 </div>
 
 

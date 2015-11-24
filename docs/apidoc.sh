@@ -7,7 +7,7 @@ sphinx-apidoc \
     -e `# put submodules in separate directories` \
     -P `# Include “_private” modules` \
     -d 2 `# Maximum depth generated in table of contents file.`\
-    -o source/leukapp `# output directory` \
+    -o source/py `# output directory` \
     $PROJECT_DIR/ `# source directory` \
     $PROJECT_DIR/leukapp/contrib `# exclude path` \
     $PROJECT_DIR/leukapp/apps/lists `# exclude path` \

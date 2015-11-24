@@ -81,12 +81,8 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukid.html">Leukid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../deploy.html">Deploy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/modules.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/leukapp.apps.individuals.html">Individuals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/config.html">System Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/index.html">Leukapp</a></li>
 </ul>
 
             
@@ -162,7 +158,7 @@
 <span class="c"># CLASS BASED VIEWS (CBV)</span>
 <span class="c"># -----------------------------------------------------------------------------</span>
 
-<div class="viewcode-block" id="LeukformDetailView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformDetailView">[docs]</a><span class="k">class</span> <span class="nc">LeukformDetailView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="LeukformDetailView"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformDetailView">[docs]</a><span class="k">class</span> <span class="nc">LeukformDetailView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                          <span class="n">generic</span><span class="o">.</span><span class="n">DetailView</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -174,7 +170,7 @@
 
     <span class="n">model</span> <span class="o">=</span> <span class="n">Leukform</span>
 
-<div class="viewcode-block" id="LeukformDetailView.get_context_data"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformDetailView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformDetailView.get_context_data"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformDetailView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">super_function</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LeukformDetailView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span>
         <span class="n">context</span> <span class="o">=</span> <span class="n">super_function</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -196,7 +192,7 @@
         <span class="k">return</span> <span class="n">context</span>
 
 </div></div>
-<div class="viewcode-block" id="LeukformListView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformListView">[docs]</a><span class="k">class</span> <span class="nc">LeukformListView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="LeukformListView"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformListView">[docs]</a><span class="k">class</span> <span class="nc">LeukformListView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                        <span class="n">generic</span><span class="o">.</span><span class="n">ListView</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -208,17 +204,17 @@
     <span class="n">model</span> <span class="o">=</span> <span class="n">Leukform</span>
     <span class="n">paginate_by</span> <span class="o">=</span> <span class="mi">20</span>
 
-<div class="viewcode-block" id="LeukformListView.get_context_data"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformListView.get_context_data"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LeukformListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">context</span><span class="p">[</span><span class="s">&#39;APP_NAME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
         <span class="n">context</span><span class="p">[</span><span class="s">&#39;CREATE_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">LEUKFORM_CREATE_URL</span>
         <span class="k">return</span> <span class="n">context</span>
 </div>
-<div class="viewcode-block" id="LeukformListView.get_queryset"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformListView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformListView.get_queryset"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformListView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Leukform</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">created_by</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="LeukformRedirectView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformRedirectView">[docs]</a><span class="k">class</span> <span class="nc">LeukformRedirectView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="LeukformRedirectView"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformRedirectView">[docs]</a><span class="k">class</span> <span class="nc">LeukformRedirectView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                            <span class="n">generic</span><span class="o">.</span><span class="n">RedirectView</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -228,11 +224,11 @@
 
     <span class="n">permanent</span> <span class="o">=</span> <span class="bp">False</span>
 
-<div class="viewcode-block" id="LeukformRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">LEUKFORM_LIST_URL</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="LeukformCreateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformCreateView">[docs]</a><span class="k">class</span> <span class="nc">LeukformCreateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="LeukformCreateView"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformCreateView">[docs]</a><span class="k">class</span> <span class="nc">LeukformCreateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
                          <span class="n">mixins</span><span class="o">.</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span>
                          <span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                          <span class="n">generic</span><span class="o">.</span><span class="n">CreateView</span><span class="p">):</span>
@@ -251,7 +247,7 @@
     <span class="n">permission_denied_message</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PERMISSION_DENIED_MESSAGE</span>
     <span class="n">raise_exception</span> <span class="o">=</span> <span class="bp">True</span>
 
-<div class="viewcode-block" id="LeukformCreateView.form_valid"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformCreateView.form_valid"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Add created_by to form &quot;&quot;&quot;</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">created_by</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
@@ -259,7 +255,7 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">LeukformCreateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="LeukformUpdateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformUpdateView">[docs]</a><span class="k">class</span> <span class="nc">LeukformUpdateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="LeukformUpdateView"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.LeukformUpdateView">[docs]</a><span class="k">class</span> <span class="nc">LeukformUpdateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
                          <span class="n">mixins</span><span class="o">.</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span>
                          <span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                          <span class="n">generic</span><span class="o">.</span><span class="n">UpdateView</span><span class="p">):</span>
@@ -282,7 +278,7 @@
 <span class="c"># FUNCTION BASED VIEWS (FBV)</span>
 <span class="c"># -----------------------------------------------------------------------------</span>
 </div>
-<div class="viewcode-block" id="download_result"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.download_result">[docs]</a><span class="k">def</span> <span class="nf">download_result</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">slug</span><span class="p">):</span>
+<div class="viewcode-block" id="download_result"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.download_result">[docs]</a><span class="k">def</span> <span class="nf">download_result</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">slug</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; FBV to download leukform results &quot;&quot;&quot;</span>
     <span class="n">leukform</span> <span class="o">=</span> <span class="n">Leukform</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">slug</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">leukform</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -295,7 +291,7 @@
 <span class="c"># -----------------------------------------------------------------------------</span>
 </div>
 <span class="nd">@register.filter</span>
-<div class="viewcode-block" id="get_item"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.get_item">[docs]</a><span class="k">def</span> <span class="nf">get_item</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<div class="viewcode-block" id="get_item"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.views.html#leukapp.apps.leukforms.views.get_item">[docs]</a><span class="k">def</span> <span class="nf">get_item</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
 </pre></div>
 

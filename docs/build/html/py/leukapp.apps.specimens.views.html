@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>leukapp.apps.specimens.views module &mdash; leukapp 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="leukapp 0.1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> leukapp
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../leukapp/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../leukapp/index.html">Leukapp</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">leukapp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>leukapp.apps.specimens.views module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/py/leukapp.apps.specimens.views.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-leukapp.apps.specimens.views">
+<span id="leukapp-apps-specimens-views-module"></span><h1>leukapp.apps.specimens.views module<a class="headerlink" href="#module-leukapp.apps.specimens.views" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>Most of these views inherits from Django&#8217;s <cite>Class Based Views</cite>. See:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="https://docs.djangoproject.com/en/1.8/topics/class-based-views/">https://docs.djangoproject.com/en/1.8/topics/class-based-views/</a></li>
+<li><a class="reference external" href="http://ccbv.co.uk/projects/Django/1.8/">http://ccbv.co.uk/projects/Django/1.8/</a></li>
+<li><a class="reference external" href="http://www.pydanny.com/stay-with-the-django-cbv-defaults.html">http://www.pydanny.com/stay-with-the-django-cbv-defaults.html</a></li>
+<li><a class="reference external" href="http://www.pydanny.com/tag/class-based-views.html">http://www.pydanny.com/tag/class-based-views.html</a></li>
+</ul>
+</dd>
+</dl>
+<dl class="class">
+<dt id="leukapp.apps.specimens.views.SpecimenCreateView">
+<em class="property">class </em><code class="descname">SpecimenCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/views.html#SpecimenCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/contrib/messages/#django.contrib.messages.views.SuccessMessageMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.messages.views.SuccessMessageMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></a></p>
+<p>View for creating a new object, with a response rendered by template.
+See: <a class="reference external" href="http://ccbv.co.uk/CreateView/">http://ccbv.co.uk/CreateView/</a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenCreateView.fields">
+<code class="descname">fields</code><em class="property"> = ('individual', 'source', 'source_type', 'ext_id', 'order')</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenCreateView.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Specimen</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenCreateView.permission_denied_message">
+<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenCreateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenCreateView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = ('specimens.add_specimen',)</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenCreateView.permission_required" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenCreateView.raise_exception">
+<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenCreateView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenCreateView.success_message">
+<code class="descname">success_message</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenCreateView.success_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.specimens.views.SpecimenDetailView">
+<em class="property">class </em><code class="descname">SpecimenDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/views.html#SpecimenDetailView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenDetailView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></a></p>
+<p>Render a &#8220;detail&#8221; view of an object. By default this is a model instance
+looked up from <cite>self.queryset</cite>, but the view will support display of <em>any</em>
+object by overriding <cite>self.get_object()</cite>.
+See: <a class="reference external" href="http://ccbv.co.uk/DetailView/">http://ccbv.co.uk/DetailView/</a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenDetailView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenDetailView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Specimen</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.specimens.views.SpecimenListView">
+<em class="property">class </em><code class="descname">SpecimenListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/views.html#SpecimenListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-display/#django.views.generic.list.ListView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></a></p>
+<p>Render some list of objects, set by <cite>self.model</cite> or <cite>self.queryset</cite>.
+<cite>self.queryset</cite> can actually be any iterable of items, not just a queryset.
+See: <a class="reference external" href="http://ccbv.co.uk/ListView/">http://ccbv.co.uk/ListView/</a></p>
+<dl class="method">
+<dt id="leukapp.apps.specimens.views.SpecimenListView.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/views.html#SpecimenListView.get_context_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenListView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenListView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Specimen</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenListView.paginate_by">
+<code class="descname">paginate_by</code><em class="property"> = 20</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenListView.paginate_by" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.specimens.views.SpecimenRedirectView">
+<em class="property">class </em><code class="descname">SpecimenRedirectView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/views.html#SpecimenRedirectView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenRedirectView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
+<p>A view that provides a redirect on any GET request.
+See: <a class="reference external" href="http://ccbv.co.uk/RedirectView/">http://ccbv.co.uk/RedirectView/</a></p>
+<dl class="method">
+<dt id="leukapp.apps.specimens.views.SpecimenRedirectView.get_redirect_url">
+<code class="descname">get_redirect_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/views.html#SpecimenRedirectView.get_redirect_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenRedirectView.get_redirect_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenRedirectView.permanent">
+<code class="descname">permanent</code><em class="property"> = False</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenRedirectView.permanent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.specimens.views.SpecimenUpdateView">
+<em class="property">class </em><code class="descname">SpecimenUpdateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/views.html#SpecimenUpdateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenUpdateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/contrib/messages/#django.contrib.messages.views.SuccessMessageMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.messages.views.SuccessMessageMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-editing/#django.views.generic.edit.UpdateView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></a></p>
+<p>View for updating an object, with a response rendered by template.
+See: <a class="reference external" href="http://ccbv.co.uk/UpdateView/">http://ccbv.co.uk/UpdateView/</a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenUpdateView.fields">
+<code class="descname">fields</code><em class="property"> = ('source',)</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenUpdateView.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenUpdateView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenUpdateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Specimen</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenUpdateView.permission_denied_message">
+<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenUpdateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenUpdateView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = ('specimens.change_specimen',)</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenUpdateView.permission_required" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenUpdateView.raise_exception">
+<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenUpdateView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.specimens.views.SpecimenUpdateView.success_message">
+<code class="descname">success_message</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.specimens.views.SpecimenUpdateView.success_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Juan Medina.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

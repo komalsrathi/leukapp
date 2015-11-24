@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="leukid, sample_form, models, sample, data unit" name="keywords" />
+<meta content="This wiki describes the **leukid** and it's models. The **leukid** is constructed based on the information provided by the **sample_form**." lang="en" name="description" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Leukid &mdash; leukapp 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="leukapp 0.1 documentation" href="../index.html"/>
+        <link rel="up" title="Welcome to leukapp’s documentation!" href="index.html"/>
+        <link rel="prev" title="Welcome to leukapp’s documentation!" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> leukapp
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Leukapp</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Leukid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sample-form">sample_form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leukid-construction">leukid construction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#individual-leukid-i-h-100000"><code class="docutils literal"><span class="pre">Individual</span></code> (leukid: I-H-100000 ...)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specimen-leukid-i-h-100000-t-2"><code class="docutils literal"><span class="pre">Specimen</span></code> (leukid: I-H-100000-T-2 ...)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aliquot-i-h-100000-t-2-d-1-1">Aliquot: <code class="docutils literal"><span class="pre">I-H-100000-T-2-D-1-1</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">leukapp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Welcome to leukapp&#8217;s documentation!</a> &raquo;</li>
+      
+    <li>Leukid</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/leukapp/leukid.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="leukid">
+<h1><a class="toc-backref" href="#id3">Leukid</a><a class="headerlink" href="#leukid" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">author:</th><td class="field-body"><p class="first">Juan Medina</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">contact:</th><td class="field-body"><p class="first"><a class="reference external" href="mailto:medinaj&#37;&#52;&#48;mskcc&#46;org">medinaj<span>&#64;</span>mskcc<span>&#46;</span>org</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">organization:</th><td class="field-body"><p class="first">Memorial Sloan-Kettering</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">status:</th><td class="field-body"><p class="first">This is &#8220;work in progress&#8221;</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">date:</th><td class="field-body"><p class="first"><a href="#id1"><span class="problematic" id="id2">|date|</span></a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">version:</th><td class="field-body"><p class="first">0.1</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">abstract:</th><td class="field-body"><p class="first">This wiki describes the <strong>leukid</strong> and it&#8217;s models. The <strong>leukid</strong> is constructed based on the information provided by the <strong>sample_form</strong>.</p>
+<p>Typographical conventions:</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">constant</span> <span class="pre">width</span></code> for code fragments, commands or object attributes</li>
+<li><em>italic</em> for file names</li>
+<li><strong>bold</strong> important terms</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#leukid" id="id3">Leukid</a><ul>
+<li><a class="reference internal" href="#introduction" id="id4">Introduction</a></li>
+<li><a class="reference internal" href="#sample-form" id="id5">sample_form</a></li>
+<li><a class="reference internal" href="#leukid-construction" id="id6">leukid construction</a><ul>
+<li><a class="reference internal" href="#individual-leukid-i-h-100000" id="id7"><code class="docutils literal"><span class="pre">Individual</span></code> (leukid: I-H-100000 ...)</a><ul>
+<li><a class="reference internal" href="#form-fields" id="id8">Form Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#specimen-leukid-i-h-100000-t-2" id="id9"><code class="docutils literal"><span class="pre">Specimen</span></code> (leukid: I-H-100000-T-2 ...)</a></li>
+<li><a class="reference internal" href="#aliquot-i-h-100000-t-2-d-1-1" id="id10">Aliquot: <code class="docutils literal"><span class="pre">I-H-100000-T-2-D-1-1</span></code></a><ul>
+<li><a class="reference internal" href="#library" id="id11">Library</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a class="reference internal" href="../py/leukapp.apps.extractions.html#module-leukapp.apps.extractions" title="leukapp.apps.extractions"><code class="xref py py-mod docutils literal"><span class="pre">extractions</span></code></a></p>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id4">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>sample_form</strong> is a submission template that includes the minimum fields required to construct the <strong>leukid</strong>. The <strong>leukid</strong> is constructed using the following Django <code class="docutils literal"><span class="pre">Models</span></code> (database schemas):</p>
+<ol class="loweralpha simple">
+<li><code class="docutils literal"><span class="pre">Individual</span></code></li>
+<li><code class="docutils literal"><span class="pre">Specimen</span></code></li>
+<li><code class="docutils literal"><span class="pre">Aliquot</span></code></li>
+<li><code class="docutils literal"><span class="pre">Library</span></code></li>
+</ol>
+<p>The <strong>leukid</strong> is designed to identify each single <strong>data unit</strong> living within the Leukemia Center infrastructure. A <strong>data unit</strong> is an abstract concept that refers to a sequenced <code class="docutils literal"><span class="pre">Library</span></code> and its respective <strong>sample</strong>. A <strong>sample</strong> is an abstract concept that carries information about an <code class="docutils literal"><span class="pre">Aliquot</span></code> and it&#8217;s respective <code class="docutils literal"><span class="pre">Specimen</span></code> and <code class="docutils literal"><span class="pre">Individual</span></code>.</p>
+<p>The <strong>leukid</strong> provides a useful description of the nature of the data. The <strong>leukid</strong> models are thoroughly explained in the <a class="reference internal" href="#leukid-construction">leukid construction</a> section.</p>
+</div>
+<div class="section" id="sample-form">
+<h2><a class="toc-backref" href="#id5">sample_form</a><a class="headerlink" href="#sample-form" title="Permalink to this headline">¶</a></h2>
+<p>The minimum fields required to construct the <strong>leukid</strong> are submitted using the <strong>sample_form</strong>. Such fields are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">model field name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">Individual.institution</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">Individual.species</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">Individual.ext_id</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">Specimen.type</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">Specimen.ext_id</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">Aliquot.material</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">Aliquot.ext_id</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="leukid-construction">
+<h2><a class="toc-backref" href="#id6">leukid construction</a><a class="headerlink" href="#leukid-construction" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the construction of the <strong>leukid</strong> models based on the <strong>sample_form</strong> submission.</p>
+<div class="section" id="individual-leukid-i-h-100000">
+<h3><a class="toc-backref" href="#id7"><code class="docutils literal"><span class="pre">Individual</span></code> (leukid: I-H-100000 ...)</a><a class="headerlink" href="#individual-leukid-i-h-100000" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">Individual</span></code> is the subject where the <code class="docutils literal"><span class="pre">Specimen</span></code> was obtained from. The <code class="docutils literal"><span class="pre">Individual</span></code> model has the following fields and methods:</p>
+<div class="section" id="form-fields">
+<h4><a class="toc-backref" href="#id8">Form Fields</a><a class="headerlink" href="#form-fields" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Individual.institution</span></code>: indicates the source of the <strong>sample</strong>. This value is mapped from the <strong>sample_form</strong> according to the following table:</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><code class="docutils literal"><span class="pre">Individual.source</span></code> choices</th>
+<th class="head">form value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>MSK</td>
+<td>Memorial Sloan-Kettering Cancer Center</td>
+</tr>
+<tr class="row-odd"><td>O</td>
+<td>Other</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Individual.species</span></code>: indicates the <code class="docutils literal"><span class="pre">Individual</span></code>&#8216;s species. This value is mapped from the <strong>sample_form</strong> according to the following table:</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="73%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><code class="docutils literal"><span class="pre">Individual.species</span></code> choices</th>
+<th class="head">form value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>H</td>
+<td>Human</td>
+</tr>
+<tr class="row-odd"><td>M</td>
+<td>Mouse</td>
+</tr>
+<tr class="row-even"><td>Y</td>
+<td>Yeast</td>
+</tr>
+<tr class="row-odd"><td>Z</td>
+<td>Zebrafish</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="4">
+<li><code class="docutils literal"><span class="pre">Individual.ext_id</span></code>: corresponds to the subject external ID, (e.g. for a human, the HOTB would provide <strong>Subject ID</strong>). The <code class="docutils literal"><span class="pre">Individual.ext_id</span></code> is recorded from <strong>sample_form</strong>.</li>
+</ol>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">Individual.pk</span></code>: unique identifier at the database level. Its an integer starting from 1.</li>
+</ol>
+<ol class="arabic simple" start="5">
+<li><code class="docutils literal"><span class="pre">Individual.int_id()</span></code>: This field is created by adding 100000 to the <code class="docutils literal"><span class="pre">Individual.pk</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">Individual.check_source()</span></code>: This field is created by adding 100000 to the <code class="docutils literal"><span class="pre">Individual.pk</span></code>.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="specimen-leukid-i-h-100000-t-2">
+<h3><a class="toc-backref" href="#id9"><code class="docutils literal"><span class="pre">Specimen</span></code> (leukid: I-H-100000-T-2 ...)</a><a class="headerlink" href="#specimen-leukid-i-h-100000-t-2" title="Permalink to this headline">¶</a></h3>
+<p>This section describes to the <code class="docutils literal"><span class="pre">Specimen</span></code> extracted from the <code class="docutils literal"><span class="pre">Individual</span></code>. The <code class="docutils literal"><span class="pre">Specimen</span></code> model has the following fields and methods:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">Specimen.Individual</span></code>: this field is a <code class="docutils literal"><span class="pre">ForeingKey</span></code> to an <code class="docutils literal"><span class="pre">Individual</span></code> instance.</li>
+</ol>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">Specimen.source</span></code>: this value is mapped from the <strong>sample_form</strong> according to the following table:</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><code class="docutils literal"><span class="pre">Specimen.int_id</span></code>: For a given <code class="docutils literal"><span class="pre">Specimen.ext_id</span></code>, there is a unique <code class="docutils literal"><span class="pre">Specimen.int_id</span></code>. This field is created by adding 1 to the previous unique record, starting from 1. The <code class="docutils literal"><span class="pre">Specimen.ext_id</span></code> is recorded from <strong>sample_form</strong>.</li>
+</ol>
+</div>
+<div class="section" id="aliquot-i-h-100000-t-2-d-1-1">
+<h3><a class="toc-backref" href="#id10">Aliquot: <code class="docutils literal"><span class="pre">I-H-100000-T-2-D-1-1</span></code></a><a class="headerlink" href="#aliquot-i-h-100000-t-2-d-1-1" title="Permalink to this headline">¶</a></h3>
+<p>This section describes to the physical aliquot extracted from the <code class="docutils literal"><span class="pre">Individual</span></code>&#8216;s specimen. The <em>idscript.py</em> assigns the following attributes:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">Aliquot.material</span></code>: this value corresponds to the biological material extracted from the specimen and is mapped from the <strong>sample_form</strong> according to the following table:</li>
+</ol>
+<table border="1" class="docutils">
+<colgroup>
+<col width="65%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><code class="docutils literal"><span class="pre">Aliquot.material</span></code></th>
+<th class="head">form value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>D</td>
+<td>DNA</td>
+</tr>
+<tr class="row-odd"><td>R</td>
+<td>RNA</td>
+</tr>
+<tr class="row-even"><td>M</td>
+<td>MIXED</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="2">
+<li><code class="docutils literal"><span class="pre">Aliquot.int_id</span></code>: For a given <code class="docutils literal"><span class="pre">Aliquot.ext_id</span></code>, there is a unique <code class="docutils literal"><span class="pre">Aliquot.int_id</span></code>. This field is created by adding 1 to the previous unique record, starting from 1. The <code class="docutils literal"><span class="pre">Aliquot.ext_id</span></code> is recorded from <strong>sample_form</strong>. If the <code class="docutils literal"><span class="pre">Aliquot.ext_id</span></code> is <code class="docutils literal"><span class="pre">Null</span></code>, a new <code class="docutils literal"><span class="pre">Aliquot.int_id</span></code> will be created.</li>
+<li><code class="docutils literal"><span class="pre">Aliquot.iteration_id</span></code>: the aliquot iteration corresponds to the subset of material extracted from the <em>Aliquot</em> tube that will be sent to the sequencing center.</li>
+</ol>
+<div class="section" id="library">
+<h4><a class="toc-backref" href="#id11">Library</a><a class="headerlink" href="#library" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to leukapp’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Juan Medina.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

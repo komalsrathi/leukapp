@@ -86,7 +86,21 @@
 <li class="toctree-l1"><a class="reference internal" href="../leukid.html">Leukid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../deploy.html">Deploy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Applications</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="config.html">config package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docs.html">docs package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="leukapp.html">leukapp package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="leukapp.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="leukapp.apps.html">leukapp.apps package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="leukapp.taskapp.html">leukapp.taskapp package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manage.html">manage module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">tests package</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="leukapp.apps.individuals.html">Individuals</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="leukapp.apps.individuals.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="leukapp.apps.individuals.admin.html">leukapp.apps.individuals.admin module</a></li>
@@ -148,6 +162,8 @@
             
   <div class="section" id="module-leukapp.apps.individuals.models">
 <span id="leukapp-apps-individuals-models-module"></span><h1>leukapp.apps.individuals.models module<a class="headerlink" href="#module-leukapp.apps.individuals.models" title="Permalink to this headline">¶</a></h1>
+<p>ORM models for the <a class="reference internal" href="leukapp.apps.individuals.html#module-leukapp.apps.individuals" title="leukapp.apps.individuals"><code class="xref py py-mod docutils literal"><span class="pre">individuals</span></code></a> application.</p>
+<p>See <a class="reference external" href="https://docs.djangoproject.com/en/1.9/topics/db/models/">Django&#8217;s Model Documentation</a> for more information.</p>
 <dl class="class">
 <dt id="leukapp.apps.individuals.models.Individual">
 <em class="property">class </em><code class="descname">Individual</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/individuals/models.html#Individual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.individuals.models.Individual" title="Permalink to this definition">¶</a></dt>
@@ -160,25 +176,38 @@
 
 <dl class="attribute">
 <dt id="leukapp.apps.individuals.models.Individual.CHOICES">
-<code class="descname">CHOICES</code><em class="property"> = {'SPECIES': (('HUMAN', 'HUMAN'), ('MOUSE', 'MOUSE'), ('YEAST', 'YEAST'), ('ZEBRAFISH', 'ZEBRAFISH'), ('XENOGRAFT', 'XENOGRAFT')), 'INSTITUTION': (('MSK', 'MSK'), ('OTHER', 'OTHER'))}</em><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.CHOICES" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CHOICES</code><em class="property"> = {'INSTITUTION': (('MSK', 'MSK'), ('OTHER', 'OTHER')), 'SPECIES': (('HUMAN', 'HUMAN'), ('MOUSE', 'MOUSE'), ('YEAST', 'YEAST'), ('ZEBRAFISH', 'ZEBRAFISH'), ('XENOGRAFT', 'XENOGRAFT'))}</em><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.CHOICES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="leukapp.apps.individuals.models.Individual.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="leukapp.apps.individuals.models.Individual.MultipleObjectsReturned">
 <em class="property">exception </em><code class="descclassname">Individual.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="leukapp.apps.individuals.models.Individual.check_institution">
 <code class="descclassname">Individual.</code><code class="descname">check_institution</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/individuals/models.html#Individual.check_institution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.check_institution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines whether or not the Individual comes from MSK or not.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.models.Individual.ext_id">
+<code class="descclassname">Individual.</code><code class="descname">ext_id</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.ext_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates the <code class="xref py py-class docutils literal"><span class="pre">Indiviual</span></code> external id.
+This field is validated using the
+<a class="reference internal" href="leukapp.apps.core.validators.html#leukapp.apps.core.validators.ext_id_validator" title="leukapp.apps.core.validators.ext_id_validator"><code class="xref py py-obj docutils literal"><span class="pre">ext_id_validator</span></code></a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><strong>MRNs</strong> are not allowed for <code class="docutils literal"><span class="pre">HUMANS</span></code> from <code class="docutils literal"><span class="pre">MSK</span></code>. Please use a
+pseudo MRN or other type of identifier.</p>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -212,9 +241,38 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="leukapp.apps.individuals.models.Individual.institution">
+<code class="descclassname">Individual.</code><code class="descname">institution</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.institution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether the <code class="xref py py-class docutils literal"><span class="pre">Indiviual</span></code> comes from MSK or not.
+See the available choices: <a class="reference internal" href="leukapp.apps.individuals.constants.html#leukapp.apps.individuals.constants.INSTITUTION" title="leukapp.apps.individuals.constants.INSTITUTION"><code class="xref py py-class docutils literal"><span class="pre">INSTITUTION</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.models.Individual.int_id">
+<code class="descclassname">Individual.</code><code class="descname">int_id</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.int_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.models.Individual.normals_count">
+<code class="descclassname">Individual.</code><code class="descname">normals_count</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.normals_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="leukapp.apps.individuals.models.Individual.objects">
 <code class="descclassname">Individual.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.objects" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.models.Individual.slug">
+<code class="descclassname">Individual.</code><code class="descname">slug</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.slug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.models.Individual.species">
+<code class="descclassname">Individual.</code><code class="descname">species</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.species" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates the <code class="xref py py-class docutils literal"><span class="pre">Indiviual</span></code> species.
+See the available choices: <a class="reference internal" href="leukapp.apps.individuals.constants.html#leukapp.apps.individuals.constants.SPECIES" title="leukapp.apps.individuals.constants.SPECIES"><code class="xref py py-class docutils literal"><span class="pre">SPECIES</span></code></a>.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="leukapp.apps.individuals.models.Individual.specimen_set">
@@ -230,6 +288,11 @@ many-to-one relation.</p>
 <p>Most of the implementation is delegated to a dynamically defined manager
 class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.models.Individual.tumors_count">
+<code class="descclassname">Individual.</code><code class="descname">tumors_count</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.individuals.models.Individual.tumors_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

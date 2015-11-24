@@ -81,12 +81,8 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukid.html">Leukid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../deploy.html">Deploy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/modules.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/leukapp.apps.individuals.html">Individuals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/config.html">System Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/index.html">Leukapp</a></li>
 </ul>
 
             
@@ -134,6 +130,15 @@
   <h1>Source code for leukapp.apps.individuals.models</h1><div class="highlight"><pre>
 <span class="c"># -*- coding: utf-8 -*-</span>
 
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ORM models for the :mod:`~leukapp.apps.individuals` application.</span>
+
+<span class="sd">See `Django&#39;s Model Documentation`_ for more information.</span>
+
+<span class="sd">.. _Django&#39;s Model Documentation:</span>
+<span class="sd">    https://docs.djangoproject.com/en/1.9/topics/db/models/</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
 <span class="c"># django</span>
 <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
 <span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
@@ -146,7 +151,7 @@
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span>
 
 
-<div class="viewcode-block" id="Individual"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.individuals.models.html#leukapp.apps.individuals.models.Individual">[docs]</a><span class="k">class</span> <span class="nc">Individual</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
+<div class="viewcode-block" id="Individual"><a class="viewcode-back" href="../../../../py/leukapp.apps.individuals.models.html#leukapp.apps.individuals.models.Individual">[docs]</a><span class="k">class</span> <span class="nc">Individual</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627</span>
@@ -155,66 +160,108 @@
     <span class="n">APP_NAME</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
     <span class="n">CHOICES</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INDIVIDUAL_CHOICES</span>
 
-    <span class="c"># external fields</span>
+    <span class="c"># EXTERNAL FIELDS</span>
+    <span class="c"># -------------------------------------------------------------------------</span>
     <span class="n">institution</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;institution&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;INSTITUTION&quot;</span><span class="p">],</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. py:currentmodule:: leukapp.apps.individuals</span>
+<span class="sd">    Indicates whether the :class:`~models.Indiviual` comes from MSK or not.</span>
+<span class="sd">    See the available choices: :class:`~constants.INSTITUTION`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">species</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;species&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">choices</span><span class="o">=</span><span class="n">CHOICES</span><span class="p">[</span><span class="s">&quot;SPECIES&quot;</span><span class="p">],</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. py:currentmodule:: leukapp.apps.individuals</span>
+<span class="sd">    Indicates the :class:`~models.Indiviual` species.</span>
+<span class="sd">    See the available choices: :class:`~constants.SPECIES`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">ext_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;external id&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">ext_id_validator</span><span class="p">],</span>
         <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
             <span class="s">&quot;The external id should be unique at the &quot;</span>
-            <span class="s">&quot;Institution and Species levels.&quot;</span>
-            <span class="p">),</span>
+            <span class="s">&quot;Institution and Species levels. MRNs are not allowed for {0}S &quot;</span>
+            <span class="s">&quot;from {1}. Please use a pseudo MRN or other type of identifier.&quot;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">HUMAN</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">MSK</span><span class="p">),</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. py:currentmodule:: leukapp.apps.individuals</span>
+<span class="sd">    Indicates the :class:`~models.Indiviual` external id.</span>
+<span class="sd">    This field is validated using the</span>
+<span class="sd">    :obj:`~leukapp.apps.core.validators.ext_id_validator`.</span>
 
-    <span class="c"># internal fields</span>
+<span class="sd">    .. warning::</span>
+<span class="sd">        **MRNs** are not allowed for ``HUMANS`` from ``MSK``. Please use a</span>
+<span class="sd">        pseudo MRN or other type of identifier.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># INTERNAL FIELDS</span>
+    <span class="c"># -------------------------------------------------------------------------</span>
     <span class="n">tumors_count</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;number of tumor specimens created&quot;</span><span class="p">),</span>
         <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">normals_count</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;number of normal specimens created&quot;</span><span class="p">),</span>
         <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">int_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;internal id&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="p">(</span>
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
         <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
+
+    <span class="c"># META</span>
+    <span class="c"># -------------------------------------------------------------------------</span>
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span><span class="p">)</span>
         <span class="n">unique_together</span> <span class="o">=</span> <span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">INDIVIDUAL_UNIQUE_TOGETHER</span><span class="p">)</span>
         <span class="n">index_together</span> <span class="o">=</span> <span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">INDIVIDUAL_UNIQUE_TOGETHER</span><span class="p">)</span>
 
+    <span class="c"># METHODS</span>
+    <span class="c"># -------------------------------------------------------------------------</span>
+
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
 
-<div class="viewcode-block" id="Individual.check_institution"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.individuals.models.html#leukapp.apps.individuals.models.Individual.check_institution">[docs]</a>    <span class="k">def</span> <span class="nf">check_institution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Individual.check_institution"><a class="viewcode-back" href="../../../../py/leukapp.apps.individuals.models.html#leukapp.apps.individuals.models.Individual.check_institution">[docs]</a>    <span class="k">def</span> <span class="nf">check_institution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Determines whether or not the Individual comes from MSK or not. &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">institution</span> <span class="o">==</span> <span class="n">constants</span><span class="o">.</span><span class="n">MSK</span><span class="p">:</span>
             <span class="k">return</span> <span class="s">&#39;I&#39;</span>

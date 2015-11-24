@@ -81,12 +81,8 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukid.html">Leukid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../deploy.html">Deploy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/modules.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/leukapp.apps.individuals.html">Individuals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/config.html">System Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/index.html">Leukapp</a></li>
 </ul>
 
             
@@ -157,7 +153,7 @@
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span>
 
 
-<div class="viewcode-block" id="ProjectDetailView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectDetailView">[docs]</a><span class="k">class</span> <span class="nc">ProjectDetailView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="ProjectDetailView"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectDetailView">[docs]</a><span class="k">class</span> <span class="nc">ProjectDetailView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                         <span class="n">generic</span><span class="o">.</span><span class="n">DetailView</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -170,7 +166,7 @@
     <span class="n">model</span> <span class="o">=</span> <span class="n">Project</span>
 
 </div>
-<div class="viewcode-block" id="ProjectListView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectListView">[docs]</a><span class="k">class</span> <span class="nc">ProjectListView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="ProjectListView"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectListView">[docs]</a><span class="k">class</span> <span class="nc">ProjectListView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                       <span class="n">generic</span><span class="o">.</span><span class="n">ListView</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -182,14 +178,14 @@
     <span class="n">model</span> <span class="o">=</span> <span class="n">Project</span>
     <span class="n">paginate_by</span> <span class="o">=</span> <span class="mi">20</span>
 
-<div class="viewcode-block" id="ProjectListView.get_context_data"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ProjectListView.get_context_data"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">context</span><span class="p">[</span><span class="s">&#39;APP_NAME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
         <span class="n">context</span><span class="p">[</span><span class="s">&#39;CREATE_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PROJECT_CREATE_URL</span>
         <span class="n">context</span><span class="p">[</span><span class="s">&#39;LIST_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PROJECT_LIST_URL</span>
         <span class="k">return</span> <span class="n">context</span>
 </div>
-<div class="viewcode-block" id="ProjectListView.get_queryset"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectListView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ProjectListView.get_queryset"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectListView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -197,7 +193,7 @@
             <span class="k">return</span> <span class="n">Project</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">participants__email</span><span class="o">=</span><span class="n">email</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="ProjectRedirectView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectRedirectView">[docs]</a><span class="k">class</span> <span class="nc">ProjectRedirectView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="ProjectRedirectView"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectRedirectView">[docs]</a><span class="k">class</span> <span class="nc">ProjectRedirectView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                           <span class="n">generic</span><span class="o">.</span><span class="n">RedirectView</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -207,11 +203,11 @@
 
     <span class="n">permanent</span> <span class="o">=</span> <span class="bp">False</span>
 
-<div class="viewcode-block" id="ProjectRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ProjectRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">PROJECT_LIST_URL</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="ProjectCreateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectCreateView">[docs]</a><span class="k">class</span> <span class="nc">ProjectCreateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="ProjectCreateView"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectCreateView">[docs]</a><span class="k">class</span> <span class="nc">ProjectCreateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
                         <span class="n">mixins</span><span class="o">.</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span>
                         <span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                         <span class="n">generic</span><span class="o">.</span><span class="n">CreateView</span><span class="p">):</span>
@@ -230,23 +226,23 @@
     <span class="n">permission_denied_message</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PERMISSION_DENIED_MESSAGE</span>
     <span class="n">raise_exception</span> <span class="o">=</span> <span class="bp">True</span>
 
-<div class="viewcode-block" id="ProjectCreateView.get_form"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectCreateView.get_form">[docs]</a>    <span class="k">def</span> <span class="nf">get_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form_class</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ProjectCreateView.get_form"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectCreateView.get_form">[docs]</a>    <span class="k">def</span> <span class="nf">get_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form_class</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">form</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectCreateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">form_class</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">update_project_form_widgets</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="ProjectCreateView.post"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectCreateView.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ProjectCreateView.post"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectCreateView.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">request</span> <span class="o">=</span> <span class="n">clean_participants_in_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectCreateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="ProjectCreateView.form_valid"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="ProjectCreateView.form_valid"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">created_by</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectCreateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="ProjectUpdateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectUpdateView">[docs]</a><span class="k">class</span> <span class="nc">ProjectUpdateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="ProjectUpdateView"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectUpdateView">[docs]</a><span class="k">class</span> <span class="nc">ProjectUpdateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
                         <span class="n">mixins</span><span class="o">.</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span>
                         <span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                         <span class="n">generic</span><span class="o">.</span><span class="n">UpdateView</span><span class="p">):</span>
@@ -265,11 +261,11 @@
     <span class="n">permission_denied_message</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">PERMISSION_DENIED_MESSAGE</span>
     <span class="n">raise_exception</span> <span class="o">=</span> <span class="bp">True</span>
 
-<div class="viewcode-block" id="ProjectUpdateView.get_form"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectUpdateView.get_form">[docs]</a>    <span class="k">def</span> <span class="nf">get_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form_class</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ProjectUpdateView.get_form"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectUpdateView.get_form">[docs]</a>    <span class="k">def</span> <span class="nf">get_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form_class</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">form</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectUpdateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">form_class</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">update_project_form_widgets</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="ProjectUpdateView.post"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectUpdateView.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ProjectUpdateView.post"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.ProjectUpdateView.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">request</span> <span class="o">=</span> <span class="n">clean_participants_in_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectUpdateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -278,7 +274,7 @@
 <span class="c"># HELPER FUNCTIONS</span>
 <span class="c"># -----------------------------------------------------------------------------</span>
 </div></div>
-<div class="viewcode-block" id="update_project_form_widgets"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.update_project_form_widgets">[docs]</a><span class="k">def</span> <span class="nf">update_project_form_widgets</span><span class="p">(</span><span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="update_project_form_widgets"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.update_project_form_widgets">[docs]</a><span class="k">def</span> <span class="nf">update_project_form_widgets</span><span class="p">(</span><span class="n">form</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Prepare form widgets for tokeninput. &quot;&quot;&quot;</span>
 
     <span class="n">form</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s">&#39;pi&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">()</span>
@@ -289,7 +285,7 @@
     <span class="k">return</span> <span class="n">form</span>
 
 </div>
-<div class="viewcode-block" id="clean_participants_in_request"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.projects.views.html#leukapp.apps.projects.views.clean_participants_in_request">[docs]</a><span class="k">def</span> <span class="nf">clean_participants_in_request</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="clean_participants_in_request"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.views.html#leukapp.apps.projects.views.clean_participants_in_request">[docs]</a><span class="k">def</span> <span class="nf">clean_participants_in_request</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Clean participants list returned by tokeninput. &quot;&quot;&quot;</span>
 
     <span class="k">try</span><span class="p">:</span>

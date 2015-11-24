@@ -81,12 +81,8 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../../leukid.html">Leukid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../../install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../../deploy.html">Deploy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../../leukapp/modules.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../../leukapp/leukapp.apps.individuals.html">Individuals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../../leukapp/config.html">System Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../leukapp/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../leukapp/index.html">Leukapp</a></li>
 </ul>
 
             
@@ -141,14 +137,14 @@
 <span class="kn">from</span> <span class="nn">leukapp.apps.aliquots.constants</span> <span class="kn">import</span> <span class="n">ALIQUOT_CREATE_FIELDS</span>
 
 
-<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../../../leukapp/leukapp.apps.extractions.management.commands.get_sample_fields.html#leukapp.apps.extractions.management.commands.get_sample_fields.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../../../py/leukapp.apps.extractions.management.commands.get_sample_fields.html#leukapp.apps.extractions.management.commands.get_sample_fields.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
     <span class="n">help</span> <span class="o">=</span> <span class="s">&#39;Gets create form fields for Individuals, Specimens and Aliquots&#39;</span>
 
     <span class="c"># def add_arguments(self, parser):</span>
     <span class="c">#     parser.add_argument(&#39;poll_id&#39;, nargs=&#39;+&#39;, type=int)</span>
     <span class="c"># raise CommandError(&#39;Poll &quot;%s&quot; does not exist&#39; % poll_id)</span>
 
-<div class="viewcode-block" id="Command.handle"><a class="viewcode-back" href="../../../../../../leukapp/leukapp.apps.extractions.management.commands.get_sample_fields.html#leukapp.apps.extractions.management.commands.get_sample_fields.Command.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<div class="viewcode-block" id="Command.handle"><a class="viewcode-back" href="../../../../../../py/leukapp.apps.extractions.management.commands.get_sample_fields.html#leukapp.apps.extractions.management.commands.get_sample_fields.Command.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
         <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Individual&#39;</span><span class="p">,</span> <span class="s">&#39;Specimen&#39;</span><span class="p">,</span> <span class="s">&#39;Aliquot&#39;</span><span class="p">]</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s">&#39;Individuals&#39;</span><span class="p">:</span> <span class="n">INDIVIDUAL_CREATE_FIELDS</span><span class="p">,</span>

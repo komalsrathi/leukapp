@@ -81,12 +81,8 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukid.html">Leukid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../deploy.html">Deploy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/modules.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/leukapp.apps.individuals.html">Individuals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/config.html">System Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/index.html">Leukapp</a></li>
 </ul>
 
             
@@ -156,7 +152,7 @@
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span>
 
 
-<div class="viewcode-block" id="SpecimenDetailView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenDetailView">[docs]</a><span class="k">class</span> <span class="nc">SpecimenDetailView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="SpecimenDetailView"><a class="viewcode-back" href="../../../../py/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenDetailView">[docs]</a><span class="k">class</span> <span class="nc">SpecimenDetailView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                          <span class="n">generic</span><span class="o">.</span><span class="n">DetailView</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -169,7 +165,7 @@
     <span class="n">model</span> <span class="o">=</span> <span class="n">Specimen</span>
 
 </div>
-<div class="viewcode-block" id="SpecimenListView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenListView">[docs]</a><span class="k">class</span> <span class="nc">SpecimenListView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="SpecimenListView"><a class="viewcode-back" href="../../../../py/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenListView">[docs]</a><span class="k">class</span> <span class="nc">SpecimenListView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                        <span class="n">generic</span><span class="o">.</span><span class="n">ListView</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -181,14 +177,14 @@
     <span class="n">model</span> <span class="o">=</span> <span class="n">Specimen</span>
     <span class="n">paginate_by</span> <span class="o">=</span> <span class="mi">20</span>
 
-<div class="viewcode-block" id="SpecimenListView.get_context_data"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="SpecimenListView.get_context_data"><a class="viewcode-back" href="../../../../py/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SpecimenListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">context</span><span class="p">[</span><span class="s">&#39;APP_NAME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
             <span class="n">context</span><span class="p">[</span><span class="s">&#39;CREATE_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">SPECIMEN_CREATE_URL</span>
             <span class="k">return</span> <span class="n">context</span>
 
 </div></div>
-<div class="viewcode-block" id="SpecimenRedirectView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenRedirectView">[docs]</a><span class="k">class</span> <span class="nc">SpecimenRedirectView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="SpecimenRedirectView"><a class="viewcode-back" href="../../../../py/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenRedirectView">[docs]</a><span class="k">class</span> <span class="nc">SpecimenRedirectView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                            <span class="n">generic</span><span class="o">.</span><span class="n">RedirectView</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -198,11 +194,11 @@
 
     <span class="n">permanent</span> <span class="o">=</span> <span class="bp">False</span>
 
-<div class="viewcode-block" id="SpecimenRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SpecimenRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../py/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">SPECIMEN_LIST_URL</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="SpecimenCreateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenCreateView">[docs]</a><span class="k">class</span> <span class="nc">SpecimenCreateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="SpecimenCreateView"><a class="viewcode-back" href="../../../../py/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenCreateView">[docs]</a><span class="k">class</span> <span class="nc">SpecimenCreateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
                          <span class="n">mixins</span><span class="o">.</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span>
                          <span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                          <span class="n">generic</span><span class="o">.</span><span class="n">CreateView</span><span class="p">):</span>
@@ -222,7 +218,7 @@
     <span class="n">raise_exception</span> <span class="o">=</span> <span class="bp">True</span>
 
 </div>
-<div class="viewcode-block" id="SpecimenUpdateView"><a class="viewcode-back" href="../../../../leukapp/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenUpdateView">[docs]</a><span class="k">class</span> <span class="nc">SpecimenUpdateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
+<div class="viewcode-block" id="SpecimenUpdateView"><a class="viewcode-back" href="../../../../py/leukapp.apps.specimens.views.html#leukapp.apps.specimens.views.SpecimenUpdateView">[docs]</a><span class="k">class</span> <span class="nc">SpecimenUpdateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
                          <span class="n">mixins</span><span class="o">.</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span>
                          <span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                          <span class="n">generic</span><span class="o">.</span><span class="n">UpdateView</span><span class="p">):</span>

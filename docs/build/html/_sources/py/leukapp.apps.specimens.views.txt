@@ -1,0 +1,7 @@
+leukapp.apps.specimens.views module
+===================================
+
+.. automodule:: leukapp.apps.specimens.views
+    :members:
+    :undoc-members:
+    :show-inheritance:
