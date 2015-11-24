@@ -1,0 +1,27 @@
+#!/bin/bash
+# common environment variables for the different deployments
+
+# DJANGO SETTINGS
+# -----------------------------------------------------------------------------
+export DJANGO_ALLOWED_HOSTS=$DJANGO_HOST
+export DJANGO_SECRET_KEY=CHANGE_ME
+export DJANGO_SETTINGS_MODULE="config.settings.production"
+export DATABASE_URL=postgres:///$DEPLOYMENT
+export PROJECT_DIR=/home/medinaj/sites/$DJANGO_HOST/source/
+
+# DJANGO SECURITY CONFIGURATION
+# -----------------------------------------------------------------------------
+export DJANGO_SECURE_SSL_REDIRECT=True
+export DJANGO_SECURE_FRAME_DENY=True
+export DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=True
+export DJANGO_SECURE_CONTENT_TYPE_NOSNIFF=True
+export DJANGO_SECURE_BROWSER_XSS_FILTER=True
+export DJANGO_SESSION_COOKIE_SECURE=True
+export DJANGO_SESSION_COOKIE_HTTPONLY=True
+export DJANGO_CSRF_COOKIE_SECURE=False
+export DJANGO_CSRF_COOKIE_HTTPONLY=True
+export DJANGO_X_FRAME_OPTIONS="DENY"
+
+# GO TO PROJECT DIRECTORY
+# -----------------------------------------------------------------------------
+cd $PROJECT_DIR

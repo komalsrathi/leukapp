@@ -1,0 +1,20 @@
+#!/bin/bash
+# This hook is run after this virtualenv is activated.
+
+# PRODUCTION CONFIGURATION
+# -----------------------------------------------------------------------------
+export DEPLOYMENT="staging"
+export DJANGO_ALLOWED_HOSTS=plvleukweb1.mskcc.org
+
+# PRODUCTION EMAIL CONFIGURATION
+# -----------------------------------------------------------------------------
+export DJANGO_DEFAULT_FROM_EMAIL="leukapp staging <noreply@leukgen.mskcc.org>"
+export DJANGO_EMAIL_SUBJECT_PREFIX="[leukapp staging] "
+
+# LOAD COMMON ENVIRONMENT VARIABLES
+# -----------------------------------------------------------------------------
+. common
+
+# LOAD LEUKAPP SPECIFIC ENVIRONMENT VARIABLES
+# -----------------------------------------------------------------------------
+. leukapp
