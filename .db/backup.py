@@ -12,6 +12,7 @@ import environ
 import paramiko
 from scp import SCPClient
 from subprocess import call
+from time import sleep
 
 
 def backuptoluna():
@@ -56,9 +57,11 @@ def backuptoluna():
         key_filename=env('LEUKDC_SSHKEY'),
         )
 
+    ssh.exec_command("mkdir -p " + root)
+    sleep(1)  # Adds sleep to wait for ssh creation of directory
+
     # dump files
     with SCPClient(ssh.get_transport()) as scp:
-        ssh.exec_command("mkdir -p " + root)
         scp.put(db, root)
         scp.put(commit, root)
 
