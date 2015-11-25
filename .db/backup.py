@@ -59,8 +59,8 @@ def backuptoluna():
     # dump files
     with SCPClient(ssh.get_transport()) as scp:
         ssh.exec_command("mkdir -p " + root)
-        scp.put(db, root + db)
-        scp.put(commit, root + commit)
+        scp.put(db, root)
+        scp.put(commit, root)
 
 
 # ROUTINE PROTECTION
