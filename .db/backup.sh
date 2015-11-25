@@ -8,7 +8,8 @@
 
 # LOAD ENVIRONMENT
 # -----------------------------------------------------------------------------
-source $HOME/.virtualenvs/production/bin/activate
+source /opt/rh/rh-python34/root/usr/bin/virtualenvwrapper.sh
+workon production && cd .db
 
 # BACKUP DATABSE
 # -----------------------------------------------------------------------------
