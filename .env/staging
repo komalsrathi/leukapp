@@ -18,4 +18,3 @@ export DJANGO_EMAIL_SUBJECT_PREFIX="[leukapp staging] "
 # LOAD LEUKAPP SPECIFIC ENVIRONMENT VARIABLES
 # -----------------------------------------------------------------------------
 . $PROJECT_DIR/.env/leukapp
-
