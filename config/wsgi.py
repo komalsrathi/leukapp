@@ -11,13 +11,20 @@ might make sense to replace the whole Django WSGI application with a custom one
 that later delegates to the Django one. For example, you could introduce WSGI
 middleware here, or combine a Django application with an application of another
 framework.
-
 """
+
+# python
 import os
 
+# django
 from django.core.wsgi import get_wsgi_application
+
+# third party
 from whitenoise.django import DjangoWhiteNoise
 
+
+# APPLICATION CONSTRUCTION
+# =============================================================================
 
 # We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
 # if running multiple sites in the same mod_wsgi process. To fix this, use
@@ -37,3 +44,10 @@ application = DjangoWhiteNoise(application)
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
+
+# ROUTINE PROTECTION
+# =============================================================================
+
+if __name__ == '__main__':
+    pass

@@ -17,7 +17,7 @@ from django.utils import six
 from .common import *  # noqa
 
 # SECRET CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Raises ImproperlyConfigured exception if DJANGO_SECRET_KEY not in os.environ
 SECRET_KEY = env("DJANGO_SECRET_KEY")
@@ -27,7 +27,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # django-secure
-# -----------------------------------------------------------------------------
+# =============================================================================
 INSTALLED_APPS += ("djangosecure", )
 
 SECURITY_MIDDLEWARE = (
@@ -51,7 +51,7 @@ SESSION_COOKIE_HTTPONLY = True
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
 
 # SITE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['leukgen.mskcc.org'])
@@ -60,7 +60,7 @@ ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['leukgen.mskcc.org'])
 INSTALLED_APPS += ("gunicorn", )
 
 # STORAGE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # Uploaded Media Files
 # --------------------
 # See: http://django-storages.readthedocs.org/en/latest/index.html
@@ -92,12 +92,12 @@ AWS_HEADERS = {
 MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 
 # Static Assests
-# -----------------------------------------------------------------------------
+# =============================================================================
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 # EMAIL
-# -----------------------------------------------------------------------------
+# =============================================================================
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
                          default='leukapp <noreply@leukgen.mskcc.org>')
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
@@ -107,7 +107,7 @@ EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default='[leukapp] ')
 SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
 # TEMPLATE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # See:
 # https://docs.djangoproject.com/en/dev/ref/templates/api/#django.template.loaders.cached.Loader
 TEMPLATES[0]['OPTIONS']['loaders'] = [
@@ -117,12 +117,12 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 ]
 
 # DATABASE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 DATABASES['default'] = env.db("DATABASE_URL")
 
 # CACHING
-# -----------------------------------------------------------------------------
+# =============================================================================
 # Heroku URL does not pass the DB number, so we parse it in
 CACHES = {
     "default": {

@@ -14,16 +14,16 @@ should be stored here.
 from leukapp.apps.core import constants as coreconstants
 
 # APP INFO
-# -----------------------------------------------------------------------------
+# =============================================================================
 APP_NAME = 'aliquots'  #: Application's name.
 
 # URLS
-# -----------------------------------------------------------------------------
+# =============================================================================
 ALIQUOT_CREATE_URL = APP_NAME + ':create'  #: Create URL reverse string.
 ALIQUOT_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
 
 # FIELDS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Fields required to create a new instance.
 ALIQUOT_CREATE_FIELDS = (
@@ -42,12 +42,12 @@ ALIQUOT_UNIQUE_TOGETHER = (
     )
 
 # CHOICES
-# -----------------------------------------------------------------------------
+# =============================================================================
 ALIQUOT_CHOICES = {
     }
 
 # PERMISSIONS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Tuple of permissions required to create a new instance.
 ALIQUOT_CREATE_PERMISSIONS = ('aliquots.add_aliquot',)
@@ -57,7 +57,7 @@ ALIQUOT_UPDATE_PERMISSIONS = ('aliquots.change_aliquot',)
 
 
 # MESSAGES
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Sucess message.
 SUCCESS_MESSAGE = coreconstants.SUCCESS_MESSAGE

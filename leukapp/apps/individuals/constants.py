@@ -14,17 +14,17 @@ should be stored here.
 from leukapp.apps.core import constants as coreconstants
 
 # APP INFO
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 APP_NAME = 'individuals'  #: Application's name.
 
 # URLS
-# -----------------------------------------------------------------------------
+# =============================================================================
 INDIVIDUAL_CREATE_URL = APP_NAME + ':create'  #: Create URL reverse string.
 INDIVIDUAL_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
 
 # FIELDS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Fields required to create a new instance.
 INDIVIDUAL_CREATE_FIELDS = (
@@ -45,7 +45,7 @@ INDIVIDUAL_UNIQUE_TOGETHER = (
     )
 
 # CHOICES
-# -----------------------------------------------------------------------------
+# =============================================================================
 MSK = 'MSK'
 OTHER = 'OTHER'
 INSTITUTION = (
@@ -108,7 +108,7 @@ Characters used in the **leukid** to describe the `Individual's`
 """
 
 # PERMISSIONS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Tuple of permissions required to create a new instance.
 INDIVIDUAL_CREATE_PERMISSIONS = ('individuals.add_individual',)
@@ -117,7 +117,7 @@ INDIVIDUAL_CREATE_PERMISSIONS = ('individuals.add_individual',)
 INDIVIDUAL_UPDATE_PERMISSIONS = ('individuals.change_individual',)
 
 # MESSAGES
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Sucess message.
 SUCCESS_MESSAGE = coreconstants.SUCCESS_MESSAGE

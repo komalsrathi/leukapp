@@ -47,6 +47,6 @@ class IndividualAdmin(admin.ModelAdmin):
 
 
 # Individual Admin Registration
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 admin.site.register(Individual, IndividualAdmin)

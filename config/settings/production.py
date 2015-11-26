@@ -11,7 +11,7 @@ from __future__ import absolute_import, unicode_literals
 from .common import *  # noqa
 
 # SECRET CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
@@ -24,13 +24,13 @@ For more information, see `secret key`.
 """
 
 # MIDDLEWARE SECURITY
-# -----------------------------------------------------------------------------
+# =============================================================================
 SECURITY_MIDDLEWARE = ('django.middleware.security.SecurityMiddleware', )
 MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
 
 
 # SECURITY SETTINGS
-# -----------------------------------------------------------------------------
+# =============================================================================
 SECURE_HSTS_SECONDS = 60
 """
 Set to 60 seconds, then to 518400 when you are sure that everything works.
@@ -104,7 +104,7 @@ X_FRAME_OPTIONS = env(
 """
 
 # SITE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 ALLOWED_HOSTS = env.list(
     'DJANGO_ALLOWED_HOSTS', default=['leukgen.mskcc.org'])
@@ -117,15 +117,15 @@ See `allowed hosts`_
 """
 
 # APP CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 INSTALLED_APPS += ("gunicorn", )
 
 # STATIC FILES
-# -----------------------------------------------------------------------------
+# =============================================================================
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # EMAIL
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 DEFAULT_FROM_EMAIL = env(
     'DJANGO_DEFAULT_FROM_EMAIL', default='leukapp <noreply@leukgen.mskcc.org>')
@@ -146,7 +146,7 @@ SERVER_EMAIL = env(
 """
 
 # TEMPLATE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # See:
 # https://docs.djangoproject.com/en/dev/ref/templates/api/#django.template.loaders.cached.Loader
 TEMPLATES[0]['OPTIONS']['loaders'] = [
@@ -156,7 +156,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 ]
 
 # DATABASE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 DATABASES['default'] = env.db(
     "DATABASE_URL", default="postgres:///production")
@@ -165,7 +165,7 @@ Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 """
 
 # CACHING
-# -----------------------------------------------------------------------------
+# =============================================================================
 # Heroku URL does not pass the DB number, so we parse it in
 CACHES = {
     "default": {

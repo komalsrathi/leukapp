@@ -142,7 +142,7 @@ class ProjectUpdateView(SuccessMessageMixin,
 
 
 # HELPER FUNCTIONS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 def update_project_form_widgets(form):
     """ Prepare form widgets for tokeninput. """

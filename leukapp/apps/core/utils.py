@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+
 """
-individuals app constants
+Code used across the leukapp :mod:`~leukapp.apps`.
 """
 
 # django

@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # LOCAL CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 export DEPLOYMENT="local"
 export DJANGO_SETTINGS_MODULE="config.settings.local"
 export PROJECT_DIR=/Users/medinaj/Documents/msk/projects/leukapp_project
 
 # LOAD LEUKAPP SPECIFIC ENVIRONMENT VARIABLES
-# -----------------------------------------------------------------------------
+# =============================================================================
 . $PROJECT_DIR/.env/leukapp
 
 # GO TO PROJECT DIRECTORY
-# -----------------------------------------------------------------------------
+# =============================================================================
 cd $PROJECT_DIR

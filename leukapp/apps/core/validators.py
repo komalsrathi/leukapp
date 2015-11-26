@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 # PHONE VALIDATOR
-# -----------------------------------------------------------------------------
+# =============================================================================
 phone_validator = RegexValidator(
     regex=r'^\+?1?\d{9,15}$',
     message=_(
@@ -27,7 +27,7 @@ character is allowed.
 
 
 # SIMPLE NAME VALIDATOR
-# -----------------------------------------------------------------------------
+# =============================================================================
 name_validator = RegexValidator(
     regex=r'^[a-zA-Z\s]$',
     message=_(
@@ -43,7 +43,7 @@ This validator allows letters, numbers, white spaces and underscores.
 
 
 # OBJECT NAME VALIDATOR
-# -----------------------------------------------------------------------------
+# =============================================================================
 object_name_validator = RegexValidator(
     regex=r'^[-a-zA-Z0-9_\s]+\Z',
     code='invalid',
@@ -60,7 +60,7 @@ This validator allows letters, numbers, white spaces, underscores and hyphens.
 
 
 # EXTERNAL ID VALIDATOR
-# -----------------------------------------------------------------------------
+# =============================================================================
 ext_id_validator = RegexValidator(
     regex=r'^[-a-zA-Z0-9_.]+\Z',
     code='invalid',

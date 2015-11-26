@@ -26,7 +26,7 @@ from . import constants
 
 
 # CLASS BASED VIEWS (CBV)
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 class LeukformDetailView(mixins.LoginRequiredMixin,
                          generic.DetailView):
@@ -146,7 +146,7 @@ class LeukformUpdateView(SuccessMessageMixin,
 
 
 # FUNCTION BASED VIEWS (FBV)
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 def download_result(request, slug):
     """ FBV to download leukform results """
@@ -158,7 +158,7 @@ def download_result(request, slug):
 
 
 # HELPER FUNCTIONS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 @register.filter
 def get_item(dictionary, key):

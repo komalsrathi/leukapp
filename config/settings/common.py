@@ -18,7 +18,7 @@ import environ
 env = environ.Env()
 
 # SET FUNDAMENTAL DIRECTORIES
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 """
@@ -42,13 +42,13 @@ PROJECT_DIR = ROOT_DIR.path('leukapp')  #: Leukapp project directory
 APPS_DIR = PROJECT_DIR.path('apps')     #: Leukapp APPs directory
 
 # DETECT TESTING ENVIRONMENT
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: ``True`` if testing environment is active.
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 # APP CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 DJANGO_APPS = (
     'django.contrib.auth',          # Django auth
     'django.contrib.contenttypes',  # Django Content Tyes
@@ -108,7 +108,7 @@ LOCAL_APPS = (
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIDDLEWARE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -119,18 +119,18 @@ MIDDLEWARE_CLASSES = (
 )
 
 # MIGRATIONS CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 MIGRATION_MODULES = {
     'sites': 'leukapp.contrib.sites.migrations'
 }
 
 # DEBUG
-# -----------------------------------------------------------------------------
+# =============================================================================
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool("DJANGO_DEBUG", False)
 
 # FIXTURE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # See:
 # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
 FIXTURE_DIRS = (
@@ -138,12 +138,12 @@ FIXTURE_DIRS = (
 )
 
 # EMAIL CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
                     default='django.core.mail.backends.smtp.EmailBackend')
 
 # MANAGER CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
     ("""Juan Medina""", 'medinaj@mskcc.org'),
@@ -153,7 +153,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # DATABASE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
@@ -163,7 +163,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
 # GENERAL CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 TIME_ZONE = 'America/New_York'
 """
@@ -190,7 +190,7 @@ USE_L10N = True
 USE_TZ = True
 
 # TEMPLATE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 # See: http://django-crispy-forms.readthedocs.org/en/latest/install.html#template-packs
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -235,7 +235,7 @@ TEMPLATES = [
 ]
 
 # STATIC FILE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = '/static/'
@@ -271,7 +271,7 @@ local development. For more information, see: `STATICFILES_DIRS`_.
 """
 
 # MEDIA CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
@@ -286,14 +286,14 @@ Media files are saved here. For more information, see: `MEDIA_ROOT`_.
 """
 
 # URL Configuration
-# -----------------------------------------------------------------------------
+# =============================================================================
 ROOT_URLCONF = 'config.urls'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # AUTHENTICATION CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -316,7 +316,7 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 
 # LOGGING CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -368,16 +368,15 @@ LOGGING = {
 # Your common stuff: Below this line define 3rd party library settings
 
 # DJANGO REST FRAMEWORK
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 # See: http://www.django-rest-framework.org/api-guide/authentication/
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
 }
 
-
 # ROUTINE PROTECTION
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 if __name__ == '__main__':
     pass

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # LEUKAPP SPECIFIC ENVIRONMENT VARIABLES
-# -----------------------------------------------------------------------------
+# =============================================================================
 export LEUKDC_ROOT_DIR=/ifs/work/leukgen/leukapp/$DEPLOYMENT
 export LEUKDC_BACKUPDB_DIR=$LEUKDC_ROOT_DIR/db
 export LEUKDC_PROJECTS_DIR=$LEUKDC_ROOT_DIR/projects

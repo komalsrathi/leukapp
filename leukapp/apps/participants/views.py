@@ -31,7 +31,7 @@ from . import constants
 
 
 # Class Based Views
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 class ParticipantDetailView(mixins.LoginRequiredMixin,
                             generic.DetailView):
@@ -147,7 +147,7 @@ class ParticipantCreateModal(mixins.PermissionRequiredMixin,
 
 
 # Function Based Views
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 def search_participant(request):
     """
@@ -168,7 +168,7 @@ def search_participant(request):
 
 
 # API
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 class ParticipantCreateReadView(generics.ListCreateAPIView):
 

@@ -14,16 +14,16 @@ should be stored here.
 from leukapp.apps.core import constants as coreconstants
 
 # APP INFO
-# -----------------------------------------------------------------------------
+# =============================================================================
 APP_NAME = 'participants'  #: Application's name.
 
 # URLS
-# -----------------------------------------------------------------------------
+# =============================================================================
 PARTICIPANT_CREATE_URL = APP_NAME + ':create'  #: Create URL reverse string.
 PARTICIPANT_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
 
 # FIELDS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Fields required to create a new instance.
 PARTICIPANT_CREATE_FIELDS = (
@@ -46,7 +46,7 @@ PARTICIPANT_UNIQUE_TOGETHER = (
     )
 
 # PERMISSIONS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Tuple of permissions required to create a new instance.
 PARTICIPANT_CREATE_PERMISSIONS = ('participants.add_participant',)
@@ -55,7 +55,7 @@ PARTICIPANT_CREATE_PERMISSIONS = ('participants.add_participant',)
 PARTICIPANT_UPDATE_PERMISSIONS = ('participants.change_participant',)
 
 # MESSAGES
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Sucess message.
 SUCCESS_MESSAGE = coreconstants.SUCCESS_MESSAGE

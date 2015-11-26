@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # PRODUCTION CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 export DEPLOYMENT="staging"
 export DJANGO_HOST=plvleukweb1.mskcc.org
 export PROJECT_DIR=/home/medinaj/sites/$DJANGO_HOST/source
 
 # PRODUCTION EMAIL CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 export DJANGO_DEFAULT_FROM_EMAIL="leukapp staging <noreply@leukgen.mskcc.org>"
 export DJANGO_EMAIL_SUBJECT_PREFIX="[leukapp staging] "
 
 # LOAD COMMON ENVIRONMENT VARIABLES
-# -----------------------------------------------------------------------------
+# =============================================================================
 . $PROJECT_DIR/.env/common
 
 # LOAD LEUKAPP SPECIFIC ENVIRONMENT VARIABLES
-# -----------------------------------------------------------------------------
+# =============================================================================
 . $PROJECT_DIR/.env/leukapp

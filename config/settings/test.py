@@ -8,12 +8,12 @@ from .common import *  # noqa
 
 
 # DATABASE CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 DATABASES['default'] = env.db("DATABASE_TEST_URL")
 
 # SECRET CONFIGURATION
-# -----------------------------------------------------------------------------
+# =============================================================================
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key only used for development and testing.
 SECRET_KEY = env("DJANGO_SECRET_KEY",

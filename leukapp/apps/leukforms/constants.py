@@ -45,16 +45,16 @@ from .forms import AliquotForm
 from .forms import ExtractionForm
 
 # APP INFO
-# -----------------------------------------------------------------------------
+# =============================================================================
 APP_NAME = 'leukforms'  #: Application's name.
 
 # URLS
-# -----------------------------------------------------------------------------
+# =============================================================================
 LEUKFORM_CREATE_URL = APP_NAME + ':create'  #: Create URL reverse string.
 LEUKFORM_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
 
 # FIELDS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Fields required to create a new instance.
 LEUKFORM_CREATE_FIELDS = (
@@ -92,7 +92,7 @@ LEUKAPP_UNIQUE_TOGETHER = {
     }
 
 # MODELS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: List of models names potentially used during a leukform submission.
 MODELS_LIST = ['Individual', 'Specimen', 'Aliquot', 'Extraction']
@@ -106,7 +106,7 @@ LEUKAPP_MODELS = {
     }
 
 # FACTORIES
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Dictionary of model factories potentially used during a leukform submission.
 LEUKAPP_FACTORIES = {
@@ -118,7 +118,7 @@ LEUKAPP_FACTORIES = {
     }
 
 # FORMS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Dictionary of model forms potentially used during a leukform submission.
 LEUKAPP_FORMS = {
@@ -129,7 +129,7 @@ LEUKAPP_FORMS = {
     }
 
 # PERMISSIONS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Tuple of permissions required to create a new instance.
 LEUKFORM_CREATE_PERMISSIONS = ('leukforms.add_leukform',)
@@ -138,7 +138,7 @@ LEUKFORM_CREATE_PERMISSIONS = ('leukforms.add_leukform',)
 LEUKFORM_UPDATE_PERMISSIONS = ('leukforms.change_leukform',)
 
 # MESSAGES
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Sucess message.
 SUCCESS_MESSAGE = coreconstants.SUCCESS_MESSAGE
