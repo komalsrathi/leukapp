@@ -14,16 +14,16 @@ should be stored here.
 from leukapp.apps.core import constants as coreconstants
 
 # APP INFO
-# -----------------------------------------------------------------------------
+# =============================================================================
 APP_NAME = 'specimens'  #: Application's name.
 
 # URLS
-# -----------------------------------------------------------------------------
+# =============================================================================
 SPECIMEN_CREATE_URL = APP_NAME + ':create'  #: Create URL reverse string.
 SPECIMEN_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
 
 # FIELDS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Fields required to create a new instance.
 SPECIMEN_CREATE_FIELDS = (
@@ -47,7 +47,7 @@ SPECIMEN_UNIQUE_TOGETHER = (
     )
 
 # CHOICES
-# -----------------------------------------------------------------------------
+# =============================================================================
 BLOOD = 'BLOOD'
 NAILS = 'NAILS'
 BUCCAL = 'BUCCAL'
@@ -107,7 +107,7 @@ Characters used in the **leukid** to describe the `Specimen's`
 """
 
 # PERMISSIONS
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Tuple of permissions required to create a new instance.
 SPECIMEN_CREATE_PERMISSIONS = ('specimens.add_specimen',)
@@ -116,7 +116,7 @@ SPECIMEN_CREATE_PERMISSIONS = ('specimens.add_specimen',)
 SPECIMEN_UPDATE_PERMISSIONS = ('specimens.change_specimen',)
 
 # MESSAGES
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 #: Sucess message.
 SUCCESS_MESSAGE = coreconstants.SUCCESS_MESSAGE
