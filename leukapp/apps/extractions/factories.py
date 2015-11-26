@@ -76,7 +76,7 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
         https://factoryboy.readthedocs.org/en/latest/reference.html#factory.SubFactory
     """
 
-    analyte = FuzzyChoice(constants.ANALYTE_VALUE)
+    analyte = FuzzyChoice([e[0] for e in constants.ANALYTE])
     """
     If not passed, picks randomly one choice from
     :data:`~leukapp.apps.extractions.constants.ANALYTE`. To learn more see:
@@ -86,7 +86,7 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
         https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice
     """
 
-    platform = FuzzyChoice(constants.PLATFORM_VALUE)
+    platform = FuzzyChoice([e[0] for e in constants.PLATFORM])
     """
     If not passed, picks randomly one choice from
     :data:`~leukapp.apps.extractions.constants.PLATFORM`. To learn more see:
@@ -96,7 +96,7 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
         https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice
     """
 
-    technology = FuzzyChoice(constants.TECHNOLOGY_VALUE)
+    technology = FuzzyChoice([e[0] for e in constants.TECHNOLOGY])
     """
     If not passed, picks randomly one choice from
     :data:`~leukapp.apps.extractions.constants.TECHNOLOGY`. To learn more see:
@@ -106,7 +106,7 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
         https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice
     """
 
-    center = FuzzyChoice(constants.CENTER_VALUE)
+    center = FuzzyChoice([e[0] for e in constants.CENTER])
     """
     If not passed, picks randomly one choice from
     :data:`~leukapp.apps.extractions.constants.CENTER`. To learn more see:
@@ -155,7 +155,7 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
 
 
 # ROUTINE PROTECTION
-# -----------------------------------------------------------------------------
+# =============================================================================
 
 if __name__ == '__main__':
     pass
