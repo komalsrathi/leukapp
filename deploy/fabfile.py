@@ -17,8 +17,12 @@ from fabric.api import env, local, run
 
 
 def deploy():
+    """
+    Deploy project based on environment variables.
+    """
 
-    # load settings
+    # LOAD VARIABLES
+    # ---------------------------------------------------
     project_dir = env.PROJECT_DIR
     user = env.user
     host = env.host
@@ -30,7 +34,8 @@ def deploy():
     source_folder = site_folder + '/source'
     requirements = source_folder + '/requirements/' + env.REQUIREMENTS
 
-    # deploy
+    # DEPLOY
+    # ---------------------------------------------------
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder, repo)
     _update_nginx_conf(host, project_dir)
@@ -41,11 +46,13 @@ def deploy():
     _update_settings(source_folder, deployment)
     _update_static_files(deployment, settings)
     _update_database(deployment, settings)
-    _restart_server(host, deployment)
+    _restart_server(host, source_folder, deployment)
 
 
 def _create_directory_structure_if_necessary(site_folder):
     """
+    Make project directory.
+
     The -p setting makes directory only if necessary
     """
     for subfolder in ['source']:
@@ -54,6 +61,8 @@ def _create_directory_structure_if_necessary(site_folder):
 
 def _get_latest_source(source_folder, repo):
     """
+    Clone repo.
+
     If there is no .git folder, the repo is cloned.
     Otherwise the repo fetched, and reset to the latest commit.
     """
@@ -69,8 +78,9 @@ def _get_latest_source(source_folder, repo):
 
 def _update_nginx_conf(host, project_dir):
     """
-    Updates the nginx sites-available, sites-enabled files using the template
-    available at project_dir/deploy/template/nginxconf_template
+    Updates the nginx sites-available, sites-enabled files.
+
+    See the template used at project_dir/deploy/templates/nginxconf_template
     """
     nginxconf_template = "/deploy/templates/nginxconf_template"
     with open(project_dir + nginxconf_template, 'r') as f:
@@ -90,8 +100,10 @@ def _update_nginx_conf(host, project_dir):
 def _update_virtualenv(
         deployment, virtualenv_folder, requirements, source_folder):
     """
-    Creates or updates the virtual environment. Postactivate script is also
-    updated based on template found at /.env/`deployment`_postactivate
+    Creates or updates the virtual environment.
+
+    Postactivate script is updated based on template found at
+    /.env/`deployment`.
     """
     if not exists(virtualenv_folder):
         run('mkvirtualenv ' + deployment)
@@ -105,7 +117,7 @@ def _update_virtualenv(
 
 def _update_settings(source_folder, deployment):
     """
-    Adds a randomly generated DJANGO_SECRET_KEY to the postactivate script.
+    Adds a randomly generated `DJANGO_SECRET_KEY`.
     """
     postactivate = source_folder + '/.env/common'.format(deployment)
     chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&'
@@ -116,7 +128,7 @@ def _update_settings(source_folder, deployment):
 
 def _update_static_files(deployment, settings):
     """
-    Simply updates the static files.
+    Runs `collectstatic`.
     """
     workon = 'workon ' + deployment
     collectstatic = workon + ' && python manage.py collectstatic --noinput'
@@ -126,7 +138,10 @@ def _update_static_files(deployment, settings):
 
 def _update_database(deployment, settings):
     """
-    Runs makemigrations and migrate commands.
+    Runs `migrate`.
+
+    Please note that migrations should be commited and therefore makemigrations
+    should not be part of the deployment script.
     """
     workon = 'workon ' + deployment
     migrate = workon + ' && python manage.py migrate --noinput'
@@ -134,12 +149,27 @@ def _update_database(deployment, settings):
     run(command)
 
 
-def _restart_server(host, deployment):
+def _restart_server(host, source_folder, deployment):
     """
-    Restarts the server.
+    Restarts gunicorn processes.
+
+    Uses 4 workers for the production server, while only 1 for staging.
     """
+    if deployment == 'production':
+        workers = '4'
+    else:
+        workers = '1'
+    if exists(source_folder + "/gunicorn.pid"):
+        run("kill `cat {0}/gunicorn.pid`".format(source_folder))
     venv = "workon {0} && ".format(deployment)
-    gunicorn = "gunicorn --bind unix:/tmp/HOST.socket "
-    gunicorn = gunicorn.replace("HOST", host)
-    gunicorn_config = "config.wsgi:application "
-    run(venv + gunicorn + gunicorn_config)
+    startgunicorn = "gunicorn --bind unix:/tmp/HOST.socket "
+    startgunicorn = startgunicorn.replace("HOST", host)
+    startgunicorn += "config.wsgi:application --pid gunicorn.pid -w " + workers
+    run(venv + startgunicorn)
+
+
+# ROUTINE PROTECTION
+# =============================================================================
+
+if __name__ == '__main__':
+    deploy()
