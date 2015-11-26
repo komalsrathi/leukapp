@@ -48,12 +48,10 @@ class ExtractionListView(mixins.LoginRequiredMixin,
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
-            context = super(ExtractionListView, self).get_context_data(**kwargs)
-
-            # Add new context
-            context['APP_NAME'] = constants.APP_NAME
-            context['CREATE_URL'] = constants.EXTRACTION_CREATE_URL
-            return context
+        context = super(ExtractionListView, self).get_context_data(**kwargs)
+        context['APP_NAME'] = constants.APP_NAME
+        context['CREATE_URL'] = constants.EXTRACTION_CREATE_URL
+        return context
 
 
 class ExtractionRedirectView(mixins.LoginRequiredMixin,
