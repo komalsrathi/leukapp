@@ -36,6 +36,9 @@ class Extraction(LeukappModel):
         projects_string = '101|102|103'
     """
 
+    #: Name of the application where :class:`Extraction` is contained.
+    APP_NAME = constants.APP_NAME
+
     # EXTERNAL FIELDS
     # =========================================================================
     aliquot = models.ForeignKey(
@@ -98,6 +101,7 @@ class Extraction(LeukappModel):
         _("platform"),
         max_length=100,
         choices=constants.EXTRACTION_CHOICES["PLATFORM"],
+        default=UNKNOWN,
         null=True,
         )
     """
