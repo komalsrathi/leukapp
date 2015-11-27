@@ -319,3 +319,6 @@ intersphinx_mapping = {
               'http://docs.djangoproject.com/en/1.9/_objects/'),
     'python': ('https://docs.python.org/3.5', None),
     }
+
+# -- Options for autodoc ------------------------------------------------------
+autodoc_member_order = 'bysource'

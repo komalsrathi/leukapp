@@ -251,7 +251,7 @@
             <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span>
 </div>
-    <span class="k">def</span> <span class="nf">_create_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s">&#39;Individual&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformSamplesFactory._create_instances"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory._create_instances">[docs]</a>    <span class="k">def</span> <span class="nf">_create_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s">&#39;Individual&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Recursively generates instances by passing the child model name and</span>
 <span class="sd">        the parent instance. This function calls self._update_parameters,</span>
@@ -268,8 +268,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_write_row</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">child</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_create_instances</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">child</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">instance</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_update_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformSamplesFactory._update_parameters"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory._update_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">_update_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides the model specific&#39; Factory kwargs. Also determines whether</span>
 <span class="sd">        or not this instance is in the last level of creation by quering</span>
@@ -296,8 +296,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_last</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="n">pl</span> <span class="o">=</span> <span class="s">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">projects</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
             <span class="k">return</span> <span class="p">{</span><span class="s">&#39;aliquot&#39;</span><span class="p">:</span> <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;projects_string&#39;</span><span class="p">:</span> <span class="n">pl</span><span class="p">},</span> <span class="bp">None</span>
-
-    <span class="k">def</span> <span class="nf">_write_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformSamplesFactory._write_row"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory._write_row">[docs]</a>    <span class="k">def</span> <span class="nf">_write_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Writes each instance&#39;s data to self._row and appends it to self.rows</span>
 <span class="sd">        when self._last is True. Instances in the last level of creation will</span>
@@ -319,7 +319,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last</span><span class="p">:</span>
             <span class="n">instance</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_row</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-
+</div>
 <div class="viewcode-block" id="LeukformSamplesFactory.create_csv_from_rows"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_csv_from_rows">[docs]</a>    <span class="k">def</span> <span class="nf">create_csv_from_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a csv from rows.</span>
@@ -362,7 +362,7 @@
 
 
 <span class="c"># ROUTINE PROTECTION</span>
-<span class="c"># -----------------------------------------------------------------------------</span>
+<span class="c"># =============================================================================</span>
 </div></div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="k">pass</span>

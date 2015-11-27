@@ -228,7 +228,7 @@
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_write_output</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">mock</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span>
 </div>
-    <span class="k">def</span> <span class="nf">_process_leukform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformLoader._process_leukform"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._process_leukform">[docs]</a>    <span class="k">def</span> <span class="nf">_process_leukform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Process `leukform` from dictionary.</span>
 <span class="sd">        Input: rows (list): csv.DictReader list of dictionaries</span>
@@ -247,8 +247,8 @@
             <span class="c"># print(&quot;%s rows processed in %s.&quot; % (count, time.time() - start))</span>
         <span class="c"># print(time.time() - start)</span>
         <span class="k">return</span> <span class="n">processed_rows</span>
-
-    <span class="k">def</span> <span class="nf">_sort_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformLoader._sort_rows"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._sort_rows">[docs]</a>    <span class="k">def</span> <span class="nf">_sort_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sorts rows based on `Individual.ext_id` and `Specimen.order`</span>
 <span class="sd">        Input: rows (list): csv.DictReader list of dictionaries</span>
@@ -278,15 +278,15 @@
                 <span class="n">k</span><span class="p">[</span><span class="s">&#39;Individual.slug&#39;</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="s">&#39;Specimen.order&#39;</span><span class="p">])))</span>
 
         <span class="k">return</span> <span class="n">rows</span>
-
-    <span class="k">def</span> <span class="nf">_clean_specimen_order_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformLoader._clean_specimen_order_column"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._clean_specimen_order_column">[docs]</a>    <span class="k">def</span> <span class="nf">_clean_specimen_order_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; simply adds zeros when Specimen.order is blank &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s">&#39;Specimen.order&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
                 <span class="n">row</span><span class="p">[</span><span class="s">&#39;Specimen.order&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">rows</span>
-
-    <span class="k">def</span> <span class="nf">_process_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformLoader._process_row"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._process_row">[docs]</a>    <span class="k">def</span> <span class="nf">_process_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Process the current row.</span>
 
@@ -314,8 +314,8 @@
             <span class="n">row</span><span class="p">[</span><span class="s">&#39;STATUS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span>
 
         <span class="k">return</span> <span class="n">row</span>
-
-    <span class="k">def</span> <span class="nf">_get_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformLoader._get_fields"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">_get_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets `fields` from `row`. If the field is empty, is not added</span>
 <span class="sd">        Input:</span>
@@ -338,8 +338,8 @@
                 <span class="n">fields</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">fields</span>
-
-    <span class="k">def</span> <span class="nf">_alter_row_special_case</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformLoader._alter_row_special_case"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._alter_row_special_case">[docs]</a>    <span class="k">def</span> <span class="nf">_alter_row_special_case</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Test the case when only the Individual and/or Specimen ext_id are</span>
 <span class="sd">        available. In this situation the leukform will be submitted with empty</span>
@@ -358,8 +358,8 @@
         <span class="k">if</span> <span class="n">c2</span> <span class="ow">and</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">&#39;Aliquot.ext_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">):</span>
             <span class="n">row</span><span class="p">[</span><span class="s">&#39;Aliquot.ext_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNKNOWN</span>
         <span class="k">return</span> <span class="n">row</span>
-
-    <span class="k">def</span> <span class="nf">_get_or_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformLoader._get_or_create"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._get_or_create">[docs]</a>    <span class="k">def</span> <span class="nf">_get_or_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets or creates an instance while collecting results data.</span>
 <span class="sd">        Input:</span>
@@ -406,8 +406,8 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">rejected</span><span class="p">[</span><span class="n">model</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="k">return</span> <span class="n">instance</span><span class="p">,</span> <span class="n">msg</span>
-
-    <span class="k">def</span> <span class="nf">_update_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformLoader._update_fields"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._update_fields">[docs]</a>    <span class="k">def</span> <span class="nf">_update_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates child fields after parent is found or created.</span>
 <span class="sd">        Input Args:</span>
@@ -424,8 +424,8 @@
         <span class="k">elif</span> <span class="n">model</span> <span class="o">==</span> <span class="s">&#39;Aliquot&#39;</span> <span class="ow">and</span> <span class="n">instance</span> <span class="ow">and</span> <span class="p">(</span><span class="s">&#39;Extraction&#39;</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">):</span>
             <span class="n">fields</span><span class="p">[</span><span class="s">&#39;Extraction&#39;</span><span class="p">][</span><span class="s">&#39;aliquot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">pk</span>
         <span class="k">return</span> <span class="n">fields</span>
-
-    <span class="k">def</span> <span class="nf">_write_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">mock</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformLoader._write_output"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._write_output">[docs]</a>    <span class="k">def</span> <span class="nf">_write_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">mock</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; NOTTESTED</span>
 <span class="sd">        Process output dictionary including a csv results file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -453,8 +453,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_delete_added_models</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">output</span>
-
-    <span class="k">def</span> <span class="nf">_delete_added_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformLoader._delete_added_models"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._delete_added_models">[docs]</a>    <span class="k">def</span> <span class="nf">_delete_added_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; deletes current added models &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">MODELS_LIST</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">added</span><span class="p">[</span><span class="n">model</span><span class="p">]:</span>
@@ -462,8 +462,8 @@
                     <span class="n">instance</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
                 <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
                     <span class="k">continue</span>
-
-    <span class="k">def</span> <span class="nf">_write_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukformLoader._write_summary"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._write_summary">[docs]</a>    <span class="k">def</span> <span class="nf">_write_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; NOTTESTED</span>
 <span class="sd">        writes out summary text</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -474,7 +474,7 @@
                 <span class="s">&quot;existed&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">existed</span><span class="p">[</span><span class="n">model</span><span class="p">]),</span>
                 <span class="s">&quot;rejected&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rejected</span><span class="p">[</span><span class="n">model</span><span class="p">],</span>
                 <span class="p">}</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

@@ -139,122 +139,6 @@
 </dd>
 </dl>
 <dl class="class">
-<dt id="leukapp.apps.participants.views.ParticipantCreateModal">
-<em class="property">class </em><code class="descname">ParticipantCreateModal</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#ParticipantCreateModal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateModal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django_modalview.generic.edit.ModalCreateView</span></code></p>
-<p>Simple class based view to create participants in a modal window.
-See: <a class="reference external" href="https://github.com/optiflows/django-modalview">https://github.com/optiflows/django-modalview</a></p>
-<dl class="method">
-<dt id="leukapp.apps.participants.views.ParticipantCreateModal.form_valid">
-<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#ParticipantCreateModal.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateModal.form_valid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateModal.permission_denied_message">
-<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateModal.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateModal.permission_required">
-<code class="descname">permission_required</code><em class="property"> = ('participants.add_participant',)</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateModal.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateModal.raise_exception">
-<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateModal.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="leukapp.apps.participants.views.ParticipantCreateReadView">
-<em class="property">class </em><code class="descname">ParticipantCreateReadView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#ParticipantCreateReadView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateReadView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.generics.ListCreateAPIView</span></code></p>
-<p>Concrete view for listing a queryset or creating a model instance.
-See: <a class="reference external" href="http://www.cdrf.co/3.3/rest_framework.generics/ListCreateAPIView.html">http://www.cdrf.co/3.3/rest_framework.generics/ListCreateAPIView.html</a></p>
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateReadView.authentication_classes">
-<code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'rest_framework.authentication.SessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateReadView.authentication_classes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateReadView.filter_backends">
-<code class="descname">filter_backends</code><em class="property"> = (&lt;class 'rest_framework.filters.SearchFilter'&gt;, &lt;class 'rest_framework.filters.DjangoFilterBackend'&gt;)</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateReadView.filter_backends" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateReadView.filter_fields">
-<code class="descname">filter_fields</code><em class="property"> = ('email', 'first_name')</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateReadView.filter_fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateReadView.lookup_field">
-<code class="descname">lookup_field</code><em class="property"> = 'slug'</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateReadView.lookup_field" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateReadView.permission_classes">
-<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'rest_framework.permissions.DjangoModelPermissions'&gt;,)</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateReadView.permission_classes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateReadView.queryset">
-<code class="descname">queryset</code><em class="property"> = [&lt;Participant: yam&#64;mskcc.org&gt;, &lt;Participant: aoo&#64;mskcc.org&gt;, &lt;Participant: bqt&#64;mskcc.org&gt;, &lt;Participant: aik&#64;mskcc.org&gt;, &lt;Participant: qjg&#64;mskcc.org&gt;, &lt;Participant: bqx&#64;mskcc.org&gt;, &lt;Participant: ldz&#64;mskcc.org&gt;, &lt;Participant: yxi&#64;mskcc.org&gt;, &lt;Participant: ngb&#64;mskcc.org&gt;, &lt;Participant: exz&#64;mskcc.org&gt;, &lt;Participant: msh&#64;mskcc.org&gt;, &lt;Participant: vtx&#64;mskcc.org&gt;, &lt;Participant: ood&#64;mskcc.org&gt;, &lt;Participant: rcw&#64;mskcc.org&gt;, &lt;Participant: nrk&#64;mskcc.org&gt;, &lt;Participant: qep&#64;mskcc.org&gt;, &lt;Participant: uvw&#64;mskcc.org&gt;, &lt;Participant: nww&#64;mskcc.org&gt;, &lt;Participant: ooo&#64;mskcc.org&gt;, &lt;Participant: guf&#64;mskcc.org&gt;, '...(remaining elements truncated)...']</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateReadView.queryset" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateReadView.search_fields">
-<code class="descname">search_fields</code><em class="property"> = ('email', 'first_name')</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateReadView.search_fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateReadView.serializer_class">
-<code class="descname">serializer_class</code><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateReadView.serializer_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">ParticipantCreateSerializer</span></code></p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="leukapp.apps.participants.views.ParticipantCreateView">
-<em class="property">class </em><code class="descname">ParticipantCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#ParticipantCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/contrib/messages/#django.contrib.messages.views.SuccessMessageMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.messages.views.SuccessMessageMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></a></p>
-<p>View for creating a new object, with a response rendered by template.
-See: <a class="reference external" href="http://ccbv.co.uk/CreateView/">http://ccbv.co.uk/CreateView/</a></p>
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateView.fields">
-<code class="descname">fields</code><em class="property"> = ('first_name', 'last_name', 'email', 'phone')</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateView.fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateView.model">
-<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateView.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Participant</span></code></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateView.permission_denied_message">
-<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateView.permission_required">
-<code class="descname">permission_required</code><em class="property"> = ('participants.add_participant',)</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateView.raise_exception">
-<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantCreateView.success_message">
-<code class="descname">success_message</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateView.success_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="leukapp.apps.participants.views.ParticipantDetailView">
 <em class="property">class </em><code class="descname">ParticipantDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#ParticipantDetailView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantDetailView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></a></p>
@@ -277,11 +161,6 @@ See: <a class="reference external" href="http://ccbv.co.uk/DetailView/">http://c
 <p>Render some list of objects, set by <cite>self.model</cite> or <cite>self.queryset</cite>.
 <cite>self.queryset</cite> can actually be any iterable of items, not just a queryset.
 See: <a class="reference external" href="http://ccbv.co.uk/ListView/">http://ccbv.co.uk/ListView/</a></p>
-<dl class="method">
-<dt id="leukapp.apps.participants.views.ParticipantListView.get_context_data">
-<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#ParticipantListView.get_context_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantListView.get_context_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="attribute">
 <dt id="leukapp.apps.participants.views.ParticipantListView.model">
 <code class="descname">model</code><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantListView.model" title="Permalink to this definition">¶</a></dt>
@@ -296,15 +175,19 @@ See: <a class="reference external" href="http://ccbv.co.uk/ListView/">http://ccb
 <dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
 <p>A view that provides a redirect on any GET request.
 See: <a class="reference external" href="http://ccbv.co.uk/RedirectView/">http://ccbv.co.uk/RedirectView/</a></p>
-<dl class="method">
-<dt id="leukapp.apps.participants.views.ParticipantRedirectView.get_redirect_url">
-<code class="descname">get_redirect_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#ParticipantRedirectView.get_redirect_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantRedirectView.get_redirect_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
+<dl class="class">
+<dt id="leukapp.apps.participants.views.ParticipantCreateView">
+<em class="property">class </em><code class="descname">ParticipantCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#ParticipantCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/contrib/messages/#django.contrib.messages.views.SuccessMessageMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.messages.views.SuccessMessageMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></a></p>
+<p>View for creating a new object, with a response rendered by template.
+See: <a class="reference external" href="http://ccbv.co.uk/CreateView/">http://ccbv.co.uk/CreateView/</a></p>
 <dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantRedirectView.permanent">
-<code class="descname">permanent</code><em class="property"> = False</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantRedirectView.permanent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="leukapp.apps.participants.views.ParticipantCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Participant</span></code></p>
+</dd></dl>
 
 </dd></dl>
 
@@ -315,36 +198,19 @@ See: <a class="reference external" href="http://ccbv.co.uk/RedirectView/">http:/
 <p>View for updating an object, with a response rendered by template.
 See: <a class="reference external" href="http://ccbv.co.uk/UpdateView/">http://ccbv.co.uk/UpdateView/</a></p>
 <dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantUpdateView.fields">
-<code class="descname">fields</code><em class="property"> = ('first_name', 'last_name', 'phone')</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantUpdateView.fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="leukapp.apps.participants.views.ParticipantUpdateView.model">
 <code class="descname">model</code><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantUpdateView.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Participant</span></code></p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantUpdateView.permission_denied_message">
-<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantUpdateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantUpdateView.permission_required">
-<code class="descname">permission_required</code><em class="property"> = ('participants.change_participant',)</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantUpdateView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantUpdateView.raise_exception">
-<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantUpdateView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.participants.views.ParticipantUpdateView.success_message">
-<code class="descname">success_message</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantUpdateView.success_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dl class="class">
+<dt id="leukapp.apps.participants.views.ParticipantCreateModal">
+<em class="property">class </em><code class="descname">ParticipantCreateModal</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#ParticipantCreateModal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateModal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django_modalview.generic.edit.ModalCreateView</span></code></p>
+<p>Simple class based view to create participants in a modal window.
+See: <a class="reference external" href="https://github.com/optiflows/django-modalview">https://github.com/optiflows/django-modalview</a></p>
 </dd></dl>
 
 <dl class="function">
@@ -352,6 +218,14 @@ See: <a class="reference external" href="http://ccbv.co.uk/UpdateView/">http://c
 <code class="descname">search_participant</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#search_participant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.search_participant" title="Permalink to this definition">¶</a></dt>
 <dd><p>View used to return participants for a token-input jQuery plugin.
 See: <a class="reference external" href="http://loopj.com/jquery-tokeninput/">http://loopj.com/jquery-tokeninput/</a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="leukapp.apps.participants.views.ParticipantCreateReadView">
+<em class="property">class </em><code class="descname">ParticipantCreateReadView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/participants/views.html#ParticipantCreateReadView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.participants.views.ParticipantCreateReadView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.generics.ListCreateAPIView</span></code></p>
+<p>Concrete view for listing a queryset or creating a model instance.
+See: <a class="reference external" href="http://www.cdrf.co/3.3/rest_framework.generics/ListCreateAPIView.html">http://www.cdrf.co/3.3/rest_framework.generics/ListCreateAPIView.html</a></p>
 </dd></dl>
 
 </div>

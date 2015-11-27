@@ -128,22 +128,32 @@
             
   <div class="section" id="module-leukapp.apps.leukforms.validators">
 <span id="leukapp-apps-leukforms-validators-module"></span><h1>leukapp.apps.leukforms.validators module<a class="headerlink" href="#module-leukapp.apps.leukforms.validators" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="leukapp.apps.leukforms.validators.leukform_columns_validator">
-<code class="descname">leukform_columns_validator</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/validators.html#leukform_columns_validator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.validators.leukform_columns_validator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate the leukform columns being submitted</p>
-</dd></dl>
-
+<p><code class="xref py py-mod docutils literal"><span class="pre">leukforms</span></code> validators.</p>
+<p>Please refer to <a class="reference external" href="https://docs.djangoproject.com/en/1.8/ref/forms/validation/">Django&#8217;s validation documentation</a> to learn more and follow
+best practices.</p>
 <dl class="function">
 <dt id="leukapp.apps.leukforms.validators.leukform_csv_validator">
 <code class="descname">leukform_csv_validator</code><span class="sig-paren">(</span><em>document</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/validators.html#leukform_csv_validator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.validators.leukform_csv_validator" title="Permalink to this definition">¶</a></dt>
-<dd><p>NOTTESTED</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="leukapp.apps.leukforms.validators.leukform_rows_validator">
 <code class="descname">leukform_rows_validator</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/validators.html#leukform_rows_validator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.validators.leukform_rows_validator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate that rows look good</p>
+<dd><p>Validates <cite>rows</cite> format.</p>
+<p>This validator ensures that <cite>rows</cite> isn&#8217;t empty and that can be
+converted to a list. It also checks if the contents are dictionaries.
+Additionally, it calls <a class="reference internal" href="#leukapp.apps.leukforms.validators.leukform_columns_validator" title="leukapp.apps.leukforms.validators.leukform_columns_validator"><code class="xref py py-func docutils literal"><span class="pre">leukform_columns_validator()</span></code></a> to validate the
+columns and <a class="reference internal" href="#leukapp.apps.leukforms.validators.leukform_specimen_order_validator" title="leukapp.apps.leukforms.validators.leukform_specimen_order_validator"><code class="xref py py-func docutils literal"><span class="pre">leukform_specimen_order_validator()</span></code></a> to validate custom
+<a class="reference internal" href="leukapp.apps.specimens.models.html#leukapp.apps.specimens.models.Specimen" title="leukapp.apps.specimens.models.Specimen"><code class="xref py py-mod docutils literal"><span class="pre">Specimen</span></code></a> order functionality.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="leukapp.apps.leukforms.validators.leukform_columns_validator">
+<code class="descname">leukform_columns_validator</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/validators.html#leukform_columns_validator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.validators.leukform_columns_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the <code class="xref py py-mod docutils literal"><span class="pre">Leukform</span></code> columns.</p>
+<p>First checks if <cite>rows</cite> contents are dictionaries. Then, converts the
+columns to a list and checks that it&#8217;s not empty. Lastly, loops over the
+columns valitading that they are correct <cite>leukform</cite> fields.</p>
 </dd></dl>
 
 <dl class="function">

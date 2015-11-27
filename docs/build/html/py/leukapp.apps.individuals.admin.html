@@ -131,6 +131,29 @@
 <p>Admin settings for the <a class="reference internal" href="leukapp.apps.individuals.html#module-leukapp.apps.individuals" title="leukapp.apps.individuals"><code class="xref py py-mod docutils literal"><span class="pre">individuals</span></code></a> application.
 To learn more see the <a class="reference external" href="https://docs.djangoproject.com/en/1.8/ref/contrib/admin/">Django admin site</a> documentation.</p>
 <dl class="class">
+<dt id="leukapp.apps.individuals.admin.SpecimenInline">
+<em class="property">class </em><code class="descname">SpecimenInline</code><span class="sig-paren">(</span><em>parent_model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/individuals/admin.html#SpecimenInline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.admin.options.StackedInline</span></code></p>
+<p>Enable the creation of <a class="reference internal" href="#leukapp.apps.individuals.admin.SpecimenInline.extra" title="leukapp.apps.individuals.admin.SpecimenInline.extra"><code class="xref py py-attr docutils literal"><span class="pre">extra</span></code></a>
+<code class="xref py py-class docutils literal"><span class="pre">Specimens</span></code>.</p>
+<p>The admin interface has the ability to edit models on the same page as a
+parent model. These are called inlines. See <cite>InLineModelAdmin</cite> objects.</p>
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.admin.SpecimenInline.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of InLine model.</p>
+<p>alias of <code class="xref py py-class docutils literal"><span class="pre">Specimen</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.individuals.admin.SpecimenInline.extra">
+<code class="descname">extra</code><em class="property"> = 2</em><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline.extra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of extra <code class="docutils literal"><span class="pre">Specimens</span></code> that can be created.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="leukapp.apps.individuals.admin.IndividualAdmin">
 <em class="property">class </em><code class="descname">IndividualAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/individuals/admin.html#IndividualAdmin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.individuals.admin.IndividualAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.admin.options.ModelAdmin</span></code></p>
@@ -140,39 +163,6 @@ site.</p>
 <dt id="leukapp.apps.individuals.admin.IndividualAdmin.inlines">
 <code class="descname">inlines</code><em class="property"> = [&lt;class 'leukapp.apps.individuals.admin.SpecimenInline'&gt;]</em><a class="headerlink" href="#leukapp.apps.individuals.admin.IndividualAdmin.inlines" title="Permalink to this definition">¶</a></dt>
 <dd><p>List InLine objects to be added.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.individuals.admin.IndividualAdmin.media">
-<code class="descname">media</code><a class="headerlink" href="#leukapp.apps.individuals.admin.IndividualAdmin.media" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="leukapp.apps.individuals.admin.SpecimenInline">
-<em class="property">class </em><code class="descname">SpecimenInline</code><span class="sig-paren">(</span><em>parent_model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/individuals/admin.html#SpecimenInline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.admin.options.StackedInline</span></code></p>
-<p>Enable the creation of <a class="reference internal" href="#leukapp.apps.individuals.admin.SpecimenInline.extra" title="leukapp.apps.individuals.admin.SpecimenInline.extra"><code class="xref py py-attr docutils literal"><span class="pre">extra</span></code></a>
-<code class="xref py py-class docutils literal"><span class="pre">Specimens</span></code>.</p>
-<p>The admin interface has the ability to edit models on the same page as a
-parent model. These are called inlines. See <cite>InLineModelAdmin</cite> objects.</p>
-<dl class="attribute">
-<dt id="leukapp.apps.individuals.admin.SpecimenInline.extra">
-<code class="descname">extra</code><em class="property"> = 2</em><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline.extra" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of extra <code class="docutils literal"><span class="pre">Specimens</span></code> that can be created.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.individuals.admin.SpecimenInline.media">
-<code class="descname">media</code><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline.media" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.individuals.admin.SpecimenInline.model">
-<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.individuals.admin.SpecimenInline.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name of InLine model.</p>
-<p>alias of <code class="xref py py-class docutils literal"><span class="pre">Specimen</span></code></p>
 </dd></dl>
 
 </dd></dl>

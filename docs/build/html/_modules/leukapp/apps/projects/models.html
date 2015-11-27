@@ -235,7 +235,7 @@
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
 
-    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Project._if_new"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.models.html#leukapp.apps.projects.models.Project._if_new">[docs]</a>    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; ran when object is created &quot;&quot;&quot;</span>
 
         <span class="c"># This function can only be called from save()</span>
@@ -243,8 +243,8 @@
 
         <span class="c"># get internal id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="Project._if_save"><a class="viewcode-back" href="../../../../py/leukapp.apps.projects.models.html#leukapp.apps.projects.models.Project._if_save">[docs]</a>    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; _if_save() is run everytime the object is saved&quot;&quot;&quot;</span>
 
         <span class="c"># This function can only be called from save()</span>
@@ -254,7 +254,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span>
 
         <span class="c"># update paticipants</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">participants</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">requestor</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">participants</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">requestor</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

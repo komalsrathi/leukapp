@@ -206,7 +206,7 @@
 <span class="sd">        https://factoryboy.readthedocs.org/en/latest/reference.html#factory.SubFactory</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">analyte</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">ANALYTE_VALUE</span><span class="p">)</span>
+    <span class="n">analyte</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">ANALYTE</span><span class="p">])</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    If not passed, picks randomly one choice from</span>
 <span class="sd">    :data:`~leukapp.apps.extractions.constants.ANALYTE`. To learn more see:</span>
@@ -216,7 +216,7 @@
 <span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">platform</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">PLATFORM_VALUE</span><span class="p">)</span>
+    <span class="n">platform</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">PLATFORM</span><span class="p">])</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    If not passed, picks randomly one choice from</span>
 <span class="sd">    :data:`~leukapp.apps.extractions.constants.PLATFORM`. To learn more see:</span>
@@ -226,7 +226,7 @@
 <span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">technology</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">TECHNOLOGY_VALUE</span><span class="p">)</span>
+    <span class="n">technology</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">TECHNOLOGY</span><span class="p">])</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    If not passed, picks randomly one choice from</span>
 <span class="sd">    :data:`~leukapp.apps.extractions.constants.TECHNOLOGY`. To learn more see:</span>
@@ -236,7 +236,7 @@
 <span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">center</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">CENTER_VALUE</span><span class="p">)</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CENTER</span><span class="p">])</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    If not passed, picks randomly one choice from</span>
 <span class="sd">    :data:`~leukapp.apps.extractions.constants.CENTER`. To learn more see:</span>
@@ -285,7 +285,7 @@
 
 
 <span class="c"># ROUTINE PROTECTION</span>
-<span class="c"># -----------------------------------------------------------------------------</span>
+<span class="c"># =============================================================================</span>
 </div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="k">pass</span>

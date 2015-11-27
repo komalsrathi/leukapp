@@ -3,5 +3,5 @@ tests.test_functional module
 
 .. automodule:: tests.test_functional
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:

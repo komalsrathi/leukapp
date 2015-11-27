@@ -139,45 +139,6 @@
 </dd>
 </dl>
 <dl class="class">
-<dt id="leukapp.apps.extractions.views.ExtractionCreateView">
-<em class="property">class </em><code class="descname">ExtractionCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/extractions/views.html#ExtractionCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionCreateView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/contrib/messages/#django.contrib.messages.views.SuccessMessageMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.messages.views.SuccessMessageMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></a></p>
-<p>View for creating a new object, with a response rendered by template.
-See: <a class="reference external" href="http://ccbv.co.uk/CreateView/">http://ccbv.co.uk/CreateView/</a></p>
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionCreateView.fields">
-<code class="descname">fields</code><em class="property"> = ('aliquot', 'platform', 'technology', 'center', 'ext_id', 'analyte', 'projects_string')</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionCreateView.fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionCreateView.model">
-<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionCreateView.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionCreateView.permission_denied_message">
-<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionCreateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionCreateView.permission_required">
-<code class="descname">permission_required</code><em class="property"> = ('extractions.add_extraction',)</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionCreateView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionCreateView.raise_exception">
-<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionCreateView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionCreateView.success_message">
-<code class="descname">success_message</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionCreateView.success_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="leukapp.apps.extractions.views.ExtractionDetailView">
 <em class="property">class </em><code class="descname">ExtractionDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/extractions/views.html#ExtractionDetailView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionDetailView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></a></p>
@@ -200,21 +161,11 @@ See: <a class="reference external" href="http://ccbv.co.uk/DetailView/">http://c
 <p>Render some list of objects, set by <cite>self.model</cite> or <cite>self.queryset</cite>.
 <cite>self.queryset</cite> can actually be any iterable of items, not just a queryset.
 See: <a class="reference external" href="http://ccbv.co.uk/ListView/">http://ccbv.co.uk/ListView/</a></p>
-<dl class="method">
-<dt id="leukapp.apps.extractions.views.ExtractionListView.get_context_data">
-<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/extractions/views.html#ExtractionListView.get_context_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionListView.get_context_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.views.ExtractionListView.model">
 <code class="descname">model</code><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionListView.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionListView.paginate_by">
-<code class="descname">paginate_by</code><em class="property"> = 20</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionListView.paginate_by" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -224,15 +175,19 @@ See: <a class="reference external" href="http://ccbv.co.uk/ListView/">http://ccb
 <dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
 <p>A view that provides a redirect on any GET request.
 See: <a class="reference external" href="http://ccbv.co.uk/RedirectView/">http://ccbv.co.uk/RedirectView/</a></p>
-<dl class="method">
-<dt id="leukapp.apps.extractions.views.ExtractionRedirectView.get_redirect_url">
-<code class="descname">get_redirect_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/extractions/views.html#ExtractionRedirectView.get_redirect_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionRedirectView.get_redirect_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
+<dl class="class">
+<dt id="leukapp.apps.extractions.views.ExtractionCreateView">
+<em class="property">class </em><code class="descname">ExtractionCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/extractions/views.html#ExtractionCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/contrib/messages/#django.contrib.messages.views.SuccessMessageMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.messages.views.SuccessMessageMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></a></p>
+<p>View for creating a new object, with a response rendered by template.
+See: <a class="reference external" href="http://ccbv.co.uk/CreateView/">http://ccbv.co.uk/CreateView/</a></p>
 <dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionRedirectView.permanent">
-<code class="descname">permanent</code><em class="property"> = False</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionRedirectView.permanent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="leukapp.apps.extractions.views.ExtractionCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></p>
+</dd></dl>
 
 </dd></dl>
 
@@ -243,35 +198,10 @@ See: <a class="reference external" href="http://ccbv.co.uk/RedirectView/">http:/
 <p>View for updating an object, with a response rendered by template.
 See: <a class="reference external" href="http://ccbv.co.uk/UpdateView/">http://ccbv.co.uk/UpdateView/</a></p>
 <dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionUpdateView.fields">
-<code class="descname">fields</code><em class="property"> = ()</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionUpdateView.fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="leukapp.apps.extractions.views.ExtractionUpdateView.model">
 <code class="descname">model</code><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionUpdateView.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionUpdateView.permission_denied_message">
-<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionUpdateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionUpdateView.permission_required">
-<code class="descname">permission_required</code><em class="property"> = ('extractions.change_extraction',)</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionUpdateView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionUpdateView.raise_exception">
-<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionUpdateView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.extractions.views.ExtractionUpdateView.success_message">
-<code class="descname">success_message</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.extractions.views.ExtractionUpdateView.success_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

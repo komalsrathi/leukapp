@@ -171,6 +171,59 @@ slug (boolean): if True, delete is depreciated, slugs are returned</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory.get_rows">
+<code class="descname">get_rows</code><span class="sig-paren">(</span><em>shuffle=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory.get_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.get_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>if shuffle, returns shuffled rows; else, returns rows</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory._create_instances">
+<code class="descname">_create_instances</code><span class="sig-paren">(</span><em>model='Individual'</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory._create_instances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory._create_instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively generates instances by passing the child model name and
+the parent instance. This function calls self._update_parameters,
+which provides model specific kwargs and the name of the child model.</p>
+<dl class="docutils">
+<dt>Input:</dt>
+<dd>model (str): name of instance&#8217;s model
+parent (Model Object): foreing key&#8217;s object</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory._update_parameters">
+<code class="descname">_update_parameters</code><span class="sig-paren">(</span><em>model</em>, <em>parent</em>, <em>order=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory._update_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory._update_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides the model specific&#8217; Factory kwargs. Also determines whether
+or not this instance is in the last level of creation by quering
+the number of requested instances for the child model.</p>
+<dl class="docutils">
+<dt>Input:</dt>
+<dd>model (str): name of instance&#8217;s model
+parent (Leukapp Instance): foreing key&#8217;s object
+order (int): number of instances created so far for the given model</dd>
+<dt>Return:</dt>
+<dd><dl class="first last docutils">
+<dt>(kwargs (dict), child (str)): kawrgs is the model specific creation</dt>
+<dd>parameters, while child is the name of the child model</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory._write_row">
+<code class="descname">_write_row</code><span class="sig-paren">(</span><em>instance</em>, <em>model</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory._write_row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory._write_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes each instance&#8217;s data to self._row and appends it to self.rows
+when self._last is True. Instances in the last level of creation will
+always be deleted. If self._slug=True and self._last=False, only the
+instance slug will be recorded.</p>
+<dl class="docutils">
+<dt>Input:</dt>
+<dd>model (str): name of instance&#8217;s model
+parent (Leukapp Instance): foreing key&#8217;s object</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_csv_from_rows">
 <code class="descname">create_csv_from_rows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory.create_csv_from_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_csv_from_rows" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a csv from rows.
@@ -186,17 +239,6 @@ Returns: StringIO
 Raises:ImproperlyConfigured(&#8220;create batch first&#8221;)
 NOTTESTED</p>
 </dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory.get_rows">
-<code class="descname">get_rows</code><span class="sig-paren">(</span><em>shuffle=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory.get_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.get_rows" title="Permalink to this definition">¶</a></dt>
-<dd><p>if shuffle, returns shuffled rows; else, returns rows</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory.projects">
-<code class="descname">projects</code><em class="property"> = [&lt;Project: 1&gt;, &lt;Project: 2&gt;, &lt;Project: 3&gt;]</em><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.projects" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

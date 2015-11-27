@@ -139,45 +139,6 @@
 </dd>
 </dl>
 <dl class="class">
-<dt id="leukapp.apps.aliquots.views.AliquotCreateView">
-<em class="property">class </em><code class="descname">AliquotCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/aliquots/views.html#AliquotCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotCreateView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/contrib/messages/#django.contrib.messages.views.SuccessMessageMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.messages.views.SuccessMessageMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></a></p>
-<p>View for creating a new object, with a response rendered by template.
-See: <a class="reference external" href="http://ccbv.co.uk/CreateView/">http://ccbv.co.uk/CreateView/</a></p>
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotCreateView.fields">
-<code class="descname">fields</code><em class="property"> = ('specimen', 'ext_id')</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotCreateView.fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotCreateView.model">
-<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotCreateView.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Aliquot</span></code></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotCreateView.permission_denied_message">
-<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotCreateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotCreateView.permission_required">
-<code class="descname">permission_required</code><em class="property"> = ('aliquots.add_aliquot',)</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotCreateView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotCreateView.raise_exception">
-<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotCreateView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotCreateView.success_message">
-<code class="descname">success_message</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotCreateView.success_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="leukapp.apps.aliquots.views.AliquotDetailView">
 <em class="property">class </em><code class="descname">AliquotDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/aliquots/views.html#AliquotDetailView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotDetailView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></a></p>
@@ -200,21 +161,11 @@ See: <a class="reference external" href="http://ccbv.co.uk/DetailView/">http://c
 <p>Render some list of objects, set by <cite>self.model</cite> or <cite>self.queryset</cite>.
 <cite>self.queryset</cite> can actually be any iterable of items, not just a queryset.
 See: <a class="reference external" href="http://ccbv.co.uk/ListView/">http://ccbv.co.uk/ListView/</a></p>
-<dl class="method">
-<dt id="leukapp.apps.aliquots.views.AliquotListView.get_context_data">
-<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/aliquots/views.html#AliquotListView.get_context_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotListView.get_context_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="attribute">
 <dt id="leukapp.apps.aliquots.views.AliquotListView.model">
 <code class="descname">model</code><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotListView.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Aliquot</span></code></p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotListView.paginate_by">
-<code class="descname">paginate_by</code><em class="property"> = 20</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotListView.paginate_by" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -224,15 +175,19 @@ See: <a class="reference external" href="http://ccbv.co.uk/ListView/">http://ccb
 <dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
 <p>A view that provides a redirect on any GET request.
 See: <a class="reference external" href="http://ccbv.co.uk/RedirectView/">http://ccbv.co.uk/RedirectView/</a></p>
-<dl class="method">
-<dt id="leukapp.apps.aliquots.views.AliquotRedirectView.get_redirect_url">
-<code class="descname">get_redirect_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/aliquots/views.html#AliquotRedirectView.get_redirect_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotRedirectView.get_redirect_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
+<dl class="class">
+<dt id="leukapp.apps.aliquots.views.AliquotCreateView">
+<em class="property">class </em><code class="descname">AliquotCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/aliquots/views.html#AliquotCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/contrib/messages/#django.contrib.messages.views.SuccessMessageMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.messages.views.SuccessMessageMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></a></p>
+<p>View for creating a new object, with a response rendered by template.
+See: <a class="reference external" href="http://ccbv.co.uk/CreateView/">http://ccbv.co.uk/CreateView/</a></p>
 <dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotRedirectView.permanent">
-<code class="descname">permanent</code><em class="property"> = False</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotRedirectView.permanent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="leukapp.apps.aliquots.views.AliquotCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Aliquot</span></code></p>
+</dd></dl>
 
 </dd></dl>
 
@@ -243,35 +198,10 @@ See: <a class="reference external" href="http://ccbv.co.uk/RedirectView/">http:/
 <p>View for updating an object, with a response rendered by template.
 See: <a class="reference external" href="http://ccbv.co.uk/UpdateView/">http://ccbv.co.uk/UpdateView/</a></p>
 <dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotUpdateView.fields">
-<code class="descname">fields</code><em class="property"> = ()</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotUpdateView.fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="leukapp.apps.aliquots.views.AliquotUpdateView.model">
 <code class="descname">model</code><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotUpdateView.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Aliquot</span></code></p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotUpdateView.permission_denied_message">
-<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotUpdateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotUpdateView.permission_required">
-<code class="descname">permission_required</code><em class="property"> = ('aliquots.change_aliquot',)</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotUpdateView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotUpdateView.raise_exception">
-<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotUpdateView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.aliquots.views.AliquotUpdateView.success_message">
-<code class="descname">success_message</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.aliquots.views.AliquotUpdateView.success_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

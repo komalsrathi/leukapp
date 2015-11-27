@@ -178,12 +178,10 @@
     <span class="n">paginate_by</span> <span class="o">=</span> <span class="mi">20</span>
 
 <div class="viewcode-block" id="ExtractionListView.get_context_data"><a class="viewcode-back" href="../../../../py/leukapp.apps.extractions.views.html#leukapp.apps.extractions.views.ExtractionListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ExtractionListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-            <span class="c"># Add new context</span>
-            <span class="n">context</span><span class="p">[</span><span class="s">&#39;APP_NAME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
-            <span class="n">context</span><span class="p">[</span><span class="s">&#39;CREATE_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_CREATE_URL</span>
-            <span class="k">return</span> <span class="n">context</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ExtractionListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">[</span><span class="s">&#39;APP_NAME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
+        <span class="n">context</span><span class="p">[</span><span class="s">&#39;CREATE_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_CREATE_URL</span>
+        <span class="k">return</span> <span class="n">context</span>
 
 </div></div>
 <div class="viewcode-block" id="ExtractionRedirectView"><a class="viewcode-back" href="../../../../py/leukapp.apps.extractions.views.html#leukapp.apps.extractions.views.ExtractionRedirectView">[docs]</a><span class="k">class</span> <span class="nc">ExtractionRedirectView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>

@@ -3,5 +3,5 @@ leukapp.taskapp.celery module
 
 .. automodule:: leukapp.taskapp.celery
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:

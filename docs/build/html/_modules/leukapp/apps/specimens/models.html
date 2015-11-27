@@ -217,7 +217,7 @@
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
 
-    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Specimen._if_new"><a class="viewcode-back" href="../../../../py/leukapp.apps.specimens.models.html#leukapp.apps.individuals.admin.Specimen._if_new">[docs]</a>    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; _if_new is executed the first time the object is created &quot;&quot;&quot;</span>
 
         <span class="c"># This function can only be called from save()</span>
@@ -225,8 +225,8 @@
 
         <span class="c"># get internal id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_get_int_id</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="Specimen._if_save"><a class="viewcode-back" href="../../../../py/leukapp.apps.specimens.models.html#leukapp.apps.individuals.admin.Specimen._if_save">[docs]</a>    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; _if_save is executed everytime the object is saved &quot;&quot;&quot;</span>
 
         <span class="c"># This function can only be called from save()</span>
@@ -234,8 +234,8 @@
 
         <span class="c"># update object slug</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">individual</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">_get_int_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="Specimen._get_int_id"><a class="viewcode-back" href="../../../../py/leukapp.apps.specimens.models.html#leukapp.apps.individuals.admin.Specimen._get_int_id">[docs]</a>    <span class="k">def</span> <span class="nf">_get_int_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; return int_id based on count of tumors/normals per Individual &quot;&quot;&quot;</span>
 
         <span class="c"># This function can only be called from _if_new()</span>
@@ -250,7 +250,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">individual</span><span class="o">.</span><span class="n">normals_count</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="n">source_type_id</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individual</span><span class="o">.</span><span class="n">normals_count</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">individual</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span></div></div>
 </pre></div>
 
            </div>

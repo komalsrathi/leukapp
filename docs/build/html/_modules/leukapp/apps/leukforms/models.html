@@ -239,7 +239,7 @@
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
 
-    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Leukform._if_new"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.models.html#leukapp.apps.leukforms.models.Leukform._if_new">[docs]</a>    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; _if_new is executed the first time the object is created &quot;&quot;&quot;</span>
 
         <span class="c"># This function can only be called from save()</span>
@@ -260,12 +260,12 @@
 
         <span class="c"># update slug</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;leukform&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">)])</span>
-
-    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="Leukform._if_save"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.models.html#leukapp.apps.leukforms.models.Leukform._if_save">[docs]</a>    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; _if_save() is executed everytime the object is saved &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
-</div>
+</div></div>
 <span class="nd">@receiver</span><span class="p">(</span><span class="n">post_delete</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="n">Leukform</span><span class="p">)</span>
 <div class="viewcode-block" id="leukform_delete"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.models.html#leukapp.apps.leukforms.models.leukform_delete">[docs]</a><span class="k">def</span> <span class="nf">leukform_delete</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="c"># Pass false so FileField doesn&#39;t save the model.</span>

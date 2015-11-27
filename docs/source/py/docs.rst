@@ -3,6 +3,6 @@ docs package
 
 .. automodule:: docs
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
 

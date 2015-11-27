@@ -143,16 +143,33 @@ should be stored here.</p>
 </dd></dl>
 
 <dl class="data">
-<dt id="leukapp.apps.specimens.constants.LEUKID_SOURCE_TYPE">
-<code class="descname">LEUKID_SOURCE_TYPE</code><em class="property"> = {'TUMOR': 'T', 'NORMAL': 'N'}</em><a class="headerlink" href="#leukapp.apps.specimens.constants.LEUKID_SOURCE_TYPE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Characters used in the <strong>leukid</strong> to describe the <cite>Specimen&#8217;s</cite>
-<code class="xref py py-attr docutils literal"><span class="pre">source_type</span></code> attribute.</p>
+<dt id="leukapp.apps.specimens.constants.SPECIMEN_CREATE_URL">
+<code class="descname">SPECIMEN_CREATE_URL</code><em class="property"> = 'specimens:create'</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_CREATE_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create URL reverse string.</p>
 </dd></dl>
 
 <dl class="data">
-<dt id="leukapp.apps.specimens.constants.PERMISSION_DENIED_MESSAGE">
-<code class="descname">PERMISSION_DENIED_MESSAGE</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.specimens.constants.PERMISSION_DENIED_MESSAGE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Permission denied message.</p>
+<dt id="leukapp.apps.specimens.constants.SPECIMEN_LIST_URL">
+<code class="descname">SPECIMEN_LIST_URL</code><em class="property"> = 'specimens:list'</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_LIST_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>List URL reverse string.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="leukapp.apps.specimens.constants.SPECIMEN_CREATE_FIELDS">
+<code class="descname">SPECIMEN_CREATE_FIELDS</code><em class="property"> = ('individual', 'source', 'source_type', 'ext_id', 'order')</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_CREATE_FIELDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fields required to create a new instance.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="leukapp.apps.specimens.constants.SPECIMEN_UPDATE_FIELDS">
+<code class="descname">SPECIMEN_UPDATE_FIELDS</code><em class="property"> = ('source',)</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_UPDATE_FIELDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enabled fields to update an existing instance.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="leukapp.apps.specimens.constants.SPECIMEN_UNIQUE_TOGETHER">
+<code class="descname">SPECIMEN_UNIQUE_TOGETHER</code><em class="property"> = ('individual', 'ext_id', 'source_type')</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_UNIQUE_TOGETHER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fields that are required to be unique together.</p>
 </dd></dl>
 
 <dl class="data">
@@ -160,6 +177,13 @@ should be stored here.</p>
 <code class="descname">SOURCE</code><em class="property"> = (('BLOOD', 'BLOOD'), ('NAILS', 'NAILS'), ('BUCCAL', 'BUCCAL'), ('HAIR', 'HAIR'), ('TCELLS', 'TCELLS'))</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SOURCE" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of value, verbose_name pairs for the
 <code class="xref py py-attr docutils literal"><span class="pre">source</span></code> attribute.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="leukapp.apps.specimens.constants.SOURCE_VALUE">
+<code class="descname">SOURCE_VALUE</code><em class="property"> = ['BLOOD', 'NAILS', 'BUCCAL', 'HAIR', 'TCELLS']</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SOURCE_VALUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Values for the <code class="xref py py-attr docutils literal"><span class="pre">source</span></code>
+attribute.</p>
 </dd></dl>
 
 <dl class="data">
@@ -177,13 +201,6 @@ attribute.</p>
 </dd></dl>
 
 <dl class="data">
-<dt id="leukapp.apps.specimens.constants.SOURCE_VALUE">
-<code class="descname">SOURCE_VALUE</code><em class="property"> = ['BLOOD', 'NAILS', 'BUCCAL', 'HAIR', 'TCELLS']</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SOURCE_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Values for the <code class="xref py py-attr docutils literal"><span class="pre">source</span></code>
-attribute.</p>
-</dd></dl>
-
-<dl class="data">
 <dt id="leukapp.apps.specimens.constants.SPECIMEN_CHOICES">
 <code class="descname">SPECIMEN_CHOICES</code><em class="property"> = {'SOURCE': (('BLOOD', 'BLOOD'), ('NAILS', 'NAILS'), ('BUCCAL', 'BUCCAL'), ('HAIR', 'HAIR'), ('TCELLS', 'TCELLS')), 'SOURCE_TYPE': (('TUMOR', 'TUMOR'), ('NORMAL', 'NORMAL'))}</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_CHOICES" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary including all
@@ -191,39 +208,16 @@ attribute.</p>
 </dd></dl>
 
 <dl class="data">
-<dt id="leukapp.apps.specimens.constants.SPECIMEN_CREATE_FIELDS">
-<code class="descname">SPECIMEN_CREATE_FIELDS</code><em class="property"> = ('individual', 'source', 'source_type', 'ext_id', 'order')</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_CREATE_FIELDS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fields required to create a new instance.</p>
+<dt id="leukapp.apps.specimens.constants.LEUKID_SOURCE_TYPE">
+<code class="descname">LEUKID_SOURCE_TYPE</code><em class="property"> = {'TUMOR': 'T', 'NORMAL': 'N'}</em><a class="headerlink" href="#leukapp.apps.specimens.constants.LEUKID_SOURCE_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Characters used in the <strong>leukid</strong> to describe the <cite>Specimen&#8217;s</cite>
+<code class="xref py py-attr docutils literal"><span class="pre">source_type</span></code> attribute.</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="leukapp.apps.specimens.constants.SPECIMEN_CREATE_PERMISSIONS">
 <code class="descname">SPECIMEN_CREATE_PERMISSIONS</code><em class="property"> = ('specimens.add_specimen',)</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_CREATE_PERMISSIONS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tuple of permissions required to create a new instance.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="leukapp.apps.specimens.constants.SPECIMEN_CREATE_URL">
-<code class="descname">SPECIMEN_CREATE_URL</code><em class="property"> = 'specimens:create'</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_CREATE_URL" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create URL reverse string.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="leukapp.apps.specimens.constants.SPECIMEN_LIST_URL">
-<code class="descname">SPECIMEN_LIST_URL</code><em class="property"> = 'specimens:list'</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_LIST_URL" title="Permalink to this definition">¶</a></dt>
-<dd><p>List URL reverse string.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="leukapp.apps.specimens.constants.SPECIMEN_UNIQUE_TOGETHER">
-<code class="descname">SPECIMEN_UNIQUE_TOGETHER</code><em class="property"> = ('individual', 'ext_id', 'source_type')</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_UNIQUE_TOGETHER" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fields that are required to be unique together.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="leukapp.apps.specimens.constants.SPECIMEN_UPDATE_FIELDS">
-<code class="descname">SPECIMEN_UPDATE_FIELDS</code><em class="property"> = ('source',)</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SPECIMEN_UPDATE_FIELDS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enabled fields to update an existing instance.</p>
 </dd></dl>
 
 <dl class="data">
@@ -236,6 +230,12 @@ attribute.</p>
 <dt id="leukapp.apps.specimens.constants.SUCCESS_MESSAGE">
 <code class="descname">SUCCESS_MESSAGE</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.specimens.constants.SUCCESS_MESSAGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sucess message.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="leukapp.apps.specimens.constants.PERMISSION_DENIED_MESSAGE">
+<code class="descname">PERMISSION_DENIED_MESSAGE</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.specimens.constants.PERMISSION_DENIED_MESSAGE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permission denied message.</p>
 </dd></dl>
 
 </div>

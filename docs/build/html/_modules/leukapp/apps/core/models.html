@@ -193,15 +193,15 @@
         <span class="sd">&quot;&quot;&quot; Returns the object&#39;s update url. &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">APP_NAME</span> <span class="o">+</span> <span class="s">&#39;:update&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;slug&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">})</span>
 </div>
-    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukappModel._if_new"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel._if_new">[docs]</a>    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; _if_new is executed the first time the object is created. &quot;&quot;&quot;</span>
         <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukappModel._if_save"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel._if_save">[docs]</a>    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; _if_save is executed everytime the object is saved. &quot;&quot;&quot;</span>
         <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="nf">_check_if_caller_is_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukappModel._check_if_caller_is_if_new"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel._check_if_caller_is_if_new">[docs]</a>    <span class="k">def</span> <span class="nf">_check_if_caller_is_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Checks if current function is been called from _if_new(). &quot;&quot;&quot;</span>
 
         <span class="c"># NOTTESTED</span>
@@ -211,8 +211,8 @@
                 <span class="k">raise</span><span class="p">(</span><span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">raise</span><span class="p">(</span><span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">_check_if_caller_is_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="LeukappModel._check_if_caller_is_save"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel._check_if_caller_is_save">[docs]</a>    <span class="k">def</span> <span class="nf">_check_if_caller_is_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Checks if current function is been called from save(). &quot;&quot;&quot;</span>
 
         <span class="c"># NOTTESTED</span>
@@ -223,20 +223,20 @@
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">raise</span><span class="p">(</span><span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
 
-</div>
+</div></div>
 <div class="viewcode-block" id="LeukappTestModel"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappTestModel">[docs]</a><span class="k">class</span> <span class="nc">LeukappTestModel</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    this model only serves the purpose of testing the abstract models above</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukappTestModel._if_save"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappTestModel._if_save">[docs]</a>    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        _if_save is executed everytime the object is saved</span>
 <span class="sd">        test: test_str_returns_slug</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span></div></div>
 </pre></div>
 
            </div>

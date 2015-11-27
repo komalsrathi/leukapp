@@ -3,5 +3,5 @@ config.wsgi module
 
 .. automodule:: config.wsgi
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:

@@ -3,7 +3,7 @@ leukapp.apps.aliquots package
 
 .. automodule:: leukapp.apps.aliquots
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
 
 Submodules

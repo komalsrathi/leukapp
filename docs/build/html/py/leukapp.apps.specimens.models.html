@@ -133,90 +133,23 @@
 <em class="property">class </em><code class="descname">Specimen</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/models.html#Specimen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel" title="leukapp.apps.core.models.LeukappModel"><code class="xref py py-class docutils literal"><span class="pre">leukapp.apps.core.models.LeukappModel</span></code></a></p>
 <p>requirements: <a class="reference external" href="https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627">https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627</a></p>
-<dl class="attribute">
-<dt id="leukapp.apps.specimens.models.Specimen.APP_NAME">
-<code class="descname">APP_NAME</code><em class="property"> = 'specimens'</em><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.APP_NAME" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.specimens.models.Specimen.CHOICES">
-<code class="descname">CHOICES</code><em class="property"> = {'SOURCE': (('BLOOD', 'BLOOD'), ('NAILS', 'NAILS'), ('BUCCAL', 'BUCCAL'), ('HAIR', 'HAIR'), ('TCELLS', 'TCELLS')), 'SOURCE_TYPE': (('TUMOR', 'TUMOR'), ('NORMAL', 'NORMAL'))}</em><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.CHOICES" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="exception">
-<dt id="leukapp.apps.specimens.models.Specimen.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="leukapp.apps.specimens.models.Specimen.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descclassname">Specimen.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.specimens.models.Specimen.aliquot_set">
-<code class="descclassname">Specimen.</code><code class="descname">aliquot_set</code><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.aliquot_set" title="Permalink to this definition">¶</a></dt>
-<dd><p>Accessor to the related objects manager on the reverse side of a
-many-to-one relation.</p>
-<p>In the example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;children&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
-<p>Most of the implementation is delegated to a dynamically defined manager
-class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+<dl class="method">
+<dt id="leukapp.apps.specimens.models.Specimen._if_new">
+<code class="descname">_if_new</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/models.html#Specimen._if_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen._if_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>_if_new is executed the first time the object is created</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="leukapp.apps.specimens.models.Specimen.get_next_by_created">
-<code class="descclassname">Specimen.</code><code class="descname">get_next_by_created</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.get_next_by_created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.specimens.models.Specimen.get_next_by_modified">
-<code class="descclassname">Specimen.</code><code class="descname">get_next_by_modified</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.get_next_by_modified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.specimens.models.Specimen.get_previous_by_created">
-<code class="descclassname">Specimen.</code><code class="descname">get_previous_by_created</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.get_previous_by_created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.specimens.models.Specimen.get_previous_by_modified">
-<code class="descclassname">Specimen.</code><code class="descname">get_previous_by_modified</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.get_previous_by_modified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.specimens.models.Specimen.get_source_display">
-<code class="descclassname">Specimen.</code><code class="descname">get_source_display</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.get_source_display" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.specimens.models.Specimen.get_source_type_display">
-<code class="descclassname">Specimen.</code><code class="descname">get_source_type_display</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.get_source_type_display" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.specimens.models.Specimen.individual">
-<code class="descclassname">Specimen.</code><code class="descname">individual</code><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.individual" title="Permalink to this definition">¶</a></dt>
-<dd><p>Accessor to the related object on the forward side of a many-to-one or
-one-to-one relation.</p>
-<p>In the example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;children&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+<dt id="leukapp.apps.specimens.models.Specimen._if_save">
+<code class="descname">_if_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/models.html#Specimen._if_save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen._if_save" title="Permalink to this definition">¶</a></dt>
+<dd><p>_if_save is executed everytime the object is saved</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="leukapp.apps.specimens.models.Specimen.objects">
-<code class="descclassname">Specimen.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen.objects" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="method">
+<dt id="leukapp.apps.specimens.models.Specimen._get_int_id">
+<code class="descname">_get_int_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/specimens/models.html#Specimen._get_int_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.specimens.models.Specimen._get_int_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>return int_id based on count of tumors/normals per Individual</p>
+</dd></dl>
 
 </dd></dl>
 

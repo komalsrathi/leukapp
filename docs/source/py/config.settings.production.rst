@@ -3,5 +3,5 @@ config.settings.production module
 
 .. automodule:: config.settings.production
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:

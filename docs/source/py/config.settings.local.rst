@@ -3,5 +3,5 @@ config.settings.local module
 
 .. automodule:: config.settings.local
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
