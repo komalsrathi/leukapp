@@ -255,15 +255,15 @@ If there was a mistake a new <a class="reference internal" href="#leukapp.apps.e
 <dl class="method">
 <dt id="leukapp.apps.extractions.models.Extraction._get_int_id">
 <code class="descname">_get_int_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/extractions/models.html#Extraction._get_int_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.extractions.models.Extraction._get_int_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the <code class="xref py py-attr docutils literal"><span class="pre">int_id</span></code>.</p>
+<dd><p>Computes the <code class="xref py py-attr docutils literal"><span class="pre">int_id</span></code>.</p>
 <p>The <code class="xref py py-attr docutils literal"><span class="pre">int_id</span></code> generation is based on a count of Extractions per
-<a class="reference internal" href="leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot" title="leukapp.apps.aliquots.models.Aliquot"><code class="xref py py-class docutils literal"><span class="pre">Aliquot</span></code></a>; and the combination of
-the Sequencing <a class="reference internal" href="leukapp.apps.extractions.constants.html#leukapp.apps.extractions.constants.TECHNOLOGY" title="leukapp.apps.extractions.constants.TECHNOLOGY"><code class="xref py py-data docutils literal"><span class="pre">TECHNOLOGY</span></code></a> and
+<a class="reference internal" href="leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot" title="leukapp.apps.aliquots.models.Aliquot"><code class="xref py py-class docutils literal"><span class="pre">Aliquot</span></code></a>, and the combination of
+the sequencing <a class="reference internal" href="leukapp.apps.extractions.constants.html#leukapp.apps.extractions.constants.TECHNOLOGY" title="leukapp.apps.extractions.constants.TECHNOLOGY"><code class="xref py py-data docutils literal"><span class="pre">TECHNOLOGY</span></code></a> and
 <a class="reference internal" href="leukapp.apps.extractions.constants.html#leukapp.apps.extractions.constants.PLATFORM" title="leukapp.apps.extractions.constants.PLATFORM"><code class="xref py py-data docutils literal"><span class="pre">PLATFORM</span></code></a> used.</p>
 <p>Steps:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Check if the caller function is <cite>_if_new()</cite>.</li>
+<li>Check if the caller function is <code class="xref py py-meth docutils literal"><span class="pre">_if_new()</span></code>.</li>
 <li>Retrieve the ID character assigned to the <cite>analyte</cite> attribute.
 updates the extractions count and saves the Parent class,
 and builds the first section of the ID (e.g. <cite>D1</cite>).</li>

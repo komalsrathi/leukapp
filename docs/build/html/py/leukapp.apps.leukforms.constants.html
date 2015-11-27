@@ -174,13 +174,13 @@ should be stored here.</p>
 
 <dl class="data">
 <dt id="leukapp.apps.leukforms.constants.CREATE_FIELDS">
-<code class="descname">CREATE_FIELDS</code><em class="property"> = {'Aliquot': ('specimen', 'ext_id'), 'Individual': ('institution', 'species', 'ext_id'), 'Specimen': ('individual', 'source', 'source_type', 'ext_id', 'order'), 'Extraction': ('aliquot', 'platform', 'technology', 'center', 'ext_id', 'analyte', 'projects_string')}</em><a class="headerlink" href="#leukapp.apps.leukforms.constants.CREATE_FIELDS" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CREATE_FIELDS</code><em class="property"> = {'Specimen': ('individual', 'source', 'source_type', 'ext_id', 'order'), 'Extraction': ('aliquot', 'platform', 'technology', 'center', 'ext_id', 'analyte', 'projects_string'), 'Aliquot': ('specimen', 'ext_id'), 'Individual': ('institution', 'species', 'ext_id')}</em><a class="headerlink" href="#leukapp.apps.leukforms.constants.CREATE_FIELDS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary including <strong>create fields*</strong> for <cite>leukapp</cite> apps models.</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="leukapp.apps.leukforms.constants.LEUKAPP_UNIQUE_TOGETHER">
-<code class="descname">LEUKAPP_UNIQUE_TOGETHER</code><em class="property"> = {'Aliquot': ('specimen', 'ext_id'), 'Individual': ('institution', 'species', 'ext_id'), 'Specimen': ('individual', 'ext_id', 'source_type'), 'Extraction': ()}</em><a class="headerlink" href="#leukapp.apps.leukforms.constants.LEUKAPP_UNIQUE_TOGETHER" title="Permalink to this definition">¶</a></dt>
+<code class="descname">LEUKAPP_UNIQUE_TOGETHER</code><em class="property"> = {'Specimen': ('individual', 'ext_id', 'source_type'), 'Extraction': (), 'Aliquot': ('specimen', 'ext_id'), 'Individual': ('institution', 'species', 'ext_id')}</em><a class="headerlink" href="#leukapp.apps.leukforms.constants.LEUKAPP_UNIQUE_TOGETHER" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary including <strong>unique together fields*</strong> for <cite>leukapp</cite> apps models.</p>
 </dd></dl>
 
@@ -192,19 +192,19 @@ should be stored here.</p>
 
 <dl class="data">
 <dt id="leukapp.apps.leukforms.constants.LEUKAPP_MODELS">
-<code class="descname">LEUKAPP_MODELS</code><em class="property"> = {'Aliquot': &lt;class 'leukapp.apps.aliquots.models.Aliquot'&gt;, 'Individual': &lt;class 'leukapp.apps.individuals.models.Individual'&gt;, 'Specimen': &lt;class 'leukapp.apps.specimens.models.Specimen'&gt;, 'Extraction': &lt;class 'leukapp.apps.extractions.models.Extraction'&gt;}</em><a class="headerlink" href="#leukapp.apps.leukforms.constants.LEUKAPP_MODELS" title="Permalink to this definition">¶</a></dt>
+<code class="descname">LEUKAPP_MODELS</code><em class="property"> = {'Specimen': &lt;class 'leukapp.apps.specimens.models.Specimen'&gt;, 'Extraction': &lt;class 'leukapp.apps.extractions.models.Extraction'&gt;, 'Aliquot': &lt;class 'leukapp.apps.aliquots.models.Aliquot'&gt;, 'Individual': &lt;class 'leukapp.apps.individuals.models.Individual'&gt;}</em><a class="headerlink" href="#leukapp.apps.leukforms.constants.LEUKAPP_MODELS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary of model classes potentially used during a leukform submission.</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="leukapp.apps.leukforms.constants.LEUKAPP_FACTORIES">
-<code class="descname">LEUKAPP_FACTORIES</code><em class="property"> = {'Aliquot': &lt;class 'leukapp.apps.aliquots.factories.AliquotFactory'&gt;, 'Individual': &lt;class 'leukapp.apps.individuals.factories.IndividualFactory'&gt;, 'Specimen': &lt;class 'leukapp.apps.specimens.factories.SpecimenFactory'&gt;, 'Extraction': &lt;class 'leukapp.apps.extractions.factories.ExtractionFactory'&gt;, 'Project': &lt;class 'leukapp.apps.projects.factories.ProjectFactory'&gt;}</em><a class="headerlink" href="#leukapp.apps.leukforms.constants.LEUKAPP_FACTORIES" title="Permalink to this definition">¶</a></dt>
+<code class="descname">LEUKAPP_FACTORIES</code><em class="property"> = {'Specimen': &lt;class 'leukapp.apps.specimens.factories.SpecimenFactory'&gt;, 'Extraction': &lt;class 'leukapp.apps.extractions.factories.ExtractionFactory'&gt;, 'Project': &lt;class 'leukapp.apps.projects.factories.ProjectFactory'&gt;, 'Aliquot': &lt;class 'leukapp.apps.aliquots.factories.AliquotFactory'&gt;, 'Individual': &lt;class 'leukapp.apps.individuals.factories.IndividualFactory'&gt;}</em><a class="headerlink" href="#leukapp.apps.leukforms.constants.LEUKAPP_FACTORIES" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary of model factories potentially used during a leukform submission.</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="leukapp.apps.leukforms.constants.LEUKAPP_FORMS">
-<code class="descname">LEUKAPP_FORMS</code><em class="property"> = {'Aliquot': &lt;class 'leukapp.apps.leukforms.forms.AliquotForm'&gt;, 'Individual': &lt;class 'leukapp.apps.leukforms.forms.IndividualForm'&gt;, 'Specimen': &lt;class 'leukapp.apps.leukforms.forms.SpecimenForm'&gt;, 'Extraction': &lt;class 'leukapp.apps.leukforms.forms.ExtractionForm'&gt;}</em><a class="headerlink" href="#leukapp.apps.leukforms.constants.LEUKAPP_FORMS" title="Permalink to this definition">¶</a></dt>
+<code class="descname">LEUKAPP_FORMS</code><em class="property"> = {'Specimen': &lt;class 'leukapp.apps.leukforms.forms.SpecimenForm'&gt;, 'Extraction': &lt;class 'leukapp.apps.leukforms.forms.ExtractionForm'&gt;, 'Aliquot': &lt;class 'leukapp.apps.leukforms.forms.AliquotForm'&gt;, 'Individual': &lt;class 'leukapp.apps.leukforms.forms.IndividualForm'&gt;}</em><a class="headerlink" href="#leukapp.apps.leukforms.constants.LEUKAPP_FORMS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary of model forms potentially used during a leukform submission.</p>
 </dd></dl>
 

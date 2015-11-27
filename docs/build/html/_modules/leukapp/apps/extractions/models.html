@@ -356,16 +356,16 @@
 </div>
 <div class="viewcode-block" id="Extraction._get_int_id"><a class="viewcode-back" href="../../../../py/leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction._get_int_id">[docs]</a>    <span class="k">def</span> <span class="nf">_get_int_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the :attr:`int_id`.</span>
+<span class="sd">        Computes the :attr:`int_id`.</span>
 
 <span class="sd">        The :attr:`int_id` generation is based on a count of Extractions per</span>
-<span class="sd">        :class:`~leukapp.apps.aliquots.models.Aliquot`; and the combination of</span>
-<span class="sd">        the Sequencing :data:`~.constants.TECHNOLOGY` and</span>
+<span class="sd">        :class:`~leukapp.apps.aliquots.models.Aliquot`, and the combination of</span>
+<span class="sd">        the sequencing :data:`~.constants.TECHNOLOGY` and</span>
 <span class="sd">        :data:`~.constants.PLATFORM` used.</span>
 
 <span class="sd">        Steps:</span>
 
-<span class="sd">            * Check if the caller function is `_if_new()`.</span>
+<span class="sd">            * Check if the caller function is :meth:`_if_new()`.</span>
 <span class="sd">            * Retrieve the ID character assigned to the `analyte` attribute.</span>
 <span class="sd">              updates the extractions count and saves the Parent class,</span>
 <span class="sd">              and builds the first section of the ID (e.g. `D1`).</span>

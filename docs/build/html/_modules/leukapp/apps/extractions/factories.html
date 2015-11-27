@@ -142,6 +142,7 @@
 
 <span class="c"># python</span>
 <span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
 <span class="c"># third party</span>
 <span class="kn">import</span> <span class="nn">factory</span>
@@ -208,19 +209,8 @@
 
     <span class="n">analyte</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">ANALYTE</span><span class="p">])</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    If not passed, picks randomly one choice from</span>
-<span class="sd">    :data:`~leukapp.apps.extractions.constants.ANALYTE`. To learn more see:</span>
-<span class="sd">    `FuzzyChoice`_.</span>
-
-<span class="sd">    .. _FuzzyChoice:</span>
-<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">platform</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">PLATFORM</span><span class="p">])</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    If not passed, picks randomly one choice from</span>
-<span class="sd">    :data:`~leukapp.apps.extractions.constants.PLATFORM`. To learn more see:</span>
-<span class="sd">    `FuzzyChoice`_.</span>
+<span class="sd">    If not passed, picks a random choice from :data:`~.constants.ANALYTE`.</span>
+<span class="sd">    To learn more see `FuzzyChoice`_.</span>
 
 <span class="sd">    .. _FuzzyChoice:</span>
 <span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
@@ -228,9 +218,8 @@
 
     <span class="n">technology</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">TECHNOLOGY</span><span class="p">])</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    If not passed, picks randomly one choice from</span>
-<span class="sd">    :data:`~leukapp.apps.extractions.constants.TECHNOLOGY`. To learn more see:</span>
-<span class="sd">    `FuzzyChoice`_.</span>
+<span class="sd">    If not passed, picks a random choice from :data:`~.constants.TECHNOLOGY`.</span>
+<span class="sd">    To learn more see `FuzzyChoice`_.</span>
 
 <span class="sd">    .. _FuzzyChoice:</span>
 <span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
@@ -238,9 +227,8 @@
 
     <span class="n">center</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CENTER</span><span class="p">])</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    If not passed, picks randomly one choice from</span>
-<span class="sd">    :data:`~leukapp.apps.extractions.constants.CENTER`. To learn more see:</span>
-<span class="sd">    `FuzzyChoice`_.</span>
+<span class="sd">    If not passed, picks a random choice from :data:`~.constants.CENTER`.</span>
+<span class="sd">    To learn more see `FuzzyChoice`_.</span>
 
 <span class="sd">    .. _FuzzyChoice:</span>
 <span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
@@ -248,8 +236,7 @@
 
     <span class="n">ext_id</span> <span class="o">=</span> <span class="n">FuzzyText</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">hexdigits</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    If not passed, creates a random ID. To learn more see:</span>
-<span class="sd">    `FuzzyText`_.</span>
+<span class="sd">    If not passed, creates a random ID. To learn more see `FuzzyText`_.</span>
 
 <span class="sd">    .. _FuzzyText:</span>
 <span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzytext</span>
@@ -257,16 +244,35 @@
 
     <span class="n">projects_string</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. py:currentmodule:: leukapp.apps.extractions</span>
-
 <span class="sd">    By default, this attribute is set to ``&#39;&#39;``. However, pass a string with</span>
 <span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;` primary keys</span>
-<span class="sd">    separated by a ``|`` character to link the new :class:`~leukapp.apps.</span>
-<span class="sd">    extractions.models.Extraction` to one or more</span>
-<span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;`. To understand</span>
-<span class="sd">    better this behavior see:</span>
-<span class="sd">    :meth:`~models.Extraction._get_projects_from_string`.</span>
+<span class="sd">    separated by a ``|`` character to link the new</span>
+<span class="sd">    :class:`~.models.Extraction` to one or more</span>
+<span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;`.</span>
+<span class="sd">    To understand better this behavior see:</span>
+<span class="sd">    :meth:`~.models.Extraction._get_projects_from_string`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># LAZY ATTRIBUTES</span>
+    <span class="c"># =========================================================================</span>
+
+    <span class="n">platform</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks a random choice from</span>
+<span class="sd">    :data:`~.constants.TECHNOLOGY_PLATFORM`. Based on the :attr:`technology`.</span>
+<span class="sd">    To learn more see `lazy_attribute`_ decorator.</span>
+
+<span class="sd">    .. _lazy_attribute:</span>
+<span class="sd">        http://factoryboy.readthedocs.org/en/latest/reference.html?highlight=container#decorator</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@factory.lazy_attribute</span>
+    <span class="k">def</span> <span class="nf">platform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">TECHNOLOGY_PLATFORM</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">technology</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span>
+
+    <span class="c"># POST GENERATED ATTRIBUTES</span>
+    <span class="c"># =========================================================================</span>
 
     <span class="n">projects</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&quot;&quot;&quot;</span>
