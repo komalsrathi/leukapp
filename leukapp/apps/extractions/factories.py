@@ -12,6 +12,7 @@ heavily on the `factory_boy`_ python package.
 
 # python
 import string
+import random
 
 # third party
 import factory
@@ -78,19 +79,8 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
 
     analyte = FuzzyChoice([e[0] for e in constants.ANALYTE])
     """
-    If not passed, picks randomly one choice from
-    :data:`~leukapp.apps.extractions.constants.ANALYTE`. To learn more see:
-    `FuzzyChoice`_.
-
-    .. _FuzzyChoice:
-        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice
-    """
-
-    platform = FuzzyChoice([e[0] for e in constants.PLATFORM])
-    """
-    If not passed, picks randomly one choice from
-    :data:`~leukapp.apps.extractions.constants.PLATFORM`. To learn more see:
-    `FuzzyChoice`_.
+    If not passed, picks a random choice from :data:`~.constants.ANALYTE`.
+    To learn more see `FuzzyChoice`_.
 
     .. _FuzzyChoice:
         https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice
@@ -98,9 +88,8 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
 
     technology = FuzzyChoice([e[0] for e in constants.TECHNOLOGY])
     """
-    If not passed, picks randomly one choice from
-    :data:`~leukapp.apps.extractions.constants.TECHNOLOGY`. To learn more see:
-    `FuzzyChoice`_.
+    If not passed, picks a random choice from :data:`~.constants.TECHNOLOGY`.
+    To learn more see `FuzzyChoice`_.
 
     .. _FuzzyChoice:
         https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice
@@ -108,9 +97,8 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
 
     center = FuzzyChoice([e[0] for e in constants.CENTER])
     """
-    If not passed, picks randomly one choice from
-    :data:`~leukapp.apps.extractions.constants.CENTER`. To learn more see:
-    `FuzzyChoice`_.
+    If not passed, picks a random choice from :data:`~.constants.CENTER`.
+    To learn more see `FuzzyChoice`_.
 
     .. _FuzzyChoice:
         https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice
@@ -118,8 +106,7 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
 
     ext_id = FuzzyText(length=12, chars=string.hexdigits)
     """
-    If not passed, creates a random ID. To learn more see:
-    `FuzzyText`_.
+    If not passed, creates a random ID. To learn more see `FuzzyText`_.
 
     .. _FuzzyText:
         https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzytext
@@ -127,20 +114,37 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
 
     projects_string = ''
     """
-    .. py:currentmodule:: leukapp.apps.extractions
-
     By default, this attribute is set to ``''``. However, pass a string with
     :class:`Projects <leukapp.apps.projects.models.Project>` primary keys
-    separated by a ``|`` character to link the new :class:`~leukapp.apps.
-    extractions.models.Extraction` to one or more
-    :class:`Projects <leukapp.apps.projects.models.Project>`. To understand
-    better this behavior see:
-    :meth:`~models.Extraction._get_projects_from_string`.
+    separated by a ``|`` character to link the new :class:`~.models.Extraction`
+    and the projects. To understand better this behavior see:
+    :meth:`~.models.Extraction._get_projects_from_string`.
     """
+
+    # LAZY ATTRIBUTES
+    # =========================================================================
+
+    platform = None
+    """
+    If not passed, picks a random choice from
+    :data:`~.constants.TECHNOLOGY_PLATFORM`. Based on the :attr:`technology`
+    attribute. To learn more see the `lazy_attribute`_ decorator.
+
+    .. _lazy_attribute:
+        http://factoryboy.readthedocs.org/en/latest/reference.html?highlight=container#decorator
+    """
+
+    @factory.lazy_attribute
+    def platform(self):
+        choices = list(constants.TECHNOLOGY_PLATFORM[self.technology])
+        return random.choice(choices)
+
+    # POST GENERATED ATTRIBUTES
+    # =========================================================================
 
     projects = None
     """
-    Pass a list of projects to create ManyToMany relationship. To learn
+    Pass a list of projects to create ManyToMany relationships. To learn
     more see Factory's documentation for `simple ManyToMany relationship`_.
 
     .. _simple ManyToMany relationship: https://factoryboy.readthedocs.org/en/latest/recipes.html#simple-many-to-many-relationship
