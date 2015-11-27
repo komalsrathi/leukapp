@@ -7,6 +7,9 @@ Tests for the `extractions` application `constants`.
 # django
 from django.test import TestCase
 
+#leukapp
+from leukapp.apps.core.constants import UNKNOWN
+
 # local
 from .. import constants
 
@@ -20,6 +23,8 @@ class ExtractionsConstantsTest(TestCase):
         PLATFORM = [e[0] for e in constants.PLATFORM]
 
         for platform in PLATFORM:
+            if platform == UNKNOWN:
+                continue
             platform_isin_codedict = 0
             for key in constants.TECHNOLOGY_PLATFORM:
                 if platform in constants.TECHNOLOGY_PLATFORM[key]:
