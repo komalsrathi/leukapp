@@ -75,12 +75,6 @@ List of value, verbose_name pairs for the
 :attr:`~leukapp.apps.extractions.models.Extraction.analyte` attribute.
 """
 
-ANALYTE_VALUE = [b[0] for b in ANALYTE]
-"""
-Values for the :attr:`~leukapp.apps.extractions.models.Extraction.analyte`
-attribute.
-"""
-
 # TECHNOLOGY
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 WHOLEGENOME = 'WHOLE-GENOME'

@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
+"""
+Models and database schemas for the :mod:`leukapp.apps.extractions`
+application.
+"""
+
 # django
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 
 # leukapp
 from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import ext_id_validator
-from leukapp.apps.core.utils import LeukConnect
 from leukapp.apps.core.constants import UNKNOWN
 from leukapp.apps.aliquots.models import Aliquot
 from leukapp.apps.projects.models import Project
@@ -22,38 +24,52 @@ from .validators import projects_string_validator
 class Extraction(LeukappModel):
 
     """
+    :class:`Aliquot's <leukapp.apps.aliquots.models.Aliquot>` nucleic acid.
 
-    :param aliquot: Parent `~leukapp.apps.aliquots.models.Aliquot` object.
-    :param analyte:
-    :param platform:
-    :param technology:
-    :param center:
-    :param ext_id:
-    :param projects_string:
-    :param projects:
+    Each :class:`.Extraction` can be linked to multiple
+    :mod:`Projects <leukapp.apps.projects.models.Project>` using the
+    :attr:`projects` ManyToMany field. Additionally, the attribute
+    :attr:`projects_string` can also be used with
+    :meth:`_get_projects_from_string` to link projects and extractions::
 
+        # This will add projects 101 and 102 to the current Extraction
+        projects_string = '101|102|103'
     """
 
-    APP_NAME = constants.APP_NAME
-    CHOICES = constants.EXTRACTION_CHOICES
-
-    # external fields
+    # EXTERNAL FIELDS
+    # =========================================================================
     aliquot = models.ForeignKey(
         Aliquot,
         verbose_name=_("aliquot"),
         null=True,
         )
+    """
+    `ForeignKey`_ to the :class:`~leukapp.apps.aliquots.models.Aliquot` model.
+
+    .. _ForeignKey: https://docs.djangoproject.com/en/1.8/topics/db/examples/many_to_one/#many-to-one-relationships
+    """
+
     analyte = models.CharField(
         _("biological material"),
         max_length=100,
-        choices=CHOICES["ANALYTE"],
+        choices=constants.EXTRACTION_CHOICES["ANALYTE"],
         null=True,
         )
+    """
+    Type of nucleic acid to be sequenced. See :data:`~.constants.ANALYTE` for
+    available choices.
+    """
+
     projects = models.ManyToManyField(
         Project,
         verbose_name=_("projects"),
         blank=True,
         )
+    """
+    Many to many relationship with the model
+    :class:`~leukapp.apps.projects.models.Project`.
+    """
+
     projects_string = models.CharField(
         _("list of projetcs"),
         max_length=100,
@@ -62,138 +78,188 @@ class Extraction(LeukappModel):
         blank=True,
         null=True,
         )
-    platform = models.CharField(
-        _("platform"),
-        max_length=100,
-        choices=CHOICES["PLATFORM"],
-        null=True,
-        )
+    """
+    String used by :meth:`_get_projects_from_string` to link
+    :class:`Projects <leukapp.apps.projects.models.Project>` and
+    :class:`Extractions <.Extraction>`.
+    """
+
     technology = models.CharField(
         _("technology"),
         max_length=100,
-        choices=CHOICES["TECHNOLOGY"],
+        choices=constants.EXTRACTION_CHOICES["TECHNOLOGY"],
         null=True,
         )
+    """
+    Sequencing :data:`~.constants.TECHNOLOGY`.
+    """
+
+    platform = models.CharField(
+        _("platform"),
+        max_length=100,
+        choices=constants.EXTRACTION_CHOICES["PLATFORM"],
+        null=True,
+        )
+    """
+    Sequencing :data:`~.constants.PLATFORM`.
+    """
+
     center = models.CharField(
         _("sequencing center"),
         max_length=100,
-        choices=CHOICES["CENTER"],
+        choices=constants.EXTRACTION_CHOICES["CENTER"],
         null=True,
         )
+    """
+    Sequencing :data:`~.constants.CENTER`.
+    """
+
     ext_id = models.CharField(
-        _("sequencing center id"),
+        _("sequencing center ID"),
         max_length=100,
         validators=[ext_id_validator],
         default=UNKNOWN,
-        help_text=_("The sequencing center id."),
+        help_text=_("The sequencing center ID."),
         null=True,
         )
+    """
+    ID used by the sequencing :data:`~.constants.CENTER` to identify
+    :class:`Extractions <.Extraction>`.
 
-    # internal fields
+    The default value is :data:`~leukapp.apps.core.constants.UNKNOWN`
+    because most likely, scientist don't know this ID when they are submitting
+    :class:`Extractions <.Extraction>` to **leukgen**.
+    """
+
+    # INTERNAL FIELDS
+    # =========================================================================
     int_id = models.CharField(
-        _("internal id"),
+        _("internal ID"),
         max_length=100,
         null=True,
         )
+    """
+    Internal ID used to describe the :class:`Extraction` object.
+
+    This value is generated by :meth:`_get_int_id` and it includes crucial
+    information separated by a ``-`` character (e.g. ``D1-1``).
+
+    * ``D1`` indicates that the current :class:`Extraction` is the first
+      **DNA** extracted from an :class:`~leukapp.apps.aliquots.models.Aliquot`.
+
+    * ``1`` indicates the :data:`~.constants.TECHNOLOGY_PLATFORM` code.
+
+    The :attr:`int_id` is generated only once. If there was a mistake a new
+    :class:`Extraction` instance must be created.
+    """
+
     slug = models.SlugField(
         _("slug"),
         unique=True,
         editable=False,
         null=True,
         )
+    """
+    :class:`Extraction's <.Extraction>` unique identifier (**leukid**).
 
+    The :attr:`int_id` is added to the ``Aliquot.slug`` to generate the
+    :attr:`slug`.
+
+    As the :attr:`int_id`, the :attr:`slug` is generated only once.
+    If there was a mistake a new :class:`Extraction` instance must be created.
+    """
+
+    # META CLASS
+    # =========================================================================
     class Meta:
         verbose_name = _(constants.APP_NAME[:-1])
         verbose_name_plural = _(constants.APP_NAME)
         unique_together = (constants.EXTRACTION_UNIQUE_TOGETHER)
         index_together = (constants.EXTRACTION_UNIQUE_TOGETHER)
 
+    # PUBLIC METHODS
+    # =========================================================================
     def __str__(self):
+        """
+        Returns the :attr:`slug` when ``str`` is requested.
+        """
         return self.slug
 
+    # PRIVATE METHODS
+    # =========================================================================
     def _if_new(self, **kwargs):
-        """ _if_new is executed the first time the object is created """
+        """ .. currentmodule:: leukapp.apps.core
+        Executed only when the object is created.
 
-        # This function can only be called from save()
+        This method can only be called from
+        :meth:`~models.LeukappModel.save` and is protected by
+        :meth:`~models.LeukappModel._check_if_caller_is_save`.
+        """
         self._check_if_caller_is_save()
-
-        # get internal id
         self.int_id = self._get_int_id()
-
-    def _if_save(self):
-        """ NOTTESTED _if_save() is executed everytime the object is saved """
-
-        # This function can only be called from save()
-        self._check_if_caller_is_save()
-
-        # update object slug
         self.slug = '-'.join([self.aliquot.slug, self.int_id])
 
-        # update projects
+    def _if_save(self):
+        """ .. currentmodule:: leukapp.apps.core
+        Executed everytime the object is saved.
+
+        This method can only be called from
+        :meth:`~models.LeukappModel.save` and is protected by
+        :meth:`~models.LeukappModel._check_if_caller_is_save`.
+        """
+        self._check_if_caller_is_save()
         self._get_projects_from_string()
 
-        # update data center
-        self._create_leukcd_run_dir()
-
     def _get_projects_from_string(self):
-        """ NOTTESTED NOTDOCUMENTED """
-        if self.projects_string:
+        """
+        Links :class:`Extractions <.Extraction>` to
+        :class:`Projects <leukapp.apps.projects.models.Project>`` using
+        :attr:`projects_string`.
+
+        Projects primary keys (`pk`s) must be separated by a ``|`` character.
+        """
+        try:
             projects = [int(p) for p in self.projects_string.split("|")]
             [self.projects.add(p) for p in projects]
+        except Exception:
+            pass
 
     def _get_int_id(self):
-        """ return int_id based on count of tumors/normals per Individual """
+        """
+        Computes the :attr:`int_id`.
 
-        # This function can only be called from _if_new()
+        The :attr:`int_id` generation is based on a count of Extractions per
+        :class:`~leukapp.apps.aliquots.models.Aliquot`, and the combination of
+        the sequencing :data:`~.constants.TECHNOLOGY` and
+        :data:`~.constants.PLATFORM` used.
+
+        Steps:
+
+            * Check if the caller function is :meth:`_if_new()`.
+            * Retrieve the ID character assigned to the `analyte` attribute.
+              updates the extractions count and saves the Parent class,
+              and builds the first section of the ID (e.g. `D1`).
+            * Assigns the
+              :data:`~leukapp.apps.extractions.constants.TECHNOLOGY_PLATFORM`
+              code.
+
+        This method can only be called from
+        :meth:`_if_new` and is protected by
+        :meth:`~leukapp.apps.core.models.LeukappModel._check_if_caller_is_if_new`.
+        """
         self._check_if_caller_is_if_new()
 
-        # get internal id
-        analyte_id = constants.LEUKID_ANALYTE[self.analyte]
         if self.analyte == constants.DNA:
             self.aliquot.dna_extractions_count += 1
-            self.int_id = analyte_id + str(self.aliquot.dna_extractions_count)
+            self.int_id = constants.LEUKID_ANALYTE[self.analyte]
+            self.int_id += str(self.aliquot.dna_extractions_count)
         elif self.analyte == constants.RNA:
             self.aliquot.rna_extractions_count += 1
-            self.int_id = analyte_id + str(self.aliquot.rna_extractions_count)
+            self.int_id = constants.LEUKID_ANALYTE[self.analyte]
+            self.int_id += str(self.aliquot.rna_extractions_count)
         self.aliquot.save()
+
+        code = constants.TECHNOLOGY_PLATFORM[self.technology][self.platform]
+        self.int_id += '-' + code
+
         return self.int_id
-
-    def _create_leukcd_run_dir(self):
-        """ This function ssh to leukdc and creates a run directory."""
-        # NOTTESTED
-
-        if settings.TESTING:
-            return
-
-        try:  # if LEUKCD_ACTIVE is TRUE, creates a dir at the Data Center
-            leukcd = LeukConnect()
-            projects = self.projects.all()
-
-            # root directories
-            projectsroot = leukcd.LEUKDC_PROJECTS_DIR
-            samplesroot = leukcd.LEUKDC_SAMPLES_DIR
-
-            # specific paths
-            projectspathlist = [self.technology, self.slug]
-            samplespathlist = [self.slug]
-            pdirs = ['/'.join([p.int_id] + projectspathlist) for p in projects]
-            pdirs = [projectsroot + pdir for pdir in pdirs]
-            sdir = samplesroot + '/'.join(samplespathlist)
-
-            # create sample directory
-            leukcd.connect()
-            command = 'mkdir -p %s' % sdir
-            leukcd.exec_command(command)
-
-            # create directories at projects
-            command = 'mkdir -p {0}'
-            [leukcd.exec_command(command.format(pdir)) for pdir in pdirs]
-
-            # create symlinks from samples to projects
-            command = 'ln -s {0} {1}'
-            [leukcd.exec_command(command.format(sdir, pdir)) for pdir in pdirs]
-
-            # close connection
-            leukcd.close()
-        except ImproperlyConfigured:
-            print('LEUKCD_ACTIVE is FALSE')
