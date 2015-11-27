@@ -11,3 +11,7 @@ export LEUKDC_USER="medinaj"
 export LEUKDC_PASSWORD=""
 export LEUKDC_SSHKEY=$HOME"/.ssh/id_rsa.pub"
 export LEUKDC_ACTIVE="TRUE"
+
+# LEUKAPP SPECIFIC ENVIRONMENT VARIABLES
+# =============================================================================
+export SPHINX_APIDOC_OPTIONS=members,private-members,show-inheritance
