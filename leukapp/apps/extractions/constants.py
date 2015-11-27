@@ -140,6 +140,7 @@ FOUNDATIONONEHEMEPANEL = "FOUNDATIONONE-HEME-PANEL"
 FOUNDATIONONEPANEL = "FOUNDATIONONE-PANEL"
 
 PLATFORM = (
+    (coreconstants.UNKNOWN, coreconstants.UNKNOWN),
     (HISEQ, HISEQ),
     (ILLUMINAXTEN, ILLUMINAXTEN),
     (AGILENT50MB, AGILENT50MB),
@@ -195,26 +196,26 @@ TECHNOLOGY_PLATFORM = {
         },
 
     CHIPSEQ: {
-        H3K4ME1: "",
-        H3K4ME3: "",
-        H3K4ME2: "",
-        H3K27AC: "",
+        H3K4ME1: "6",
+        H3K4ME3: "6",
+        H3K4ME2: "6",
+        H3K27AC: "6",
         },
 
     RLP: {
-        "": "8",
+        coreconstants.UNKNOWN: "8",
         },
 
     RNASEQCUSTOM: {
-        "": "9",
+        coreconstants.UNKNOWN: "9",
         },
 
     ATACSEQ: {
-        "": "10",
+        coreconstants.UNKNOWN: "10",
         },
 
     RNASEQSINGLECELL: {
-        "": "11",
+        coreconstants.UNKNOWN: "11",
         },
 
     FOUNDATION: {
