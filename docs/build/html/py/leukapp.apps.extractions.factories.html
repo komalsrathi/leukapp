@@ -206,10 +206,8 @@ To learn more see <a class="reference external" href="https://factoryboy.readthe
 <code class="descname">projects_string</code><em class="property"> = ''</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.projects_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>By default, this attribute is set to <code class="docutils literal"><span class="pre">''</span></code>. However, pass a string with
 <a class="reference internal" href="leukapp.apps.projects.models.html#leukapp.apps.projects.models.Project" title="leukapp.apps.projects.models.Project"><code class="xref py py-class docutils literal"><span class="pre">Projects</span></code></a> primary keys
-separated by a <code class="docutils literal"><span class="pre">|</span></code> character to link the new
-<a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></a> to one or more
-<a class="reference internal" href="leukapp.apps.projects.models.html#leukapp.apps.projects.models.Project" title="leukapp.apps.projects.models.Project"><code class="xref py py-class docutils literal"><span class="pre">Projects</span></code></a>.
-To understand better this behavior see:
+separated by a <code class="docutils literal"><span class="pre">|</span></code> character to link the new <a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></a>
+and the projects. To understand better this behavior see:
 <a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction._get_projects_from_string" title="leukapp.apps.extractions.models.Extraction._get_projects_from_string"><code class="xref py py-meth docutils literal"><span class="pre">_get_projects_from_string()</span></code></a>.</p>
 </dd></dl>
 
@@ -217,14 +215,14 @@ To understand better this behavior see:
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory.platform">
 <code class="descname">platform</code><em class="property"> = &lt;factory.declarations.LazyAttribute object&gt;</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.platform" title="Permalink to this definition">¶</a></dt>
 <dd><p>If not passed, picks a random choice from
-<a class="reference internal" href="leukapp.apps.extractions.constants.html#leukapp.apps.extractions.constants.TECHNOLOGY_PLATFORM" title="leukapp.apps.extractions.constants.TECHNOLOGY_PLATFORM"><code class="xref py py-data docutils literal"><span class="pre">TECHNOLOGY_PLATFORM</span></code></a>. Based on the <code class="xref py py-attr docutils literal"><span class="pre">technology</span></code>.
-To learn more see <a class="reference external" href="http://factoryboy.readthedocs.org/en/latest/reference.html?highlight=container#decorator">lazy_attribute</a> decorator.</p>
+<a class="reference internal" href="leukapp.apps.extractions.constants.html#leukapp.apps.extractions.constants.TECHNOLOGY_PLATFORM" title="leukapp.apps.extractions.constants.TECHNOLOGY_PLATFORM"><code class="xref py py-data docutils literal"><span class="pre">TECHNOLOGY_PLATFORM</span></code></a>. Based on the <code class="xref py py-attr docutils literal"><span class="pre">technology</span></code>
+attribute. To learn more see the <a class="reference external" href="http://factoryboy.readthedocs.org/en/latest/reference.html?highlight=container#decorator">lazy_attribute</a> decorator.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="leukapp.apps.extractions.factories.ExtractionFactory.projects">
 <code class="descname">projects</code><em class="property"> = &lt;factory.declarations.PostGeneration object&gt;</em><a class="headerlink" href="#leukapp.apps.extractions.factories.ExtractionFactory.projects" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pass a list of projects to create ManyToMany relationship. To learn
+<dd><p>Pass a list of projects to create ManyToMany relationships. To learn
 more see Factory&#8217;s documentation for <a class="reference external" href="https://factoryboy.readthedocs.org/en/latest/recipes.html#simple-many-to-many-relationship">simple ManyToMany relationship</a>.</p>
 </dd></dl>
 

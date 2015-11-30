@@ -166,6 +166,9 @@
 <span class="sd">        projects_string = &#39;101|102|103&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c">#: Name of the application where :class:`Extraction` is contained.</span>
+    <span class="n">APP_NAME</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
+
     <span class="c"># EXTERNAL FIELDS</span>
     <span class="c"># =========================================================================</span>
     <span class="n">aliquot</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
@@ -228,6 +231,7 @@
         <span class="n">_</span><span class="p">(</span><span class="s">&quot;platform&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_CHOICES</span><span class="p">[</span><span class="s">&quot;PLATFORM&quot;</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">UNKNOWN</span><span class="p">,</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="sd">&quot;&quot;&quot;</span>

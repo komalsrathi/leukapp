@@ -246,10 +246,8 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    By default, this attribute is set to ``&#39;&#39;``. However, pass a string with</span>
 <span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;` primary keys</span>
-<span class="sd">    separated by a ``|`` character to link the new</span>
-<span class="sd">    :class:`~.models.Extraction` to one or more</span>
-<span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;`.</span>
-<span class="sd">    To understand better this behavior see:</span>
+<span class="sd">    separated by a ``|`` character to link the new :class:`~.models.Extraction`</span>
+<span class="sd">    and the projects. To understand better this behavior see:</span>
 <span class="sd">    :meth:`~.models.Extraction._get_projects_from_string`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -259,8 +257,8 @@
     <span class="n">platform</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    If not passed, picks a random choice from</span>
-<span class="sd">    :data:`~.constants.TECHNOLOGY_PLATFORM`. Based on the :attr:`technology`.</span>
-<span class="sd">    To learn more see `lazy_attribute`_ decorator.</span>
+<span class="sd">    :data:`~.constants.TECHNOLOGY_PLATFORM`. Based on the :attr:`technology`</span>
+<span class="sd">    attribute. To learn more see the `lazy_attribute`_ decorator.</span>
 
 <span class="sd">    .. _lazy_attribute:</span>
 <span class="sd">        http://factoryboy.readthedocs.org/en/latest/reference.html?highlight=container#decorator</span>
@@ -276,7 +274,7 @@
 
     <span class="n">projects</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Pass a list of projects to create ManyToMany relationship. To learn</span>
+<span class="sd">    Pass a list of projects to create ManyToMany relationships. To learn</span>
 <span class="sd">    more see Factory&#39;s documentation for `simple ManyToMany relationship`_.</span>
 
 <span class="sd">    .. _simple ManyToMany relationship: https://factoryboy.readthedocs.org/en/latest/recipes.html#simple-many-to-many-relationship</span>

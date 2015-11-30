@@ -22,6 +22,15 @@ import environ
 
 env = environ.Env()
 
+# check autodoc settings:
+try:
+    env('SPHINX_APIDOC_OPTIONS')
+except Exception:
+    raise Exception(
+        "Please include SPHINX_APIDOC_OPTIONS in your environment (e.g. "
+        "SPHINX_APIDOC_OPTIONS=members,private-members,show-inheritance)"
+    )
+
 # added to load django doc
 sys.path.append(env('PATH'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
