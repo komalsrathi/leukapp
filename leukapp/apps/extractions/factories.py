@@ -137,6 +137,7 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
     @factory.lazy_attribute
     def platform(self):
         choices = list(constants.TECHNOLOGY_PLATFORM[self.technology])
+        choices.remove("DEFAULT")
         return random.choice(choices)
 
     # POST GENERATED ATTRIBUTES

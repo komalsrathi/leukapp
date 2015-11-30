@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Models and database schemas for the :mod:`leukapp.apps.extractions`
+Models and database schemas for the :mod:`~leukapp.apps.extractions`
 application.
 """
 
@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 # leukapp
 from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import ext_id_validator
+from leukapp.apps.core.db import CharNullField
 from leukapp.apps.core.constants import UNKNOWN
 from leukapp.apps.aliquots.models import Aliquot
 from leukapp.apps.projects.models import Project
@@ -32,7 +33,7 @@ class Extraction(LeukappModel):
     :attr:`projects_string` can also be used with
     :meth:`_get_projects_from_string` to link projects and extractions::
 
-        # This will add projects 101 and 102 to the current Extraction
+        # This will add projects 101 and 102 to Extraction when saving
         projects_string = '101|102|103'
     """
 
@@ -53,7 +54,7 @@ class Extraction(LeukappModel):
     """
 
     analyte = models.CharField(
-        _("biological material"),
+        verbose_name=_("biological material"),
         max_length=100,
         choices=constants.EXTRACTION_CHOICES["ANALYTE"],
         null=True,
@@ -74,7 +75,7 @@ class Extraction(LeukappModel):
     """
 
     projects_string = models.CharField(
-        _("list of projetcs"),
+        verbose_name=_("list of projetcs"),
         max_length=100,
         validators=[projects_string_validator],
         help_text=_("Include the projects pks separated by a '|' character"),
@@ -88,9 +89,9 @@ class Extraction(LeukappModel):
     """
 
     technology = models.CharField(
-        _("technology"),
-        max_length=100,
+        verbose_name=_("technology"),
         choices=constants.EXTRACTION_CHOICES["TECHNOLOGY"],
+        max_length=100,
         null=True,
         )
     """
@@ -98,10 +99,10 @@ class Extraction(LeukappModel):
     """
 
     platform = models.CharField(
-        _("platform"),
-        max_length=100,
+        verbose_name=_("platform"),
         choices=constants.EXTRACTION_CHOICES["PLATFORM"],
         default=UNKNOWN,
+        max_length=100,
         null=True,
         )
     """
@@ -109,7 +110,7 @@ class Extraction(LeukappModel):
     """
 
     center = models.CharField(
-        _("sequencing center"),
+        verbose_name=_("sequencing center"),
         max_length=100,
         choices=constants.EXTRACTION_CHOICES["CENTER"],
         null=True,
@@ -118,28 +119,35 @@ class Extraction(LeukappModel):
     Sequencing :data:`~.constants.CENTER`.
     """
 
-    ext_id = models.CharField(
-        _("sequencing center ID"),
+    ext_id = CharNullField(
+        verbose_name=_("sequencing center ID"),
         max_length=100,
         validators=[ext_id_validator],
         default=UNKNOWN,
         help_text=_("The sequencing center ID."),
+        blank=True,
         null=True,
         )
     """
-    ID used by the sequencing :data:`~.constants.CENTER` to identify
-    :class:`Extractions <.Extraction>`.
+    ID used by the sequencing :data:`~.constants.CENTER` to identify the
+    :class:`.Extraction`.
 
     The default value is :data:`~leukapp.apps.core.constants.UNKNOWN`
     because most likely, scientist don't know this ID when they are submitting
     :class:`Extractions <.Extraction>` to **leukgen**.
+
+    .. important:
+        This field is a :class:`~leukapp.apps.core.db.CharNullField`. This
+        particular field class enables the ability to have multiple NULL
+        values but unique non-NULL records.
     """
 
     # INTERNAL FIELDS
     # =========================================================================
     int_id = models.CharField(
-        _("internal ID"),
+        verbose_name=_("internal ID"),
         max_length=100,
+        editable=False,
         null=True,
         )
     """
@@ -158,7 +166,7 @@ class Extraction(LeukappModel):
     """
 
     slug = models.SlugField(
-        _("slug"),
+        verbose_name=_("slug"),
         unique=True,
         editable=False,
         null=True,
@@ -200,7 +208,7 @@ class Extraction(LeukappModel):
         :meth:`~models.LeukappModel._check_if_caller_is_save`.
         """
         self._check_if_caller_is_save()
-        self.int_id = self._get_int_id()
+        self._get_int_id()
         self.slug = '-'.join([self.aliquot.slug, self.int_id])
 
     def _if_save(self):
@@ -240,12 +248,12 @@ class Extraction(LeukappModel):
         Steps:
 
             * Check if the caller function is :meth:`_if_new()`.
+            * if ``platform`` is ``UNKNOWN``, replace for default value.
             * Retrieve the ID character assigned to the `analyte` attribute.
-              updates the extractions count and saves the Parent class,
-              and builds the first section of the ID (e.g. `D1`).
-            * Assigns the
-              :data:`~leukapp.apps.extractions.constants.TECHNOLOGY_PLATFORM`
-              code.
+              updates the extractions count, saves the Parent class,
+              and builds the first section of the ID (e.g. ``D1``).
+            * Assigns the :data:`~.constants.TECHNOLOGY_PLATFORM` code to the
+              last section of the ID (e.g. ``D1-1``).
 
         This method can only be called from
         :meth:`_if_new` and is protected by
@@ -253,6 +261,12 @@ class Extraction(LeukappModel):
         """
         self._check_if_caller_is_if_new()
 
+        # set default value to platform incase it wasn't provided
+        if (not self.platform) or (self.platform == UNKNOWN):
+            default = constants.TECHNOLOGY_PLATFORM[self.technology]["DEFAULT"]
+            self.platform = default
+
+        # D1 leukid section
         if self.analyte == constants.DNA:
             self.aliquot.dna_extractions_count += 1
             self.int_id = constants.LEUKID_ANALYTE[self.analyte]
@@ -263,6 +277,7 @@ class Extraction(LeukappModel):
             self.int_id += str(self.aliquot.rna_extractions_count)
         self.aliquot.save()
 
+        # D1-1 leukid section
         code = constants.TECHNOLOGY_PLATFORM[self.technology][self.platform]
         self.int_id += '-' + code
 

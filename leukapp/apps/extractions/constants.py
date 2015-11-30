@@ -28,11 +28,11 @@ EXTRACTION_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
 #: Fields required to create a new instance.
 EXTRACTION_CREATE_FIELDS = (
     'aliquot',
-    'platform',
-    'technology',
     'center',
     'ext_id',
     'analyte',
+    'platform',
+    'technology',
     'projects_string',
     )
 
@@ -40,7 +40,11 @@ EXTRACTION_CREATE_FIELDS = (
 EXTRACTION_UPDATE_FIELDS = tuple()
 
 #: Fields that are required to be unique together.
-EXTRACTION_UNIQUE_TOGETHER = tuple()
+EXTRACTION_UNIQUE_TOGETHER = (
+    'aliquot',
+    'center',
+    'ext_id',
+    )
 
 # CHOICES
 # =============================================================================
@@ -171,21 +175,25 @@ List of value, verbose_name pairs for the
 TECHNOLOGY_PLATFORM = {
 
     WHOLEGENOME: {
+        "DEFAULT": HISEQ,
         HISEQ: "1",
         ILLUMINAXTEN: "1",
         },
 
     WHOLEEXOME: {
+        "DEFAULT": AGILENT50MB,
         AGILENT50MB: "2",
         AGILENT51MB: "2",
         },
 
     RNASEQ: {
+        "DEFAULT": PAIREDEND50BP,
         PAIREDEND50BP: "3",
         SINGLEEND150BP: "3",
         },
 
     TARGETEDDNA: {
+        "DEFAULT": HEMEPACTV1,
         HEMEPACTV1: "4",
         HEMEPACTV2: "4",
         HEMEPACTV3: "4",
@@ -196,6 +204,7 @@ TECHNOLOGY_PLATFORM = {
         },
 
     CHIPSEQ: {
+        "DEFAULT": H3K4ME1,
         H3K4ME1: "6",
         H3K4ME3: "6",
         H3K4ME2: "6",
@@ -203,22 +212,27 @@ TECHNOLOGY_PLATFORM = {
         },
 
     RLP: {
+        "DEFAULT": coreconstants.UNKNOWN,
         coreconstants.UNKNOWN: "8",
         },
 
     RNASEQCUSTOM: {
+        "DEFAULT": coreconstants.UNKNOWN,
         coreconstants.UNKNOWN: "9",
         },
 
     ATACSEQ: {
+        "DEFAULT": coreconstants.UNKNOWN,
         coreconstants.UNKNOWN: "10",
         },
 
     RNASEQSINGLECELL: {
+        "DEFAULT": coreconstants.UNKNOWN,
         coreconstants.UNKNOWN: "11",
         },
 
     FOUNDATION: {
+        "DEFAULT": FOUNDATIONONEHEMEPANEL,
         FOUNDATIONONEHEMEPANEL: "12",
         FOUNDATIONONEPANEL: "12",
         },
