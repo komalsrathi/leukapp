@@ -3,6 +3,11 @@
 """
 Models and database schemas for the :mod:`~leukapp.apps.extractions`
 application.
+
+See `Django's Model Documentation`_ for more information.
+
+.. _Django's Model Documentation:
+    https://docs.djangoproject.com/en/1.9/topics/db/models/
 """
 
 # django
@@ -161,8 +166,9 @@ class Extraction(LeukappModel):
 
     * ``1`` indicates the :data:`~.constants.TECHNOLOGY_PLATFORM` code.
 
-    The :attr:`int_id` is generated only once. If there was a mistake a new
-    :class:`Extraction` instance must be created.
+    .. important:
+        The :attr:`int_id` is generated only once. If there was a mistake a new
+        :class:`Extraction` instance must be created.
     """
 
     slug = models.SlugField(
@@ -177,8 +183,9 @@ class Extraction(LeukappModel):
     The :attr:`int_id` is added to the ``Aliquot.slug`` to generate the
     :attr:`slug`.
 
-    As the :attr:`int_id`, the :attr:`slug` is generated only once.
-    If there was a mistake a new :class:`Extraction` instance must be created.
+    .. important:
+        As the :attr:`int_id`, the :attr:`slug` is generated only once. If
+        there was a mistake a new :class:`Extraction` instance must be created.
     """
 
     # META CLASS
@@ -203,9 +210,10 @@ class Extraction(LeukappModel):
         """ .. currentmodule:: leukapp.apps.core
         Executed only when the object is created.
 
-        This method can only be called from
-        :meth:`~models.LeukappModel.save` and is protected by
-        :meth:`~models.LeukappModel._check_if_caller_is_save`.
+        ..note:
+            This method can only be called from
+            :meth:`~models.LeukappModel.save` and is protected by
+            :meth:`~models.LeukappModel._check_if_caller_is_save`.
         """
         self._check_if_caller_is_save()
         self._get_int_id()
@@ -215,9 +223,10 @@ class Extraction(LeukappModel):
         """ .. currentmodule:: leukapp.apps.core
         Executed everytime the object is saved.
 
-        This method can only be called from
-        :meth:`~models.LeukappModel.save` and is protected by
-        :meth:`~models.LeukappModel._check_if_caller_is_save`.
+        .. note:
+            This method can only be called from
+            :meth:`~models.LeukappModel.save` and is protected by
+            :meth:`~models.LeukappModel._check_if_caller_is_save`.
         """
         self._check_if_caller_is_save()
         self._get_projects_from_string()
@@ -240,24 +249,25 @@ class Extraction(LeukappModel):
         """
         Computes the :attr:`int_id`.
 
-        The :attr:`int_id` generation is based on a count of Extractions per
-        :class:`~leukapp.apps.aliquots.models.Aliquot`, and the combination of
-        the sequencing :data:`~.constants.TECHNOLOGY` and
+        The :attr:`int_id` generation is based on a count of ``Extractions``
+        per :class:`~leukapp.apps.aliquots.models.Aliquot`, and the
+        combination of the sequencing :data:`~.constants.TECHNOLOGY` and
         :data:`~.constants.PLATFORM` used.
 
         Steps:
 
-            * Check if the caller function is :meth:`_if_new()`.
+            * Check if the caller function is :meth:`~Extraction._if_new`.
             * if ``platform`` is ``UNKNOWN``, replace for default value.
-            * Retrieve the ID character assigned to the `analyte` attribute.
+            * Retrieve the ID character assigned to the ``analyte` attribute.
               updates the extractions count, saves the Parent class,
               and builds the first section of the ID (e.g. ``D1``).
             * Assigns the :data:`~.constants.TECHNOLOGY_PLATFORM` code to the
               last section of the ID (e.g. ``D1-1``).
 
-        This method can only be called from
-        :meth:`_if_new` and is protected by
-        :meth:`~leukapp.apps.core.models.LeukappModel._check_if_caller_is_if_new`.
+        .. note:
+            This method can only be called from
+            :meth:`~Extraction._if_new` and is protected by
+            :meth:`~leukapp.apps.core.models.LeukappModel._check_if_caller_is_if_new`.
         """
         self._check_if_caller_is_if_new()
 
