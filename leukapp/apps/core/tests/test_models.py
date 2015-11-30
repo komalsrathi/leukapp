@@ -38,13 +38,7 @@ class TimeStampedModelTest(BehaviorTestCaseMixin):
         self.assertTrue(diff.total_seconds() >= 0.01)
 
 
-class LeukappModelTest(BehaviorTestCaseMixin):
-
-    def test_something(self):
-        pass
-
-
-class LeukappTestModelTest(LeukappModelTest, TimeStampedModelTest, TestCase):
+class LeukappTestModelTest(TimeStampedModelTest, TestCase):
 
     # required due to ModelMixin
     # http://blog.kevinastone.com/django-model-behaviors.html
@@ -55,8 +49,18 @@ class LeukappTestModelTest(LeukappModelTest, TimeStampedModelTest, TestCase):
     def create_instance(self, **kwargs):
         return self.model.objects.create(**kwargs)
 
+    def test_check_if_caller_is_if_new_raises_error(self):
+        """
+        Must raise error if calling _test outside the _if_new method.
+        """
+        msg = "This function can only be called from _if_new()."
+        with self.assertRaisesMessage(Exception, expected_message=msg):
+            self.create_instance()._test()
 
-class CoreModelsTest(object):
-
-    def setUp(self):
-        pass
+    def test_check_if_caller_is_save_raises_error(self):
+        """
+        Must raise error if calling _if_new outside the save method.
+        """
+        msg = "This function can only be called from save()."
+        with self.assertRaisesMessage(Exception, expected_message=msg):
+            self.create_instance()._if_new()
