@@ -37,9 +37,9 @@ class LeukformLoader(object):
         super(LeukformLoader, self).__init__()
 
         # constants
-        self.VALID = 'ACCEPTED'
-        self.REJECTED = 'REJECTED'
-        self.EXISTED = 'EXISTED'
+        self.VALID_MESSAGE = 'ACCEPTED'
+        self.REJECTED_MESSAGE = 'REJECTED'
+        self.EXISTED_MESSAGE = 'EXISTED'
 
         # results data
         self.added = {}
@@ -90,7 +90,7 @@ class LeukformLoader(object):
             raise Exception("Provide a csv filepath or a list of dictionaries")
 
         if mock:
-            self.VALID = 'VALID'
+            self.VALID_MESSAGE = 'VALID_MESSAGE'
 
         # print("Validation completed.")
         columns = get_out_columns(columns)
@@ -176,10 +176,10 @@ class LeukformLoader(object):
                     fields = self._update_fields(model, fields, instance)
                 else:
                     row['RESULT'] = msg
-                    row['STATUS'] = self.REJECTED
+                    row['STATUS'] = self.REJECTED_MESSAGE
                     break
 
-        if (msg == self.EXISTED) or (msg == self.VALID):
+        if (msg == self.EXISTED_MESSAGE) or (msg == self.VALID_MESSAGE):
             row['RESULT'] = instance.slug
             row['STATUS'] = msg
 
@@ -211,6 +211,7 @@ class LeukformLoader(object):
 
     def _alter_row_special_case(self, row):
         """
+        Replace
         Test the case when only the Individual and/or Specimen ext_id are
         available. In this situation the leukform will be submitted with empty
         Specimen.ext_id and empty Aliquot.ext_id if only Individual.ext_id is
@@ -219,14 +220,12 @@ class LeukformLoader(object):
         Input:
             row (dict): csv.DictReader type of dictionary
         """
-        columns = set(row)
-        c0 = {'Individual.ext_id', 'Specimen.ext_id'}.issubset(columns)
-        c1 = c0 and row['Individual.ext_id']
-        c2 = c1 and {'Aliquot.ext_id'}.issubset(columns)
-        if c1 and (row['Specimen.ext_id'] == ''):
-            row['Specimen.ext_id'] = UNKNOWN
-        if c2 and (row['Aliquot.ext_id'] == ''):
-            row['Aliquot.ext_id'] = UNKNOWN
+        for column in constants.UNKWOWN_ENABLED_COLUMNS:
+            try:
+                if not row[column]:
+                    row[column] = UNKNOWN
+            except KeyError:
+                continue
         return row
 
     def _get_or_create(self, model, fields):
@@ -242,10 +241,15 @@ class LeukformLoader(object):
         instance, msg = None, None
         MODEL = constants.LEUKAPP_MODELS[model]
         FORM = constants.LEUKAPP_FORMS[model]
+        get_exceptions = (
+            MODEL.DoesNotExist,
+            MODEL.MultipleObjectsReturned,
+            KeyError,
+            )
 
         if 'slug' in fields[model]:  # if slug, use it to find the object
             try:
-                msg = self.EXISTED
+                msg = self.EXISTED_MESSAGE
                 slug = fields[model]['slug']
                 instance = MODEL.objects.get(slug=slug)
                 if instance not in self.added[model]:
@@ -259,16 +263,15 @@ class LeukformLoader(object):
                 unique = constants.LEUKAPP_UNIQUE_TOGETHER[model]
                 if not unique:  # if there isn't unique condition, create it!
                     raise MODEL.DoesNotExist
-
-                msg = self.EXISTED
+                msg = self.EXISTED_MESSAGE
                 search = {k: fields[model][k] for k in unique}
                 instance = MODEL.objects.get(**search)
                 if instance not in self.added[model]:
                     self.existed[model].append(instance)
-            except (MODEL.DoesNotExist, KeyError):
+            except get_exceptions:
                 form = FORM(fields[model])
                 if form.is_valid():
-                    msg = self.VALID
+                    msg = self.VALID_MESSAGE
                     instance = form.save(commit=True)
                     self.added[model].append(instance)
                 else:
