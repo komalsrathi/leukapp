@@ -19,13 +19,25 @@ class ExtractionFactoriesTest(TestCase):
     Tests for mod:`extractions.factories`.
     """
 
-    def test_extractionfactory_creates_run(self):
+    def test_extractionfactory_creates_extraction(self):
         """
         ExtractionFactory must create instance correctly.
         """
         a = ExtractionFactory()
         b = Extraction.objects.get(pk=a.pk)
         self.assertEqual(a, b)
+
+    def test_extractionfactory_doesnt_create_existing_extraction(self):
+        e, kwargs = ExtractionFactory(), {}
+        for field in constants.EXTRACTION_CREATE_FIELDS:
+            kwargs[field] = getattr(e, field)
+        self.assertEqual(e, ExtractionFactory(**kwargs))
+
+    def test_extractionfactory_does_create_extraction(self):
+        e, kwargs = ExtractionFactory(ext_id=None), {}
+        for field in constants.EXTRACTION_CREATE_FIELDS:
+            kwargs[field] = getattr(e, field)
+        self.assertNotEqual(e, Extraction.objects.create(**kwargs))
 
     def test_extractionfactory_attributes_are_correct(self):
         """
