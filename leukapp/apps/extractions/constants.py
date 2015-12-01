@@ -28,12 +28,8 @@ EXTRACTION_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
 #: Fields required to create a new instance.
 EXTRACTION_CREATE_FIELDS = (
     'aliquot',
-    'center',
     'ext_id',
     'analyte',
-    'platform',
-    'technology',
-    'projects_string',
     )
 
 #: Enabled fields to update an existing instance.
@@ -42,7 +38,6 @@ EXTRACTION_UPDATE_FIELDS = tuple()
 #: Fields that are required to be unique together.
 EXTRACTION_UNIQUE_TOGETHER = (
     'aliquot',
-    'center',
     'ext_id',
     )
 
@@ -176,19 +171,19 @@ TECHNOLOGY_PLATFORM = {
 
     WHOLEGENOME: {
         "DEFAULT": HISEQ,
-        HISEQ: "1",
-        ILLUMINAXTEN: "1",
+        HISEQ: "1A",
+        ILLUMINAXTEN: "1B",
         },
 
     WHOLEEXOME: {
         "DEFAULT": AGILENT50MB,
-        AGILENT50MB: "2",
-        AGILENT51MB: "2",
+        AGILENT50MB: "2A",
+        AGILENT51MB: "2B",
         },
 
     RNASEQ: {
         "DEFAULT": PAIREDEND50BP,
-        PAIREDEND50BP: "3",
+        PAIREDEND50BP: "3A",
         SINGLEEND150BP: "3",
         },
 

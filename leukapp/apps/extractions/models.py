@@ -39,7 +39,7 @@ class Extraction(LeukappModel):
     :meth:`_get_projects_from_string` to link projects and extractions::
 
         # This will add projects 101 and 102 to Extraction when saving
-        projects_string = '101|102|103'
+        projects_string = '101-102-103'
     """
 
     #: Name of the application where :class:`Extraction` is contained.
@@ -77,20 +77,6 @@ class Extraction(LeukappModel):
     """
     Many to many relationship with the model
     :class:`~leukapp.apps.projects.models.Project`.
-    """
-
-    projects_string = models.CharField(
-        verbose_name=_("list of projetcs"),
-        max_length=100,
-        validators=[projects_string_validator],
-        help_text=_("Include the projects pks separated by a '|' character"),
-        blank=True,
-        null=True,
-        )
-    """
-    String used by :meth:`_get_projects_from_string` to link
-    :class:`Projects <leukapp.apps.projects.models.Project>` and
-    :class:`Extractions <.Extraction>`.
     """
 
     technology = models.CharField(
@@ -237,7 +223,7 @@ class Extraction(LeukappModel):
         :class:`Projects <leukapp.apps.projects.models.Project>`` using
         :attr:`projects_string`.
 
-        Projects primary keys (`pk`s) must be separated by a ``|`` character.
+        Projects primary keys (``pk``s) must be separated by a ``|`` character.
         """
         try:
             projects = [int(p) for p in self.projects_string.split("|")]
