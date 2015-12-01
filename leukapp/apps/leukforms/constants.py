@@ -91,7 +91,7 @@ LEUKAPP_UNIQUE_TOGETHER = {
     'Extraction': EXTRACTION_UNIQUE_TOGETHER,
     }
 
-#: During submission, empty values are replaced for UNKNOWN for these columns.
+#: During submission, empty values are replaced for ``UNKNOWN`` for these cols.
 UNKWOWN_ENABLED_COLUMNS = (
     'Specimen.ext_id',
     'Aliquot.ext_id',

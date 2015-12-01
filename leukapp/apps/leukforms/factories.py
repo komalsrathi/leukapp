@@ -178,11 +178,15 @@ class LeukformSamplesFactory(object):
             model (str): name of instance's model
             parent (Leukapp Instance): foreing key's object
         """
+        notused = [
+            "individual", "specimen", "aliquot"]
         if self._slug and (not self._last):
             self._row = {}
             self._row[model + '.slug'] = instance.slug
         else:
             for field in CREATE_FIELDS[model]:
+                if field in notused:
+                    continue
                 column = "{0}.{1}".format(model, field)
                 value = eval('instance.{0}'.format(field))
                 self._row[column] = str(value)
@@ -221,7 +225,7 @@ class LeukformSamplesFactory(object):
         if not self.rows:
             raise ImproperlyConfigured("create rows first")
 
-        keys = set(self.rows[0])
+        keys = get_out_columns(columns=list(self.rows[0]))
         out = io.StringIO()
         dict_writer = csv.DictWriter(out, keys)
         dict_writer.writeheader()

@@ -11,7 +11,7 @@ from leukapp.apps.core.constants import UNKNOWN
 
 # local
 from . import constants
-from .validators import leukform_csv_validator, leukform_rows_validator
+from .validators import leukform_csv_validator
 
 
 def get_out_columns(columns):
@@ -20,9 +20,10 @@ def get_out_columns(columns):
     for model in constants.MODELS_LIST:
         fields = constants.CREATE_FIELDS[model]
         fields = ['.'.join([model, field]) for field in fields]
-        for column in columns:
-            if column in fields:
-                out_columns.append(column)
+        fields.append(model + ".slug")
+        for field in fields:
+            if (field in columns):
+                out_columns.append(field)
     return out_columns
 
 
@@ -74,17 +75,19 @@ class LeukformLoader(object):
         if rows:
             rows = list(rows)
             if validate:
-                leukform_rows_validator(rows)
+                # leukform_rows_validator(rows)
+                pass
             columns = list(rows[0])
 
         elif filepath:
             if validate:
                 leukform_csv_validator(filepath)
             with open(filepath, 'r') as leukform:
-                reader = csv.reader(leukform)
+                reader = csv.reader(leukform, dialect=csv.excel)
                 columns = list(next(reader))
                 leukform.seek(0)
-                rows = list(csv.DictReader(leukform, delimiter=","))
+                rows = list(csv.DictReader(
+                        leukform, delimiter=",", dialect=csv.excel))
 
         else:
             raise Exception("Provide a csv filepath or a list of dictionaries")

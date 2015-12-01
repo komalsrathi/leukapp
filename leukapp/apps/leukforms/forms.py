@@ -38,9 +38,8 @@ class AliquotForm(forms.ModelForm):
 class ExtractionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-            super(ExtractionForm, self).__init__(*args, **kwargs)
-            self.fields['projects_string'].required = True
+        super(ExtractionForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = Extraction
-        fields = EXTRACTION_CREATE_FIELDS + ('projects_string', )
+        fields = EXTRACTION_CREATE_FIELDS

@@ -84,10 +84,14 @@ class LeukformCsvFactoryTest(TestCase):
         batch._slug = False
         instance = AliquotFactory()
         row = {}
+        notused = [
+            "individual", "specimen", "aliquot"]
         for field in CREATE_FIELDS['Aliquot']:
-                column = "{0}.{1}".format('Aliquot', field)
-                value = eval('instance.{0}'.format(field))
-                row[column] = str(value)
+            if field in notused:
+                continue
+            column = "{0}.{1}".format('Aliquot', field)
+            value = eval('instance.{0}'.format(field))
+            row[column] = str(value)
         batch._write_row(instance, model='Aliquot')
         self.assertDictEqual(batch._row, row)
 
@@ -99,10 +103,14 @@ class LeukformCsvFactoryTest(TestCase):
         instance = AliquotFactory()
         row = {}
         rows = []
+        notused = [
+            "individual", "specimen", "aliquot"]
         for field in CREATE_FIELDS['Aliquot']:
-                column = "{0}.{1}".format('Aliquot', field)
-                value = eval('instance.{0}'.format(field))
-                row[column] = str(value)
+            if field in notused:
+                continue
+            column = "{0}.{1}".format('Aliquot', field)
+            value = eval('instance.{0}'.format(field))
+            row[column] = str(value)
         rows.append(row.copy())
         batch._write_row(instance, model='Aliquot')
         self.assertDictEqual(batch._row, row)
@@ -137,7 +145,8 @@ class LeukformCsvFactoryTest(TestCase):
 
         # test extractions projects lists are being assigned correctly
         batch_projects = [p.pk for p in batch.projects]
-        projects_string = batch.rows[0]['Extraction.projects_string'].split('|')
+        projects_string = \
+            batch.rows[0]['Extraction.projects_string'].split("|")
         projects_string = [int(e) for e in projects_string]
         [self.assertIn(p, batch_projects) for p in projects_string]
 

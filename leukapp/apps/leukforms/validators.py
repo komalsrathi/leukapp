@@ -39,23 +39,25 @@ def leukform_csv_validator(document):
         tmp_path = 'tmp/%s' % document.name
         path = os.path.join(settings.MEDIA_ROOT, tmp_path)
         default_storage.delete(tmp_path)  # Delete file in case it exists
+        document.file.seek(0)
         default_storage.save(tmp_path, ContentFile(document.file.read()))
     try:
         with open(path, 'r') as leukform:
-            rows = csv.DictReader(leukform, delimiter=",")
+            rows = csv.DictReader(leukform, delimiter=",", dialect=csv.excel)
             leukform_rows_validator(rows)
     except csv.Error:
         msg = _('Not a valid csv file.')
-        raise ValidationError(msg, code='invalid')
+        raise ValidationError(msg, code='invalid_file')
     except UnicodeDecodeError:
         msg = _('Invalid encoding type: use utf-8 and a valid csv file.')
-        raise ValidationError(msg, code='invalid')
+        raise ValidationError(msg, code='invalid_file')
+
     return True
 
 
 def leukform_rows_validator(rows):
     """
-    Validates `rows` format.
+    Validates the ``rows`` format.
 
     This validator ensures that `rows` isn't empty and that can be
     converted to a list. It also checks if the contents are dictionaries.
@@ -63,15 +65,20 @@ def leukform_rows_validator(rows):
     columns and :func:`~leukform_specimen_order_validator` to validate custom
     :mod:`~leukapp.apps.specimens.models.Specimen` order functionality.
     """
-
-    if not rows:
-        msg = _("Invalid leukform: couldn't read rows.")
-        raise ValidationError(msg, code='invalid')
     try:
         rows = list(rows)
     except (ValueError, TypeError):
-        msg = _("Invalid leukform: couldn't parse rows.")
-        raise ValidationError(msg, code='invalid')
+        msg = _("Couldn't parse rows.")
+        raise ValidationError(msg, code='invalid_rows')
+    if not rows:
+        msg = _("Couldn't read rows.")
+        raise ValidationError(msg, code='invalid_rows')
+    if len(rows) == 0:
+        msg = _("Empty rows.")
+        raise ValidationError(msg, code='invalid_rows')
+    if type(rows[0]) != dict:
+        msg = _("Invalid row content")
+        raise ValidationError(msg, code='invalid_rows')
 
     leukform_columns_validator(rows)            # Validate columns
     leukform_specimen_order_validator(rows)     # Validate specimen order
@@ -88,35 +95,32 @@ def leukform_columns_validator(rows):
     columns valitading that they are correct `leukform` fields.
     """
 
-    # checks if `rows` contents are dictionaries.
-    if type(rows[0]) != dict:
-        msg = _("Invalid leukform: invalid row content")
-        raise ValidationError(msg, code='invalid')
-
     # converts columns to list.
     try:
         columns = list(rows[0])
     except (ValueError, TypeError):
-        msg = _("Invalid leukform: couldn't parse columns.")
-        raise ValidationError(msg, code='invalid')
+        msg = _("Couldn't parse columns.")
+        raise ValidationError(msg, code='invalid_columns')
 
     # checks that the columns aren't empty.
     if len(columns) == 0:
-        msg = _("Invalid leukform: empty columns.")
-        raise ValidationError(msg, code='invalid')
+        msg = _("Empty columns.")
+        raise ValidationError(msg, code='invalid_columns')
 
     # Validate whether or not columns are valid leukform fields
     for column in columns:
-        msg = _("Invalid leukform: invalid column '%(column)'.")
+        msg = _("Column '%(column)s' isn't valid.")
         params = {"column": column}
         try:
             model, field = column.split('.')
             fieldnotinleukform = (field not in CREATE_FIELDS[model])
             notslug = (field != 'slug')
             if (model not in MODELS_LIST) or (fieldnotinleukform and notslug):
-                raise ValidationError(msg, code='invalid', params=params)
+                raise ValidationError(
+                    msg, code='invalid_columns', params=params)
         except (ValueError, AttributeError, KeyError):
-            raise ValidationError(msg)
+            msg = _("Couldn't parse columns.")
+            raise ValidationError(msg, code='invalid_columns')
 
     return True
 
@@ -133,8 +137,8 @@ def leukform_specimen_order_validator(rows):
     columns = list(rows[0])
     unique = {}
     msg = _(
-        "Invalid leukform: Specimen.order has to be unique "
-        "at Individual and Specimen.ext_id levels. Error found in row: %(row)"
+        "Specimen.order has to be unique "
+        "at Individual and Specimen.ext_id levels. Error found in row: %(row)s"
         )
 
     count = 1
@@ -153,7 +157,7 @@ def leukform_specimen_order_validator(rows):
                 else:
                     if unique[key] != row['Specimen.ext_id']:
                         raise ValidationError(
-                            msg, code='invalid', params=params)
+                            msg, code='invalid_order', params=params)
     return True
 
 
