@@ -46,6 +46,3 @@ class ExtractionFactoriesTest(TestCase):
         a = ExtractionFactory()
         self.assertEqual(len(a.ext_id), 12)
         self.assertIn(a.analyte, [e[0] for e in constants.ANALYTE])
-        self.assertIn(a.center, [e[0] for e in constants.CENTER])
-        self.assertIn(a.technology, [e[0] for e in constants.TECHNOLOGY])
-        self.assertIn(a.platform, [e[0] for e in constants.PLATFORM])

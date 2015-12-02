@@ -38,6 +38,9 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
     rules described in the **attributes**. For more information see:
     `DjangoModelFactory`_.
 
+    :param Aliquot aliquot: The ``Extraction's`` parent model.
+    :param str analyte: See :data:`~.constants.ANALYTE` for choices.
+    :param str ext_id: ID used extrernally to track the ``Extraction``.
     :return: :class:`~models.Extraction` instance.
 
     Examples::
@@ -48,13 +51,9 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
         # Passing specific values to specific attributes
         extraction = ExtractionFactory(aliquot=AliquotFactory(), analyte='DNA')
 
-        # passing a list of projects for ManyToMany relationship
-        projects = [ProjectFactory() for i in range(3)]
-        extraction = ExtractionFactory(analyte=DNA, projects=projects)
-
     .. warning::
         Everytime ``ExtractionFactory`` is used without passing the
-        :attr:`~factories.ExtractionFactory.aliquot` attribute, a new
+        :attr:`~ExtractionFactory.aliquot` attribute, a new
         :class:`~leukapp.apps.aliquots.models.Aliquot` (and its parents
         :class:`~leukapp.apps.specimens.models.Specimen` and
         :class:`~leukapp.apps.individuals.models.Individual`) will be created.
@@ -86,24 +85,6 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
         https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice
     """
 
-    technology = FuzzyChoice([e[0] for e in constants.TECHNOLOGY])
-    """
-    If not passed, picks a random choice from :data:`~.constants.TECHNOLOGY`.
-    To learn more see `FuzzyChoice`_.
-
-    .. _FuzzyChoice:
-        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice
-    """
-
-    center = FuzzyChoice([e[0] for e in constants.CENTER])
-    """
-    If not passed, picks a random choice from :data:`~.constants.CENTER`.
-    To learn more see `FuzzyChoice`_.
-
-    .. _FuzzyChoice:
-        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice
-    """
-
     ext_id = FuzzyText(length=12, chars=string.hexdigits)
     """
     If not passed, creates a random ID. To learn more see `FuzzyText`_.
@@ -111,52 +92,6 @@ class ExtractionFactory(factory.django.DjangoModelFactory):
     .. _FuzzyText:
         https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzytext
     """
-
-    projects_string = ''
-    """
-    By default, this attribute is set to ``''``. However, pass a string with
-    :class:`Projects <leukapp.apps.projects.models.Project>` primary keys
-    separated by a ``|`` character to link the new :class:`~.models.Extraction`
-    and the projects. To understand better this behavior see:
-    :meth:`~.models.Extraction._get_projects_from_string`.
-    """
-
-    # LAZY ATTRIBUTES
-    # =========================================================================
-
-    platform = None
-    """
-    If not passed, picks a random choice from
-    :data:`~.constants.TECHNOLOGY_PLATFORM`. Based on the :attr:`technology`
-    attribute. To learn more see the `lazy_attribute`_ decorator.
-
-    .. _lazy_attribute:
-        http://factoryboy.readthedocs.org/en/latest/reference.html?highlight=container#decorator
-    """
-
-    @factory.lazy_attribute
-    def platform(self):
-        choices = list(constants.TECHNOLOGY_PLATFORM[self.technology])
-        choices.remove("DEFAULT")
-        return random.choice(choices)
-
-    # POST GENERATED ATTRIBUTES
-    # =========================================================================
-
-    projects = None
-    """
-    Pass a list of projects to create ManyToMany relationships. To learn
-    more see Factory's documentation for `simple ManyToMany relationship`_.
-
-    .. _simple ManyToMany relationship: https://factoryboy.readthedocs.org/en/latest/recipes.html#simple-many-to-many-relationship
-    """
-
-    @factory.post_generation
-    def projects(self, create, extracted, **kwargs):
-        if not create:  # Simple build, do nothing.
-            return
-        if extracted:   # A list of project were passed in, use them
-            [self.projects.add(p) for p in extracted]
 
 
 # ROUTINE PROTECTION

@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 import django.core.validators
 from django.db import migrations, models
 import django.db.models.deletion
-import leukapp.apps.extractions.validators
 
 
 class Migration(migrations.Migration):
@@ -24,7 +23,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
                 ('analyte', models.CharField(choices=[('DNA', 'DNA'), ('RNA', 'RNA')], max_length=100, null=True, verbose_name='biological material')),
-                ('projects_string', models.CharField(blank=True, help_text="Include the projects pks separated by a '|' character", max_length=100, null=True, validators=[leukapp.apps.extractions.validators.projects_string_validator], verbose_name='list of projetcs')),
+                ('projects_string', models.CharField(blank=True, help_text="Include the projects pks separated by a '|' character", max_length=100, null=True, verbose_name='list of projetcs')),
                 ('platform', models.CharField(choices=[('AGILENTV4', 'AGILENTV4'), ('AGILENTV5', 'AGILENTV5'), ('WHOLEGENOMELIBRARYV1', 'WHOLEGENOMELIBRARYV1'), ('HEMEPACTV1', 'HEMEPACTV1'), ('HEMEPACTV2', 'HEMEPACTV2')], max_length=100, null=True, verbose_name='platform')),
                 ('technology', models.CharField(choices=[('WHOLE-EXOME', 'WHOLE-EXOME'), ('WHOLE-GENOME', 'WHOLE-GENOME'), ('TARGETED-DNA', 'TARGETED-DNA'), ('RNA-SEQ-TARGETED', 'RNA-SEQ-TARGETED'), ('RNA-SEQ-WHOLE-TRANSCRIPTOME', 'RNA-SEQ-WHOLE-TRANSCRIPTOME'), ('RNA-SEQ-SINGLE-CELL', 'RNA-SEQ-SINGLE-CELL'), ('DNA-METHYLATION-SEQ', 'DNA-METHYLATION-SEQ'), ('CHIP-SEQ', 'CHIP-SEQ'), ('ATAC-SEQ', 'ATAC-SEQ')], max_length=100, null=True, verbose_name='technology')),
                 ('center', models.CharField(choices=[('CMO', 'CMO'), ('NYGC', 'NYGC'), ('FOUNDATION', 'FOUNDATION')], max_length=100, null=True, verbose_name='sequencing center')),

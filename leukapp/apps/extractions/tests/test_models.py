@@ -81,24 +81,11 @@ class ExtractionsModelTest(TestCase):
         rdna = ExtractionFactory(aliquot=a, analyte=constants.DNA)
         rrna = ExtractionFactory(aliquot=a, analyte=constants.RNA)
         rdna_int_id = constants.LEUKID_ANALYTE[rdna.analyte]
-        code = constants.TECHNOLOGY_PLATFORM[rdna.technology][rdna.platform]
-        rdna_int_id += str(a.dna_extractions_count) + '-' + code
+        rdna_int_id += str(a.dna_extractions_count)
         rrna_int_id = constants.LEUKID_ANALYTE[rrna.analyte]
-        code = constants.TECHNOLOGY_PLATFORM[rrna.technology][rrna.platform]
-        rrna_int_id += str(a.rna_extractions_count) + '-' + code
+        rrna_int_id += str(a.rna_extractions_count)
         self.assertEqual(rdna.int_id, rdna_int_id)
         self.assertEqual(rrna.int_id, rrna_int_id)
-
-    def test_unknown_platform_is_replaced_with_default_value(self):
-        e = ExtractionFactory(platform=None)
-        expected = constants.TECHNOLOGY_PLATFORM[e.technology]["DEFAULT"]
-        self.assertEqual(e.platform, expected)
-
-    def test_unique_together_functionality_not_raised_empty_ext_id(self):
-        e, kwargs = ExtractionFactory(ext_id=None), {}
-        for field in constants.EXTRACTION_CREATE_FIELDS:
-            kwargs[field] = getattr(e, field)
-        self.assertNotEqual(e, Extraction.objects.create(**kwargs))
 
     def test_char_null_field_returns_unknown_for_ext_id(self):
         e = ExtractionFactory(ext_id=None)
