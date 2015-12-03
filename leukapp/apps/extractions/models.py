@@ -52,17 +52,6 @@ class Extraction(LeukappModel):
     .. _ForeignKey: https://docs.djangoproject.com/en/1.8/topics/db/examples/many_to_one/#many-to-one-relationships
     """
 
-    analyte = models.CharField(
-        verbose_name=_("biological material"),
-        max_length=100,
-        choices=constants.EXTRACTION_CHOICES["ANALYTE"],
-        null=True,
-        )
-    """
-    Type of nucleic acid to be sequenced. See :data:`~.constants.ANALYTE` for
-    available choices.
-    """
-
     ext_id = CharNullField(
         verbose_name=_("sequencing center ID"),
         max_length=100,
@@ -81,6 +70,17 @@ class Extraction(LeukappModel):
         This field is a :class:`~leukapp.apps.core.db.CharNullField`. This
         particular field class enables the ability to have multiple NULL
         values but unique non-NULL records.
+    """
+
+    analyte = models.CharField(
+        verbose_name=_("biological material"),
+        max_length=100,
+        choices=constants.EXTRACTION_CHOICES["ANALYTE"],
+        null=True,
+        )
+    """
+    Type of nucleic acid to be sequenced. See :data:`~.constants.ANALYTE` for
+    available choices.
     """
 
     # INTERNAL FIELDS
