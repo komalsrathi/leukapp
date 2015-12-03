@@ -31,6 +31,8 @@ class CharNullField(models.CharField):
         """
         if value is None:
             return UNKNOWN
+        else:
+            return value
 
     def to_python(self, value):
         """
