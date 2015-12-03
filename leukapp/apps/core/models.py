@@ -12,6 +12,10 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.db import transaction
 
+# local
+from .db import CharNullField
+from .constants import UNKNOWN
+
 
 class TimeStampedModel(models.Model):
 
@@ -136,6 +140,13 @@ class LeukappTestModel(LeukappModel):
     """
     This class only serves the purpose of testing the core's abstract models.
     """
+
+    testme = CharNullField(
+        max_length=100,
+        default=UNKNOWN,
+        blank=True,
+        null=True,
+        )
 
     def _if_save(self):
         self._check_if_caller_is_save()

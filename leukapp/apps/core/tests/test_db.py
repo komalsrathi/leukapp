@@ -10,6 +10,7 @@ from django.test import TestCase
 # local
 from ..constants import UNKNOWN
 from ..db import CharNullField
+from ..models import LeukappTestModel
 
 
 class DbTest(TestCase):
@@ -33,3 +34,13 @@ class DbTest(TestCase):
         field = CharNullField()
         result = field.get_prep_value("Juan")
         self.assertEqual(result, "Juan")
+
+    def test_char_null_field_on_model_unknown(self):
+        obj = LeukappTestModel.objects.create(testme=None)
+        obj = LeukappTestModel.objects.get(pk=obj.pk)
+        self.assertEqual(obj.testme, UNKNOWN)
+
+    def test_char_null_field_on_model_known(self):
+        obj = LeukappTestModel.objects.create(testme="JUAN")
+        obj = LeukappTestModel.objects.get(pk=obj.pk)
+        self.assertEqual(obj.testme, "JUAN")
