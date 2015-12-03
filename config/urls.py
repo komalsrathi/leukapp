@@ -91,6 +91,12 @@ urlpatterns = [
     ),
 
     url(
+        r'^workflows/',
+        include("leukapp.apps.workflows.urls",
+                namespace="workflows")
+    ),
+
+    url(
         r'^leukforms/',
         include("leukapp.apps.leukforms.urls",
                 namespace="leukforms")

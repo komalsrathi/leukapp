@@ -101,6 +101,7 @@ LOCAL_APPS = (
     'leukapp.apps.participants',
     'leukapp.apps.core',
     'leukapp.apps.extractions',
+    'leukapp.apps.workflows',
     'leukapp.apps.leukforms',
 )
 
