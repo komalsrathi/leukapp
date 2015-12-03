@@ -16,6 +16,7 @@ from django.core.urlresolvers import reverse
 # leukapp
 from leukapp.apps.core import constants as coreconstants
 from leukapp.apps.extractions.factories import ExtractionFactory
+from leukapp.apps.extractions.constants import DNA
 
 # local
 from ..factories import WorkflowFactory
@@ -110,3 +111,10 @@ class WorkflowsModelTest(TestCase):
         w = WorkflowFactory(ext_id=None)
         w = Workflow.objects.get(pk=w.pk)
         self.assertEqual(w.ext_id, coreconstants.UNKNOWN)
+
+    def test_clean_method(self):
+        with self.assertRaises(ValidationError):
+            WorkflowFactory(
+                sequencing_technology=constants.WHOLEEXOME,
+                technology_type=constants.THREEPRIMEEND,
+                )

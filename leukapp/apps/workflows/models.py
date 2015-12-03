@@ -24,7 +24,7 @@ from leukapp.apps.projects.models import Project
 
 # local
 from . import constants
-from .validators import projects_string_validator
+from . import validators
 
 
 class Workflow(LeukappModel):
@@ -98,7 +98,7 @@ class Workflow(LeukappModel):
     projects_string = models.CharField(
         verbose_name=_("list of projetcs"),
         max_length=100,
-        validators=[projects_string_validator],
+        validators=[validators.projects_string_validator],
         help_text=_("Include the projects keys separated by a '-' character"),
         blank=True,
         null=True,
@@ -291,6 +291,7 @@ class Workflow(LeukappModel):
 
         * Check if the caller function is :meth:`~Workflow._if_new`.
         * if ``technology_type`` is ``DEFAULT``, replace for default value.
+        * validates analyte/sequencing_technology/technology_type combination.
         * ``1``: adds count of ``Workflows`` per ``Extraction`` section.
         * ``1A``: adds the :attr:`technology`/:attr:`technology_type` section.
         * ``S100``: adds the :attr:`read_length`/:attr:`read_type` section.
@@ -309,6 +310,14 @@ class Workflow(LeukappModel):
             technologies = constants.INT_ID_TECHNOLOGY[self.extraction.analyte]
             technology_types = technologies[self.sequencing_technology]
             self.technology_type = technology_types["DEFAULT_TECHNOLOGY"]
+
+        # validates analyte/sequencing_technology/technology_type combination.
+        kwargs = {
+            'analyte': self.extraction.analyte,
+            'sequencing_technology': self.sequencing_technology,
+            'technology_type': self.technology_type,
+            }
+        validators.technology_type_validator(**kwargs)
 
         # ``1`` workflows count section
         self.extraction.workflows_count += 1
