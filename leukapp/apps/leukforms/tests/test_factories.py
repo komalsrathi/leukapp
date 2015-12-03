@@ -19,7 +19,8 @@ class LeukformCsvFactoryTest(TestCase):
 
     def test_set_parameters_individual(self):
         batch = LeukformSamplesFactory()
-        parent = 'juan'
+        parent = None
+        batch.request['Specimen'] = 0
         kwargs, child = batch._update_parameters(
             model='Individual', parent=parent)
         self.assertDictEqual(kwargs, {})
@@ -28,7 +29,8 @@ class LeukformCsvFactoryTest(TestCase):
 
     def test_set_parameters_specimen(self):
         batch = LeukformSamplesFactory()
-        parent = 'juan'
+        parent = 'individualInstance'
+        batch.request['Aliquot'] = 0
         kwargs, child = batch._update_parameters(
             model='Specimen', parent=parent, order=1)
         self.assertDictEqual(kwargs, {'individual': parent, 'order': '1'})
@@ -37,21 +39,30 @@ class LeukformCsvFactoryTest(TestCase):
 
     def test_set_parameters_aliquot(self):
         batch = LeukformSamplesFactory()
-        parent = 'juan'
-        batch.request['Extraction'] = 2
+        parent = 'specimenInstance'
+        batch.request['Extraction'] = 0
         kwargs, child = batch._update_parameters(
             model='Aliquot', parent=parent)
         self.assertDictEqual(kwargs, {'specimen': parent})
         self.assertEqual(child, 'Extraction')
-        self.assertEqual(batch._last, False)
+        self.assertEqual(batch._last, True)
 
-    def test_set_parameters_run(self):
+    def test_set_parameters_extraction(self):
         batch = LeukformSamplesFactory()
-        parent = 'juan'
-        batch.request['Extraction'] = 2
+        parent = 'aliquotInstance'
+        batch.request['Workflow'] = 0
         kwargs, child = batch._update_parameters(
             model='Extraction', parent=parent)
-        self.assertEqual(kwargs['aliquot'], parent)
+        self.assertDictEqual(kwargs, {'aliquot': parent})
+        self.assertEqual(child, 'Workflow')
+        self.assertEqual(batch._last, True)
+
+    def test_set_parameters_workflow(self):
+        batch = LeukformSamplesFactory()
+        parent = 'extractionInstance'
+        kwargs, child = batch._update_parameters(
+            model='Workflow', parent=parent)
+        self.assertEqual(kwargs['extraction'], parent)
         self.assertEqual(batch._last, True)
         self.assertEqual(child, None)
         batch_projects = [p.pk for p in batch.projects]
@@ -84,8 +95,7 @@ class LeukformCsvFactoryTest(TestCase):
         batch._slug = False
         instance = AliquotFactory()
         row = {}
-        notused = [
-            "individual", "specimen", "aliquot"]
+        notused = ["individual", "specimen", "aliquot", "extraction"]
         for field in CREATE_FIELDS['Aliquot']:
             if field in notused:
                 continue
@@ -103,8 +113,7 @@ class LeukformCsvFactoryTest(TestCase):
         instance = AliquotFactory()
         row = {}
         rows = []
-        notused = [
-            "individual", "specimen", "aliquot"]
+        notused = ["individual", "specimen", "aliquot", "extraction"]
         for field in CREATE_FIELDS['Aliquot']:
             if field in notused:
                 continue
@@ -125,35 +134,23 @@ class LeukformCsvFactoryTest(TestCase):
         for model in MODELS_LIST:
             self.assertEqual(len(batch.instances[model]), 0)
 
-        rows = batch.create_batch(2, 2, 2, 2)
+        batch.create_batch()
 
         # check that the required number of instances were created
-        count = 2
         for model in MODELS_LIST:
-            self.assertEqual(len(batch.instances[model]), count)
-            count *= 2
-
-        # test that the created instances are unique
-        for model in MODELS_LIST:
-            instance_list = [e.slug for e in batch.instances[model]]
-            instance_set = set(instance_list)
-            self.assertEqual(len(instance_list), len(instance_set))
-
-        # test that rows has not repeated elements
-        setrows = {d['Extraction.ext_id']: d for d in rows}.values()
-        self.assertCountEqual(rows, setrows)
+            self.assertEqual(len(batch.instances[model]), 1)
 
         # test extractions projects lists are being assigned correctly
         batch_projects = [p.pk for p in batch.projects]
         projects_string = \
-            batch.rows[0]['Extraction.projects_string'].split("|")
+            batch.rows[0]['Workflow.projects_string'].split("|")
         projects_string = [int(e) for e in projects_string]
         [self.assertIn(p, batch_projects) for p in projects_string]
 
     def test_csv_from_rows(self):
         self.maxDiff = None
         batch = LeukformSamplesFactory()
-        batch.create_batch(1, 1, 1, 1)
+        batch.create_batch()
         path = batch.create_csv_from_rows()
 
         with open(path, 'r') as testcsv:

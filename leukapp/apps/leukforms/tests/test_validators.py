@@ -57,13 +57,17 @@ class TestValidators(TestCase):
 
     def test_leukform_specimen_order_validator_valid(self):
         batch = LeukformSamplesFactory()
-        rows = batch.create_batch(2, 2, 0, 0)
+        batch.request["Individual"] = 2
+        batch.request["Specimen"] = 2
+        rows = batch.create_batch()
         function = validators.leukform_specimen_order_validator
         self.assertEqual(True, function(rows))
 
     def test_leukform_specimen_order_validator_not_valid(self):
         batch = LeukformSamplesFactory()
-        rows = batch.create_batch(1, 2, 0, 0)
+        batch.request["Individual"] = 1
+        batch.request["Specimen"] = 2
+        rows = batch.create_batch()
         rows[1]['Specimen.order'] = rows[0]['Specimen.order']
         function = validators.leukform_specimen_order_validator
         with self.assertRaises(ValidationError):
@@ -71,13 +75,17 @@ class TestValidators(TestCase):
 
     def test_leukform_specimen_order_validator_valid_using_slug(self):
         batch = LeukformSamplesFactory()
-        rows = batch.create_batch(2, 2, 0, 0, delete=False)
+        batch.request["Individual"] = 2
+        batch.request["Specimen"] = 2
+        rows = batch.create_batch(delete=False)
         function = validators.leukform_specimen_order_validator
         self.assertEqual(True, function(rows))
 
     def test_leukform_specimen_order_validator_not_valid_using_slug(self):
         batch = LeukformSamplesFactory()
-        rows = batch.create_batch(1, 2, 0, 0, delete=False)
+        batch.request["Individual"] = 1
+        batch.request["Specimen"] = 2
+        rows = batch.create_batch(delete=False)
         rows[1]['Specimen.order'] = rows[0]['Specimen.order']
         function = validators.leukform_specimen_order_validator
         with self.assertRaises(ValidationError):

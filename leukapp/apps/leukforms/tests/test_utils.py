@@ -21,21 +21,21 @@ class TestLeukformLoader(TestCase):
     models = ['Individual', 'Specimen', 'Aliquot', 'Extraction']
     loader = LeukformLoader()
     batch = LeukformSamplesFactory()
-    batch.create_batch(1, 1, 1, 1)
+    batch.create_batch()
     rowexample = batch.rows[0]
 
     def setUp(self):
         pass
 
-    def test_update_fields_individual(self):
-        models = ['Individual', 'Specimen', 'Aliquot']
-        children = ['Specimen', 'Aliquot', 'Extraction']
-        for i in range(3):
-            model, child = models[i], children[i]
+    def test_update_fields(self):
+        parents = ['Individual', 'Specimen', 'Aliquot', 'Extraction']
+        children = ['Specimen', 'Aliquot', 'Extraction', 'Workflow']
+        for i in range(4):
+            parent, child = parents[i], children[i]
             loader, fields = LeukformLoader(), {child: {}}
-            instance = LEUKAPP_FACTORIES[model]()
-            fields = loader._update_fields(model, fields, instance)
-            expected = {model.lower(): instance.pk}
+            instance = LEUKAPP_FACTORIES[parent]()
+            fields = loader._update_fields(parent, fields, instance)
+            expected = {parent.lower(): instance.pk}
             self.assertDictEqual(fields[child], expected)
 
     def test_clean_fields_empty_row(self):
@@ -57,11 +57,11 @@ class TestLeukformLoader(TestCase):
         the individual is created and ACCEPTED. In each iteration, it adds
         the next model (1 individual, 1 specimen: request = [1, 1]) and so on.
         """
-        request = []
+        request = {model: 0 for model in MODELS_LIST}
         batch = LeukformSamplesFactory()
-        for i in range(4):
-            request.append(1)
-            batch.create_batch(*request, delete=True)
+        for i, model in enumerate(MODELS_LIST):
+            request[model] = 1
+            batch.create_batch(request=request, delete=True)
             loader = LeukformLoader()
             fields = loader._get_fields(batch.rows[0])
             for model in MODELS_LIST[:i+1]:
@@ -80,11 +80,11 @@ class TestLeukformLoader(TestCase):
         created correctly. This is a LeukformSamplesFactory functionality.
         Instances for the last model requested are always deleted.
         """
-        request = []
+        request = {model: 0 for model in MODELS_LIST}
         batch = LeukformSamplesFactory()
-        for i in range(4):
-            request.append(1)
-            batch.create_batch(*request, delete=False)
+        for i, model in enumerate(MODELS_LIST):
+            request[model] = 1
+            batch.create_batch(request=request, delete=False)
             loader = LeukformLoader()
             fields = loader._get_fields(batch.rows[0])
             for j, model in enumerate(MODELS_LIST[:i+1]):
@@ -112,11 +112,12 @@ class TestLeukformLoader(TestCase):
         parent object. Therefore, when j==0 it's always and existing object,
         and when j==1, it's always a created object.
         """
-        request = [1]
+        request = {model: 0 for model in MODELS_LIST}
+        request["Individual"] = 1
         batch = LeukformSamplesFactory()
-        for i in range(3):
-            request.append(1)
-            batch.create_batch(*request, slug=True)
+        for i, model in enumerate(MODELS_LIST[1:]):
+            request[model] = 1
+            batch.create_batch(request=request, slug=True)
             loader = LeukformLoader()
             fields = loader._get_fields(batch.rows[0])
             for j, model in enumerate(MODELS_LIST[i:i+2]):
@@ -132,11 +133,12 @@ class TestLeukformLoader(TestCase):
                     self.assertEqual(len(loader.added[model]), 1)
 
     def test_get_or_create_invalid_slug(self):
-        request = [1]
+        request = {model: 0 for model in MODELS_LIST}
+        request["Individual"] = 1
         batch = LeukformSamplesFactory()
-        for i in range(3):
-            request.append(1)
-            row = batch.create_batch(*request, slug=True)[0]
+        for i, model in enumerate(MODELS_LIST[1:]):
+            request[model] = 1
+            row = batch.create_batch(request=request, slug=True)[0]
             row[MODELS_LIST[i] + '.slug'] = '546321'
             loader = LeukformLoader()
             fields = loader._get_fields(row)
@@ -148,18 +150,20 @@ class TestLeukformLoader(TestCase):
     def test_process_row(self):
         loader = LeukformLoader()
         batch = LeukformSamplesFactory()
-        rows = batch.create_batch(1, 1, 1, 1)
+        rows = batch.create_batch()
         row = loader._process_row(rows[0])
         self.assertEqual(row['STATUS'], 'ACCEPTED')
 
     def test_process_leukform(self):
+        request = {model: 1 for model in MODELS_LIST}
+        request["Extraction"] = 2
         batch = LeukformSamplesFactory()
-        batch.create_batch(2, 2, 2, 2, delete=True)
+        batch.create_batch(request=request, delete=True)
         loader = LeukformLoader()
         loader._columns_submitted = list(batch.rows[0])
         loader._process_leukform(batch.rows)
-        added = len(loader.added["Extraction"])
-        self.assertEqual(added, 2 ** 4)
+        added = len(loader.added["Workflow"])
+        self.assertEqual(added, 2)
 
     def test_sort_rows_not_specimen_order(self):
         loader = LeukformLoader()
@@ -167,9 +171,12 @@ class TestLeukformLoader(TestCase):
         self.assertCountEqual([{1: 1}], rows)
 
     def test_sort_rows_slug(self):
+        request = {model: 0 for model in MODELS_LIST}
+        request["Individual"] = 1
+        request["Specimen"] = 3
         loader = LeukformLoader()
         batch = LeukformSamplesFactory()
-        batch.create_batch(1, 3, slug=True)
+        batch.create_batch(request=request, slug=True)
         rows = batch.get_rows(shuffle=True)
         expected = sorted(rows, key=lambda k: (
                 k['Individual.slug'], int(k['Specimen.order'])))
@@ -177,9 +184,12 @@ class TestLeukformLoader(TestCase):
         self.assertCountEqual(obtained, expected)
 
     def test_sort_rows_ext_id(self):
+        request = {model: 0 for model in MODELS_LIST}
+        request["Individual"] = 1
+        request["Specimen"] = 3
         loader = LeukformLoader()
         batch = LeukformSamplesFactory()
-        batch.create_batch(1, 3, slug=False)
+        batch.create_batch(request=request, slug=False)
         rows = batch.get_rows(shuffle=True)
         expected = sorted(rows, key=lambda k: (
                 k['Individual.ext_id'], int(k['Specimen.order'])))
@@ -188,22 +198,22 @@ class TestLeukformLoader(TestCase):
 
     def test_submit_leukform_filename(self):
         batch = LeukformSamplesFactory()
-        batch.create_batch(2, 2, 2, 2, delete=False)
+        batch.create_batch(delete=False)
         path = batch.create_csv_from_rows()
         loader = LeukformLoader()
         output = loader.submit(filepath=path, validate=True)
-        batch_extractions = [r.ext_id for r in batch.instances["Extraction"]]
-        out_extractions = [r.ext_id for r in output["added"]["Extraction"]]
+        batch_extractions = [r.ext_id for r in batch.instances["Workflow"]]
+        out_extractions = [r.ext_id for r in output["added"]["Workflow"]]
         self.assertCountEqual(batch_extractions, out_extractions)
         os.remove(path)
 
     def test_submit_leukform_rows(self):
         batch = LeukformSamplesFactory()
-        rows = batch.create_batch(2, 2, 2, 2, delete=False)
+        rows = batch.create_batch(delete=False)
         loader = LeukformLoader()
         output = loader.submit(rows=rows, validate=True)
-        batch_extractions = [r.ext_id for r in batch.instances["Extraction"]]
-        out_extractions = [r.ext_id for r in output["added"]["Extraction"]]
+        batch_extractions = [r.ext_id for r in batch.instances["Workflow"]]
+        out_extractions = [r.ext_id for r in output["added"]["Workflow"]]
         self.assertCountEqual(batch_extractions, out_extractions)
 
     def test_submit_leukform_no_rows_no_filename(self):
@@ -271,9 +281,12 @@ class TestLeukformLoader(TestCase):
         self.assertDictEqual(obtained, expected)
 
     def test_clean_specimen_order_column(self):
+        request = {model: 0 for model in MODELS_LIST}
+        request["Individual"] = 1
+        request["Specimen"] = 3
         loader = LeukformLoader()
         batch = LeukformSamplesFactory()
-        rows = batch.create_batch(1, 4)
+        rows = batch.create_batch(request=request)
         for row in rows[:2]:
             row['Specimen.order'] = ''
         rows = loader._clean_specimen_order_column(rows)
@@ -282,7 +295,7 @@ class TestLeukformLoader(TestCase):
 
     def test_delete_added_models(self):
         batch = LeukformSamplesFactory()
-        rows = batch.create_batch(1, 1, 1, 1, delete=True)
+        rows = batch.create_batch(delete=True)
         loader = LeukformLoader()
         loader.submit(rows=rows, validate=False, mock=True)
         for model in loader.added:
@@ -292,7 +305,7 @@ class TestLeukformLoader(TestCase):
 
     def test_write_summary(self):
         batch = LeukformSamplesFactory()
-        rows = batch.create_batch(1, 1, 1, 1, delete=True)
+        rows = batch.create_batch(delete=True)
         loader = LeukformLoader()
         loader.submit(rows=rows, validate=False, mock=True)
         obtained = loader._write_summary()
