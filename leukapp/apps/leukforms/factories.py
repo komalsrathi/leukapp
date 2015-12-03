@@ -15,7 +15,7 @@ from django.conf import settings
 from leukapp.apps.leukforms.utils import get_out_columns
 
 # local
-from .constants import CREATE_FIELDS, LEUKAPP_FACTORIES
+from .constants import CREATE_FIELDS, LEUKAPP_FACTORIES, MODELS_LIST
 
 
 class LeukformSamplesFactory(object):
@@ -49,23 +49,12 @@ class LeukformSamplesFactory(object):
         self._row = {}
 
         # created instances
-        self.instances = {
-            'Individual': [],
-            'Specimen': [],
-            'Aliquot': [],
-            'Extraction': [],
-            }
+        self.instances = {m: [] for m in MODELS_LIST}
 
         # requested instances
-        self.request = {
-            'Individual': 0,
-            'Specimen': 0,
-            'Aliquot': 0,
-            'Extraction': 0,
-            }
+        self.request = {m: 1 for m in MODELS_LIST}
 
-    def create_batch(self, individuals, specimens=0, aliquots=0, extractions=0,
-            delete=True, slug=False):
+    def create_batch(self, delete=True, slug=False, request=None):
         """
         Creates a batch of samples and returns them in a leukform format.
 
@@ -88,27 +77,24 @@ class LeukformSamplesFactory(object):
         Returns:
             rows (list): a list of dictoaries ready to be submitted
         """
-        if self.instances['Individual']:
+
+        if self.instances['Individual']:  # reset instances
             self._set_variables()
+
+        if request:
+            self.request = request
 
         if slug:  # if slug, instances won't be deleted, slugs will be returned
             self._delete = False
             self._slug = slug
-        if not slug:  # if not slug, delete will not be depreciated
+        else:     # if not slug, delete will not be deprecated
             self._delete = delete
             self._slug = slug
 
-        self.request = {
-            'Individual': int(individuals),
-            'Specimen': int(specimens),
-            'Aliquot': int(aliquots),
-            'Extraction': int(extractions),
-            }
-
         self._create_instances()
 
-        if self._delete:
-            try:  # this will recursively delete all child istances
+        if self._delete:  # this will recursively delete all child istances
+            try:
                 [i.delete() for i in self.instances['Individual']]
             except AssertionError:
                 pass
@@ -163,9 +149,12 @@ class LeukformSamplesFactory(object):
             self._last = (self.request['Extraction'] == 0)
             return {'specimen': parent}, 'Extraction'
         if model == 'Extraction':
+            self._last = (self.request['Workflow'] == 0)
+            return {'aliquot': parent}, 'Workflow'
+        if model == 'Workflow':
             self._last = True
             pl = '|'.join(str(p.pk) for p in random.sample(self.projects, 3))
-            return {'aliquot': parent, 'projects_string': pl}, None
+            return {'extraction': parent, 'projects_string': pl}, None
 
     def _write_row(self, instance, model):
         """
@@ -178,8 +167,7 @@ class LeukformSamplesFactory(object):
             model (str): name of instance's model
             parent (Leukapp Instance): foreing key's object
         """
-        notused = [
-            "individual", "specimen", "aliquot"]
+        notused = ["individual", "specimen", "aliquot", "extraction"]
         if self._slug and (not self._last):
             self._row = {}
             self._row[model + '.slug'] = instance.slug
