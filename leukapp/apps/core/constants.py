@@ -18,8 +18,14 @@ APP_NAME = 'core'  #: Application's name.
 # =============================================================================
 UNKNOWN = 'UNKNOWN'
 """
-Value used accross the :mod:`~leukapp` project to described **unknown**
+Value used accross the :mod:`~leukapp` project to describe **unknown**
 information.
+"""
+
+DEFAULT = 'DEFAULT'
+"""
+Value used accross the :mod:`~leukapp` project to describe a **default**
+value.
 """
 
 # MESSAGES
