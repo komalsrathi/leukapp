@@ -71,12 +71,23 @@ class Aliquot(LeukappModel):
         editable=False,
         null=True,
         )
+    """
+    Count of ``DNA``
+    :class:`Extractions <leukapp.apps.extractions.models.Extraction>`
+    associated with the ``Aliquot``.
+    """
+
     rna_extractions_count = models.PositiveSmallIntegerField(
         verbose_name=_("number of extractions created"),
         default=0,
         editable=False,
         null=True,
         )
+    """
+    Count of ``RNA``
+    :class:`Extractions <leukapp.apps.extractions.models.Extraction>`
+    associated with the ``Aliquot``.
+    """
 
     int_id = models.CharField(
         verbose_name=_("internal id"),
