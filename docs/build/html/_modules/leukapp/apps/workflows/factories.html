@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>leukapp.apps.workflows.factories &mdash; leukapp 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="leukapp 0.1 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> leukapp
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/index.html">Leukapp</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">leukapp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>leukapp.apps.workflows.factories</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for leukapp.apps.workflows.factories</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. py:currentmodule:: leukapp.apps.workflows</span>
+
+<span class="sd">Testing factories for the :mod:`~leukapp.apps.workflows`. This module relies</span>
+<span class="sd">heavily on the `factory_boy`_ python package.</span>
+
+<span class="sd">.. _factory_boy: https://factoryboy.readthedocs.org/en/latest/</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c"># python</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c"># third party</span>
+<span class="kn">import</span> <span class="nn">factory</span>
+<span class="kn">from</span> <span class="nn">factory.fuzzy</span> <span class="kn">import</span> <span class="n">FuzzyChoice</span><span class="p">,</span> <span class="n">FuzzyText</span>
+
+<span class="c"># leukapp</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.extractions.factories</span> <span class="kn">import</span> <span class="n">ExtractionFactory</span>
+
+<span class="c"># local</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Workflow</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span>
+
+
+<div class="viewcode-block" id="WorkflowFactory"><a class="viewcode-back" href="../../../../py/leukapp.apps.workflows.factories.html#leukapp.apps.workflows.factories.WorkflowFactory">[docs]</a><span class="k">class</span> <span class="nc">WorkflowFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates an :class:`~models.Workflow` instance.</span>
+
+<span class="sd">    Mainly used for testing purposes. If no keyword arguments are provided,</span>
+<span class="sd">    this class will generate the appropriate field values using the</span>
+<span class="sd">    rules described in the **attributes**. For more information see:</span>
+<span class="sd">    `DjangoModelFactory`_.</span>
+
+<span class="sd">    .. Attributes</span>
+<span class="sd">    :param Extraction extraction: ForeignKey to the ``Extraction`` model.</span>
+<span class="sd">    :param str ext_id: Sequencing Center&#39;s ID to track the ``Workflow``.</span>
+<span class="sd">    :param list projects: list of ``Projects`` to be linked.</span>
+<span class="sd">    :param str projects_string: String used to link projects to workflows.</span>
+<span class="sd">    :param str sequencing_center: Sequencing center name.</span>
+<span class="sd">    :param str sequencing_technology: Sequencing technology name.</span>
+<span class="sd">    :param str technology_type: Sequencing technology type.</span>
+<span class="sd">    :param str sequencing_platform: Sequencing platform used.</span>
+<span class="sd">    :param str read_length: Workflow&#39;s read length.</span>
+<span class="sd">    :param str read_type: Workflow&#39;s read type.</span>
+
+<span class="sd">    .. Returns</span>
+<span class="sd">    :return: :class:`~models.Workflow` instance.</span>
+
+<span class="sd">    Examples::</span>
+
+<span class="sd">        # No arguments, attributes will be assigned randomly</span>
+<span class="sd">        workflow = WorkflowFactory()</span>
+
+<span class="sd">        # Passing specific values to specific attributes</span>
+<span class="sd">        workflow = WorkflowFactory(extraction=ExtractionFactory())</span>
+
+<span class="sd">        # passing a list of projects for ManyToMany relationship</span>
+<span class="sd">        projects = [ProjectFactory() for i in range(3)]</span>
+<span class="sd">        workflow = WorkflowFactory(analyte=DNA, projects=projects)</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        Everytime ``WorkflowFactory`` is used without passing the</span>
+<span class="sd">        :attr:`~factories.WorkflowFactory.aliquot` attribute, a new</span>
+<span class="sd">        :class:`~leukapp.apps.extractions.models.Extraction` and its parents:</span>
+<span class="sd">        :class:`~leukapp.apps.aliquots.models.Aliquot`,</span>
+<span class="sd">        :class:`~leukapp.apps.specimens.models.Specimen` and</span>
+<span class="sd">        :class:`~leukapp.apps.individuals.models.Individual`) will be created.</span>
+
+<span class="sd">    .. _DjangoModelFactory:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/orms.html#factory.django.DjangoModelFactory</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Workflow</span>
+        <span class="n">django_get_or_create</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_UNIQUE_TOGETHER</span>
+
+    <span class="n">extraction</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">SubFactory</span><span class="p">(</span><span class="n">ExtractionFactory</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, creates a new :class:`~leukapp.apps.aliquots.models.Aliquot`</span>
+<span class="sd">    instance. To learn more see `SubFactory`_.</span>
+
+<span class="sd">    .. _SubFactory:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/reference.html#factory.SubFactory</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ext_id</span> <span class="o">=</span> <span class="n">FuzzyText</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">hexdigits</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, creates a random ID. To learn more see `FuzzyText`_.</span>
+
+<span class="sd">    .. _FuzzyText:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzytext</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">projects_string</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    By default, this attribute is set to ``&#39;&#39;``. However, pass a string with</span>
+<span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;` primary keys</span>
+<span class="sd">    separated by a ``|`` character to link the new :class:`~.models.Workflow`</span>
+<span class="sd">    and the projects. To understand better this behavior see:</span>
+<span class="sd">    :meth:`~.models.Workflow._get_projects_from_string`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sequencing_platform</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">PLATFORM</span><span class="p">])</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks a random choice from :data:`~.constants.PLATFORM`.</span>
+<span class="sd">    To learn more see `FuzzyChoice`_.</span>
+
+<span class="sd">    .. _FuzzyChoice:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sequencing_center</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CENTER</span><span class="p">])</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks a random choice from :data:`~.constants.CENTER`.</span>
+<span class="sd">    To learn more see `FuzzyChoice`_.</span>
+
+<span class="sd">    .. _FuzzyChoice:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">read_length</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">READ_LENGTH</span><span class="p">])</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks a random choice from :data:`~.constants.READ_LENGTH`.</span>
+<span class="sd">    To learn more see `FuzzyChoice`_.</span>
+
+<span class="sd">    .. _FuzzyChoice:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">read_type</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">READ_TYPE</span><span class="p">])</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks a random choice from :data:`~.constants.READ_TYPE`.</span>
+<span class="sd">    To learn more see `FuzzyChoice`_.</span>
+
+<span class="sd">    .. _FuzzyChoice:</span>
+<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># LAZY ATTRIBUTES</span>
+    <span class="c"># =========================================================================</span>
+
+    <span class="n">sequencing_technology</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks a random choice from</span>
+<span class="sd">    :data:`~.constants.INT_ID_TECHNOLOGY`</span>
+<span class="sd">    using the method :meth:`sequencing_technology`.</span>
+<span class="sd">    To learn more see the `lazy_attribute`_ decorator.</span>
+
+<span class="sd">    .. _lazy_attribute:</span>
+<span class="sd">        http://factoryboy.readthedocs.org/en/latest/reference.html?highlight=container#decorator</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@factory.lazy_attribute</span>
+    <span class="k">def</span> <span class="nf">sequencing_technology</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">technologies</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INT_ID_TECHNOLOGY</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">extraction</span><span class="o">.</span><span class="n">analyte</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">technologies</span><span class="p">))</span>
+
+    <span class="n">technology_type</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not passed, picks a random choice from</span>
+<span class="sd">    :data:`~.constants.INT_ID_TECHNOLOGY`</span>
+<span class="sd">    using the method :meth:`technology_type`.</span>
+<span class="sd">    To learn more see the `lazy_attribute`_ decorator.</span>
+
+<span class="sd">    .. _lazy_attribute:</span>
+<span class="sd">        http://factoryboy.readthedocs.org/en/latest/reference.html?highlight=container#decorator</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@factory.lazy_attribute</span>
+    <span class="k">def</span> <span class="nf">technology_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">technologies</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INT_ID_TECHNOLOGY</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">extraction</span><span class="o">.</span><span class="n">analyte</span><span class="p">]</span>
+        <span class="n">technology_types</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">technologies</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sequencing_technology</span><span class="p">])</span>
+        <span class="n">technology_types</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&quot;DEFAULT_TECHNOLOGY&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">technology_types</span><span class="p">)</span>
+
+    <span class="c"># POST GENERATED ATTRIBUTES</span>
+    <span class="c"># =========================================================================</span>
+
+    <span class="n">projects</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pass a list of projects to create ManyToMany relationships. To learn</span>
+<span class="sd">    more see Factory&#39;s documentation for `simple ManyToMany relationship`_.</span>
+
+<span class="sd">    .. _simple ManyToMany relationship: https://factoryboy.readthedocs.org/en/latest/recipes.html#simple-many-to-many-relationship</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@factory.post_generation</span>
+    <span class="k">def</span> <span class="nf">projects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">extracted</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">create</span><span class="p">:</span>  <span class="c"># Simple build, do nothing.</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">extracted</span><span class="p">:</span>   <span class="c"># A list of project were passed in, use them</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">extracted</span><span class="p">]</span>
+
+
+<span class="c"># ROUTINE PROTECTION</span>
+<span class="c"># =============================================================================</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Juan Medina.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

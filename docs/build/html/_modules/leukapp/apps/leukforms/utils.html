@@ -141,7 +141,7 @@
 
 <span class="c"># local</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span>
-<span class="kn">from</span> <span class="nn">.validators</span> <span class="kn">import</span> <span class="n">leukform_csv_validator</span><span class="p">,</span> <span class="n">leukform_rows_validator</span>
+<span class="kn">from</span> <span class="nn">.validators</span> <span class="kn">import</span> <span class="n">leukform_csv_validator</span>
 
 
 <div class="viewcode-block" id="get_out_columns"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.get_out_columns">[docs]</a><span class="k">def</span> <span class="nf">get_out_columns</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
@@ -150,9 +150,10 @@
     <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">MODELS_LIST</span><span class="p">:</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">CREATE_FIELDS</span><span class="p">[</span><span class="n">model</span><span class="p">]</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">model</span><span class="p">,</span> <span class="n">field</span><span class="p">])</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
-                <span class="n">out_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span> <span class="o">+</span> <span class="s">&quot;.slug&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">field</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">):</span>
+                <span class="n">out_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">out_columns</span>
 
 </div>
@@ -167,9 +168,9 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">LeukformLoader</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
         <span class="c"># constants</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">VALID</span> <span class="o">=</span> <span class="s">&#39;ACCEPTED&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">REJECTED</span> <span class="o">=</span> <span class="s">&#39;REJECTED&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">EXISTED</span> <span class="o">=</span> <span class="s">&#39;EXISTED&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">VALID_MESSAGE</span> <span class="o">=</span> <span class="s">&#39;ACCEPTED&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">REJECTED_MESSAGE</span> <span class="o">=</span> <span class="s">&#39;REJECTED&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">EXISTED_MESSAGE</span> <span class="o">=</span> <span class="s">&#39;EXISTED&#39;</span>
 
         <span class="c"># results data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">added</span> <span class="o">=</span> <span class="p">{}</span>
@@ -204,23 +205,25 @@
         <span class="k">if</span> <span class="n">rows</span><span class="p">:</span>
             <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
-                <span class="n">leukform_rows_validator</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+                <span class="c"># leukform_rows_validator(rows)</span>
+                <span class="k">pass</span>
             <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="k">elif</span> <span class="n">filepath</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
                 <span class="n">leukform_csv_validator</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">leukform</span><span class="p">:</span>
-                <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">leukform</span><span class="p">)</span>
+                <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">leukform</span><span class="p">,</span> <span class="n">dialect</span><span class="o">=</span><span class="n">csv</span><span class="o">.</span><span class="n">excel</span><span class="p">)</span>
                 <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">reader</span><span class="p">))</span>
                 <span class="n">leukform</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">leukform</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">&quot;,&quot;</span><span class="p">))</span>
+                <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span>
+                        <span class="n">leukform</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">&quot;,&quot;</span><span class="p">,</span> <span class="n">dialect</span><span class="o">=</span><span class="n">csv</span><span class="o">.</span><span class="n">excel</span><span class="p">))</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Provide a csv filepath or a list of dictionaries&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">mock</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">VALID</span> <span class="o">=</span> <span class="s">&#39;VALID&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">VALID_MESSAGE</span> <span class="o">=</span> <span class="s">&#39;VALID_MESSAGE&#39;</span>
 
         <span class="c"># print(&quot;Validation completed.&quot;)</span>
         <span class="n">columns</span> <span class="o">=</span> <span class="n">get_out_columns</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
@@ -306,10 +309,10 @@
                     <span class="n">fields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_fields</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">instance</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">row</span><span class="p">[</span><span class="s">&#39;RESULT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span>
-                    <span class="n">row</span><span class="p">[</span><span class="s">&#39;STATUS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">REJECTED</span>
+                    <span class="n">row</span><span class="p">[</span><span class="s">&#39;STATUS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">REJECTED_MESSAGE</span>
                     <span class="k">break</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">msg</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXISTED</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">msg</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALID</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">msg</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXISTED_MESSAGE</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">msg</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALID_MESSAGE</span><span class="p">):</span>
             <span class="n">row</span><span class="p">[</span><span class="s">&#39;RESULT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">slug</span>
             <span class="n">row</span><span class="p">[</span><span class="s">&#39;STATUS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span>
 
@@ -341,6 +344,7 @@
 </div>
 <div class="viewcode-block" id="LeukformLoader._alter_row_special_case"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._alter_row_special_case">[docs]</a>    <span class="k">def</span> <span class="nf">_alter_row_special_case</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replace</span>
 <span class="sd">        Test the case when only the Individual and/or Specimen ext_id are</span>
 <span class="sd">        available. In this situation the leukform will be submitted with empty</span>
 <span class="sd">        Specimen.ext_id and empty Aliquot.ext_id if only Individual.ext_id is</span>
@@ -349,14 +353,12 @@
 <span class="sd">        Input:</span>
 <span class="sd">            row (dict): csv.DictReader type of dictionary</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">columns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-        <span class="n">c0</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Individual.ext_id&#39;</span><span class="p">,</span> <span class="s">&#39;Specimen.ext_id&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
-        <span class="n">c1</span> <span class="o">=</span> <span class="n">c0</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s">&#39;Individual.ext_id&#39;</span><span class="p">]</span>
-        <span class="n">c2</span> <span class="o">=</span> <span class="n">c1</span> <span class="ow">and</span> <span class="p">{</span><span class="s">&#39;Aliquot.ext_id&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">c1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">&#39;Specimen.ext_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">):</span>
-            <span class="n">row</span><span class="p">[</span><span class="s">&#39;Specimen.ext_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNKNOWN</span>
-        <span class="k">if</span> <span class="n">c2</span> <span class="ow">and</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">&#39;Aliquot.ext_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">):</span>
-            <span class="n">row</span><span class="p">[</span><span class="s">&#39;Aliquot.ext_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNKNOWN</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">UNKWOWN_ENABLED_COLUMNS</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">row</span><span class="p">[</span><span class="n">column</span><span class="p">]:</span>
+                    <span class="n">row</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNKNOWN</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">continue</span>
         <span class="k">return</span> <span class="n">row</span>
 </div>
 <div class="viewcode-block" id="LeukformLoader._get_or_create"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._get_or_create">[docs]</a>    <span class="k">def</span> <span class="nf">_get_or_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
@@ -372,10 +374,15 @@
         <span class="n">instance</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
         <span class="n">MODEL</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">LEUKAPP_MODELS</span><span class="p">[</span><span class="n">model</span><span class="p">]</span>
         <span class="n">FORM</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">LEUKAPP_FORMS</span><span class="p">[</span><span class="n">model</span><span class="p">]</span>
+        <span class="n">exceptions</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">MODEL</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">,</span>
+            <span class="n">MODEL</span><span class="o">.</span><span class="n">MultipleObjectsReturned</span><span class="p">,</span>
+            <span class="ne">KeyError</span><span class="p">,</span>
+            <span class="p">)</span>
 
         <span class="k">if</span> <span class="s">&#39;slug&#39;</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">[</span><span class="n">model</span><span class="p">]:</span>  <span class="c"># if slug, use it to find the object</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXISTED</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXISTED_MESSAGE</span>
                 <span class="n">slug</span> <span class="o">=</span> <span class="n">fields</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="s">&#39;slug&#39;</span><span class="p">]</span>
                 <span class="n">instance</span> <span class="o">=</span> <span class="n">MODEL</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">slug</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">instance</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">added</span><span class="p">[</span><span class="n">model</span><span class="p">]:</span>
@@ -389,16 +396,15 @@
                 <span class="n">unique</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">LEUKAPP_UNIQUE_TOGETHER</span><span class="p">[</span><span class="n">model</span><span class="p">]</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">unique</span><span class="p">:</span>  <span class="c"># if there isn&#39;t unique condition, create it!</span>
                     <span class="k">raise</span> <span class="n">MODEL</span><span class="o">.</span><span class="n">DoesNotExist</span>
-
-                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXISTED</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXISTED_MESSAGE</span>
                 <span class="n">search</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">fields</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">unique</span><span class="p">}</span>
                 <span class="n">instance</span> <span class="o">=</span> <span class="n">MODEL</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">**</span><span class="n">search</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">instance</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">added</span><span class="p">[</span><span class="n">model</span><span class="p">]:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">existed</span><span class="p">[</span><span class="n">model</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-            <span class="k">except</span> <span class="p">(</span><span class="n">MODEL</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+            <span class="k">except</span> <span class="n">exceptions</span><span class="p">:</span>
                 <span class="n">form</span> <span class="o">=</span> <span class="n">FORM</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="n">model</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-                    <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALID</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALID_MESSAGE</span>
                     <span class="n">instance</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">added</span><span class="p">[</span><span class="n">model</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -423,6 +429,8 @@
             <span class="n">fields</span><span class="p">[</span><span class="s">&#39;Aliquot&#39;</span><span class="p">][</span><span class="s">&#39;specimen&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">pk</span>
         <span class="k">elif</span> <span class="n">model</span> <span class="o">==</span> <span class="s">&#39;Aliquot&#39;</span> <span class="ow">and</span> <span class="n">instance</span> <span class="ow">and</span> <span class="p">(</span><span class="s">&#39;Extraction&#39;</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">):</span>
             <span class="n">fields</span><span class="p">[</span><span class="s">&#39;Extraction&#39;</span><span class="p">][</span><span class="s">&#39;aliquot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">pk</span>
+        <span class="k">elif</span> <span class="n">model</span> <span class="o">==</span> <span class="s">&#39;Extraction&#39;</span> <span class="ow">and</span> <span class="n">instance</span> <span class="ow">and</span> <span class="p">(</span><span class="s">&#39;Workflow&#39;</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">):</span>
+            <span class="n">fields</span><span class="p">[</span><span class="s">&#39;Workflow&#39;</span><span class="p">][</span><span class="s">&#39;extraction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">pk</span>
         <span class="k">return</span> <span class="n">fields</span>
 </div>
 <div class="viewcode-block" id="LeukformLoader._write_output"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.utils.html#leukapp.apps.leukforms.utils.LeukformLoader._write_output">[docs]</a>    <span class="k">def</span> <span class="nf">_write_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">mock</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>

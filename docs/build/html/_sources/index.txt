@@ -13,7 +13,6 @@ Contents:
 
     Quick Start <leukapp/quickstart>
     Leukapp <leukapp/index>
-    linktojuan
 
 Indices and tables
 ==================

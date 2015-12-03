@@ -131,8 +131,13 @@
 <span class="c"># -*- coding: utf-8 -*-</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Models and database schemas for the :mod:`leukapp.apps.extractions`</span>
+<span class="sd">Models and database schemas for the :mod:`~leukapp.apps.extractions`</span>
 <span class="sd">application.</span>
+
+<span class="sd">See `Django&#39;s Model Documentation`_ for more information.</span>
+
+<span class="sd">.. _Django&#39;s Model Documentation:</span>
+<span class="sd">    https://docs.djangoproject.com/en/1.9/topics/db/models/</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c"># django</span>
@@ -142,13 +147,12 @@
 <span class="c"># leukapp</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.core.models</span> <span class="kn">import</span> <span class="n">LeukappModel</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.core.validators</span> <span class="kn">import</span> <span class="n">ext_id_validator</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.core.db</span> <span class="kn">import</span> <span class="n">CharNullField</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.core.constants</span> <span class="kn">import</span> <span class="n">UNKNOWN</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.aliquots.models</span> <span class="kn">import</span> <span class="n">Aliquot</span>
-<span class="kn">from</span> <span class="nn">leukapp.apps.projects.models</span> <span class="kn">import</span> <span class="n">Project</span>
 
 <span class="c"># local</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span>
-<span class="kn">from</span> <span class="nn">.validators</span> <span class="kn">import</span> <span class="n">projects_string_validator</span>
 
 
 <div class="viewcode-block" id="Extraction"><a class="viewcode-back" href="../../../../py/leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction">[docs]</a><span class="k">class</span> <span class="nc">Extraction</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
@@ -156,14 +160,10 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :class:`Aliquot&#39;s &lt;leukapp.apps.aliquots.models.Aliquot&gt;` nucleic acid.</span>
 
-<span class="sd">    Each :class:`.Extraction` can be linked to multiple</span>
-<span class="sd">    :mod:`Projects &lt;leukapp.apps.projects.models.Project&gt;` using the</span>
-<span class="sd">    :attr:`projects` ManyToMany field. Additionally, the attribute</span>
-<span class="sd">    :attr:`projects_string` can also be used with</span>
-<span class="sd">    :meth:`_get_projects_from_string` to link projects and extractions::</span>
-
-<span class="sd">        # This will add projects 101 and 102 to the current Extraction</span>
-<span class="sd">        projects_string = &#39;101|102|103&#39;</span>
+<span class="sd">    :param Aliquot aliquot: The ``Extraction&#39;s`` parent model.</span>
+<span class="sd">    :param str analyte: See :data:`~.constants.ANALYTE` for choices.</span>
+<span class="sd">    :param str ext_id: ID used extrernally to track the ``Extraction``.</span>
+<span class="sd">    :return: :class:`~models.Extraction` instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c">#: Name of the application where :class:`Extraction` is contained.</span>
@@ -182,8 +182,28 @@
 <span class="sd">    .. _ForeignKey: https://docs.djangoproject.com/en/1.8/topics/db/examples/many_to_one/#many-to-one-relationships</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">ext_id</span> <span class="o">=</span> <span class="n">CharNullField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing center ID&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">ext_id_validator</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">UNKNOWN</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;The sequencing center ID.&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ID used by the scientist or institution :data:`~.constants.CENTER` to</span>
+<span class="sd">    track the :class:`.Extraction`. The default value is</span>
+<span class="sd">    :data:`~leukapp.apps.core.constants.UNKNOWN`.</span>
+
+<span class="sd">    .. important:</span>
+<span class="sd">        This field is a :class:`~leukapp.apps.core.db.CharNullField`. This</span>
+<span class="sd">        particular field class enables the ability to have multiple NULL</span>
+<span class="sd">        values but unique non-NULL records.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">analyte</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;biological material&quot;</span><span class="p">),</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;biological material&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_CHOICES</span><span class="p">[</span><span class="s">&quot;ANALYTE&quot;</span><span class="p">],</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
@@ -193,102 +213,41 @@
 <span class="sd">    available choices.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">projects</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span>
-        <span class="n">Project</span><span class="p">,</span>
-        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;projects&quot;</span><span class="p">),</span>
-        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Many to many relationship with the model</span>
-<span class="sd">    :class:`~leukapp.apps.projects.models.Project`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">projects_string</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;list of projetcs&quot;</span><span class="p">),</span>
-        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">projects_string_validator</span><span class="p">],</span>
-        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;Include the projects pks separated by a &#39;|&#39; character&quot;</span><span class="p">),</span>
-        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    String used by :meth:`_get_projects_from_string` to link</span>
-<span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;` and</span>
-<span class="sd">    :class:`Extractions &lt;.Extraction&gt;`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">technology</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;technology&quot;</span><span class="p">),</span>
-        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_CHOICES</span><span class="p">[</span><span class="s">&quot;TECHNOLOGY&quot;</span><span class="p">],</span>
-        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Sequencing :data:`~.constants.TECHNOLOGY`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">platform</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;platform&quot;</span><span class="p">),</span>
-        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_CHOICES</span><span class="p">[</span><span class="s">&quot;PLATFORM&quot;</span><span class="p">],</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">UNKNOWN</span><span class="p">,</span>
-        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Sequencing :data:`~.constants.PLATFORM`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">center</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing center&quot;</span><span class="p">),</span>
-        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">EXTRACTION_CHOICES</span><span class="p">[</span><span class="s">&quot;CENTER&quot;</span><span class="p">],</span>
-        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Sequencing :data:`~.constants.CENTER`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">ext_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing center ID&quot;</span><span class="p">),</span>
-        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">ext_id_validator</span><span class="p">],</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">UNKNOWN</span><span class="p">,</span>
-        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;The sequencing center ID.&quot;</span><span class="p">),</span>
-        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ID used by the sequencing :data:`~.constants.CENTER` to identify</span>
-<span class="sd">    :class:`Extractions &lt;.Extraction&gt;`.</span>
-
-<span class="sd">    The default value is :data:`~leukapp.apps.core.constants.UNKNOWN`</span>
-<span class="sd">    because most likely, scientist don&#39;t know this ID when they are submitting</span>
-<span class="sd">    :class:`Extractions &lt;.Extraction&gt;` to **leukgen**.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="c"># INTERNAL FIELDS</span>
     <span class="c"># =========================================================================</span>
+    <span class="n">workflows_count</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;number of extractions created&quot;</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Count of :class:`Workflows &lt;leukapp.apps.workflows.models.Workflow&gt;`</span>
+<span class="sd">    associated with the ``Extraction``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">int_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;internal ID&quot;</span><span class="p">),</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;internal ID&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Internal ID used to describe the :class:`Extraction` object.</span>
 
 <span class="sd">    This value is generated by :meth:`_get_int_id` and it includes crucial</span>
-<span class="sd">    information separated by a ``-`` character (e.g. ``D1-1``).</span>
+<span class="sd">    information (e.g. ``D1``).</span>
 
 <span class="sd">    * ``D1`` indicates that the current :class:`Extraction` is the first</span>
 <span class="sd">      **DNA** extracted from an :class:`~leukapp.apps.aliquots.models.Aliquot`.</span>
 
-<span class="sd">    * ``1`` indicates the :data:`~.constants.TECHNOLOGY_PLATFORM` code.</span>
-
-<span class="sd">    The :attr:`int_id` is generated only once. If there was a mistake a new</span>
-<span class="sd">    :class:`Extraction` instance must be created.</span>
+<span class="sd">    .. important:</span>
+<span class="sd">        The :attr:`int_id` is generated only once. If there was a mistake a new</span>
+<span class="sd">        :class:`Extraction` instance must be created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
         <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
@@ -299,8 +258,9 @@
 <span class="sd">    The :attr:`int_id` is added to the ``Aliquot.slug`` to generate the</span>
 <span class="sd">    :attr:`slug`.</span>
 
-<span class="sd">    As the :attr:`int_id`, the :attr:`slug` is generated only once.</span>
-<span class="sd">    If there was a mistake a new :class:`Extraction` instance must be created.</span>
+<span class="sd">    .. important:</span>
+<span class="sd">        As the :attr:`int_id`, the :attr:`slug` is generated only once. If</span>
+<span class="sd">        there was a mistake a new :class:`Extraction` instance must be created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c"># META CLASS</span>
@@ -325,76 +285,56 @@
         <span class="sd">&quot;&quot;&quot; .. currentmodule:: leukapp.apps.core</span>
 <span class="sd">        Executed only when the object is created.</span>
 
-<span class="sd">        This method can only be called from</span>
-<span class="sd">        :meth:`~models.LeukappModel.save` and is protected by</span>
-<span class="sd">        :meth:`~models.LeukappModel._check_if_caller_is_save`.</span>
+<span class="sd">        ..note:</span>
+<span class="sd">            This method can only be called from</span>
+<span class="sd">            :meth:`~models.LeukappModel.save` and is protected by</span>
+<span class="sd">            :meth:`~models.LeukappModel._check_if_caller_is_save`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_int_id</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_int_id</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span><span class="p">])</span>
 </div>
 <div class="viewcode-block" id="Extraction._if_save"><a class="viewcode-back" href="../../../../py/leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction._if_save">[docs]</a>    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; .. currentmodule:: leukapp.apps.core</span>
 <span class="sd">        Executed everytime the object is saved.</span>
 
-<span class="sd">        This method can only be called from</span>
-<span class="sd">        :meth:`~models.LeukappModel.save` and is protected by</span>
-<span class="sd">        :meth:`~models.LeukappModel._check_if_caller_is_save`.</span>
+<span class="sd">        .. note:</span>
+<span class="sd">            This method can only be called from</span>
+<span class="sd">            :meth:`~models.LeukappModel.save` and is protected by</span>
+<span class="sd">            :meth:`~models.LeukappModel._check_if_caller_is_save`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_get_projects_from_string</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="Extraction._get_projects_from_string"><a class="viewcode-back" href="../../../../py/leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction._get_projects_from_string">[docs]</a>    <span class="k">def</span> <span class="nf">_get_projects_from_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Links :class:`Extractions &lt;.Extraction&gt;` to</span>
-<span class="sd">        :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;`` using</span>
-<span class="sd">        :attr:`projects_string`.</span>
-
-<span class="sd">        Projects primary keys (`pk`s) must be separated by a ``|`` character.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">projects</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">projects_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;|&quot;</span><span class="p">)]</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">pass</span>
 </div>
 <div class="viewcode-block" id="Extraction._get_int_id"><a class="viewcode-back" href="../../../../py/leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction._get_int_id">[docs]</a>    <span class="k">def</span> <span class="nf">_get_int_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the :attr:`int_id`.</span>
 
-<span class="sd">        The :attr:`int_id` generation is based on a count of Extractions per</span>
-<span class="sd">        :class:`~leukapp.apps.aliquots.models.Aliquot`, and the combination of</span>
-<span class="sd">        the sequencing :data:`~.constants.TECHNOLOGY` and</span>
-<span class="sd">        :data:`~.constants.PLATFORM` used.</span>
+<span class="sd">        The :attr:`int_id` generation is based on a count of ``Extractions``</span>
+<span class="sd">        per :class:`~leukapp.apps.aliquots.models.Aliquot`.</span>
 
 <span class="sd">        Steps:</span>
 
-<span class="sd">            * Check if the caller function is :meth:`_if_new()`.</span>
-<span class="sd">            * Retrieve the ID character assigned to the `analyte` attribute.</span>
-<span class="sd">              updates the extractions count and saves the Parent class,</span>
-<span class="sd">              and builds the first section of the ID (e.g. `D1`).</span>
-<span class="sd">            * Assigns the</span>
-<span class="sd">              :data:`~leukapp.apps.extractions.constants.TECHNOLOGY_PLATFORM`</span>
-<span class="sd">              code.</span>
+<span class="sd">            * Check if the caller function is :meth:`~Extraction._if_new`.</span>
+<span class="sd">            * Retrieve the ID character assigned to the ``analyte` attribute.</span>
+<span class="sd">              updates the extractions count, saves the Parent class,</span>
+<span class="sd">              and builds the first section of the ID (e.g. ``D1``).</span>
 
-<span class="sd">        This method can only be called from</span>
-<span class="sd">        :meth:`_if_new` and is protected by</span>
-<span class="sd">        :meth:`~leukapp.apps.core.models.LeukappModel._check_if_caller_is_if_new`.</span>
+<span class="sd">        .. note:</span>
+<span class="sd">            This method can only be called from</span>
+<span class="sd">            :meth:`~Extraction._if_new` and is protected by</span>
+<span class="sd">            :meth:`~leukapp.apps.core.models.LeukappModel._check_if_caller_is_if_new`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_if_new</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyte</span> <span class="o">==</span> <span class="n">constants</span><span class="o">.</span><span class="n">DNA</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">dna_extractions_count</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">LEUKID_ANALYTE</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">analyte</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INT_ID_ANALYTE</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">analyte</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">dna_extractions_count</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyte</span> <span class="o">==</span> <span class="n">constants</span><span class="o">.</span><span class="n">RNA</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">rna_extractions_count</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">LEUKID_ANALYTE</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">analyte</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INT_ID_ANALYTE</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">analyte</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">rna_extractions_count</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aliquot</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-
-        <span class="n">code</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">TECHNOLOGY_PLATFORM</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">technology</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">platform</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">+=</span> <span class="s">&#39;-&#39;</span> <span class="o">+</span> <span class="n">code</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span></div></div>
 </pre></div>

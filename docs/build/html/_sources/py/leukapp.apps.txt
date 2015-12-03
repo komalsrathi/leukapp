@@ -20,4 +20,5 @@ Subpackages
     leukapp.apps.projects
     leukapp.apps.specimens
     leukapp.apps.users
+    leukapp.apps.workflows
 

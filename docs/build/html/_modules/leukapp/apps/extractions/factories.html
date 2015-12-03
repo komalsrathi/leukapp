@@ -168,6 +168,9 @@
 <span class="sd">    rules described in the **attributes**. For more information see:</span>
 <span class="sd">    `DjangoModelFactory`_.</span>
 
+<span class="sd">    :param Aliquot aliquot: The ``Extraction&#39;s`` parent model.</span>
+<span class="sd">    :param str analyte: See :data:`~.constants.ANALYTE` for choices.</span>
+<span class="sd">    :param str ext_id: ID used extrernally to track the ``Extraction``.</span>
 <span class="sd">    :return: :class:`~models.Extraction` instance.</span>
 
 <span class="sd">    Examples::</span>
@@ -178,13 +181,9 @@
 <span class="sd">        # Passing specific values to specific attributes</span>
 <span class="sd">        extraction = ExtractionFactory(aliquot=AliquotFactory(), analyte=&#39;DNA&#39;)</span>
 
-<span class="sd">        # passing a list of projects for ManyToMany relationship</span>
-<span class="sd">        projects = [ProjectFactory() for i in range(3)]</span>
-<span class="sd">        extraction = ExtractionFactory(analyte=DNA, projects=projects)</span>
-
 <span class="sd">    .. warning::</span>
 <span class="sd">        Everytime ``ExtractionFactory`` is used without passing the</span>
-<span class="sd">        :attr:`~factories.ExtractionFactory.aliquot` attribute, a new</span>
+<span class="sd">        :attr:`~ExtractionFactory.aliquot` attribute, a new</span>
 <span class="sd">        :class:`~leukapp.apps.aliquots.models.Aliquot` (and its parents</span>
 <span class="sd">        :class:`~leukapp.apps.specimens.models.Specimen` and</span>
 <span class="sd">        :class:`~leukapp.apps.individuals.models.Individual`) will be created.</span>
@@ -216,24 +215,6 @@
 <span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">technology</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">TECHNOLOGY</span><span class="p">])</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    If not passed, picks a random choice from :data:`~.constants.TECHNOLOGY`.</span>
-<span class="sd">    To learn more see `FuzzyChoice`_.</span>
-
-<span class="sd">    .. _FuzzyChoice:</span>
-<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">center</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CENTER</span><span class="p">])</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    If not passed, picks a random choice from :data:`~.constants.CENTER`.</span>
-<span class="sd">    To learn more see `FuzzyChoice`_.</span>
-
-<span class="sd">    .. _FuzzyChoice:</span>
-<span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzychoice</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">ext_id</span> <span class="o">=</span> <span class="n">FuzzyText</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">hexdigits</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    If not passed, creates a random ID. To learn more see `FuzzyText`_.</span>
@@ -241,51 +222,6 @@
 <span class="sd">    .. _FuzzyText:</span>
 <span class="sd">        https://factoryboy.readthedocs.org/en/latest/fuzzy.html#fuzzytext</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">projects_string</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    By default, this attribute is set to ``&#39;&#39;``. However, pass a string with</span>
-<span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;` primary keys</span>
-<span class="sd">    separated by a ``|`` character to link the new :class:`~.models.Extraction`</span>
-<span class="sd">    and the projects. To understand better this behavior see:</span>
-<span class="sd">    :meth:`~.models.Extraction._get_projects_from_string`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c"># LAZY ATTRIBUTES</span>
-    <span class="c"># =========================================================================</span>
-
-    <span class="n">platform</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    If not passed, picks a random choice from</span>
-<span class="sd">    :data:`~.constants.TECHNOLOGY_PLATFORM`. Based on the :attr:`technology`</span>
-<span class="sd">    attribute. To learn more see the `lazy_attribute`_ decorator.</span>
-
-<span class="sd">    .. _lazy_attribute:</span>
-<span class="sd">        http://factoryboy.readthedocs.org/en/latest/reference.html?highlight=container#decorator</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="nd">@factory.lazy_attribute</span>
-    <span class="k">def</span> <span class="nf">platform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">choices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">TECHNOLOGY_PLATFORM</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">technology</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span>
-
-    <span class="c"># POST GENERATED ATTRIBUTES</span>
-    <span class="c"># =========================================================================</span>
-
-    <span class="n">projects</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Pass a list of projects to create ManyToMany relationships. To learn</span>
-<span class="sd">    more see Factory&#39;s documentation for `simple ManyToMany relationship`_.</span>
-
-<span class="sd">    .. _simple ManyToMany relationship: https://factoryboy.readthedocs.org/en/latest/recipes.html#simple-many-to-many-relationship</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="nd">@factory.post_generation</span>
-    <span class="k">def</span> <span class="nf">projects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">extracted</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">create</span><span class="p">:</span>  <span class="c"># Simple build, do nothing.</span>
-            <span class="k">return</span>
-        <span class="k">if</span> <span class="n">extracted</span><span class="p">:</span>   <span class="c"># A list of project were passed in, use them</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">extracted</span><span class="p">]</span>
 
 
 <span class="c"># ROUTINE PROTECTION</span>

@@ -13,6 +13,7 @@ Submodules
 
    leukapp.apps.core.api
    leukapp.apps.core.constants
+   leukapp.apps.core.db
    leukapp.apps.core.models
    leukapp.apps.core.utils
    leukapp.apps.core.validators

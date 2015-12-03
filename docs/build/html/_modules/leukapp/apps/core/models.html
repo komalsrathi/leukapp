@@ -142,6 +142,10 @@
 <span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
 <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">transaction</span>
 
+<span class="c"># local</span>
+<span class="kn">from</span> <span class="nn">.db</span> <span class="kn">import</span> <span class="n">CharNullField</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">UNKNOWN</span>
+
 
 <div class="viewcode-block" id="TimeStampedModel"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.TimeStampedModel">[docs]</a><span class="k">class</span> <span class="nc">TimeStampedModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 
@@ -258,7 +262,32 @@
             <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;save&#39;</span><span class="p">:</span>
                 <span class="k">raise</span><span class="p">(</span><span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-            <span class="k">raise</span><span class="p">(</span><span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div></div>
+            <span class="k">raise</span><span class="p">(</span><span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+
+</div></div>
+<div class="viewcode-block" id="LeukappTestModel"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappTestModel">[docs]</a><span class="k">class</span> <span class="nc">LeukappTestModel</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class only serves the purpose of testing the core&#39;s abstract models.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">testme</span> <span class="o">=</span> <span class="n">CharNullField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">UNKNOWN</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span>
+
+    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_test</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_if_new</span><span class="p">()</span></div>
 </pre></div>
 
            </div>

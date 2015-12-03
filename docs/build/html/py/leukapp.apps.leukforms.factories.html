@@ -148,7 +148,7 @@ create_stringio_from_rows: creates StringIO from rows</dd>
 </dl>
 <dl class="method">
 <dt id="leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_batch">
-<code class="descname">create_batch</code><span class="sig-paren">(</span><em>individuals</em>, <em>specimens=0</em>, <em>aliquots=0</em>, <em>extractions=0</em>, <em>delete=True</em>, <em>slug=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory.create_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_batch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create_batch</code><span class="sig-paren">(</span><em>delete=True</em>, <em>slug=False</em>, <em>request=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/factories.html#LeukformSamplesFactory.create_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a batch of samples and returns them in a leukform format.</p>
 <p>Instances for the last model requested are always deleted.
 For instance, if you request individuals=10, specimens=2 and

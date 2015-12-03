@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>leukapp.apps.workflows.models module &mdash; leukapp 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="leukapp 0.1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> leukapp
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../leukapp/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../leukapp/index.html">Leukapp</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">leukapp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>leukapp.apps.workflows.models module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/py/leukapp.apps.workflows.models.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-leukapp.apps.workflows.models">
+<span id="leukapp-apps-workflows-models-module"></span><h1>leukapp.apps.workflows.models module<a class="headerlink" href="#module-leukapp.apps.workflows.models" title="Permalink to this headline">¶</a></h1>
+<p>Models and database schemas for the <a class="reference internal" href="leukapp.apps.workflows.html#module-leukapp.apps.workflows" title="leukapp.apps.workflows"><code class="xref py py-mod docutils literal"><span class="pre">workflows</span></code></a>
+application.</p>
+<p>See <a class="reference external" href="https://docs.djangoproject.com/en/1.9/topics/db/models/">Django&#8217;s Model Documentation</a> for more information.</p>
+<dl class="class">
+<dt id="leukapp.apps.workflows.models.Workflow">
+<em class="property">class </em><code class="descname">Workflow</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/workflows/models.html#Workflow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel" title="leukapp.apps.core.models.LeukappModel"><code class="xref py py-class docutils literal"><span class="pre">leukapp.apps.core.models.LeukappModel</span></code></a></p>
+<p><a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-class docutils literal"><span class="pre">Extraction's</span></code></a>
+sequence workflow.</p>
+<p>Each <a class="reference internal" href="#leukapp.apps.workflows.models.Workflow" title="leukapp.apps.workflows.models.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> can be linked to multiple
+<a class="reference internal" href="leukapp.apps.projects.models.html#leukapp.apps.projects.models.Project" title="leukapp.apps.projects.models.Project"><code class="xref py py-mod docutils literal"><span class="pre">Projects</span></code></a> using the
+<a class="reference internal" href="#leukapp.apps.workflows.models.Workflow.projects" title="leukapp.apps.workflows.models.Workflow.projects"><code class="xref py py-attr docutils literal"><span class="pre">projects</span></code></a> ManyToMany field. Additionally, the attribute
+<a class="reference internal" href="#leukapp.apps.workflows.models.Workflow.projects_string" title="leukapp.apps.workflows.models.Workflow.projects_string"><code class="xref py py-attr docutils literal"><span class="pre">projects_string</span></code></a> can also be used with
+<a class="reference internal" href="#leukapp.apps.workflows.models.Workflow._get_projects_from_string" title="leukapp.apps.workflows.models.Workflow._get_projects_from_string"><code class="xref py py-meth docutils literal"><span class="pre">_get_projects_from_string()</span></code></a> to link projects and workflows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This will add projects 101 and 102 to Workflow when saving</span>
+<span class="n">projects_string</span> <span class="o">=</span> <span class="s">&#39;101-102-103&#39;</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.APP_NAME">
+<code class="descname">APP_NAME</code><em class="property"> = 'workflows'</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.APP_NAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the application where <a class="reference internal" href="#leukapp.apps.workflows.models.Workflow" title="leukapp.apps.workflows.models.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> is contained.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.extraction">
+<code class="descname">extraction</code><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.extraction" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.djangoproject.com/en/1.8/topics/db/examples/many_to_one/#many-to-one-relationships">ForeignKey</a> to the <a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></a>
+model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.ext_id">
+<code class="descname">ext_id</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.ext_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>ID used by the sequencing <a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.CENTER" title="leukapp.apps.workflows.constants.CENTER"><code class="xref py py-data docutils literal"><span class="pre">CENTER</span></code></a> to identify the
+<a class="reference internal" href="#leukapp.apps.workflows.models.Workflow" title="leukapp.apps.workflows.models.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>.</p>
+<p>The default value is <a class="reference internal" href="leukapp.apps.core.constants.html#leukapp.apps.core.constants.UNKNOWN" title="leukapp.apps.core.constants.UNKNOWN"><code class="xref py py-data docutils literal"><span class="pre">UNKNOWN</span></code></a>
+because most likely, scientist don&#8217;t know this ID when they are submitting
+<a class="reference internal" href="#leukapp.apps.workflows.models.Workflow" title="leukapp.apps.workflows.models.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflows</span></code></a> to <strong>leukgen</strong>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.projects">
+<code class="descname">projects</code><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.projects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Many to many relationship with the model
+<a class="reference internal" href="leukapp.apps.projects.models.html#leukapp.apps.projects.models.Project" title="leukapp.apps.projects.models.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.projects_string">
+<code class="descname">projects_string</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.projects_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>String used by <a class="reference internal" href="#leukapp.apps.workflows.models.Workflow._get_projects_from_string" title="leukapp.apps.workflows.models.Workflow._get_projects_from_string"><code class="xref py py-meth docutils literal"><span class="pre">_get_projects_from_string()</span></code></a> to link
+<a class="reference internal" href="leukapp.apps.projects.models.html#leukapp.apps.projects.models.Project" title="leukapp.apps.projects.models.Project"><code class="xref py py-class docutils literal"><span class="pre">Projects</span></code></a> and
+<a class="reference internal" href="#leukapp.apps.workflows.models.Workflow" title="leukapp.apps.workflows.models.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflows</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.sequencing_center">
+<code class="descname">sequencing_center</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.sequencing_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>See choices: <a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.CENTER" title="leukapp.apps.workflows.constants.CENTER"><code class="xref py py-data docutils literal"><span class="pre">CENTER</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.sequencing_technology">
+<code class="descname">sequencing_technology</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.sequencing_technology" title="Permalink to this definition">¶</a></dt>
+<dd><p>See choices: <a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.TECHNOLOGY" title="leukapp.apps.workflows.constants.TECHNOLOGY"><code class="xref py py-data docutils literal"><span class="pre">TECHNOLOGY</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.technology_type">
+<code class="descname">technology_type</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.technology_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>See choices: <a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.TECHNOLOGY_TYPE" title="leukapp.apps.workflows.constants.TECHNOLOGY_TYPE"><code class="xref py py-data docutils literal"><span class="pre">TECHNOLOGY_TYPE</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.sequencing_platform">
+<code class="descname">sequencing_platform</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.sequencing_platform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequencing <a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.PLATFORM" title="leukapp.apps.workflows.constants.PLATFORM"><code class="xref py py-data docutils literal"><span class="pre">PLATFORM</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.read_length">
+<code class="descname">read_length</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.read_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>See choices: <a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.READ_LENGTH" title="leukapp.apps.workflows.constants.READ_LENGTH"><code class="xref py py-data docutils literal"><span class="pre">READ_LENGTH</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.read_type">
+<code class="descname">read_type</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.read_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>See choices: <a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.READ_TYPE" title="leukapp.apps.workflows.constants.READ_TYPE"><code class="xref py py-data docutils literal"><span class="pre">READ_TYPE</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.int_id">
+<code class="descname">int_id</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.int_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal ID used to describe the <a class="reference internal" href="#leukapp.apps.workflows.models.Workflow" title="leukapp.apps.workflows.models.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> object.</p>
+<p>This value is generated by <a class="reference internal" href="#leukapp.apps.workflows.models.Workflow._get_int_id" title="leukapp.apps.workflows.models.Workflow._get_int_id"><code class="xref py py-meth docutils literal"><span class="pre">_get_int_id()</span></code></a> and it includes crucial
+information separated by a <code class="docutils literal"><span class="pre">-</span></code> character.
+For example, the internal code <code class="docutils literal"><span class="pre">1-1A-S100-x10-CMO</span></code> will refer to:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">1</span></code>: count of <code class="docutils literal"><span class="pre">Workflows</span></code> per <code class="docutils literal"><span class="pre">Extraction</span></code>, see:
+<a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction.workflows_count" title="leukapp.apps.extractions.models.Extraction.workflows_count"><code class="xref py py-attr docutils literal"><span class="pre">workflows_count</span></code></a>.</li>
+<li><code class="docutils literal"><span class="pre">1A</span></code>: <code class="xref py py-attr docutils literal"><span class="pre">technology</span></code>/<a class="reference internal" href="#leukapp.apps.workflows.models.Workflow.technology_type" title="leukapp.apps.workflows.models.Workflow.technology_type"><code class="xref py py-attr docutils literal"><span class="pre">technology_type</span></code></a> internal code based
+on the custom dictionary <a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.INT_ID_TECHNOLOGY" title="leukapp.apps.workflows.constants.INT_ID_TECHNOLOGY"><code class="xref py py-data docutils literal"><span class="pre">INT_ID_TECHNOLOGY</span></code></a>.</li>
+<li><code class="docutils literal"><span class="pre">S100</span></code>: Internal code for the <a class="reference internal" href="#leukapp.apps.workflows.models.Workflow.read_length" title="leukapp.apps.workflows.models.Workflow.read_length"><code class="xref py py-attr docutils literal"><span class="pre">read_length</span></code></a>/<a class="reference internal" href="#leukapp.apps.workflows.models.Workflow.read_type" title="leukapp.apps.workflows.models.Workflow.read_type"><code class="xref py py-attr docutils literal"><span class="pre">read_type</span></code></a>
+combination. see <a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.INT_ID_READ_LENGTH" title="leukapp.apps.workflows.constants.INT_ID_READ_LENGTH"><code class="xref py py-data docutils literal"><span class="pre">INT_ID_READ_LENGTH</span></code></a> and
+<a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.INT_ID_READ_TYPE" title="leukapp.apps.workflows.constants.INT_ID_READ_TYPE"><code class="xref py py-data docutils literal"><span class="pre">INT_ID_READ_TYPE</span></code></a>.</li>
+<li><code class="docutils literal"><span class="pre">X10</span></code>: <a class="reference internal" href="#leukapp.apps.workflows.models.Workflow.sequencing_platform" title="leukapp.apps.workflows.models.Workflow.sequencing_platform"><code class="xref py py-attr docutils literal"><span class="pre">sequencing_platform</span></code></a> internal code. See:
+<a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.INT_ID_PLATFORM" title="leukapp.apps.workflows.constants.INT_ID_PLATFORM"><code class="xref py py-data docutils literal"><span class="pre">INT_ID_PLATFORM</span></code></a>.</li>
+<li><code class="docutils literal"><span class="pre">CMO</span></code>: <a class="reference internal" href="#leukapp.apps.workflows.models.Workflow.sequencing_center" title="leukapp.apps.workflows.models.Workflow.sequencing_center"><code class="xref py py-attr docutils literal"><span class="pre">sequencing_center</span></code></a> internal code. See:
+<a class="reference internal" href="leukapp.apps.workflows.constants.html#leukapp.apps.workflows.constants.INT_ID_CENTER" title="leukapp.apps.workflows.constants.INT_ID_CENTER"><code class="xref py py-data docutils literal"><span class="pre">INT_ID_CENTER</span></code></a>.</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.workflows.models.Workflow.slug">
+<code class="descname">slug</code><em class="property"> = None</em><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow.slug" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#leukapp.apps.workflows.models.Workflow" title="leukapp.apps.workflows.models.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow's</span></code></a> unique identifier (<strong>leukid</strong>).</p>
+<p>The <a class="reference internal" href="#leukapp.apps.workflows.models.Workflow.int_id" title="leukapp.apps.workflows.models.Workflow.int_id"><code class="xref py py-attr docutils literal"><span class="pre">int_id</span></code></a> is added to the <code class="docutils literal"><span class="pre">Aliquot.slug</span></code> to generate the
+<a class="reference internal" href="#leukapp.apps.workflows.models.Workflow.slug" title="leukapp.apps.workflows.models.Workflow.slug"><code class="xref py py-attr docutils literal"><span class="pre">slug</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.workflows.models.Workflow._if_new">
+<code class="descname">_if_new</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/workflows/models.html#Workflow._if_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow._if_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executed only when the object is created.</p>
+<dl class="docutils">
+<dt>..note:</dt>
+<dd>This method can only be called from
+<a class="reference internal" href="leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel.save" title="leukapp.apps.core.models.LeukappModel.save"><code class="xref py py-meth docutils literal"><span class="pre">save()</span></code></a> and is protected by
+<a class="reference internal" href="leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel._check_if_caller_is_save" title="leukapp.apps.core.models.LeukappModel._check_if_caller_is_save"><code class="xref py py-meth docutils literal"><span class="pre">_check_if_caller_is_save()</span></code></a>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.workflows.models.Workflow._if_save">
+<code class="descname">_if_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/workflows/models.html#Workflow._if_save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow._if_save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executed everytime the object is saved.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.workflows.models.Workflow._get_projects_from_string">
+<code class="descname">_get_projects_from_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/workflows/models.html#Workflow._get_projects_from_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow._get_projects_from_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Links <a class="reference internal" href="#leukapp.apps.workflows.models.Workflow" title="leukapp.apps.workflows.models.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflows</span></code></a> to
+<code class="xref py py-class docutils literal"><span class="pre">Projects</span> <span class="pre">&lt;leukapp.apps.projects.models.Project&gt;`</span></code> using
+<code class="xref py py-attr docutils literal"><span class="pre">projects_string</span></code>.</p>
+<p>Projects primary keys (<code class="docutils literal"><span class="pre">pk``s)</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">separated</span> <span class="pre">by</span> <span class="pre">a</span> <span class="pre">``|</span></code> character.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.workflows.models.Workflow._get_int_id">
+<code class="descname">_get_int_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/workflows/models.html#Workflow._get_int_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.workflows.models.Workflow._get_int_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the <code class="xref py py-attr docutils literal"><span class="pre">int_id</span></code>.</p>
+<p>The <code class="xref py py-attr docutils literal"><span class="pre">int_id</span></code> generation is based on a count of <code class="docutils literal"><span class="pre">Workflows</span></code>
+per <a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction" title="leukapp.apps.extractions.models.Extraction"><code class="xref py py-class docutils literal"><span class="pre">Extraction</span></code></a>, and the
+sequencing setting.</p>
+<p>Steps:</p>
+<ul class="simple">
+<li>Check if the caller function is <code class="xref py py-meth docutils literal"><span class="pre">_if_new()</span></code>.</li>
+<li>if <code class="docutils literal"><span class="pre">technology_type</span></code> is <code class="docutils literal"><span class="pre">DEFAULT</span></code>, replace for default value.</li>
+<li>validates analyte/sequencing_technology/technology_type combination.</li>
+<li><code class="docutils literal"><span class="pre">1</span></code>: adds count of <code class="docutils literal"><span class="pre">Workflows</span></code> per <code class="docutils literal"><span class="pre">Extraction</span></code> section.</li>
+<li><code class="docutils literal"><span class="pre">1A</span></code>: adds the <code class="xref py py-attr docutils literal"><span class="pre">technology</span></code>/<code class="xref py py-attr docutils literal"><span class="pre">technology_type</span></code> section.</li>
+<li><code class="docutils literal"><span class="pre">S100</span></code>: adds the <code class="xref py py-attr docutils literal"><span class="pre">read_length</span></code>/<code class="xref py py-attr docutils literal"><span class="pre">read_type</span></code> section.</li>
+<li><code class="docutils literal"><span class="pre">X10</span></code>: adds the <code class="xref py py-attr docutils literal"><span class="pre">sequencing_platform</span></code> internal code section.</li>
+<li><code class="docutils literal"><span class="pre">CMO</span></code>: adds the <code class="xref py py-attr docutils literal"><span class="pre">sequencing_center</span></code> internal code section.</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Juan Medina.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

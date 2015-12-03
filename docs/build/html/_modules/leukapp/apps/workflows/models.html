@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>leukapp.apps.workflows.models &mdash; leukapp 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="leukapp 0.1 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> leukapp
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../leukapp/index.html">Leukapp</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">leukapp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>leukapp.apps.workflows.models</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for leukapp.apps.workflows.models</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Models and database schemas for the :mod:`~leukapp.apps.workflows`</span>
+<span class="sd">application.</span>
+
+<span class="sd">See `Django&#39;s Model Documentation`_ for more information.</span>
+
+<span class="sd">.. _Django&#39;s Model Documentation:</span>
+<span class="sd">    https://docs.djangoproject.com/en/1.9/topics/db/models/</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c"># django</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="c"># leukapp</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.core.models</span> <span class="kn">import</span> <span class="n">LeukappModel</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.core.validators</span> <span class="kn">import</span> <span class="n">ext_id_validator</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.core.db</span> <span class="kn">import</span> <span class="n">CharNullField</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.core.constants</span> <span class="kn">import</span> <span class="n">UNKNOWN</span><span class="p">,</span> <span class="n">DEFAULT</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.extractions.models</span> <span class="kn">import</span> <span class="n">Extraction</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.projects.models</span> <span class="kn">import</span> <span class="n">Project</span>
+
+<span class="c"># local</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">validators</span>
+
+
+<div class="viewcode-block" id="Workflow"><a class="viewcode-back" href="../../../../py/leukapp.apps.workflows.models.html#leukapp.apps.workflows.models.Workflow">[docs]</a><span class="k">class</span> <span class="nc">Workflow</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :class:`Extraction&#39;s &lt;leukapp.apps.extractions.models.Extraction&gt;`</span>
+<span class="sd">    sequence workflow.</span>
+
+<span class="sd">    Each :class:`.Workflow` can be linked to multiple</span>
+<span class="sd">    :mod:`Projects &lt;leukapp.apps.projects.models.Project&gt;` using the</span>
+<span class="sd">    :attr:`projects` ManyToMany field. Additionally, the attribute</span>
+<span class="sd">    :attr:`projects_string` can also be used with</span>
+<span class="sd">    :meth:`_get_projects_from_string` to link projects and workflows::</span>
+
+<span class="sd">        # This will add projects 101 and 102 to Workflow when saving</span>
+<span class="sd">        projects_string = &#39;101-102-103&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c">#: Name of the application where :class:`Workflow` is contained.</span>
+    <span class="n">APP_NAME</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
+
+    <span class="c"># EXTERNAL FIELDS</span>
+    <span class="c"># =========================================================================</span>
+    <span class="n">extraction</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">Extraction</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;extraction&quot;</span><span class="p">),</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    `ForeignKey`_ to the :class:`~leukapp.apps.extractions.models.Extraction`</span>
+<span class="sd">    model.</span>
+
+<span class="sd">    .. _ForeignKey: https://docs.djangoproject.com/en/1.8/topics/db/examples/many_to_one/#many-to-one-relationships</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ext_id</span> <span class="o">=</span> <span class="n">CharNullField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing center ID&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">ext_id_validator</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">UNKNOWN</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;The sequencing center ID.&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ID used by the sequencing :data:`~.constants.CENTER` to identify the</span>
+<span class="sd">    :class:`.Workflow`.</span>
+
+<span class="sd">    The default value is :data:`~leukapp.apps.core.constants.UNKNOWN`</span>
+<span class="sd">    because most likely, scientist don&#39;t know this ID when they are submitting</span>
+<span class="sd">    :class:`Workflows &lt;.Workflow&gt;` to **leukgen**.</span>
+
+<span class="sd">    .. important:</span>
+<span class="sd">        This field is a :class:`~leukapp.apps.core.db.CharNullField`. This</span>
+<span class="sd">        particular field class enables the ability to have multiple NULL</span>
+<span class="sd">        values but unique non-NULL records.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># PROJECTS</span>
+    <span class="c"># ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+    <span class="n">projects</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span>
+        <span class="n">Project</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;projects&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Many to many relationship with the model</span>
+<span class="sd">    :class:`~leukapp.apps.projects.models.Project`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">projects_string</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;list of projetcs&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">validators</span><span class="o">.</span><span class="n">projects_string_validator</span><span class="p">],</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;Include the projects keys separated by a &#39;-&#39; character&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    String used by :meth:`_get_projects_from_string` to link</span>
+<span class="sd">    :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;` and</span>
+<span class="sd">    :class:`Workflows &lt;.Workflow&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># SEQUENCING WORKFLOW</span>
+    <span class="c"># ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+
+    <span class="n">sequencing_center</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing center&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_CHOICES</span><span class="p">[</span><span class="s">&quot;CENTER&quot;</span><span class="p">],</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    See choices: :data:`~.constants.CENTER`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sequencing_technology</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing technology&quot;</span><span class="p">),</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_CHOICES</span><span class="p">[</span><span class="s">&quot;TECHNOLOGY&quot;</span><span class="p">],</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    See choices: :data:`~.constants.TECHNOLOGY`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">technology_type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing technology type&quot;</span><span class="p">),</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_CHOICES</span><span class="p">[</span><span class="s">&quot;TECHNOLOGY_TYPE&quot;</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="p">,</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    See choices: :data:`~.constants.TECHNOLOGY_TYPE`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sequencing_platform</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;sequencing platform&quot;</span><span class="p">),</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_CHOICES</span><span class="p">[</span><span class="s">&quot;PLATFORM&quot;</span><span class="p">],</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sequencing :data:`~.constants.PLATFORM`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">read_length</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;read length&quot;</span><span class="p">),</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_CHOICES</span><span class="p">[</span><span class="s">&quot;READ_LENGTH&quot;</span><span class="p">],</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    See choices: :data:`~.constants.READ_LENGTH`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">read_type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;read type&quot;</span><span class="p">),</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_CHOICES</span><span class="p">[</span><span class="s">&quot;READ_TYPE&quot;</span><span class="p">],</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    See choices: :data:`~.constants.READ_TYPE`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># INTERNAL FIELDS</span>
+    <span class="c"># =========================================================================</span>
+    <span class="n">int_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;internal ID&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Internal ID used to describe the :class:`Workflow` object.</span>
+
+<span class="sd">    This value is generated by :meth:`_get_int_id` and it includes crucial</span>
+<span class="sd">    information separated by a ``-`` character.</span>
+<span class="sd">    For example, the internal code ``1-1A-S100-x10-CMO`` will refer to:</span>
+
+<span class="sd">    * ``1``: count of ``Workflows`` per ``Extraction``, see:</span>
+<span class="sd">      :attr:`~leukapp.apps.extractions.models.Extraction.workflows_count`.</span>
+<span class="sd">    * ``1A``: :attr:`technology`/:attr:`technology_type` internal code based</span>
+<span class="sd">      on the custom dictionary :data:`~.constants.INT_ID_TECHNOLOGY`.</span>
+<span class="sd">    * ``S100``: Internal code for the :attr:`read_length`/:attr:`read_type`</span>
+<span class="sd">      combination. see :data:`~.constants.INT_ID_READ_LENGTH` and</span>
+<span class="sd">      :data:`~.constants.INT_ID_READ_TYPE`.</span>
+<span class="sd">    * ``X10``: :attr:`sequencing_platform` internal code. See:</span>
+<span class="sd">      :data:`~.constants.INT_ID_PLATFORM`.</span>
+<span class="sd">    * ``CMO``: :attr:`sequencing_center` internal code. See:</span>
+<span class="sd">      :data:`~.constants.INT_ID_CENTER`.</span>
+
+<span class="sd">    .. important:</span>
+<span class="sd">        The :attr:`int_id` is generated only once. If there was a mistake a new</span>
+<span class="sd">        :class:`Workflow` instance must be created.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
+        <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :class:`Workflow&#39;s &lt;.Workflow&gt;` unique identifier (**leukid**).</span>
+
+<span class="sd">    The :attr:`int_id` is added to the ``Aliquot.slug`` to generate the</span>
+<span class="sd">    :attr:`slug`.</span>
+
+<span class="sd">    .. important:</span>
+<span class="sd">        As the :attr:`int_id`, the :attr:`slug` is generated only once. If</span>
+<span class="sd">        there was a mistake a new :class:`Workflow` instance must be created.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># META CLASS</span>
+    <span class="c"># =========================================================================</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span><span class="p">)</span>
+        <span class="n">unique_together</span> <span class="o">=</span> <span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_UNIQUE_TOGETHER</span><span class="p">)</span>
+        <span class="n">index_together</span> <span class="o">=</span> <span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_UNIQUE_TOGETHER</span><span class="p">)</span>
+
+    <span class="c"># PUBLIC METHODS</span>
+    <span class="c"># =========================================================================</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the :attr:`slug` when ``str`` is requested.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
+
+    <span class="c"># PRIVATE METHODS</span>
+    <span class="c"># =========================================================================</span>
+<div class="viewcode-block" id="Workflow._if_new"><a class="viewcode-back" href="../../../../py/leukapp.apps.workflows.models.html#leukapp.apps.workflows.models.Workflow._if_new">[docs]</a>    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; .. currentmodule:: leukapp.apps.core</span>
+<span class="sd">        Executed only when the object is created.</span>
+
+<span class="sd">        ..note:</span>
+<span class="sd">            This method can only be called from</span>
+<span class="sd">            :meth:`~models.LeukappModel.save` and is protected by</span>
+<span class="sd">            :meth:`~models.LeukappModel._check_if_caller_is_save`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_int_id</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">extraction</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="Workflow._if_save"><a class="viewcode-back" href="../../../../py/leukapp.apps.workflows.models.html#leukapp.apps.workflows.models.Workflow._if_save">[docs]</a>    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; .. currentmodule:: leukapp.apps.core</span>
+<span class="sd">        Executed everytime the object is saved.</span>
+
+<span class="sd">        .. note:</span>
+<span class="sd">            This method can only be called from</span>
+<span class="sd">            :meth:`~models.LeukappModel.save` and is protected by</span>
+<span class="sd">            :meth:`~models.LeukappModel._check_if_caller_is_save`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_projects_from_string</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Workflow._get_projects_from_string"><a class="viewcode-back" href="../../../../py/leukapp.apps.workflows.models.html#leukapp.apps.workflows.models.Workflow._get_projects_from_string">[docs]</a>    <span class="k">def</span> <span class="nf">_get_projects_from_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Links :class:`Workflows &lt;.Workflow&gt;` to</span>
+<span class="sd">        :class:`Projects &lt;leukapp.apps.projects.models.Project&gt;`` using</span>
+<span class="sd">        :attr:`projects_string`.</span>
+
+<span class="sd">        Projects primary keys (``pk``s) must be separated by a ``|`` character.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">projects</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">projects_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;|&quot;</span><span class="p">)]</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="Workflow._get_int_id"><a class="viewcode-back" href="../../../../py/leukapp.apps.workflows.models.html#leukapp.apps.workflows.models.Workflow._get_int_id">[docs]</a>    <span class="k">def</span> <span class="nf">_get_int_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the :attr:`int_id`.</span>
+
+<span class="sd">        The :attr:`int_id` generation is based on a count of ``Workflows``</span>
+<span class="sd">        per :class:`~leukapp.apps.extractions.models.Extraction`, and the</span>
+<span class="sd">        sequencing setting.</span>
+
+<span class="sd">        Steps:</span>
+
+<span class="sd">        * Check if the caller function is :meth:`~Workflow._if_new`.</span>
+<span class="sd">        * if ``technology_type`` is ``DEFAULT``, replace for default value.</span>
+<span class="sd">        * validates analyte/sequencing_technology/technology_type combination.</span>
+<span class="sd">        * ``1``: adds count of ``Workflows`` per ``Extraction`` section.</span>
+<span class="sd">        * ``1A``: adds the :attr:`technology`/:attr:`technology_type` section.</span>
+<span class="sd">        * ``S100``: adds the :attr:`read_length`/:attr:`read_type` section.</span>
+<span class="sd">        * ``X10``: adds the :attr:`sequencing_platform` internal code section.</span>
+<span class="sd">        * ``CMO``: adds the :attr:`sequencing_center` internal code section.</span>
+
+<span class="sd">        .. note:</span>
+<span class="sd">            This method can only be called from</span>
+<span class="sd">            :meth:`~Workflow._if_new` and is protected by</span>
+<span class="sd">            :meth:`~leukapp.apps.core.models.LeukappModel._check_if_caller_is_if_new`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_if_new</span><span class="p">()</span>
+
+        <span class="c"># set default value to technology_type incase it wasn&#39;t provided</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">technology_type</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">technology_type</span> <span class="o">==</span> <span class="n">DEFAULT</span><span class="p">):</span>
+            <span class="n">technologies</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INT_ID_TECHNOLOGY</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">extraction</span><span class="o">.</span><span class="n">analyte</span><span class="p">]</span>
+            <span class="n">technology_types</span> <span class="o">=</span> <span class="n">technologies</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sequencing_technology</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">technology_type</span> <span class="o">=</span> <span class="n">technology_types</span><span class="p">[</span><span class="s">&quot;DEFAULT_TECHNOLOGY&quot;</span><span class="p">]</span>
+
+        <span class="c"># validates analyte/sequencing_technology/technology_type combination.</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&#39;analyte&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">extraction</span><span class="o">.</span><span class="n">analyte</span><span class="p">,</span>
+            <span class="s">&#39;sequencing_technology&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequencing_technology</span><span class="p">,</span>
+            <span class="s">&#39;technology_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">technology_type</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="n">validators</span><span class="o">.</span><span class="n">technology_type_validator</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># ``1`` workflows count section</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extraction</span><span class="o">.</span><span class="n">workflows_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extraction</span><span class="o">.</span><span class="n">workflows_count</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;-&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extraction</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c"># ``1A`` technology and technology type section</span>
+        <span class="n">technologies</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INT_ID_TECHNOLOGY</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">extraction</span><span class="o">.</span><span class="n">analyte</span><span class="p">]</span>
+        <span class="n">technology_types</span> <span class="o">=</span> <span class="n">technologies</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sequencing_technology</span><span class="p">]</span>
+        <span class="n">technology_code</span> <span class="o">=</span> <span class="n">technology_types</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">technology_type</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">+=</span> <span class="n">technology_code</span> <span class="o">+</span> <span class="s">&#39;-&#39;</span>
+
+        <span class="c"># ``S100`` read_length and read_type section.</span>
+        <span class="n">read_type_code</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INT_ID_READ_TYPE</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">read_type</span><span class="p">]</span>
+        <span class="n">read_lentgh_code</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INT_ID_READ_LENGTH</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">read_length</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">+=</span> <span class="n">read_type_code</span> <span class="o">+</span> <span class="n">read_lentgh_code</span> <span class="o">+</span> <span class="s">&#39;-&#39;</span>
+
+        <span class="c"># ``X10`` platform section.</span>
+        <span class="n">platform_code</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INT_ID_PLATFORM</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sequencing_platform</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">+=</span> <span class="n">platform_code</span> <span class="o">+</span> <span class="s">&#39;-&#39;</span>
+
+        <span class="c"># ``CMO`` sequencing center section.</span>
+        <span class="n">center_code</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">INT_ID_CENTER</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sequencing_center</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">+=</span> <span class="n">center_code</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Juan Medina.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

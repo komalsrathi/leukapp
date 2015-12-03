@@ -145,7 +145,7 @@
 <span class="kn">from</span> <span class="nn">leukapp.apps.leukforms.utils</span> <span class="kn">import</span> <span class="n">get_out_columns</span>
 
 <span class="c"># local</span>
-<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">CREATE_FIELDS</span><span class="p">,</span> <span class="n">LEUKAPP_FACTORIES</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">CREATE_FIELDS</span><span class="p">,</span> <span class="n">LEUKAPP_FACTORIES</span><span class="p">,</span> <span class="n">MODELS_LIST</span>
 
 
 <div class="viewcode-block" id="LeukformSamplesFactory"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory">[docs]</a><span class="k">class</span> <span class="nc">LeukformSamplesFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -179,23 +179,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_row</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c"># created instances</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;Individual&#39;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s">&#39;Specimen&#39;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s">&#39;Aliquot&#39;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s">&#39;Extraction&#39;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">MODELS_LIST</span><span class="p">}</span>
 
         <span class="c"># requested instances</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;Individual&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s">&#39;Specimen&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s">&#39;Aliquot&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s">&#39;Extraction&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="p">:</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">MODELS_LIST</span><span class="p">}</span>
 
-<div class="viewcode-block" id="LeukformSamplesFactory.create_batch"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_batch">[docs]</a>    <span class="k">def</span> <span class="nf">create_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individuals</span><span class="p">,</span> <span class="n">specimens</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">aliquots</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">extractions</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-            <span class="n">delete</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="LeukformSamplesFactory.create_batch"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory.create_batch">[docs]</a>    <span class="k">def</span> <span class="nf">create_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a batch of samples and returns them in a leukform format.</span>
 
@@ -218,27 +207,24 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            rows (list): a list of dictoaries ready to be submitted</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="s">&#39;Individual&#39;</span><span class="p">]:</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="s">&#39;Individual&#39;</span><span class="p">]:</span>  <span class="c"># reset instances</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_variables</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">request</span>
 
         <span class="k">if</span> <span class="n">slug</span><span class="p">:</span>  <span class="c"># if slug, instances won&#39;t be deleted, slugs will be returned</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span> <span class="o">=</span> <span class="bp">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_slug</span> <span class="o">=</span> <span class="n">slug</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">slug</span><span class="p">:</span>  <span class="c"># if not slug, delete will not be depreciated</span>
+        <span class="k">else</span><span class="p">:</span>     <span class="c"># if not slug, delete will not be deprecated</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span> <span class="o">=</span> <span class="n">delete</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_slug</span> <span class="o">=</span> <span class="n">slug</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;Individual&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">individuals</span><span class="p">),</span>
-            <span class="s">&#39;Specimen&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">specimens</span><span class="p">),</span>
-            <span class="s">&#39;Aliquot&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">aliquots</span><span class="p">),</span>
-            <span class="s">&#39;Extraction&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">extractions</span><span class="p">),</span>
-            <span class="p">}</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_instances</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>  <span class="c"># this will recursively delete all child istances</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">:</span>  <span class="c"># this will recursively delete all child istances</span>
+            <span class="k">try</span><span class="p">:</span>
                 <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="s">&#39;Individual&#39;</span><span class="p">]]</span>
             <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
                 <span class="k">pass</span>
@@ -293,9 +279,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_last</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">[</span><span class="s">&#39;Extraction&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">{</span><span class="s">&#39;specimen&#39;</span><span class="p">:</span> <span class="n">parent</span><span class="p">},</span> <span class="s">&#39;Extraction&#39;</span>
         <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s">&#39;Extraction&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_last</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">[</span><span class="s">&#39;Workflow&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s">&#39;aliquot&#39;</span><span class="p">:</span> <span class="n">parent</span><span class="p">},</span> <span class="s">&#39;Workflow&#39;</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s">&#39;Workflow&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_last</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="n">pl</span> <span class="o">=</span> <span class="s">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">projects</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-            <span class="k">return</span> <span class="p">{</span><span class="s">&#39;aliquot&#39;</span><span class="p">:</span> <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;projects_string&#39;</span><span class="p">:</span> <span class="n">pl</span><span class="p">},</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s">&#39;extraction&#39;</span><span class="p">:</span> <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;projects_string&#39;</span><span class="p">:</span> <span class="n">pl</span><span class="p">},</span> <span class="bp">None</span>
 </div>
 <div class="viewcode-block" id="LeukformSamplesFactory._write_row"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.factories.html#leukapp.apps.leukforms.factories.LeukformSamplesFactory._write_row">[docs]</a>    <span class="k">def</span> <span class="nf">_write_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -308,11 +297,14 @@
 <span class="sd">            model (str): name of instance&#39;s model</span>
 <span class="sd">            parent (Leukapp Instance): foreing key&#39;s object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">notused</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;individual&quot;</span><span class="p">,</span> <span class="s">&quot;specimen&quot;</span><span class="p">,</span> <span class="s">&quot;aliquot&quot;</span><span class="p">,</span> <span class="s">&quot;extraction&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slug</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_row</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_row</span><span class="p">[</span><span class="n">model</span> <span class="o">+</span> <span class="s">&#39;.slug&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">slug</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">CREATE_FIELDS</span><span class="p">[</span><span class="n">model</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">notused</span><span class="p">:</span>
+                    <span class="k">continue</span>
                 <span class="n">column</span> <span class="o">=</span> <span class="s">&quot;{0}.{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s">&#39;instance.{0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">field</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_row</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -351,7 +343,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="s">&quot;create rows first&quot;</span><span class="p">)</span>
 
-        <span class="n">keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="n">get_out_columns</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
         <span class="n">dict_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">keys</span><span class="p">)</span>
         <span class="n">dict_writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>

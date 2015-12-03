@@ -156,7 +156,7 @@ here.</p>
 
 <dl class="data">
 <dt id="leukapp.apps.extractions.constants.EXTRACTION_CREATE_FIELDS">
-<code class="descname">EXTRACTION_CREATE_FIELDS</code><em class="property"> = ('aliquot', 'platform', 'technology', 'center', 'ext_id', 'analyte', 'projects_string')</em><a class="headerlink" href="#leukapp.apps.extractions.constants.EXTRACTION_CREATE_FIELDS" title="Permalink to this definition">¶</a></dt>
+<code class="descname">EXTRACTION_CREATE_FIELDS</code><em class="property"> = ('aliquot', 'ext_id', 'analyte')</em><a class="headerlink" href="#leukapp.apps.extractions.constants.EXTRACTION_CREATE_FIELDS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fields required to create a new instance.</p>
 </dd></dl>
 
@@ -168,15 +168,8 @@ here.</p>
 
 <dl class="data">
 <dt id="leukapp.apps.extractions.constants.EXTRACTION_UNIQUE_TOGETHER">
-<code class="descname">EXTRACTION_UNIQUE_TOGETHER</code><em class="property"> = ()</em><a class="headerlink" href="#leukapp.apps.extractions.constants.EXTRACTION_UNIQUE_TOGETHER" title="Permalink to this definition">¶</a></dt>
+<code class="descname">EXTRACTION_UNIQUE_TOGETHER</code><em class="property"> = ('aliquot', 'ext_id')</em><a class="headerlink" href="#leukapp.apps.extractions.constants.EXTRACTION_UNIQUE_TOGETHER" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fields that are required to be unique together.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="leukapp.apps.extractions.constants.CENTER">
-<code class="descname">CENTER</code><em class="property"> = (('CMO', 'CMO'), ('NYGC', 'NYGC'), ('FOUNDATION', 'FOUNDATION'))</em><a class="headerlink" href="#leukapp.apps.extractions.constants.CENTER" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of value, verbose_name pairs for the
-<a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction.center" title="leukapp.apps.extractions.models.Extraction.center"><code class="xref py py-attr docutils literal"><span class="pre">center</span></code></a> attribute.</p>
 </dd></dl>
 
 <dl class="data">
@@ -187,35 +180,15 @@ here.</p>
 </dd></dl>
 
 <dl class="data">
-<dt id="leukapp.apps.extractions.constants.TECHNOLOGY">
-<code class="descname">TECHNOLOGY</code><em class="property"> = (('WHOLE-EXOME', 'WHOLE-EXOME'), ('WHOLE-GENOME', 'WHOLE-GENOME'), ('TARGETED-DNA', 'TARGETED-DNA'), ('RNA-SEQ', 'RNA-SEQ'), ('RNA-SEQ-CUSTOM', 'RNA-SEQ-CUSTOM'), ('RNA-SEQ-SINGLE-CELL', 'RNA-SEQ-SINGLE-CELL'), ('CHIP-SEQ', 'CHIP-SEQ'), ('ATAC-SEQ', 'ATAC-SEQ'), ('FOUNDATION', 'FOUNDATION'), ('RLP', 'RLP'))</em><a class="headerlink" href="#leukapp.apps.extractions.constants.TECHNOLOGY" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of <cite>(value, verbose name)</cite> pairs for the
-<a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction.technology" title="leukapp.apps.extractions.models.Extraction.technology"><code class="xref py py-attr docutils literal"><span class="pre">technology</span></code></a> attribute.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="leukapp.apps.extractions.constants.PLATFORM">
-<code class="descname">PLATFORM</code><em class="property"> = (('UNKNOWN', 'UNKNOWN'), ('HISEQ', 'HISEQ'), ('ILLUMINA-XTEN', 'ILLUMINA-XTEN'), ('AGILENT-50MB', 'AGILENT-50MB'), ('AGILENT-51MB', 'AGILENT-51MB'), ('PAIRED-END-50BP', 'PAIRED-END-50BP'), ('SINGLE-END-150BP', 'SINGLE-END-150BP'), ('HEMEPACT-V1', 'HEMEPACT-V1'), ('HEMEPACT-V2', 'HEMEPACT-V2'), ('HEMEPACT-V3', 'HEMEPACT-V3'), ('IMPACT-HEME', 'IMPACT-HEME'), ('IMPACT-300', 'IMPACT-300'), ('IMPACT-340', 'IMPACT-340'), ('IMPACT-CLINICAL', 'IMPACT-CLINICAL'), ('H3K4ME1', 'H3K4ME1'), ('H3K4ME3', 'H3K4ME3'), ('H3K4ME2', 'H3K4ME2'), ('H3K27AC', 'H3K27AC'), ('FOUNDATIONONE-HEME-PANEL', 'FOUNDATIONONE-HEME-PANEL'), ('FOUNDATIONONE-PANEL', 'FOUNDATIONONE-PANEL'))</em><a class="headerlink" href="#leukapp.apps.extractions.constants.PLATFORM" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of value, verbose_name pairs for the
-<a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction.platform" title="leukapp.apps.extractions.models.Extraction.platform"><code class="xref py py-attr docutils literal"><span class="pre">platform</span></code></a> attribute.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="leukapp.apps.extractions.constants.TECHNOLOGY_PLATFORM">
-<code class="descname">TECHNOLOGY_PLATFORM</code><em class="property"> = {'ATAC-SEQ': {'UNKNOWN': '10'}, 'WHOLE-EXOME': {'AGILENT-51MB': '2', 'AGILENT-50MB': '2'}, 'RNA-SEQ': {'PAIRED-END-50BP': '3', 'SINGLE-END-150BP': '3'}, 'TARGETED-DNA': {'IMPACT-HEME': '4', 'HEMEPACT-V1': '4', 'IMPACT-300': '5', 'IMPACT-CLINICAL': '5', 'IMPACT-340': '5', 'HEMEPACT-V3': '4', 'HEMEPACT-V2': '4'}, 'CHIP-SEQ': {'H3K4ME2': '6', 'H3K4ME3': '6', 'H3K27AC': '6', 'H3K4ME1': '6'}, 'RNA-SEQ-SINGLE-CELL': {'UNKNOWN': '11'}, 'RNA-SEQ-CUSTOM': {'UNKNOWN': '9'}, 'WHOLE-GENOME': {'HISEQ': '1', 'ILLUMINA-XTEN': '1'}, 'RLP': {'UNKNOWN': '8'}, 'FOUNDATION': {'FOUNDATIONONE-PANEL': '12', 'FOUNDATIONONE-HEME-PANEL': '12'}}</em><a class="headerlink" href="#leukapp.apps.extractions.constants.TECHNOLOGY_PLATFORM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Technology platform codes dictionary.</p>
-</dd></dl>
-
-<dl class="data">
 <dt id="leukapp.apps.extractions.constants.EXTRACTION_CHOICES">
-<code class="descname">EXTRACTION_CHOICES</code><em class="property"> = {'TECHNOLOGY': (('WHOLE-EXOME', 'WHOLE-EXOME'), ('WHOLE-GENOME', 'WHOLE-GENOME'), ('TARGETED-DNA', 'TARGETED-DNA'), ('RNA-SEQ', 'RNA-SEQ'), ('RNA-SEQ-CUSTOM', 'RNA-SEQ-CUSTOM'), ('RNA-SEQ-SINGLE-CELL', 'RNA-SEQ-SINGLE-CELL'), ('CHIP-SEQ', 'CHIP-SEQ'), ('ATAC-SEQ', 'ATAC-SEQ'), ('FOUNDATION', 'FOUNDATION'), ('RLP', 'RLP')), 'ANALYTE': (('DNA', 'DNA'), ('RNA', 'RNA')), 'CENTER': (('CMO', 'CMO'), ('NYGC', 'NYGC'), ('FOUNDATION', 'FOUNDATION')), 'PLATFORM': (('UNKNOWN', 'UNKNOWN'), ('HISEQ', 'HISEQ'), ('ILLUMINA-XTEN', 'ILLUMINA-XTEN'), ('AGILENT-50MB', 'AGILENT-50MB'), ('AGILENT-51MB', 'AGILENT-51MB'), ('PAIRED-END-50BP', 'PAIRED-END-50BP'), ('SINGLE-END-150BP', 'SINGLE-END-150BP'), ('HEMEPACT-V1', 'HEMEPACT-V1'), ('HEMEPACT-V2', 'HEMEPACT-V2'), ('HEMEPACT-V3', 'HEMEPACT-V3'), ('IMPACT-HEME', 'IMPACT-HEME'), ('IMPACT-300', 'IMPACT-300'), ('IMPACT-340', 'IMPACT-340'), ('IMPACT-CLINICAL', 'IMPACT-CLINICAL'), ('H3K4ME1', 'H3K4ME1'), ('H3K4ME3', 'H3K4ME3'), ('H3K4ME2', 'H3K4ME2'), ('H3K27AC', 'H3K27AC'), ('FOUNDATIONONE-HEME-PANEL', 'FOUNDATIONONE-HEME-PANEL'), ('FOUNDATIONONE-PANEL', 'FOUNDATIONONE-PANEL'))}</em><a class="headerlink" href="#leukapp.apps.extractions.constants.EXTRACTION_CHOICES" title="Permalink to this definition">¶</a></dt>
+<code class="descname">EXTRACTION_CHOICES</code><em class="property"> = {'ANALYTE': (('DNA', 'DNA'), ('RNA', 'RNA'))}</em><a class="headerlink" href="#leukapp.apps.extractions.constants.EXTRACTION_CHOICES" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary including all
 <code class="xref py py-class docutils literal"><span class="pre">Extraction's</span></code> choices.</p>
 </dd></dl>
 
 <dl class="data">
-<dt id="leukapp.apps.extractions.constants.LEUKID_ANALYTE">
-<code class="descname">LEUKID_ANALYTE</code><em class="property"> = {'RNA': 'R', 'DNA': 'D'}</em><a class="headerlink" href="#leukapp.apps.extractions.constants.LEUKID_ANALYTE" title="Permalink to this definition">¶</a></dt>
+<dt id="leukapp.apps.extractions.constants.INT_ID_ANALYTE">
+<code class="descname">INT_ID_ANALYTE</code><em class="property"> = {'DNA': 'D', 'RNA': 'R'}</em><a class="headerlink" href="#leukapp.apps.extractions.constants.INT_ID_ANALYTE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Characters used in the <strong>leukid</strong> to describe the <cite>Extraction&#8217;s</cite>
 <a class="reference internal" href="leukapp.apps.extractions.models.html#leukapp.apps.extractions.models.Extraction.analyte" title="leukapp.apps.extractions.models.Extraction.analyte"><code class="xref py py-attr docutils literal"><span class="pre">analyte</span></code></a> attribute.</p>
 </dd></dl>

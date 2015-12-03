@@ -27,8 +27,6 @@ Leukid
 .. .. section-numbering::
 
 
-:py:mod:`~leukapp.apps.extractions`
-
 Introduction
 ------------
 

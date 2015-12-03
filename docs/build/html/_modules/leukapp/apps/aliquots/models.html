@@ -130,6 +130,15 @@
   <h1>Source code for leukapp.apps.aliquots.models</h1><div class="highlight"><pre>
 <span class="c"># -*- coding: utf-8 -*-</span>
 
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Models and database schemas for the :mod:`~leukapp.apps.aliquots` application.</span>
+
+<span class="sd">See `Django&#39;s Model Documentation`_ for more information.</span>
+
+<span class="sd">.. _Django&#39;s Model Documentation:</span>
+<span class="sd">    https://docs.djangoproject.com/en/1.9/topics/db/models/</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
 <span class="c"># django imports</span>
 <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
 <span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
@@ -146,87 +155,170 @@
 <div class="viewcode-block" id="Aliquot"><a class="viewcode-back" href="../../../../py/leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot">[docs]</a><span class="k">class</span> <span class="nc">Aliquot</span><span class="p">(</span><span class="n">LeukappModel</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    requirements: https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=288765627</span>
-<span class="sd">    https://docs.djangoproject.com/en/1.9/topics/migrations/#postgresql</span>
+<span class="sd">    :class:`Specimen&#39;s &lt;leukapp.apps.aliquots.models.Specimen&gt;` sub-collections</span>
+<span class="sd">    stored in separated tubes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c">#: Name of the application where :class:`Aliquot` is contained.</span>
     <span class="n">APP_NAME</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
-    <span class="n">CHOICES</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">ALIQUOT_CHOICES</span>
 
-    <span class="c"># external fields</span>
+    <span class="c"># EXTERNAL FIELDS</span>
+    <span class="c"># =========================================================================</span>
     <span class="n">specimen</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
         <span class="n">Specimen</span><span class="p">,</span>
         <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;specimen&quot;</span><span class="p">),</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    `ForeignKey`_ to the :class:`~leukapp.apps.specimens.models.Specimen`</span>
+<span class="sd">    model.</span>
+
+<span class="sd">    .. _ForeignKey: https://docs.djangoproject.com/en/1.8/topics/db/examples/many_to_one/#many-to-one-relationships</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">ext_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;external id&quot;</span><span class="p">),</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;external id&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">ext_id_validator</span><span class="p">],</span>
         <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;The external id should be unique at the Specimen level.&quot;</span><span class="p">),</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ID used by the ``Institution`` or ``Scientist`` to track the</span>
+<span class="sd">    :class:`.Aliquot`.</span>
 
-    <span class="c"># internal fields</span>
+<span class="sd">    The default value is :data:`~leukapp.apps.core.constants.UNKNOWN`</span>
+<span class="sd">    because it&#39;s likely that scientist don&#39;t know this ID.</span>
+
+<span class="sd">    .. important: Only one ``UNKNOWN`` :class:`Aliquot` is allowed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># INTERNAL FIELDS</span>
+    <span class="c"># =========================================================================</span>
+    <span class="n">dna_extractions_count</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;number of extractions created&quot;</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Count of ``DNA``</span>
+<span class="sd">    :class:`Extractions &lt;leukapp.apps.extractions.models.Extraction&gt;`</span>
+<span class="sd">    associated with the ``Aliquot``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">rna_extractions_count</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;number of extractions created&quot;</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Count of ``RNA``</span>
+<span class="sd">    :class:`Extractions &lt;leukapp.apps.extractions.models.Extraction&gt;`</span>
+<span class="sd">    associated with the ``Aliquot``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">int_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;internal id&quot;</span><span class="p">),</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;internal id&quot;</span><span class="p">),</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="n">dna_extractions_count</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;number of extractions created&quot;</span><span class="p">),</span>
-        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="n">rna_extractions_count</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;number of extractions created&quot;</span><span class="p">),</span>
-        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Internal ID used to describe the :class:`Aliquot` instance.</span>
+
+<span class="sd">    This value is generated by :meth:`_get_int_id` and it includes crucial</span>
+<span class="sd">    information (e.g. ``1``).</span>
+
+<span class="sd">    * ``1`` indicates that the current :class:`Aliquot` is the first</span>
+<span class="sd">      **tube** used for the from the parent class</span>
+<span class="sd">      :class:`~leukapp.apps.specimens.models.Specimen`.</span>
+
+<span class="sd">    .. important:</span>
+<span class="sd">        The :attr:`int_id` is generated only once. If there was a mistake a new</span>
+<span class="sd">        :class:`Aliquot` instance must be created.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="p">(</span>
-        <span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&quot;slug&quot;</span><span class="p">),</span>
         <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :class:`Aliquot&#39;s &lt;.Aliquot&gt;` unique identifier (**leukid**).</span>
 
+<span class="sd">    The :attr:`int_id` is added to the ``Specimen.slug`` to generate the</span>
+<span class="sd">    Aliquot&#39;s :attr:`slug`.</span>
+
+<span class="sd">    .. important:</span>
+<span class="sd">        As the :attr:`int_id`, the :attr:`slug` is generated only once. If</span>
+<span class="sd">        there was a mistake a new :class:`Aliquot` instance must be created.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># META CLASS</span>
+    <span class="c"># =========================================================================</span>
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span><span class="p">)</span>
         <span class="n">unique_together</span> <span class="o">=</span> <span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">ALIQUOT_UNIQUE_TOGETHER</span><span class="p">)</span>
         <span class="n">index_together</span> <span class="o">=</span> <span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">ALIQUOT_UNIQUE_TOGETHER</span><span class="p">)</span>
 
+    <span class="c"># PUBLIC METHODS</span>
+    <span class="c"># =========================================================================</span>
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the :attr:`slug` when ``str`` is requested.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
 
+    <span class="c"># PRIVATE METHODS</span>
+    <span class="c"># =========================================================================</span>
 <div class="viewcode-block" id="Aliquot._if_new"><a class="viewcode-back" href="../../../../py/leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot._if_new">[docs]</a>    <span class="k">def</span> <span class="nf">_if_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; _if_new is executed the first time the object is created &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; .. currentmodule:: leukapp.apps.core</span>
+<span class="sd">        Executed only when the object is created.</span>
 
-        <span class="c"># This function can only be called from save()</span>
+<span class="sd">        .. note:</span>
+<span class="sd">            This method can only be called from</span>
+<span class="sd">            :meth:`~models.LeukappModel.save` and is protected by</span>
+<span class="sd">            :meth:`~models.LeukappModel._check_if_caller_is_save`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
-
-        <span class="c"># get internal id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_get_int_id</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="Aliquot._if_save"><a class="viewcode-back" href="../../../../py/leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot._if_save">[docs]</a>    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; _if_save is always excecuted when saving &quot;&quot;&quot;</span>
-
-        <span class="c"># This function can only be called from save()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
-
-        <span class="c"># update object slug</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">specimen</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span><span class="p">])</span>
 </div>
-<div class="viewcode-block" id="Aliquot._get_int_id"><a class="viewcode-back" href="../../../../py/leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot._get_int_id">[docs]</a>    <span class="k">def</span> <span class="nf">_get_int_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; return int_id based on count of Aliquots per Specimen &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Aliquot._if_save"><a class="viewcode-back" href="../../../../py/leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot._if_save">[docs]</a>    <span class="k">def</span> <span class="nf">_if_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; .. currentmodule:: leukapp.apps.core</span>
+<span class="sd">        Executed everytime the object is saved.</span>
 
-        <span class="c"># This function can only be called from _if_new()</span>
+<span class="sd">        .. note:</span>
+<span class="sd">            This method can only be called from</span>
+<span class="sd">            :meth:`~models.LeukappModel.save` and is protected by</span>
+<span class="sd">            :meth:`~models.LeukappModel._check_if_caller_is_save`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_save</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Aliquot._get_int_id"><a class="viewcode-back" href="../../../../py/leukapp.apps.aliquots.models.html#leukapp.apps.aliquots.models.Aliquot._get_int_id">[docs]</a>    <span class="k">def</span> <span class="nf">_get_int_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the :attr:`int_id`.</span>
+
+<span class="sd">        The :attr:`int_id` generation is based on a count of ``Aliquots`` per</span>
+<span class="sd">        :class:`~leukapp.apps.specimens.models.Specimen`.</span>
+
+<span class="sd">        Steps:</span>
+
+<span class="sd">            * Check if the caller function is :meth:`_if_new()`.</span>
+<span class="sd">            * Updates the ``aliquots`` count per ``Specimen`` and saves the</span>
+<span class="sd">              Parent class.</span>
+
+<span class="sd">        .. note:</span>
+<span class="sd">            This method can only be called from</span>
+<span class="sd">            :meth:`_if_new` and is protected by</span>
+<span class="sd">            :meth:`~leukapp.apps.core.models.LeukappModel._check_if_caller_is_if_new`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_caller_is_if_new</span><span class="p">()</span>
 
-        <span class="c"># get internal id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">specimen</span><span class="o">.</span><span class="n">aliquots_count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">int_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">specimen</span><span class="o">.</span><span class="n">aliquots_count</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">specimen</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>

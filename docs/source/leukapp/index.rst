@@ -1,10 +1,11 @@
-.. leukapp documentation master file, created by
-   sphinx-quickstart.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+..
+    leukapp documentation master file, created by
+    sphinx-quickstart.
+    You can adapt this file completely to your liking, but it should at least
+    contain the root `toctree` directive.
 
 Welcome to leukapp's documentation!
-====================================================================
+===================================
 
 Contents:
 
@@ -12,4 +13,4 @@ Contents:
     :maxdepth: 3
     :glob:
 
-    leukid
+    Technology Codes <technology_codes>

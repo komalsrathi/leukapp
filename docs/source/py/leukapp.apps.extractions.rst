@@ -16,6 +16,5 @@ Submodules
    leukapp.apps.extractions.factories
    leukapp.apps.extractions.models
    leukapp.apps.extractions.urls
-   leukapp.apps.extractions.validators
    leukapp.apps.extractions.views
 
