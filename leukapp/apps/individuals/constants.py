@@ -68,13 +68,11 @@ HUMAN = 'HUMAN'
 MOUSE = 'MOUSE'
 YEAST = 'YEAST'
 ZEBRAFISH = 'ZEBRAFISH'
-XENOGRAFT = 'XENOGRAFT'
 SPECIES = (
     (HUMAN, HUMAN),
     (MOUSE, MOUSE),
     (YEAST, YEAST),
     (ZEBRAFISH, ZEBRAFISH),
-    (XENOGRAFT, XENOGRAFT),
     )
 """
 List of value, verbose_name pairs for the
@@ -104,7 +102,6 @@ INT_ID_SPECIES = {
     MOUSE: 'M',
     YEAST: 'Y',
     ZEBRAFISH: 'Z',
-    XENOGRAFT: 'X',
     }
 """
 Characters used in the **leukid** to describe the `Individual's`
