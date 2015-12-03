@@ -23,10 +23,8 @@ def projects_string_validator(projects_string):
     """
     Validates that the :attr:`projects_string` has the correct format.
     """
-
     if not projects_string:
         return True
-
     try:
         [int(e) for e in projects_string.split("|")]
     except Exception:
@@ -36,26 +34,23 @@ def projects_string_validator(projects_string):
     return True
 
 
-def technology_validator(analyte, technology):
+def technology_type_validator(analyte, sequencing_technology, technology_type):
     """
-    Validates whether or not the technology-analyte combination is valid.
-    """
+    Validates the analyte/technology/technology_type combination.
 
-    if technology not in constants.INT_ID_TECHNOLOGY[analyte]:
-        msg = _("Invalid technology.")
-        raise ValidationError(msg, code='invalid')
-
-    return True
-
-
-def technology_type_validator(analyte, technology, technology_type):
-    """
-    Validates whether or not the technology-platform combination is valid.
+    :param str analyte: :data:`~leukapp.apps.extractions.constants.ANALYTE`
+    :param str sequencing_technology: :data:`~.constants.SEQUENCING_TECHNOLOGY`
+    :param str technology_type: :data:`~.constants.TECHNOLOGY_TYPE`
     """
 
-    if technology_type not in constants.INT_ID_TECHNOLOGY[analyte][technology]:
-        msg = _("Invalid technology-platform combination.")
-        raise ValidationError(msg, code='invalid')
+    if sequencing_technology not in constants.INT_ID_TECHNOLOGY[analyte]:
+        msg = _("Invalid analyte/sequencing_technology combination.")
+        raise ValidationError(msg, code='invalid_technology')
+
+    types = constants.INT_ID_TECHNOLOGY[analyte][sequencing_technology]
+    if technology_type not in types:
+        msg = _("Invalid sequencing_technology/technology_type combination.")
+        raise ValidationError(msg, code='invalid_technology_type')
 
     return True
 

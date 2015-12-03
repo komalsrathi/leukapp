@@ -8,6 +8,9 @@ Tests for the `workflows` application `validators`.
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 
+# leukapp
+from leukapp.apps.extractions.constants import DNA, RNA
+
 # local
 from .. import constants
 from .. import validators
@@ -37,24 +40,49 @@ class WorkflowsValidatorsTest(TestCase):
             with self.assertRaises(ValidationError):
                 v(string)
 
-'''
-    def test_technology_platform_validator_valid(self):
+    def test_technology_type_validator_return_true(self):
         """
-        `technology_type_validator` must return True for valid
-        combinations.
+        Valid analyte/technology/technology_type combination must return True.
         """
         v = validators.technology_type_validator
-        for technology in constants.TECHNOLOGY_PLATFORM:
-            for platform in constants.TECHNOLOGY_PLATFORM[technology]:
-                self.assertTrue(v(technology=technology, platform=platform))
+        for analyte in constants.INT_ID_TECHNOLOGY:
+            technologies = constants.INT_ID_TECHNOLOGY[analyte]
+            for sequencing_technology in technologies:
+                types = technologies[sequencing_technology]
+                for technology_type in types:
+                    validate = v(
+                        analyte=analyte,
+                        sequencing_technology=sequencing_technology,
+                        technology_type=technology_type,
+                        )
+                    self.assertTrue(validate)
 
-    def test_technology_platform_validator_invalid(self):
+    def test_technology_type_validator_return_false(self):
         """
-        `technology_type_validator` must raise error for invalid
-        combinations.
+        Invalid analyte/technology/technology_type combination return False.
         """
         v = validators.technology_type_validator
-        for technology in constants.TECHNOLOGY_PLATFORM:
-            with self.assertRaises(ValidationError):
-                v(technology=technology, platform='INVALIDPLATFORM')
-'''
+
+        technologies = constants.INT_ID_TECHNOLOGY[DNA]
+        for sequencing_technology in technologies:
+            types = technologies[sequencing_technology]
+            for technology_type in types:
+                with self.assertRaises(ValidationError):
+                    v(
+                        analyte=RNA,
+                        sequencing_technology=sequencing_technology,
+                        technology_type=technology_type,
+                        )
+
+        v = validators.technology_type_validator
+        for analyte in constants.INT_ID_TECHNOLOGY:
+            technologies = constants.INT_ID_TECHNOLOGY[analyte]
+            for sequencing_technology in technologies:
+                types = technologies[sequencing_technology]
+                for technology_type in types:
+                    with self.assertRaises(ValidationError):
+                        v(
+                            analyte=analyte,
+                            sequencing_technology=sequencing_technology,
+                            technology_type="JUAN",
+                            )
