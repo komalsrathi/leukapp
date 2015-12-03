@@ -131,7 +131,7 @@ class Specimen(LeukappModel):
     * ``T1`` indicates that the current :class:`Specimen` is the first
       **TUMOR** extracted from the parent class
       :class:`~leukapp.apps.individuals.models.Individual`. The letter is
-      assigned according the :data:`~.constants.LEUKID_SOURCE_TYPE` variable.
+      assigned according the :data:`~.constants.INT_ID_SOURCE_TYPE` variable.
 
     .. important:
         The :attr:`int_id` is generated only once. If there was a mistake a new
@@ -218,7 +218,7 @@ class Specimen(LeukappModel):
         """
         self._check_if_caller_is_if_new()
 
-        source_type_id = constants.LEUKID_SOURCE_TYPE[self.source_type]
+        source_type_id = constants.INT_ID_SOURCE_TYPE[self.source_type]
         if self.source_type == constants.TUMOR:
             self.individual.tumors_count += 1
             self.int_id = source_type_id + str(self.individual.tumors_count)

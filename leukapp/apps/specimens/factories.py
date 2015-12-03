@@ -22,6 +22,6 @@ class SpecimenFactory(factory.django.DjangoModelFactory):
         django_get_or_create = constants.SPECIMEN_UNIQUE_TOGETHER
 
     individual = factory.SubFactory(IndividualFactory)
-    source = FuzzyChoice(constants.SOURCE_VALUE)
-    source_type = FuzzyChoice(constants.SOURCE_TYPE_VALUE)
+    source = FuzzyChoice([e[0] for e in constants.SOURCE])
+    source_type = FuzzyChoice([e[0] for e in constants.SOURCE_TYPE])
     ext_id = FuzzyText(length=12, chars=string.hexdigits)

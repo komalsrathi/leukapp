@@ -48,6 +48,10 @@ SPECIMEN_UNIQUE_TOGETHER = (
 
 # CHOICES
 # =============================================================================
+
+# SOURCE
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 BLOOD = 'BLOOD'
 NAILS = 'NAILS'
 BUCCAL = 'BUCCAL'
@@ -65,11 +69,8 @@ List of value, verbose_name pairs for the
 :attr:`~leukapp.apps.specimens.models.Specimen.source` attribute.
 """
 
-SOURCE_VALUE = [s[0] for s in SOURCE]
-"""
-Values for the :attr:`~leukapp.apps.specimens.models.Specimen.source`
-attribute.
-"""
+# SOURCE TYPE
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 TUMOR = 'TUMOR'
 NORMAL = 'NORMAL'
@@ -82,11 +83,8 @@ List of value, verbose_name pairs for the
 :attr:`~leukapp.apps.specimens.models.Specimen.source_type` attribute.
 """
 
-SOURCE_TYPE_VALUE = [s[0] for s in SOURCE_TYPE]
-"""
-Values for the :attr:`~leukapp.apps.specimens.models.Specimen.source_type`
-attribute.
-"""
+# ALL CHOICES
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 SPECIMEN_CHOICES = {
     "SOURCE": SOURCE,
@@ -97,7 +95,13 @@ Dictionary including all
 :class:`Specimen's <~leukapp.apps.specimens.models.Specimen>` choices.
 """
 
-LEUKID_SOURCE_TYPE = {
+# INTERNAL ID CHARACTERS
+# =============================================================================
+
+# SOURCE TYPE
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+INT_ID_SOURCE_TYPE = {
     TUMOR: 'T',
     NORMAL: 'N',
     }

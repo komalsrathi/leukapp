@@ -58,9 +58,9 @@ class SpecimenModelTest(TestCase):
         i = IndividualFactory()
         st = SpecimenFactory(individual=i, source_type=constants.TUMOR)
         sn = SpecimenFactory(individual=i, source_type=constants.NORMAL)
-        st_int_id = constants.LEUKID_SOURCE_TYPE[constants.TUMOR]
+        st_int_id = constants.INT_ID_SOURCE_TYPE[constants.TUMOR]
         st_int_id += str(i.tumors_count)
-        sn_int_id = constants.LEUKID_SOURCE_TYPE[constants.NORMAL]
+        sn_int_id = constants.INT_ID_SOURCE_TYPE[constants.NORMAL]
         sn_int_id += str(i.normals_count)
         self.assertEqual(st.int_id, st_int_id)
         self.assertEqual(sn.int_id, sn_int_id)
