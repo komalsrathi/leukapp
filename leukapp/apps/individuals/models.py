@@ -115,7 +115,7 @@ class Individual(LeukappModel):
     * ``100000`` indicates the :class:`Indiviual` primary key in the
       :mod:`leukapp` system.
     * ``H`` indicates the species of the :class:`Indiviual` following the
-      character assignment described in :data:`~.constants.LEUKID_SPECIES`
+      character assignment described in :data:`~.constants.INT_ID_SPECIES`
 
     .. important:
         The :attr:`int_id` is generated only once. If there was a mistake a new
@@ -206,7 +206,7 @@ class Individual(LeukappModel):
         """
         self._check_if_caller_is_if_new()
 
-        species_id = constants.LEUKID_SPECIES[self.species]
+        species_id = constants.INT_ID_SPECIES[self.species]
         institution_id = self.check_institution()
         to_join = [institution_id, species_id, str(self.pk)]
         self.int_id = "-".join(to_join)

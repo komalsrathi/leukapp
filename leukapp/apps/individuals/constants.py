@@ -46,6 +46,10 @@ INDIVIDUAL_UNIQUE_TOGETHER = (
 
 # CHOICES
 # =============================================================================
+
+# INSTITUTION
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 MSK = 'MSK'
 OTHER = 'OTHER'
 INSTITUTION = (
@@ -57,11 +61,8 @@ List of value, verbose_name pairs for the
 :attr:`~leukapp.apps.individuals.models.Individual.institution` attribute.
 """
 
-INSTITUTION_VALUE = [s[0] for s in INSTITUTION]
-"""
-Values for the :attr:`~leukapp.apps.individuals.models.Individual.institution`
-attribute.
-"""
+# SPECIES
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 HUMAN = 'HUMAN'
 MOUSE = 'MOUSE'
@@ -80,11 +81,8 @@ List of value, verbose_name pairs for the
 :attr:`~leukapp.apps.individuals.models.Individual.species` attribute.
 """
 
-SPECIES_VALUE = [i[0] for i in SPECIES]
-"""
-Values for the :attr:`~leukapp.apps.individuals.models.Individual.species`
-attribute.
-"""
+# ALL CHOICES
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 INDIVIDUAL_CHOICES = {
     "INSTITUTION": INSTITUTION,
@@ -95,7 +93,13 @@ Dictionary including all
 :class:`Individual's <~leukapp.apps.individuals.models.Individual>` choices.
 """
 
-LEUKID_SPECIES = {
+# INTERNAL ID CHARACTERS
+# =============================================================================
+
+# SPECIES
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+INT_ID_SPECIES = {
     HUMAN: 'H',
     MOUSE: 'M',
     YEAST: 'Y',

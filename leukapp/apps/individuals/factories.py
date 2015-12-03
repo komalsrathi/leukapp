@@ -18,6 +18,6 @@ class IndividualFactory(factory.django.DjangoModelFactory):
         model = Individual
         django_get_or_create = constants.INDIVIDUAL_UNIQUE_TOGETHER
 
-    institution = FuzzyChoice(constants.INSTITUTION_VALUE)
-    species = FuzzyChoice(constants.SPECIES_VALUE)
+    institution = FuzzyChoice([e[0] for e in constants.INSTITUTION])
+    species = FuzzyChoice([e[0] for e in constants.SPECIES])
     ext_id = FuzzyText(length=12, chars=string.hexdigits)

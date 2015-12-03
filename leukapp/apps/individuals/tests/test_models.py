@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 
 # local
 from ..models import Individual
-from ..constants import APP_NAME, MSK, HUMAN, OTHER, LEUKID_SPECIES
+from ..constants import APP_NAME, MSK, HUMAN, OTHER, INT_ID_SPECIES
 from ..factories import IndividualFactory
 
 
@@ -37,7 +37,7 @@ class IndividualModelTest(TestCase):
 
     def test_int_id_returns_expected_value(self):
         i = IndividualFactory(institution=MSK)
-        species = LEUKID_SPECIES[i.species]
+        species = INT_ID_SPECIES[i.species]
         int_id = "-".join([i.check_institution(), species, str(i.pk)])
         self.assertEqual(i.int_id, int_id)
 
