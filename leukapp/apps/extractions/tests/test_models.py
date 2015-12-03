@@ -80,9 +80,9 @@ class ExtractionsModelTest(TestCase):
         a = AliquotFactory()
         rdna = ExtractionFactory(aliquot=a, analyte=constants.DNA)
         rrna = ExtractionFactory(aliquot=a, analyte=constants.RNA)
-        rdna_int_id = constants.LEUKID_ANALYTE[rdna.analyte]
+        rdna_int_id = constants.INT_ID_ANALYTE[rdna.analyte]
         rdna_int_id += str(a.dna_extractions_count)
-        rrna_int_id = constants.LEUKID_ANALYTE[rrna.analyte]
+        rrna_int_id = constants.INT_ID_ANALYTE[rrna.analyte]
         rrna_int_id += str(a.rna_extractions_count)
         self.assertEqual(rdna.int_id, rdna_int_id)
         self.assertEqual(rrna.int_id, rrna_int_id)

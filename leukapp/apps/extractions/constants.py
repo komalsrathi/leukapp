@@ -68,9 +68,12 @@ Dictionary including all
 :class:`Extraction's <~leukapp.apps.extractions.models.Extraction>` choices.
 """
 
-# LEUKID ANALYTE CHARACTERS
+# INTERNAL ID CHARACTERS
+# =============================================================================
+
+# ANALYTE CHARACTERS
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-LEUKID_ANALYTE = {
+INT_ID_ANALYTE = {
     DNA: 'D',
     RNA: 'R',
     }

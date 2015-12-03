@@ -85,6 +85,17 @@ class Extraction(LeukappModel):
 
     # INTERNAL FIELDS
     # =========================================================================
+    workflows_count = models.PositiveSmallIntegerField(
+        verbose_name=_("number of extractions created"),
+        default=0,
+        editable=False,
+        null=True,
+        )
+    """
+    Count of :class:`Workflows <leukapp.apps.workflows.models.Workflow>`
+    associated with the ``Extraction``.
+    """
+
     int_id = models.CharField(
         verbose_name=_("internal ID"),
         max_length=100,
@@ -187,11 +198,11 @@ class Extraction(LeukappModel):
 
         if self.analyte == constants.DNA:
             self.aliquot.dna_extractions_count += 1
-            self.int_id = constants.LEUKID_ANALYTE[self.analyte]
+            self.int_id = constants.INT_ID_ANALYTE[self.analyte]
             self.int_id += str(self.aliquot.dna_extractions_count)
         elif self.analyte == constants.RNA:
             self.aliquot.rna_extractions_count += 1
-            self.int_id = constants.LEUKID_ANALYTE[self.analyte]
+            self.int_id = constants.INT_ID_ANALYTE[self.analyte]
             self.int_id += str(self.aliquot.rna_extractions_count)
         self.aliquot.save()
 

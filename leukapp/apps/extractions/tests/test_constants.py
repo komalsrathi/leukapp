@@ -13,10 +13,10 @@ from .. import constants
 
 class ExtractionsConstantsTest(TestCase):
 
-    def test_all_analytes_must_be_in_LEUKID_ANALYTE(self):
+    def test_all_analytes_must_be_in_INT_ID_ANALYTE(self):
         """
         All analytes in ANALYTE must have a leukid character.
         """
         ANALYTE = [e[0] for e in constants.ANALYTE]
         for analyte in ANALYTE:
-            self.assertIn(analyte, constants.LEUKID_ANALYTE)
+            self.assertIn(analyte, constants.INT_ID_ANALYTE)
