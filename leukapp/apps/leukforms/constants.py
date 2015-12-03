@@ -18,18 +18,21 @@ from leukapp.apps.individuals.constants import INDIVIDUAL_UNIQUE_TOGETHER
 from leukapp.apps.specimens.constants import SPECIMEN_UNIQUE_TOGETHER
 from leukapp.apps.aliquots.constants import ALIQUOT_UNIQUE_TOGETHER
 from leukapp.apps.extractions.constants import EXTRACTION_UNIQUE_TOGETHER
+from leukapp.apps.workflows.constants import WORKFLOW_UNIQUE_TOGETHER
 
 # leukform fields
 from leukapp.apps.individuals.constants import INDIVIDUAL_CREATE_FIELDS
 from leukapp.apps.specimens.constants import SPECIMEN_CREATE_FIELDS
 from leukapp.apps.aliquots.constants import ALIQUOT_CREATE_FIELDS
 from leukapp.apps.extractions.constants import EXTRACTION_CREATE_FIELDS
+from leukapp.apps.workflows.constants import WORKFLOW_CREATE_FIELDS
 
 # leukapp models
 from leukapp.apps.individuals.models import Individual
 from leukapp.apps.specimens.models import Specimen
 from leukapp.apps.aliquots.models import Aliquot
 from leukapp.apps.extractions.models import Extraction
+from leukapp.apps.workflows.models import Workflow
 
 # leukapp factories
 from leukapp.apps.projects.factories import ProjectFactory
@@ -37,12 +40,14 @@ from leukapp.apps.individuals.factories import IndividualFactory
 from leukapp.apps.specimens.factories import SpecimenFactory
 from leukapp.apps.aliquots.factories import AliquotFactory
 from leukapp.apps.extractions.factories import ExtractionFactory
+from leukapp.apps.workflows.factories import WorkflowFactory
 
 # local
 from .forms import IndividualForm
 from .forms import SpecimenForm
 from .forms import AliquotForm
 from .forms import ExtractionForm
+from .forms import WorkflowForm
 
 # APP INFO
 # =============================================================================
@@ -81,6 +86,7 @@ CREATE_FIELDS = {
     'Specimen': SPECIMEN_CREATE_FIELDS,
     'Aliquot': ALIQUOT_CREATE_FIELDS,
     'Extraction': EXTRACTION_CREATE_FIELDS,
+    'Workflow': WORKFLOW_CREATE_FIELDS,
     }
 
 #: Dictionary including **unique together fields*** for `leukapp` apps models.
@@ -89,6 +95,7 @@ LEUKAPP_UNIQUE_TOGETHER = {
     'Specimen': SPECIMEN_UNIQUE_TOGETHER,
     'Aliquot': ALIQUOT_UNIQUE_TOGETHER,
     'Extraction': EXTRACTION_UNIQUE_TOGETHER,
+    'Workflow': WORKFLOW_UNIQUE_TOGETHER,
     }
 
 #: During submission, empty values are replaced for ``UNKNOWN`` for these cols.
@@ -96,14 +103,16 @@ UNKWOWN_ENABLED_COLUMNS = (
     'Specimen.ext_id',
     'Aliquot.ext_id',
     'Extraction.ext_id',
-    'Extraction.platform',
+    'Workflow.ext_id',
     )
 
 # MODELS
 # =============================================================================
 
 #: List of models names potentially used during a leukform submission.
-MODELS_LIST = ['Individual', 'Specimen', 'Aliquot', 'Extraction']
+MODELS_LIST = [
+    'Individual', 'Specimen', 'Aliquot', 'Extraction', 'Workflow',
+    ]
 
 #: Dictionary of model classes potentially used during a leukform submission.
 LEUKAPP_MODELS = {
@@ -111,6 +120,7 @@ LEUKAPP_MODELS = {
     'Specimen': Specimen,
     'Aliquot': Aliquot,
     'Extraction': Extraction,
+    'Workflow': Workflow,
     }
 
 # FACTORIES
@@ -123,6 +133,7 @@ LEUKAPP_FACTORIES = {
     'Aliquot': AliquotFactory,
     'Extraction': ExtractionFactory,
     'Project': ProjectFactory,
+    'Workflow': WorkflowFactory,
     }
 
 # FORMS
@@ -133,7 +144,8 @@ LEUKAPP_FORMS = {
     'Individual': IndividualForm,
     'Specimen': SpecimenForm,
     'Aliquot': AliquotForm,
-    'Extraction': ExtractionForm
+    'Extraction': ExtractionForm,
+    'Workflow': WorkflowForm,
     }
 
 # PERMISSIONS
