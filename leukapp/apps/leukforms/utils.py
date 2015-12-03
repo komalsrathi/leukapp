@@ -244,7 +244,7 @@ class LeukformLoader(object):
         instance, msg = None, None
         MODEL = constants.LEUKAPP_MODELS[model]
         FORM = constants.LEUKAPP_FORMS[model]
-        get_exceptions = (
+        exceptions = (
             MODEL.DoesNotExist,
             MODEL.MultipleObjectsReturned,
             KeyError,
@@ -271,7 +271,7 @@ class LeukformLoader(object):
                 instance = MODEL.objects.get(**search)
                 if instance not in self.added[model]:
                     self.existed[model].append(instance)
-            except get_exceptions:
+            except exceptions:
                 form = FORM(fields[model])
                 if form.is_valid():
                     msg = self.VALID_MESSAGE
@@ -299,6 +299,8 @@ class LeukformLoader(object):
             fields['Aliquot']['specimen'] = instance.pk
         elif model == 'Aliquot' and instance and ('Extraction' in fields):
             fields['Extraction']['aliquot'] = instance.pk
+        elif model == 'Extraction' and instance and ('Workflow' in fields):
+            fields['Workflow']['extraction'] = instance.pk
         return fields
 
     def _write_output(self, rows, columns, mock=False):
