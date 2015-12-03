@@ -60,7 +60,6 @@ NYGC = 'NYGC'
 FOUNDATION = 'FOUNDATION'
 ILLUMINA = 'ILLUMINA'
 SANGER = 'SANGER'
-OTHER = 'OTHER'
 
 CENTER = (
     (CMO, CMO),
@@ -68,7 +67,6 @@ CENTER = (
     (FOUNDATION, FOUNDATION),
     (ILLUMINA, ILLUMINA),
     (SANGER, SANGER),
-    (OTHER, OTHER),
     )
 """
 List of value, verbose_name pairs for the
@@ -114,7 +112,7 @@ AGILENT50MB = "AGILENT-50MB"
 AGILENT51MB = "AGILENT-51MB"
 
 # RNA-SEQ
-FULLTRANSCRIPT = 'FULLTRANSCRIPT'
+FULLTRANSCRIPT = "FULLTRANSCRIPT"
 THREEPRIMEEND = "3'END"
 
 # TARGETED DNA
@@ -314,7 +312,7 @@ INT_ID_TECHNOLOGY = {
 
     }
 """
-Technology platform codes dictionary.
+``Analyte/Technology/Technolgy Type`` codes dictionary.
 """
 
 # INTERNAL ID SEQUENCING CENTER
@@ -325,7 +323,6 @@ INT_ID_CENTER = {
     FOUNDATION: 'FNDTN',
     ILLUMINA: 'ILLMN',
     SANGER: 'SNGR',
-    OTHER: 'OTHER',
     }
 """
 Characters used in the **leukid** to describe the ``Workflow's``
