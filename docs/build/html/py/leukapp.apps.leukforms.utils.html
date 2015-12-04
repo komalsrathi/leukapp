@@ -138,6 +138,11 @@
 <dt id="leukapp.apps.leukforms.utils.LeukformLoader">
 <em class="property">class </em><code class="descname">LeukformLoader</code><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.utils.LeukformLoader.help">
+<code class="descname">help</code><em class="property"> = 'Gets create form fields for Individuals, Specimens and Aliquots'</em><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="leukapp.apps.leukforms.utils.LeukformLoader.submit">
 <code class="descname">submit</code><span class="sig-paren">(</span><em>filepath=None</em>, <em>rows=None</em>, <em>validate=True</em>, <em>mock=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader.submit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader.submit" title="Permalink to this definition">¶</a></dt>
@@ -153,117 +158,6 @@ validate (boolean): If validate, then the input is validated</dd>
 <dt>Raises:</dt>
 <dd>Exception: if neither filepath nor rows are provided; or if both.</dd>
 </dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._process_leukform">
-<code class="descname">_process_leukform</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._process_leukform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._process_leukform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process <cite>leukform</cite> from dictionary.
-Input: rows (list): csv.DictReader list of dictionaries
-Returns: json dictionary described in <cite>self._write_output()</cite></p>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._sort_rows">
-<code class="descname">_sort_rows</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._sort_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._sort_rows" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sorts rows based on <cite>Individual.ext_id</cite> and <cite>Specimen.order</cite>
-Input: rows (list): csv.DictReader list of dictionaries
-Returns: json dictionary described in <cite>self._write_output()</cite></p>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._clean_specimen_order_column">
-<code class="descname">_clean_specimen_order_column</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._clean_specimen_order_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._clean_specimen_order_column" title="Permalink to this definition">¶</a></dt>
-<dd><p>simply adds zeros when Specimen.order is blank</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._process_row">
-<code class="descname">_process_row</code><span class="sig-paren">(</span><em>row</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._process_row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._process_row" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process the current row.</p>
-<p>First, the leukform <cite>fields</cite> are obtained from <cite>row</cite> using
-<cite>_get_fields</cite>. Then, for each model in <cite>MODELS_LIST</cite>, an istance is
-<cite>get_or_created</cite> if the model is in <cite>fields</cite>. If the object is created
-or found, the fields are updated to add the parent foreing key.</p>
-<p>Input: row (dict): csv.DictReader type of dictionary
-Returns: row (dict): a processed row with its result and status</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._get_fields">
-<code class="descname">_get_fields</code><span class="sig-paren">(</span><em>row</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._get_fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._get_fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets <cite>fields</cite> from <cite>row</cite>. If the field is empty, is not added
-Input:</p>
-<blockquote>
-<div>row (dict): csv.DictReader type of dictionary</div></blockquote>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>fields (dict): a dict of dicts, first level models, then fields</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._alter_row_special_case">
-<code class="descname">_alter_row_special_case</code><span class="sig-paren">(</span><em>row</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._alter_row_special_case"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._alter_row_special_case" title="Permalink to this definition">¶</a></dt>
-<dd><p>Replace
-Test the case when only the Individual and/or Specimen ext_id are
-available. In this situation the leukform will be submitted with empty
-Specimen.ext_id and empty Aliquot.ext_id if only Individual.ext_id is
-available. Or, with empty Aliquot.ext_id if only the Individual and
-Specimen ext_id are available. Then, the empty fields will be set to 1.
-Input:</p>
-<blockquote>
-<div>row (dict): csv.DictReader type of dictionary</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._get_or_create">
-<code class="descname">_get_or_create</code><span class="sig-paren">(</span><em>model</em>, <em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._get_or_create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._get_or_create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets or creates an instance while collecting results data.
-Input:</p>
-<blockquote>
-<div>model (string): name of instance&#8217;s model
-fields (dict): a dict of dicts, first level models, then fields</div></blockquote>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>msj (str): json of errors and codes or string if existed or created
-instance (Leukapp Model): instance found or created</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._update_fields">
-<code class="descname">_update_fields</code><span class="sig-paren">(</span><em>model</em>, <em>fields</em>, <em>instance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._update_fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._update_fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates child fields after parent is found or created.
-Input Args:</p>
-<blockquote>
-<div>model (string): name of instance&#8217;s model
-fields (dict): a dict of dicts, first level models, then fields
-instance (Leukapp Model): instance found or created</div></blockquote>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>fields (dict): a dict of dicts, first level models, then fields</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._write_output">
-<code class="descname">_write_output</code><span class="sig-paren">(</span><em>rows</em>, <em>columns</em>, <em>mock=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._write_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._write_output" title="Permalink to this definition">¶</a></dt>
-<dd><p>NOTTESTED
-Process output dictionary including a csv results file</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._delete_added_models">
-<code class="descname">_delete_added_models</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._delete_added_models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._delete_added_models" title="Permalink to this definition">¶</a></dt>
-<dd><p>deletes current added models</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.leukforms.utils.LeukformLoader._write_summary">
-<code class="descname">_write_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/utils.html#LeukformLoader._write_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.utils.LeukformLoader._write_summary" title="Permalink to this definition">¶</a></dt>
-<dd><p>NOTTESTED
-writes out summary text</p>
 </dd></dl>
 
 </dd></dl>

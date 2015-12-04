@@ -3,7 +3,7 @@ leukapp.apps.individuals package
 
 .. automodule:: leukapp.apps.individuals
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:
 
 Submodules

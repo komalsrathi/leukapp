@@ -152,6 +152,11 @@ See: <a class="reference external" href="http://ccbv.co.uk/DetailView/">http://c
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Leukform</span></code></p>
 </dd></dl>
 
+<dl class="method">
+<dt id="leukapp.apps.leukforms.views.LeukformDetailView.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformDetailView.get_context_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformDetailView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -167,6 +172,21 @@ See: <a class="reference external" href="http://ccbv.co.uk/ListView/">http://ccb
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Leukform</span></code></p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformListView.paginate_by">
+<code class="descname">paginate_by</code><em class="property"> = 20</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformListView.paginate_by" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.views.LeukformListView.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformListView.get_context_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformListView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.views.LeukformListView.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformListView.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformListView.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -175,6 +195,16 @@ See: <a class="reference external" href="http://ccbv.co.uk/ListView/">http://ccb
 <dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
 <p>A view that provides a redirect on any GET request.
 See: <a class="reference external" href="http://ccbv.co.uk/RedirectView/">http://ccbv.co.uk/RedirectView/</a></p>
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformRedirectView.permanent">
+<code class="descname">permanent</code><em class="property"> = False</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformRedirectView.permanent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="leukapp.apps.leukforms.views.LeukformRedirectView.get_redirect_url">
+<code class="descname">get_redirect_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#LeukformRedirectView.get_redirect_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformRedirectView.get_redirect_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -188,6 +218,31 @@ See: <a class="reference external" href="http://ccbv.co.uk/CreateView/">http://c
 <code class="descname">model</code><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Leukform</span></code></p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.fields">
+<code class="descname">fields</code><em class="property"> = ('description', 'submission', 'mock')</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.succes_msg">
+<code class="descname">succes_msg</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.succes_msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = ('leukforms.add_leukform',)</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.permission_required" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.permission_denied_message">
+<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformCreateView.raise_exception">
+<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformCreateView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="leukapp.apps.leukforms.views.LeukformCreateView.form_valid">
@@ -209,6 +264,31 @@ See: <a class="reference external" href="http://ccbv.co.uk/UpdateView/">http://c
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Leukform</span></code></p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.fields">
+<code class="descname">fields</code><em class="property"> = ('description',)</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.succes_msg">
+<code class="descname">succes_msg</code><em class="property"> = 'Looking good'</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.succes_msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = ('leukforms.change_leukform',)</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.permission_required" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.permission_denied_message">
+<code class="descname">permission_denied_message</code><em class="property"> = &quot; You don't have permission to perform this action, please contact a\n    Leukgen Administrator. &quot;</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leukapp.apps.leukforms.views.LeukformUpdateView.raise_exception">
+<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#leukapp.apps.leukforms.views.LeukformUpdateView.raise_exception" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="function">
@@ -216,6 +296,11 @@ See: <a class="reference external" href="http://ccbv.co.uk/UpdateView/">http://c
 <code class="descname">download_result</code><span class="sig-paren">(</span><em>request</em>, <em>slug</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#download_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.download_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>FBV to download leukform results</p>
 </dd></dl>
+
+<dl class="function">
+<dt id="leukapp.apps.leukforms.views.get_item">
+<code class="descname">get_item</code><span class="sig-paren">(</span><em>dictionary</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/leukforms/views.html#get_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.leukforms.views.get_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 

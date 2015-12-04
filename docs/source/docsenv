@@ -1,0 +1,2 @@
+#!/bin/bash
+export SPHINX_APIDOC_OPTIONS=members,private-members,show-inheritance

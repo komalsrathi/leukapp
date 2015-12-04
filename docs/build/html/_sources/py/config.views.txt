@@ -3,5 +3,5 @@ config.views module
 
 .. automodule:: config.views
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:

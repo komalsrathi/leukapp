@@ -3,5 +3,5 @@ leukapp.apps.aliquots.factories module
 
 .. automodule:: leukapp.apps.aliquots.factories
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:

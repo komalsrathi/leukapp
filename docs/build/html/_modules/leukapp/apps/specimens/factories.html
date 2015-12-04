@@ -152,8 +152,8 @@
         <span class="n">django_get_or_create</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">SPECIMEN_UNIQUE_TOGETHER</span>
 
     <span class="n">individual</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">SubFactory</span><span class="p">(</span><span class="n">IndividualFactory</span><span class="p">)</span>
-    <span class="n">source</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">SOURCE_VALUE</span><span class="p">)</span>
-    <span class="n">source_type</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">SOURCE_TYPE_VALUE</span><span class="p">)</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">SOURCE</span><span class="p">])</span>
+    <span class="n">source_type</span> <span class="o">=</span> <span class="n">FuzzyChoice</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">SOURCE_TYPE</span><span class="p">])</span>
     <span class="n">ext_id</span> <span class="o">=</span> <span class="n">FuzzyText</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">hexdigits</span><span class="p">)</span></div>
 </pre></div>
 

@@ -3,7 +3,7 @@ deploy package
 
 .. automodule:: deploy
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:
 
 Submodules

@@ -159,10 +159,10 @@
     <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">modified</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="TimeStampedModel.Meta"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.TimeStampedModel.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">abstract</span> <span class="o">=</span> <span class="bp">True</span>
 
-</div>
+</div></div>
 <div class="viewcode-block" id="LeukappModel"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel">[docs]</a><span class="k">class</span> <span class="nc">LeukappModel</span><span class="p">(</span><span class="n">TimeStampedModel</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -174,11 +174,11 @@
 
     <span class="c"># META CLASS</span>
     <span class="c"># =========================================================================</span>
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="LeukappModel.Meta"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">abstract</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="c"># PUBLIC METHODS</span>
-    <span class="c"># =========================================================================</span>
+    <span class="c"># =========================================================================</span></div>
     <span class="nd">@transaction.atomic</span>
 <div class="viewcode-block" id="LeukappModel.save"><a class="viewcode-back" href="../../../../py/leukapp.apps.core.models.html#leukapp.apps.core.models.LeukappModel.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

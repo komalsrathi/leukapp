@@ -3,5 +3,5 @@ leukapp.apps.workflows.urls module
 
 .. automodule:: leukapp.apps.workflows.urls
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:

@@ -177,13 +177,13 @@
     <span class="n">model</span> <span class="o">=</span> <span class="n">Workflow</span>
     <span class="n">paginate_by</span> <span class="o">=</span> <span class="mi">20</span>
 
-    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowListView.get_context_data"><a class="viewcode-back" href="../../../../py/leukapp.apps.workflows.views.html#leukapp.apps.workflows.views.WorkflowListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">WorkflowListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">context</span><span class="p">[</span><span class="s">&#39;APP_NAME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">APP_NAME</span>
         <span class="n">context</span><span class="p">[</span><span class="s">&#39;CREATE_URL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_CREATE_URL</span>
         <span class="k">return</span> <span class="n">context</span>
 
-</div>
+</div></div>
 <div class="viewcode-block" id="WorkflowRedirectView"><a class="viewcode-back" href="../../../../py/leukapp.apps.workflows.views.html#leukapp.apps.workflows.views.WorkflowRedirectView">[docs]</a><span class="k">class</span> <span class="nc">WorkflowRedirectView</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>
                       <span class="n">generic</span><span class="o">.</span><span class="n">RedirectView</span><span class="p">):</span>
 
@@ -194,10 +194,10 @@
 
     <span class="n">permanent</span> <span class="o">=</span> <span class="bp">False</span>
 
-    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowRedirectView.get_redirect_url"><a class="viewcode-back" href="../../../../py/leukapp.apps.workflows.views.html#leukapp.apps.workflows.views.WorkflowRedirectView.get_redirect_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_redirect_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">WORKFLOW_LIST_URL</span><span class="p">)</span>
 
-</div>
+</div></div>
 <div class="viewcode-block" id="WorkflowCreateView"><a class="viewcode-back" href="../../../../py/leukapp.apps.workflows.views.html#leukapp.apps.workflows.views.WorkflowCreateView">[docs]</a><span class="k">class</span> <span class="nc">WorkflowCreateView</span><span class="p">(</span><span class="n">SuccessMessageMixin</span><span class="p">,</span>
                     <span class="n">mixins</span><span class="o">.</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span>
                     <span class="n">mixins</span><span class="o">.</span><span class="n">LoginRequiredMixin</span><span class="p">,</span>

@@ -3,5 +3,5 @@ leukapp.apps.participants.serializers module
 
 .. automodule:: leukapp.apps.participants.serializers
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:

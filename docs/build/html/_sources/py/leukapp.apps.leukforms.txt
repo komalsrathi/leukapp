@@ -3,7 +3,7 @@ leukapp.apps.leukforms package
 
 .. automodule:: leukapp.apps.leukforms
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:
 
 Subpackages

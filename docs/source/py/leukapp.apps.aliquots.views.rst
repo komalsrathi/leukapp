@@ -3,5 +3,5 @@ leukapp.apps.aliquots.views module
 
 .. automodule:: leukapp.apps.aliquots.views
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:

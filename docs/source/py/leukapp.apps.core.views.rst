@@ -3,5 +3,5 @@ leukapp.apps.core.views module
 
 .. automodule:: leukapp.apps.core.views
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:

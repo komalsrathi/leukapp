@@ -3,5 +3,5 @@ leukapp.apps.leukforms.forms module
 
 .. automodule:: leukapp.apps.leukforms.forms
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:

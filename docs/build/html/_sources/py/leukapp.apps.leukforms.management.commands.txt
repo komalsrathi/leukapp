@@ -3,7 +3,7 @@ leukapp.apps.leukforms.management.commands package
 
 .. automodule:: leukapp.apps.leukforms.management.commands
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:
 
 Submodules

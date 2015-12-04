@@ -3,5 +3,5 @@ config.urls module
 
 .. automodule:: config.urls
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:

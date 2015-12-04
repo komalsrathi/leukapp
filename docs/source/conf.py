@@ -34,10 +34,8 @@ env = environ.Env()
 try:
     env('SPHINX_APIDOC_OPTIONS')
 except Exception:
-    raise Exception(
-        "Please include SPHINX_APIDOC_OPTIONS in your environment (e.g. "
-        "SPHINX_APIDOC_OPTIONS=members,private-members,show-inheritance)"
-    )
+    pass
+
 
 # added to load django doc
 sys.path.append(env('PATH'))

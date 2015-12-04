@@ -3,5 +3,5 @@ leukapp.apps.individuals.factories module
 
 .. automodule:: leukapp.apps.individuals.factories
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:

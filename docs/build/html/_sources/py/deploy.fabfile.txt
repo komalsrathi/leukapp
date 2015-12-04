@@ -3,5 +3,5 @@ deploy.fabfile module
 
 .. automodule:: deploy.fabfile
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:

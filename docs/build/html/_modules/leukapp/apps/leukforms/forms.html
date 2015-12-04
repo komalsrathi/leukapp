@@ -133,15 +133,19 @@
 <span class="c"># django</span>
 <span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
 
-<span class="c"># leukapp</span>
+<span class="c"># leukapp create fields</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.individuals.constants</span> <span class="kn">import</span> <span class="n">INDIVIDUAL_CREATE_FIELDS</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.specimens.constants</span> <span class="kn">import</span> <span class="n">SPECIMEN_CREATE_FIELDS</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.aliquots.constants</span> <span class="kn">import</span> <span class="n">ALIQUOT_CREATE_FIELDS</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.extractions.constants</span> <span class="kn">import</span> <span class="n">EXTRACTION_CREATE_FIELDS</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.workflows.constants</span> <span class="kn">import</span> <span class="n">WORKFLOW_CREATE_FIELDS</span>
+
+<span class="c"># leukapp models</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.individuals.models</span> <span class="kn">import</span> <span class="n">Individual</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.specimens.models</span> <span class="kn">import</span> <span class="n">Specimen</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.aliquots.models</span> <span class="kn">import</span> <span class="n">Aliquot</span>
 <span class="kn">from</span> <span class="nn">leukapp.apps.extractions.models</span> <span class="kn">import</span> <span class="n">Extraction</span>
+<span class="kn">from</span> <span class="nn">leukapp.apps.workflows.models</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
 
 <div class="viewcode-block" id="IndividualForm"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.forms.html#leukapp.apps.leukforms.forms.IndividualForm">[docs]</a><span class="k">class</span> <span class="nc">IndividualForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
@@ -167,13 +171,16 @@
 </div></div>
 <div class="viewcode-block" id="ExtractionForm"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.forms.html#leukapp.apps.leukforms.forms.ExtractionForm">[docs]</a><span class="k">class</span> <span class="nc">ExtractionForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="nb">super</span><span class="p">(</span><span class="n">ExtractionForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s">&#39;projects_string&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">required</span> <span class="o">=</span> <span class="bp">True</span>
-
 <div class="viewcode-block" id="ExtractionForm.Meta"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.forms.html#leukapp.apps.leukforms.forms.ExtractionForm.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Extraction</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="n">EXTRACTION_CREATE_FIELDS</span> <span class="o">+</span> <span class="p">(</span><span class="s">&#39;projects_string&#39;</span><span class="p">,</span> <span class="p">)</span></div></div>
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">EXTRACTION_CREATE_FIELDS</span>
+
+</div></div>
+<div class="viewcode-block" id="WorkflowForm"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.forms.html#leukapp.apps.leukforms.forms.WorkflowForm">[docs]</a><span class="k">class</span> <span class="nc">WorkflowForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+
+<div class="viewcode-block" id="WorkflowForm.Meta"><a class="viewcode-back" href="../../../../py/leukapp.apps.leukforms.forms.html#leukapp.apps.leukforms.forms.WorkflowForm.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Workflow</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">WORKFLOW_CREATE_FIELDS</span></div></div>
 </pre></div>
 
            </div>

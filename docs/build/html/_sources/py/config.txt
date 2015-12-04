@@ -3,7 +3,7 @@ config package
 
 .. automodule:: config
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:
 
 Subpackages

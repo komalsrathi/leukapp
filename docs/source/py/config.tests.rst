@@ -3,6 +3,6 @@ config.tests package
 
 .. automodule:: config.tests
     :members:
-    :private-members:
+    :undoc-members:
     :show-inheritance:
 
