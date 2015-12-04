@@ -3,5 +3,5 @@ leukapp.apps.workflows.validators module
 
 .. automodule:: leukapp.apps.workflows.validators
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:

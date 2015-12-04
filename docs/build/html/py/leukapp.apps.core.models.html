@@ -136,37 +136,6 @@
 <p>An abstract base class model that provides self-updating
 <code class="docutils literal"><span class="pre">created</span></code> and <code class="docutils literal"><span class="pre">modified</span></code> fields.</p>
 <p>See: <a class="reference external" href="http://blog.kevinastone.com/django-model-behaviors.html">http://blog.kevinastone.com/django-model-behaviors.html</a></p>
-<dl class="class">
-<dt id="leukapp.apps.core.models.TimeStampedModel.Meta">
-<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#TimeStampedModel.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.TimeStampedModel.Meta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<dl class="attribute">
-<dt id="leukapp.apps.core.models.TimeStampedModel.Meta.abstract">
-<code class="descname">abstract</code><em class="property"> = False</em><a class="headerlink" href="#leukapp.apps.core.models.TimeStampedModel.Meta.abstract" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.core.models.TimeStampedModel.get_next_by_created">
-<code class="descclassname">TimeStampedModel.</code><code class="descname">get_next_by_created</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.TimeStampedModel.get_next_by_created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.core.models.TimeStampedModel.get_next_by_modified">
-<code class="descclassname">TimeStampedModel.</code><code class="descname">get_next_by_modified</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.TimeStampedModel.get_next_by_modified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.core.models.TimeStampedModel.get_previous_by_created">
-<code class="descclassname">TimeStampedModel.</code><code class="descname">get_previous_by_created</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.TimeStampedModel.get_previous_by_created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.core.models.TimeStampedModel.get_previous_by_modified">
-<code class="descclassname">TimeStampedModel.</code><code class="descname">get_previous_by_modified</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.TimeStampedModel.get_previous_by_modified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="class">
@@ -176,26 +145,15 @@
 <p><strong>Leukapp</strong> abstract base model.</p>
 <p>This model has several methods that are shared across the <strong>Leukapp</strong>
 project. This implementation is mainly motivated by the DRY concept.</p>
-<dl class="class">
-<dt id="leukapp.apps.core.models.LeukappModel.Meta">
-<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.Meta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<dl class="attribute">
-<dt id="leukapp.apps.core.models.LeukappModel.Meta.abstract">
-<code class="descname">abstract</code><em class="property"> = False</em><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.Meta.abstract" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="method">
 <dt id="leukapp.apps.core.models.LeukappModel.save">
-<code class="descclassname">LeukappModel.</code><code class="descname">save</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.save" title="Permalink to this definition">¶</a></dt>
+<code class="descname">save</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.save" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference external" href="https://docs.djangoproject.com/en/1.8/topics/db/transactions/#controlling-transactions-explicitly">Atomic</a> method to save the <a class="reference internal" href="#leukapp.apps.core.models.LeukappModel" title="leukapp.apps.core.models.LeukappModel"><code class="xref py py-class docutils literal"><span class="pre">LeukappModel</span></code></a>.</p>
 <p>While executed, calls two methods:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="xref py py-meth docutils literal"><span class="pre">_if_new()</span></code>: only called at creation, used to generate IDs.</li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">_if_save()</span></code>: called every time the object is saved.</li>
+<li><a class="reference internal" href="#leukapp.apps.core.models.LeukappModel._if_new" title="leukapp.apps.core.models.LeukappModel._if_new"><code class="xref py py-meth docutils literal"><span class="pre">_if_new()</span></code></a>: only called at creation, used to generate IDs.</li>
+<li><a class="reference internal" href="#leukapp.apps.core.models.LeukappModel._if_save" title="leukapp.apps.core.models.LeukappModel._if_save"><code class="xref py py-meth docutils literal"><span class="pre">_if_save()</span></code></a>: called every time the object is saved.</li>
 </ul>
 </div></blockquote>
 <p>The <code class="docutils literal"><span class="pre">slug</span></code> identification system is based on the use of primary keys.
@@ -207,35 +165,41 @@ avoid error while using <code class="xref py py-meth docutils literal"><span cla
 
 <dl class="method">
 <dt id="leukapp.apps.core.models.LeukappModel.get_absolute_url">
-<code class="descclassname">LeukappModel.</code><code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel.get_absolute_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel.get_absolute_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.get_absolute_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the object detail url.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="leukapp.apps.core.models.LeukappModel.get_update_url">
-<code class="descclassname">LeukappModel.</code><code class="descname">get_update_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel.get_update_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.get_update_url" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_update_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel.get_update_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.get_update_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the object&#8217;s update url.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="leukapp.apps.core.models.LeukappModel.get_next_by_created">
-<code class="descclassname">LeukappModel.</code><code class="descname">get_next_by_created</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.get_next_by_created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="leukapp.apps.core.models.LeukappModel._if_new">
+<code class="descname">_if_new</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel._if_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel._if_new" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#leukapp.apps.core.models.LeukappModel._if_new" title="leukapp.apps.core.models.LeukappModel._if_new"><code class="xref py py-meth docutils literal"><span class="pre">_if_new()</span></code></a> is executed the first time the object is created.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="leukapp.apps.core.models.LeukappModel.get_next_by_modified">
-<code class="descclassname">LeukappModel.</code><code class="descname">get_next_by_modified</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.get_next_by_modified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="leukapp.apps.core.models.LeukappModel._if_save">
+<code class="descname">_if_save</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel._if_save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel._if_save" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#leukapp.apps.core.models.LeukappModel._if_save" title="leukapp.apps.core.models.LeukappModel._if_save"><code class="xref py py-meth docutils literal"><span class="pre">_if_save()</span></code></a> is executed everytime the object is saved.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="leukapp.apps.core.models.LeukappModel.get_previous_by_created">
-<code class="descclassname">LeukappModel.</code><code class="descname">get_previous_by_created</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.get_previous_by_created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="leukapp.apps.core.models.LeukappModel._check_if_caller_is_if_new">
+<code class="descname">_check_if_caller_is_if_new</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel._check_if_caller_is_if_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel._check_if_caller_is_if_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if current function is been called from <a class="reference internal" href="#leukapp.apps.core.models.LeukappModel._if_new" title="leukapp.apps.core.models.LeukappModel._if_new"><code class="xref py py-meth docutils literal"><span class="pre">_if_new()</span></code></a>.
+This ensures the atomicity of the IDs generation.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="leukapp.apps.core.models.LeukappModel.get_previous_by_modified">
-<code class="descclassname">LeukappModel.</code><code class="descname">get_previous_by_modified</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel.get_previous_by_modified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="leukapp.apps.core.models.LeukappModel._check_if_caller_is_save">
+<code class="descname">_check_if_caller_is_save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappModel._check_if_caller_is_save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappModel._check_if_caller_is_save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if current method is been called from <a class="reference internal" href="#leukapp.apps.core.models.LeukappModel.save" title="leukapp.apps.core.models.LeukappModel.save"><code class="xref py py-meth docutils literal"><span class="pre">save()</span></code></a>.
+This ensures the atomicity of the IDs generation.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -244,43 +208,6 @@ avoid error while using <code class="xref py py-meth docutils literal"><span cla
 <em class="property">class </em><code class="descname">LeukappTestModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leukapp/apps/core/models.html#LeukappTestModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#leukapp.apps.core.models.LeukappTestModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#leukapp.apps.core.models.LeukappModel" title="leukapp.apps.core.models.LeukappModel"><code class="xref py py-class docutils literal"><span class="pre">leukapp.apps.core.models.LeukappModel</span></code></a></p>
 <p>This class only serves the purpose of testing the core&#8217;s abstract models.</p>
-<dl class="exception">
-<dt id="leukapp.apps.core.models.LeukappTestModel.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#leukapp.apps.core.models.LeukappTestModel.DoesNotExist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="leukapp.apps.core.models.LeukappTestModel.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descclassname">LeukappTestModel.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#leukapp.apps.core.models.LeukappTestModel.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.djangoproject.com/en/1.9/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v1.9)"><code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
-</dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.core.models.LeukappTestModel.get_next_by_created">
-<code class="descclassname">LeukappTestModel.</code><code class="descname">get_next_by_created</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.LeukappTestModel.get_next_by_created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.core.models.LeukappTestModel.get_next_by_modified">
-<code class="descclassname">LeukappTestModel.</code><code class="descname">get_next_by_modified</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.LeukappTestModel.get_next_by_modified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.core.models.LeukappTestModel.get_previous_by_created">
-<code class="descclassname">LeukappTestModel.</code><code class="descname">get_previous_by_created</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.LeukappTestModel.get_previous_by_created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="leukapp.apps.core.models.LeukappTestModel.get_previous_by_modified">
-<code class="descclassname">LeukappTestModel.</code><code class="descname">get_previous_by_modified</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#leukapp.apps.core.models.LeukappTestModel.get_previous_by_modified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="leukapp.apps.core.models.LeukappTestModel.objects">
-<code class="descclassname">LeukappTestModel.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#leukapp.apps.core.models.LeukappTestModel.objects" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </div>

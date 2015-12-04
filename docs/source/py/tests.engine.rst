@@ -3,5 +3,5 @@ tests.engine module
 
 .. automodule:: tests.engine
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:

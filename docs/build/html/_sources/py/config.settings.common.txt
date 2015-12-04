@@ -3,5 +3,5 @@ config.settings.common module
 
 .. automodule:: config.settings.common
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:

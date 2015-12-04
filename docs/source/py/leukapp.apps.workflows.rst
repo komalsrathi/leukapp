@@ -3,7 +3,7 @@ leukapp.apps.workflows package
 
 .. automodule:: leukapp.apps.workflows
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
 
 Submodules

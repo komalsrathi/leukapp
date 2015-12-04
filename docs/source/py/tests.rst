@@ -3,7 +3,7 @@ tests package
 
 .. automodule:: tests
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
 
 Submodules

@@ -3,5 +3,5 @@ config.settings.test module
 
 .. automodule:: config.settings.test
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:

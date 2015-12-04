@@ -3,7 +3,7 @@ leukapp.apps.specimens package
 
 .. automodule:: leukapp.apps.specimens
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
 
 Submodules

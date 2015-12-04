@@ -3,5 +3,5 @@ leukapp.apps.core.constants module
 
 .. automodule:: leukapp.apps.core.constants
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:

@@ -3,5 +3,5 @@ leukapp.apps.participants.models module
 
 .. automodule:: leukapp.apps.participants.models
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:

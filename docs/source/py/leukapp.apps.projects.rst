@@ -3,7 +3,7 @@ leukapp.apps.projects package
 
 .. automodule:: leukapp.apps.projects
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
 
 Submodules

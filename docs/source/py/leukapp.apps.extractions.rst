@@ -3,7 +3,7 @@ leukapp.apps.extractions package
 
 .. automodule:: leukapp.apps.extractions
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
 
 Submodules

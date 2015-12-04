@@ -3,7 +3,7 @@ leukapp.taskapp package
 
 .. automodule:: leukapp.taskapp
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
 
 Submodules

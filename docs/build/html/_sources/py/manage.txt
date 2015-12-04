@@ -3,5 +3,5 @@ manage module
 
 .. automodule:: manage
     :members:
-    :undoc-members:
+    :private-members:
     :show-inheritance:
