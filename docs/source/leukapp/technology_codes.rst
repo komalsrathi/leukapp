@@ -19,6 +19,8 @@ Sequencing Technology Codes
    :keywords: leukid, form, models, sample, code, sequencing technology
    :description lang=en: ``analyte/technology/technolgy_type`` codes.
 
+.. _technology_codes:
+
 .. exec::
     import json
     from leukapp.apps.workflows.constants import INT_ID_TECHNOLOGY
