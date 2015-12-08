@@ -1,4 +1,0 @@
-Juan
-===========
-
-.. include:: ../juan.rst
