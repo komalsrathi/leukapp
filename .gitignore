@@ -3,41 +3,53 @@
 .AppleDouble
 .LSOverride
 
+
 ### SublimeText ###
+
 # cache files for sublime text
 *.tmlanguage.cache
 *.tmPreferences.cache
 *.stTheme.cache
 
-# workspace files are user-specific
-*.sublime-workspace
-
 # project files should be checked into the repository, unless a significant
 # proportion of contributors will probably not be using SublimeText
 # *.sublime-project
 
-# sftp configuration file
-sftp-config.json
+# workspace files are user-specific
+*.sublime-workspace
 
-# Basics
+
+### Docs ###
+
+# build folder doesn't need to be pushed
+docs/build
+
+
+### Python ###
 *.py[cod]
 *.pyc
 __pycache__
 
-# Logs
+
+### Other ###
+
+## sftp configuration file
+sftp-config.json
+
+## Translations
+*.mo
+*.pot
+
+## Logs
 *.log
 pip-log.txt
 tmp/
 
-# Unit test / coverage reports
+## Unit test / coverage reports
 .coverage
 .tox
 nosetests.xml
 htmlcov
-
-# Translations
-*.mo
-*.pot
 
 # Pycharm
 .idea
