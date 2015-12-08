@@ -7,7 +7,7 @@ Intranet website for Leukemia Genomics sample and project management.
 LICENSE: BSD
 
 Settings
-------------
+--------
 
 leukapp relies extensively on environment settings which **will not work with Apache/mod_wsgi setups**. It has been deployed successfully with both Gunicorn/Nginx and even uWSGI/Nginx.
 
