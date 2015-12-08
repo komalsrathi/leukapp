@@ -185,7 +185,7 @@ class Extraction(LeukappModel):
         Steps:
 
             * Check if the caller function is :meth:`~Extraction._if_new`.
-            * Retrieve the ID character assigned to the ``analyte` attribute.
+            * Retrieve the ID character assigned to the ``analyte`` attribute.
               updates the extractions count, saves the Parent class,
               and builds the first section of the ID (e.g. ``D1``).
 
