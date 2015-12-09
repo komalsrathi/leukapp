@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Models and database schemas for the :mod:`~leukapp.apps.individuals`
+Models/database schemas for the :mod:`~leukapp.apps.individuals`
 application.
 
 See `Django's Model Documentation`_ for more information.
@@ -34,6 +34,28 @@ class Individual(LeukappModel):
 
     # EXTERNAL FIELDS
     # =========================================================================
+
+    ext_id = models.CharField(
+        verbose_name=_("external id"),
+        validators=[ext_id_validator],
+        max_length=100,
+        help_text=_(
+            "The external id should be unique at the Institution and Species "
+            "levels. MRNs are not allowed for Individuals coming from MSK. "
+            "Please use a pseudo MRN or other type of identifier."
+            ),
+        )
+    """
+    Id used by the scientist to track the :class:`Indiviual`.
+
+    This field is validated using the
+    :obj:`~leukapp.apps.core.validators.ext_id_validator`.
+
+    .. warning::
+        **MRNs** are not allowed for **HUMANS** from **MSK**. Please use a
+        pseudo MRN or other type of identifier.
+    """
+
     institution = models.CharField(
         verbose_name=_("institution"),
         choices=constants.INDIVIDUAL_CHOICES["INSTITUTION"],
@@ -54,28 +76,6 @@ class Individual(LeukappModel):
     """
     Indicates the :class:`Indiviual` species.
     See the available choices: :class:`~constants.SPECIES`.
-    """
-
-    ext_id = models.CharField(
-        verbose_name=_("external id"),
-        validators=[ext_id_validator],
-        max_length=100,
-        null=True,
-        help_text=_(
-            "The external id should be unique at the Institution and Species "
-            "levels. MRNs are not allowed for Individuals coming from MSK. "
-            "Please use a pseudo MRN or other type of identifier."
-            ),
-        )
-    """
-    Id used by the scientist to track the :class:`Indiviual`.
-
-    This field is validated using the
-    :obj:`~leukapp.apps.core.validators.ext_id_validator`.
-
-    .. warning::
-        **MRNs** are not allowed for **HUMANS** from **MSK**. Please use a
-        pseudo MRN or other type of identifier.
     """
 
     # INTERNAL FIELDS
