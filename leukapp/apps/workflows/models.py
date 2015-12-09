@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Models and database schemas for the :mod:`~leukapp.apps.workflows`
+Models/database schemas for the :mod:`~leukapp.apps.workflows`
 application.
 
 See `Django's Model Documentation`_ for more information.

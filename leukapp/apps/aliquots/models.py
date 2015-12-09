@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Models and database schemas for the :mod:`~leukapp.apps.aliquots` application.
+Models/database schemas for the :mod:`~leukapp.apps.aliquots` application.
 
 See `Django's Model Documentation`_ for more information.
 
@@ -16,6 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 # apps imports
 from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import ext_id_validator
+from leukapp.apps.core.constants import UNKNOWN
 from leukapp.apps.specimens.models import Specimen
 
 # local imports
@@ -34,10 +35,10 @@ class Aliquot(LeukappModel):
 
     # EXTERNAL FIELDS
     # =========================================================================
+
     specimen = models.ForeignKey(
         Specimen,
         verbose_name=_("specimen"),
-        null=True,
         )
     """
     `ForeignKey`_ to the :class:`~leukapp.apps.specimens.models.Specimen`
@@ -48,10 +49,11 @@ class Aliquot(LeukappModel):
 
     ext_id = models.CharField(
         verbose_name=_("external id"),
-        max_length=100,
         validators=[ext_id_validator],
+        default=UNKNOWN,
+        max_length=100,
+        blank=True,
         help_text=_("The external id should be unique at the Specimen level."),
-        null=True,
         )
     """
     ID used by the ``Institution`` or ``Scientist`` to track the
@@ -168,6 +170,10 @@ class Aliquot(LeukappModel):
             :meth:`~models.LeukappModel._check_if_caller_is_save`.
         """
         self._check_if_caller_is_save()
+
+        # when blank is submitted, save UNKNOWN instead
+        if self.ext_id == '':
+            self.ext_id = UNKNOWN
 
     def _get_int_id(self):
         """
