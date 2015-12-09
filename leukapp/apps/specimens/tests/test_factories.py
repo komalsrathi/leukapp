@@ -11,6 +11,7 @@ from ..models import Specimen
 from ..factories import SpecimenFactory
 from ..constants import TUMOR
 
+
 class SpecimenUtilsTest(TestCase):
 
     def test_specimenfactory_creates_specimen(self):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Models and database schemas for the :mod:`~leukapp.apps.specimens` application.
+Models/database schemas for the :mod:`~leukapp.apps.specimens` application.
 
 See `Django's Model Documentation`_ for more information.
 
@@ -38,13 +38,33 @@ class Specimen(LeukappModel):
     individual = models.ForeignKey(
         Individual,
         verbose_name=_("individual"),
-        null=True,
         )
     """
     `ForeignKey`_ to the :class:`~leukapp.apps.individuals.models.Individual`
     model.
 
     .. _ForeignKey: https://docs.djangoproject.com/en/1.8/topics/db/examples/many_to_one/#many-to-one-relationships
+    """
+
+    ext_id = models.CharField(
+        verbose_name=_("external id"),
+        validators=[ext_id_validator],
+        default=UNKNOWN,
+        max_length=100,
+        blank=True,
+        help_text=_(
+            "The external id should be unique at the Individual "
+            "and Source type levels."
+            ),
+        )
+    """
+    ID used by the ``Institution`` or ``Scientist`` to track the
+    :class:`.Specimen`.
+
+    The default value is :data:`~leukapp.apps.core.constants.UNKNOWN`
+    because it's likely that scientist don't know this ID.
+
+    .. important: Only one ``UNKNOWN`` Specimen is allowed.
     """
 
     source = models.CharField(
@@ -68,27 +88,6 @@ class Specimen(LeukappModel):
     """
     Type of the specimen, whether or not it's a NORMAL or a TUMOR.
     See :data:`~.constants.SOURCE` for available choices.
-    """
-
-    ext_id = models.CharField(
-        verbose_name=_("external id"),
-        validators=[ext_id_validator],
-        default=UNKNOWN,
-        max_length=100,
-        null=True,
-        help_text=_(
-            "The external id should be unique at the Individual "
-            "and Source type levels."
-            ),
-        )
-    """
-    ID used by the ``Institution`` or ``Scientist`` to track the
-    :class:`.Specimen`.
-
-    The default value is :data:`~leukapp.apps.core.constants.UNKNOWN`
-    because it's likely that scientist don't know this ID.
-
-    .. important: Only one ``UNKNOWN`` Specimen is allowed.
     """
 
     order = models.PositiveSmallIntegerField(
@@ -196,6 +195,10 @@ class Specimen(LeukappModel):
             :meth:`~models.LeukappModel._check_if_caller_is_save`.
         """
         self._check_if_caller_is_save()
+
+        # when blank is submitted, save UNKNOWN instead
+        if self.ext_id == '':
+            self.ext_id = UNKNOWN
 
     def _get_int_id(self):
         """
