@@ -6,6 +6,10 @@ Tests for mod:`extractions.factories`.
 
 # django
 from django.test import TestCase
+from django.db.utils import IntegrityError
+
+# leukapp
+from leukapp.apps.aliquots.factories import AliquotFactory
 
 # local
 from ..models import Extraction
@@ -33,11 +37,18 @@ class ExtractionFactoriesTest(TestCase):
             kwargs[field] = getattr(e, field)
         self.assertEqual(e, ExtractionFactory(**kwargs))
 
-    def test_extractionfactory_does_create_extraction(self):
-        e, kwargs = ExtractionFactory(ext_id=None), {}
-        for field in constants.EXTRACTION_CREATE_FIELDS:
-            kwargs[field] = getattr(e, field)
-        self.assertNotEqual(e, Extraction.objects.create(**kwargs))
+    def test_specimenfactory_doesnt_create_existing_specimen(self):
+        a = AliquotFactory()
+        e = ExtractionFactory(ext_id='', aliquot=a)
+        e2 = ExtractionFactory(ext_id=e.ext_id, aliquot=a)
+        self.assertEqual(e, e2)
+
+    def test_extractionfactory_raises_duplicate_error(self):
+        e, kwargs = ExtractionFactory(ext_id=''), {}
+        with self.assertRaises(IntegrityError):
+            for field in constants.EXTRACTION_CREATE_FIELDS:
+                kwargs[field] = getattr(e, field)
+            Extraction.objects.create(**kwargs)
 
     def test_extractionfactory_attributes_are_correct(self):
         """

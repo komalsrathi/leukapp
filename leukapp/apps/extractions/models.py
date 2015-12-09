@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Models and database schemas for the :mod:`~leukapp.apps.extractions`
+Models/database schemas for the :mod:`~leukapp.apps.extractions`
 application.
 
 See `Django's Model Documentation`_ for more information.
@@ -17,7 +17,6 @@ from django.utils.translation import ugettext_lazy as _
 # leukapp
 from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import ext_id_validator
-from leukapp.apps.core.db import CharNullField
 from leukapp.apps.core.constants import UNKNOWN
 from leukapp.apps.aliquots.models import Aliquot
 
@@ -29,11 +28,6 @@ class Extraction(LeukappModel):
 
     """
     :class:`Aliquot's <leukapp.apps.aliquots.models.Aliquot>` nucleic acid.
-
-    :param Aliquot aliquot: The ``Extraction's`` parent model.
-    :param str analyte: See :data:`~.constants.ANALYTE` for choices.
-    :param str ext_id: ID used extrernally to track the ``Extraction``.
-    :return: :class:`~models.Extraction` instance.
     """
 
     #: Name of the application where :class:`Extraction` is contained.
@@ -41,10 +35,10 @@ class Extraction(LeukappModel):
 
     # EXTERNAL FIELDS
     # =========================================================================
+
     aliquot = models.ForeignKey(
         Aliquot,
         verbose_name=_("aliquot"),
-        null=True,
         )
     """
     `ForeignKey`_ to the :class:`~leukapp.apps.aliquots.models.Aliquot` model.
@@ -52,14 +46,13 @@ class Extraction(LeukappModel):
     .. _ForeignKey: https://docs.djangoproject.com/en/1.8/topics/db/examples/many_to_one/#many-to-one-relationships
     """
 
-    ext_id = CharNullField(
+    ext_id = models.CharField(
         verbose_name=_("sequencing center ID"),
-        max_length=100,
         validators=[ext_id_validator],
+        max_length=100,
+        blank=True,
         default=UNKNOWN,
         help_text=_("The sequencing center ID."),
-        blank=True,
-        null=True,
         )
     """
     ID used by the scientist or institution :data:`~.constants.CENTER` to
@@ -160,6 +153,7 @@ class Extraction(LeukappModel):
             :meth:`~models.LeukappModel.save` and is protected by
             :meth:`~models.LeukappModel._check_if_caller_is_save`.
         """
+
         self._check_if_caller_is_save()
         self._get_int_id()
         self.slug = '-'.join([self.aliquot.slug, self.int_id])
@@ -174,6 +168,10 @@ class Extraction(LeukappModel):
             :meth:`~models.LeukappModel._check_if_caller_is_save`.
         """
         self._check_if_caller_is_save()
+
+        # when blank is submitted, save UNKNOWN instead
+        if self.ext_id == '':
+            self.ext_id = UNKNOWN
 
     def _get_int_id(self):
         """

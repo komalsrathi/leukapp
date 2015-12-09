@@ -37,8 +37,8 @@ class ExtractionsModelTest(TestCase):
 
     @skipIf((not constants.EXTRACTION_UNIQUE_TOGETHER), "not unique fields")
     def test_unique_together_functionality(self):
+        e, kwargs = ExtractionFactory(ext_id=''), {}
         with self.assertRaises(IntegrityError):
-            e, kwargs = ExtractionFactory(), {}
             for field in constants.EXTRACTION_CREATE_FIELDS:
                 kwargs[field] = getattr(e, field)
             Extraction.objects.create(**kwargs)
@@ -86,8 +86,3 @@ class ExtractionsModelTest(TestCase):
         rrna_int_id += str(a.rna_extractions_count)
         self.assertEqual(rdna.int_id, rdna_int_id)
         self.assertEqual(rrna.int_id, rrna_int_id)
-
-    def test_char_null_field_returns_unknown_for_ext_id(self):
-        e = ExtractionFactory(ext_id=None)
-        e = Extraction.objects.get(pk=e.pk)
-        self.assertEqual(e.ext_id, coreconstants.UNKNOWN)
