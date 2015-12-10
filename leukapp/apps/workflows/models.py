@@ -61,11 +61,10 @@ class Workflow(LeukappModel):
     """
 
     ext_id = CharNullField(
-        verbose_name=_("sequencing center ID"),
+        verbose_name=_("Extraction ID provided by sequencing center."),
         max_length=100,
         validators=[ext_id_validator],
         default=UNKNOWN,
-        help_text=_("The sequencing center ID."),
         blank=True,
         null=True,
         )
@@ -238,6 +237,26 @@ class Workflow(LeukappModel):
         """
         return self.slug
 
+    def clean(self):
+        """
+        Calls parent ``Model.clean()`` method and validates the
+        analyte/sequencing_technology/technology_type combination. This
+        function will also handle errors during form submissions.
+
+        .. todo: add test to determine if this methods is called in forms.
+        """
+        cleaned_data = super(Workflow, self).clean()
+
+        # validates analyte/sequencing_technology/technology_type combination.
+        kwargs = {
+            'analyte': self.extraction.analyte,
+            'sequencing_technology': self.sequencing_technology,
+            'technology_type': self.technology_type,
+            }
+        validators.technology_type_validator(**kwargs)
+
+        return cleaned_data
+
     # PRIVATE METHODS
     # =========================================================================
     def _if_new(self, **kwargs):
@@ -311,13 +330,8 @@ class Workflow(LeukappModel):
             technology_types = technologies[self.sequencing_technology]
             self.technology_type = technology_types["DEFAULT_TECHNOLOGY"]
 
-        # validates analyte/sequencing_technology/technology_type combination.
-        kwargs = {
-            'analyte': self.extraction.analyte,
-            'sequencing_technology': self.sequencing_technology,
-            'technology_type': self.technology_type,
-            }
-        validators.technology_type_validator(**kwargs)
+        # validates analyte/sequencing_technology/technology_type combination
+        self.clean()
 
         # ``1`` workflows count section
         self.extraction.workflows_count += 1
