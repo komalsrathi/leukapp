@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+
+"""Aliquot objects factory."""
 
 # python
 import string
@@ -16,6 +17,8 @@ from . import constants
 
 
 class AliquotFactory(factory.django.DjangoModelFactory):
+
+    """Create Aliquot instance."""
 
     class Meta:
         model = Aliquot
