@@ -9,4 +9,3 @@ leukapp_project
    docs
    leukapp
    manage
-   tests
