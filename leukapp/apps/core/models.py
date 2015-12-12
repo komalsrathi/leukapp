@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
 
-"""
-Abstract models used across the :mod:`leukapp` project.
-"""
+"""Abstract models used across the :mod:`leukapp` project."""
 
 # python
 import inspect
@@ -20,8 +17,7 @@ from .constants import UNKNOWN
 class TimeStampedModel(models.Model):
 
     """
-    An abstract base class model that provides self-updating
-    ``created`` and ``modified`` fields.
+    An abstract model that provides created and modified fields.
 
     See: http://blog.kevinastone.com/django-model-behaviors.html
     """
@@ -69,7 +65,6 @@ class LeukappModel(TimeStampedModel):
         .. _this question: http://stackoverflow.com/questions/9940674/django-model-manager-objects-create-where-is-the-documentation
         .. _Atomic: https://docs.djangoproject.com/en/1.8/topics/db/transactions/#controlling-transactions-explicitly
         """
-
         if not self.pk:
             super(LeukappModel, self).save(*args, **kwargs)  # get pk
             kwargs['force_insert'] = False  # set to avoid error in create()
@@ -81,39 +76,26 @@ class LeukappModel(TimeStampedModel):
         super(LeukappModel, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        """
-        Returns the object detail url.
-        """
+        """Return object's detail url."""
         return reverse(self.APP_NAME + ':detail', kwargs={'slug': self.slug})
 
     def get_update_url(self):
-        """
-        Returns the object's update url.
-        """
+        """Return the object's update url."""
         return reverse(self.APP_NAME + ':update', kwargs={'slug': self.slug})
 
     # PRIVATE METHODS
     # =========================================================================
 
     def _if_new(self, **kwargs):
-        """
-        :meth:`_if_new` is executed the first time the object is created.
-        """
+        """Executed when object is created."""
         pass
 
     def _if_save(self, **kwargs):
-        """
-        :meth:`_if_save` is executed everytime the object is saved.
-        """
+        """Executed when object is saved."""
         pass
 
     def _check_if_caller_is_if_new(self):
-        """
-        Checks if current function is been called from :meth:`_if_new`.
-        This ensures the atomicity of the IDs generation.
-        """
-
-        # NOTTESTED
+        """Check if current function is been called from :meth:`_if_new`."""
         msg = "This function can only be called from _if_new()."
         try:
             if inspect.stack()[2][3] != '_if_new':
@@ -122,11 +104,7 @@ class LeukappModel(TimeStampedModel):
             raise(Exception(msg))
 
     def _check_if_caller_is_save(self):
-        """
-        Checks if current method is been called from :meth:`save`.
-        This ensures the atomicity of the IDs generation.
-        """
-
+        """Check if current method is been called from :meth:`save`."""
         msg = "This function can only be called from save()."
         try:
             if inspect.stack()[2][3] != 'save':
@@ -137,9 +115,7 @@ class LeukappModel(TimeStampedModel):
 
 class LeukappTestModel(LeukappModel):
 
-    """
-    This class only serves the purpose of testing the core's abstract models.
-    """
+    """This class serves the purpose of testing the core's abstract models."""
 
     testme = CharNullField(
         max_length=100,

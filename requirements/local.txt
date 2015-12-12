@@ -14,3 +14,8 @@ ipdb==0.8.1
 
 # TDD
 selenium==2.47.1
+
+# linter
+pyflakes==1.0.0
+flake8==2.5.1
+flake8-docstrings==0.2.4
