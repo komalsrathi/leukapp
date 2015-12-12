@@ -10,15 +10,44 @@ from django.dispatch.dispatcher import receiver
 
 # leukapp
 from leukapp.apps.core.models import LeukappModel
-from leukapp.apps.individuals.models import Individual
-from leukapp.apps.specimens.models import Specimen
-from leukapp.apps.aliquots.models import Aliquot
-from leukapp.apps.extractions.models import Extraction
 
 # local
 from .constants import APP_NAME
 from .validators import leukform_csv_validator
 from .utils import LeukformLoader
+
+""" TENTATIVE
+
+from leukapp.apps.individuals.models import Individual
+from leukapp.apps.specimens.models import Specimen
+from leukapp.apps.aliquots.models import Aliquot
+from leukapp.apps.extractions.models import Extraction
+
+created_individuals = models.ManyToManyField(
+    Individual,
+    verbose_name=_("created individuals"),
+    blank=True,
+    null=True,
+    )
+created_specimens = models.ManyToManyField(
+    Specimen,
+    verbose_name=_("created specimens"),
+    blank=True,
+    null=True,
+    )
+created_aliquots = models.ManyToManyField(
+    Aliquot,
+    verbose_name=_("created aliquots"),
+    blank=True,
+    null=True,
+    )
+created_extractions = models.ManyToManyField(
+    Extraction,
+    verbose_name=_("created extractions"),
+    blank=True,
+    null=True,
+    )
+"""
 
 
 class Leukform(LeukappModel):
@@ -60,33 +89,6 @@ class Leukform(LeukappModel):
         default=False,
         null=True,
         )
-
-    """ TENTATIVE
-    created_individuals = models.ManyToManyField(
-        Individual,
-        verbose_name=_("created individuals"),
-        blank=True,
-        null=True,
-        )
-    created_specimens = models.ManyToManyField(
-        Specimen,
-        verbose_name=_("created specimens"),
-        blank=True,
-        null=True,
-        )
-    created_aliquots = models.ManyToManyField(
-        Aliquot,
-        verbose_name=_("created aliquots"),
-        blank=True,
-        null=True,
-        )
-    created_extractions = models.ManyToManyField(
-        Extraction,
-        verbose_name=_("created extractions"),
-        blank=True,
-        null=True,
-        )
-    """
 
     # internal
     slug = models.SlugField(

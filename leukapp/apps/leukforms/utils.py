@@ -163,9 +163,9 @@ class LeukformLoader(object):
         """
         Process the current row.
 
-        First, the leukform `fields` are obtained from `row` using
-        `_get_fields`. Then, for each model in `MODELS_LIST`, an istance is
-        `get_or_created` if the model is in `fields`. If the object is created
+        First, the leukform fields are obtained from row using
+        _get_fields. Then, for each model in MODELS_LIST, an istance is
+        get_or_created if the model is in fields. If the object is created
         or found, the fields are updated to add the parent foreing key.
 
         Input: row (dict): csv.DictReader type of dictionary
@@ -191,8 +191,10 @@ class LeukformLoader(object):
     def _get_fields(self, row):
         """
         Gets `fields` from `row`. If the field is empty, is not added
+
         Input:
             row (dict): csv.DictReader type of dictionary
+
         Returns:
             fields (dict): a dict of dicts, first level models, then fields
         """
@@ -220,6 +222,7 @@ class LeukformLoader(object):
         Specimen.ext_id and empty Aliquot.ext_id if only Individual.ext_id is
         available. Or, with empty Aliquot.ext_id if only the Individual and
         Specimen ext_id are available. Then, the empty fields will be set to 1.
+
         Input:
             row (dict): csv.DictReader type of dictionary
         """
@@ -234,9 +237,11 @@ class LeukformLoader(object):
     def _get_or_create(self, model, fields):
         """
         Gets or creates an instance while collecting results data.
+
         Input:
             model (string): name of instance's model
             fields (dict): a dict of dicts, first level models, then fields
+
         Returns:
             msj (str): json of errors and codes or string if existed or created
             instance (Leukapp Model): instance found or created
@@ -286,10 +291,12 @@ class LeukformLoader(object):
     def _update_fields(self, model, fields, instance):
         """
         Updates child fields after parent is found or created.
+
         Input Args:
             model (string): name of instance's model
             fields (dict): a dict of dicts, first level models, then fields
             instance (Leukapp Model): instance found or created
+
         Returns:
             fields (dict): a dict of dicts, first level models, then fields
         """

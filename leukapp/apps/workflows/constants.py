@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 """
-This module contains the :mod:`~` app constants.
+This module contains the :mod:`~leukapp.apps.workflows` app constants.
 Information that isn't likely to change and that is used across
-:mod:`~` and :mod:`~leukapp` should be stored
+:mod:`~leukapp.apps.workflows` and :mod:`~leukapp` should be stored
 here.
 
 .. important::
@@ -161,14 +161,14 @@ List of value, verbose_name pairs for the
 
 # SEQUENCING PLATFORM
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ILLUMINAHISEQ2000 = 'ILLUMINA-HISEQ-2000'
-ILLUMINAHISEQ2500 = 'ILLUMINA-HISEQ-2500'
-ILLUMINAMISEQ = 'ILLUMINA-MISEQ'
-ILLUMINAX10 = 'ILLUMINA-X10'
-ILLUMINAX5 = 'ILLUMINA-X5'
-PACBIORSII = 'PACBIO-RSII'
-IONTORRENTPROTON = 'ION-TORRENT-PROTON'
-IONTORRENTPGM = 'ION-TORRENT-PGM'
+ILLUMINAHISEQ2000 = "ILLUMINA-HISEQ-2000"
+ILLUMINAHISEQ2500 = "ILLUMINA-HISEQ-2500"
+ILLUMINAMISEQ = "ILLUMINA-MISEQ"
+ILLUMINAX10 = "ILLUMINA-X10"
+ILLUMINAX5 = "ILLUMINA-X5"
+PACBIORSII = "PACBIO-RSII"
+IONTORRENTPROTON = "ION-TORRENT-PROTON"
+IONTORRENTPGM = "ION-TORRENT-PGM"
 
 PLATFORM = (
     (ILLUMINAHISEQ2000, ILLUMINAHISEQ2000),
@@ -187,13 +187,13 @@ List of value, verbose_name pairs for the
 
 # READ LENGTH
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RL50 = '50'
-RL100 = '100'
-RL125 = '125'
-RL150 = '150'
-RL200 = '200'
-RL225 = '225'
-RL250 = '250'
+RL50 = "50"
+RL100 = "100"
+RL125 = "125"
+RL150 = "150"
+RL200 = "200"
+RL225 = "225"
+RL250 = "250"
 
 READ_LENGTH = (
     (RL50, RL50),
@@ -211,8 +211,8 @@ List of value, verbose_name pairs for the
 
 # READ TYPE
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-SINGLEEND = 'SINGLE-END'
-PAIREND = 'PAIR-END'
+SINGLEEND = "SINGLE-END"
+PAIREND = "PAIR-END"
 
 READ_TYPE = (
     (SINGLEEND, SINGLEEND),

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: leukapp.apps.workflows
+.. currentmodule::
+    leukapp.apps.workflows
 
 Testing factories for the :mod:`~leukapp.apps.workflows`. This module relies
 heavily on the `factory_boy`_ python package.
@@ -37,6 +38,7 @@ class WorkflowFactory(factory.django.DjangoModelFactory):
     `DjangoModelFactory`_.
 
     .. Attributes
+
     :param Extraction extraction: ForeignKey to the ``Extraction`` model.
     :param str ext_id: Sequencing Center's ID to track the ``Workflow``.
     :param list projects: list of ``Projects`` to be linked.
@@ -49,6 +51,7 @@ class WorkflowFactory(factory.django.DjangoModelFactory):
     :param str read_type: Workflow's read type.
 
     .. Returns
+
     :return: :class:`~models.Workflow` instance.
 
     Examples::
