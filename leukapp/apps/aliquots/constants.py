@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 
 """
 This module contains the :mod:`~leukapp.apps.aliquots` app constants.
+
 Information that isn't likely to change and that is used across the
 :mod:`~leukapp.apps.aliquots` app and the :mod:`~leukapp` project
 should be stored here.
