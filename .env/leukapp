@@ -11,6 +11,7 @@ export LEUKDC_USER="medinaj"
 export LEUKDC_PASSWORD=""
 export LEUKDC_SSHKEY=$HOME"/.ssh/id_rsa.pub"
 export LEUKDC_ACTIVE="TRUE"
+export DATABASE_URL=postgres:///leukapp
 
 # LEUKAPP SPECIFIC ENVIRONMENT VARIABLES
 # =============================================================================

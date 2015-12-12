@@ -10,7 +10,7 @@ from .common import *  # noqa
 # DATABASE CONFIGURATION
 # =============================================================================
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-DATABASES['default'] = env.db("DATABASE_TEST_URL")
+DATABASES['default'] = env.db("DATABASE_TEST_URL", default="test")
 
 # SECRET CONFIGURATION
 # =============================================================================
