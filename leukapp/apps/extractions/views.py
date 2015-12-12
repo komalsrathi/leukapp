@@ -1,6 +1,7 @@
-# -*- coding: utf-8 -*-
 
 """
+Extractions views.
+
 Most of these views inherits from Django's `Class Based Views`. See:
     • https://docs.djangoproject.com/en/1.8/topics/class-based-views/
     • http://ccbv.co.uk/projects/Django/1.8/
@@ -23,31 +24,34 @@ from . import constants
 
 
 class ExtractionDetailView(mixins.LoginRequiredMixin,
-                    generic.DetailView):
+                           generic.DetailView):
 
     """
-    Render a "detail" view of an object. By default this is a model instance
-    looked up from `self.queryset`, but the view will support display of *any*
-    object by overriding `self.get_object()`.
-    See: http://ccbv.co.uk/DetailView/
+    Render a "detail" view of an object.
+
+    By default this is a model instance looked up from `self.queryset`,
+    but the view will support display of *any* object by overriding
+    `self.get_object()`. See: http://ccbv.co.uk/DetailView/
     """
 
     model = Extraction
 
 
 class ExtractionListView(mixins.LoginRequiredMixin,
-                  generic.ListView):
+                         generic.ListView):
 
     """
-    Render some list of objects, set by `self.model` or `self.queryset`.
-    `self.queryset` can actually be any iterable of items, not just a queryset.
-    See: http://ccbv.co.uk/ListView/
+    Render list of objects.
+
+    `self.queryset` can actually be any iterable of items, not just a
+    queryset. See: http://ccbv.co.uk/ListView/
     """
 
     model = Extraction
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
+        """Add custom context."""
         context = super(ExtractionListView, self).get_context_data(**kwargs)
         context['APP_NAME'] = constants.APP_NAME
         context['CREATE_URL'] = constants.EXTRACTION_CREATE_URL
@@ -55,26 +59,29 @@ class ExtractionListView(mixins.LoginRequiredMixin,
 
 
 class ExtractionRedirectView(mixins.LoginRequiredMixin,
-                      generic.RedirectView):
+                             generic.RedirectView):
 
     """
     A view that provides a redirect on any GET request.
+
     See: http://ccbv.co.uk/RedirectView/
     """
 
     permanent = False
 
     def get_redirect_url(self):
+        """Get redirect url."""
         return reverse(constants.EXTRACTION_LIST_URL)
 
 
 class ExtractionCreateView(SuccessMessageMixin,
-                    mixins.PermissionRequiredMixin,
-                    mixins.LoginRequiredMixin,
-                    generic.CreateView):
+                           mixins.PermissionRequiredMixin,
+                           mixins.LoginRequiredMixin,
+                           generic.CreateView):
 
     """
     View for creating a new object, with a response rendered by template.
+
     See: http://ccbv.co.uk/CreateView/
     """
 
@@ -89,12 +96,13 @@ class ExtractionCreateView(SuccessMessageMixin,
 
 
 class ExtractionUpdateView(SuccessMessageMixin,
-                    mixins.PermissionRequiredMixin,
-                    mixins.LoginRequiredMixin,
-                    generic.UpdateView):
+                           mixins.PermissionRequiredMixin,
+                           mixins.LoginRequiredMixin,
+                           generic.UpdateView):
 
     """
     View for updating an object, with a response rendered by template.
+
     See: http://ccbv.co.uk/UpdateView/
     """
 

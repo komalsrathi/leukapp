@@ -26,10 +26,11 @@ class IndividualDetailView(mixins.LoginRequiredMixin,
                            generic.DetailView):
 
     """
-    Render a "detail" view of an object. By default this is a model instance
-    looked up from `self.queryset`, but the view will support display of *any*
-    object by overriding `self.get_object()`.
-    See: http://ccbv.co.uk/DetailView/
+    Render a "detail" view of an object.
+
+    By default this is a model instance looked up from `self.queryset`,
+    but the view will support display of *any* object by overriding
+    `self.get_object()`. See: http://ccbv.co.uk/DetailView/
     """
 
     model = Individual
@@ -39,15 +40,17 @@ class IndividualListView(mixins.LoginRequiredMixin,
                          generic.ListView):
 
     """
-    Render some list of objects, set by `self.model` or `self.queryset`.
-    `self.queryset` can actually be any iterable of items, not just a queryset.
-    See: http://ccbv.co.uk/ListView/
+    Render list of objects.
+
+    `self.queryset` can actually be any iterable of items, not just a
+    queryset. See: http://ccbv.co.uk/ListView/
     """
 
     model = Individual
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
+        """Add custom context."""
         context = super(IndividualListView, self).get_context_data(**kwargs)
         context['APP_NAME'] = constants.APP_NAME
         context['CREATE_URL'] = constants.INDIVIDUAL_CREATE_URL
@@ -59,12 +62,14 @@ class IndividualRedirectView(mixins.LoginRequiredMixin,
 
     """
     A view that provides a redirect on any GET request.
+
     See: http://ccbv.co.uk/RedirectView/
     """
 
     permanent = False
 
     def get_redirect_url(self):
+        """Get redirect url."""
         return reverse(constants.INDIVIDUAL_LIST_URL)
 
 
@@ -75,6 +80,7 @@ class IndividualCreateView(SuccessMessageMixin,
 
     """
     View for creating a new object, with a response rendered by template.
+
     See: http://ccbv.co.uk/CreateView/
     """
 
@@ -95,6 +101,7 @@ class IndividualUpdateView(SuccessMessageMixin,
 
     """
     View for updating an object, with a response rendered by template.
+
     See: http://ccbv.co.uk/UpdateView/
     """
 

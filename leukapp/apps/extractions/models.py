@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
 
 """
-Models/database schemas for the :mod:`~leukapp.apps.extractions`
-application.
+Models for the :mod:`~leukapp.apps.extractions` application.
 
 See `Django's Model Documentation`_ for more information.
 
@@ -26,9 +24,7 @@ from . import constants
 
 class Extraction(LeukappModel):
 
-    """
-    :class:`Aliquot's <leukapp.apps.aliquots.models.Aliquot>` nucleic acid.
-    """
+    """Nucleic acid from :class:`~leukapp.apps.aliquots.models.Aliquot>`."""
 
     #: Name of the application where :class:`Extraction` is contained.
     APP_NAME = constants.APP_NAME
@@ -55,14 +51,9 @@ class Extraction(LeukappModel):
         help_text=_("The sequencing center ID."),
         )
     """
-    ID used by the scientist or institution :data:`~.constants.CENTER` to
+    ID used by the scientist or :data:`Sequencing Center <.constants.CENTER>` to
     track the :class:`.Extraction`. The default value is
     :data:`~leukapp.apps.core.constants.UNKNOWN`.
-
-    .. important::
-        This field is a :class:`~leukapp.apps.core.db.CharNullField`. This
-        particular field class enables the ability to have multiple NULL
-        values but unique non-NULL records.
     """
 
     analyte = models.CharField(
@@ -138,9 +129,7 @@ class Extraction(LeukappModel):
     # PUBLIC METHODS
     # =========================================================================
     def __str__(self):
-        """
-        Returns the :attr:`slug` when ``str`` is requested.
-        """
+        """Return the :attr:`slug` when ``str`` is requested."""
         return self.slug
 
     # PRIVATE METHODS
@@ -156,7 +145,6 @@ class Extraction(LeukappModel):
             :meth:`~models.LeukappModel.save` and is protected by
             :meth:`~models.LeukappModel._check_if_caller_is_save`.
         """
-
         self._check_if_caller_is_save()
         self._get_int_id()
         self.slug = '-'.join([self.aliquot.slug, self.int_id])
@@ -180,7 +168,7 @@ class Extraction(LeukappModel):
 
     def _get_int_id(self):
         """
-        Computes the :attr:`int_id`.
+        Construct the :attr:`int_id`.
 
         The :attr:`int_id` generation is based on a count of ``Extractions``
         per :class:`~leukapp.apps.aliquots.models.Aliquot`.
