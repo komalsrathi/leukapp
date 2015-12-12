@@ -9,6 +9,7 @@ sphinx-apidoc \
     -d 2 `# Maximum depth generated in table of contents file.`\
     -o source/py `# output directory` \
     $PROJECT_DIR/ `# source directory` \
+    $PROJECT_DIR/tests `# exclude path` \
     $PROJECT_DIR/leukapp/contrib `# exclude path` \
     $PROJECT_DIR/leukapp/apps/lists `# exclude path` \
     $PROJECT_DIR/leukapp/apps/*/tests `# exclude path` \
