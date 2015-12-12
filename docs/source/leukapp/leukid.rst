@@ -61,7 +61,7 @@ by ``11`` positions divided in 5 secions: Individual, Specimen, Aliquot, Extract
     position ``8`` of the leuk id is based on the
     :doc:`/leukapp/technology_codes` dictionary.
 
-The next sections will describe each particular **model**, describing it's
+The next sections will describe each particular **model**, it's respective
 **leukid** section and the database fields recorded.
 
 Individual
