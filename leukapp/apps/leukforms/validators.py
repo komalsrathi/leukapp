@@ -30,9 +30,7 @@ from .constants import MODELS_LIST, CREATE_FIELDS
 # =============================================================================
 
 def leukform_csv_validator(document):
-    """
-    .. todo: NOTTESTED, NOTDOCUMENTED
-    """
+    """.. todo: NOTTESTED, NOTDOCUMENTED."""
     if type(document) == str:
         path = document
     else:
@@ -57,7 +55,7 @@ def leukform_csv_validator(document):
 
 def leukform_rows_validator(rows):
     """
-    Validates the ``rows`` format.
+    Validate the ``rows`` format.
 
     This validator ensures that `rows` isn't empty and that can be
     converted to a list. It also checks if the contents are dictionaries.
@@ -88,13 +86,12 @@ def leukform_rows_validator(rows):
 
 def leukform_columns_validator(rows):
     """
-    Validates the :mod:`~Leukform` columns.
+    Validate the :mod:`~Leukform` columns.
 
     First checks if `rows` contents are dictionaries. Then, converts the
     columns to a list and checks that it's not empty. Lastly, loops over the
     columns valitading that they are correct `leukform` fields.
     """
-
     # converts columns to list.
     try:
         columns = list(rows[0])

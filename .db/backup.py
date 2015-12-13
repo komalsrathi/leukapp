@@ -11,7 +11,6 @@ from datetime import datetime
 import environ
 import paramiko
 from scp import SCPClient
-from subprocess import call
 from time import sleep
 
 
@@ -41,7 +40,6 @@ def backuptoluna():
     .. _scp: https://github.com/jbardin/scp.py
     .. _pg_dump: http://www.postgresql.org/docs/9.1/static/backup-dump.html
     """
-
     # environment settings
     env = environ.Env()
     root = env('LEUKDC_BACKUPDB_DIR') + datetime.now().strftime("/%Y/%m/%d/")

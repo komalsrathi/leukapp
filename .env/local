@@ -4,7 +4,7 @@
 # =============================================================================
 export DEPLOYMENT="local"
 export DJANGO_SETTINGS_MODULE="config.settings.local"
-export PROJECT_DIR=/Users/medinaj/Documents/msk/projects/leukapp_project
+export PROJECT_DIR=/Users/medinaj/projects/msk/leukapp
 
 # LOAD LEUKAPP SPECIFIC ENVIRONMENT VARIABLES
 # =============================================================================
