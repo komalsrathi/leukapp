@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Models/database schemas for the :mod:`~leukapp.apps.individuals`
-application.
+Models/database schemas for the :mod:`~leukapp.apps.individuals` application.
 
 See `Django's Model Documentation`_ for more information.
 
@@ -25,8 +24,10 @@ from . import constants
 class Individual(LeukappModel):
 
     """
-    Top class in the **Leukgen's** samples ecosystem, it usually refers to
-    patients, mice and other kind of organisms.
+    Top model in the **Leukgen's** samples ecosystem.
+
+    This class usually refers to patients, mice and other kind of organisms
+    described in the :data:`.constants.SPECIES`.
     """
 
     #: Name of the application where :class:`Individual` is contained.
@@ -63,7 +64,7 @@ class Individual(LeukappModel):
         )
     """
     Indicates whether the :class:`Individual` comes from MSK or not.
-    The two available choices in :class:`~constants.INSTITUTION` are ``MSK``
+    The two available choices in :data:`~constants.INSTITUTION` are ``MSK``
     and ``OTHER``.
     """
 
@@ -75,7 +76,7 @@ class Individual(LeukappModel):
         )
     """
     Indicates the :class:`Individual` species. See the available choices:
-    :class:`~constants.SPECIES`.
+    :data:`~constants.SPECIES`.
     """
 
     # INTERNAL FIELDS
@@ -101,6 +102,21 @@ class Individual(LeukappModel):
     """
     Count of NORMAL specimens linked with the :class:`Individual`. See the
     :class:`~leukapp.apps.specimens.models.Specimen` class for more
+    information.
+    """
+
+    queries_count = models.PositiveSmallIntegerField(
+        verbose_name=_("number of query specimens created"),
+        default=0,
+        editable=False,
+        null=True,
+        )
+    """
+    Count of QUERY specimens linked with the :class:`Individual`.A query
+    Specimen is a sample that is collected from non-tumor locations, but is
+    likely to have mutations.
+
+    See the :class:`~leukapp.apps.specimens.models.Specimen` class for more
     information.
     """
 
@@ -155,15 +171,11 @@ class Individual(LeukappModel):
     # PUBLIC METHODS
     # =========================================================================
     def __str__(self):
-        """
-        Returns the :attr:`slug` when ``str`` is requested.
-        """
+        """Return slug when str is called on object."""
         return self.slug
 
     def check_institution(self):
-        """
-        Determines whether or not the :class:`Individual` comes from MSK.
-        """
+        """Determine whether or not the :class:`Individual` comes from MSK."""
         if self.institution == constants.MSK:
             return 'I'
         else:
@@ -201,7 +213,7 @@ class Individual(LeukappModel):
 
     def _get_int_id(self):
         """
-        Computes the :attr:`int_id`.
+        Compute the :attr:`int_id`.
 
         Steps:
 
