@@ -2,7 +2,8 @@
 
 """
 This module contains the :mod:`~leukapp.apps.specimens` app constants.
-Information that isn't likely to change and that is used across the
+
+Information that isn"t likely to change and that is used across the
 :mod:`~leukapp.apps.specimens` app and the :mod:`~leukapp` project
 should be stored here.
 
@@ -15,35 +16,35 @@ from leukapp.apps.core import constants as coreconstants
 
 # APP INFO
 # =============================================================================
-APP_NAME = 'specimens'  #: Application's name.
+APP_NAME = "specimens"  #: Application's name.
 
 # URLS
 # =============================================================================
-SPECIMEN_CREATE_URL = APP_NAME + ':create'  #: Create URL reverse string.
-SPECIMEN_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
+SPECIMEN_CREATE_URL = APP_NAME + ":create"  #: Create URL reverse string.
+SPECIMEN_LIST_URL = APP_NAME + ":list"      #: List URL reverse string.
 
 # FIELDS
 # =============================================================================
 
 #: Fields required to create a new instance.
 SPECIMEN_CREATE_FIELDS = (
-    'individual',
-    'source',
-    'source_type',
-    'ext_id',
-    'order',
+    "individual",
+    "source",
+    "source_type",
+    "ext_id",
+    "order",
     )
 
 #: Enabled fields to update an existing instance.
 SPECIMEN_UPDATE_FIELDS = (
-    'source',
+    "source",
     )
 
 #: Fields that are required to be unique together.
 SPECIMEN_UNIQUE_TOGETHER = (
-    'individual',
-    'ext_id',
-    'source_type',
+    "individual",
+    "ext_id",
+    "source_type",
     )
 
 # CHOICES
@@ -52,11 +53,11 @@ SPECIMEN_UNIQUE_TOGETHER = (
 # SOURCE
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-BLOOD = 'BLOOD'
-NAILS = 'NAILS'
-BUCCAL = 'BUCCAL'
-HAIR = 'HAIR'
-TCELLS = 'TCELLS'
+BLOOD = "BLOOD"
+NAILS = "NAILS"
+BUCCAL = "BUCCAL"
+HAIR = "HAIR"
+TCELLS = "TCELLS"
 SOURCE = (
     (BLOOD, BLOOD),
     (NAILS, NAILS),
@@ -72,11 +73,13 @@ List of value, verbose_name pairs for the
 # SOURCE TYPE
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-TUMOR = 'TUMOR'
-NORMAL = 'NORMAL'
+TUMOR = "TUMOR"
+NORMAL = "NORMAL"
+QUERY = "QUERY"
 SOURCE_TYPE = (
-    (TUMOR, 'TUMOR'),
-    (NORMAL, 'NORMAL'),
+    (TUMOR, TUMOR),
+    (NORMAL, NORMAL),
+    (QUERY, QUERY)
 )
 """
 List of value, verbose_name pairs for the
@@ -102,11 +105,12 @@ Dictionary including all
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 INT_ID_SOURCE_TYPE = {
-    TUMOR: 'T',
-    NORMAL: 'N',
+    TUMOR: "T",
+    NORMAL: "N",
+    QUERY: "X",
     }
 """
-Characters used in the **leukid** to describe the `Specimen's`
+Characters used in the **leukid** to describe the `Specimen"s`
 :attr:`~leukapp.apps.specimens.models.Specimen.source_type` attribute.
 """
 
@@ -114,10 +118,10 @@ Characters used in the **leukid** to describe the `Specimen's`
 # =============================================================================
 
 #: Tuple of permissions required to create a new instance.
-SPECIMEN_CREATE_PERMISSIONS = ('specimens.add_specimen',)
+SPECIMEN_CREATE_PERMISSIONS = ("specimens.add_specimen",)
 
 #: Tuple of permissions required to update an existing instance.
-SPECIMEN_UPDATE_PERMISSIONS = ('specimens.change_specimen',)
+SPECIMEN_UPDATE_PERMISSIONS = ("specimens.change_specimen",)
 
 # MESSAGES
 # =============================================================================

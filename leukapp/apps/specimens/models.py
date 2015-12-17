@@ -26,8 +26,10 @@ from . import constants
 class Specimen(LeukappModel):
 
     """
-    :class:`Individual's <leukapp.apps.individuals.models.Individual>` tissue
-    collected on a particular day and location.
+    Individual's tissue from a particular collection date.
+
+    See :class:`~leukapp.apps.individuals.models.Individual` to learn more
+    about the parent model.
     """
 
     #: Name of the application where :class:`Specimen` is contained.
@@ -166,9 +168,7 @@ class Specimen(LeukappModel):
     # PUBLIC METHODS
     # =========================================================================
     def __str__(self):
-        """
-        Returns the :attr:`slug` when ``str`` is requested.
-        """
+        """Return slug when str is called on object."""
         return self.slug
 
     # PRIVATE METHODS
@@ -207,7 +207,7 @@ class Specimen(LeukappModel):
 
     def _get_int_id(self):
         """
-        Computes the :attr:`int_id`.
+        Compute the :attr:`int_id`.
 
         The :attr:`int_id` generation is based on a count of ``Specimens`` per
         :class:`~leukapp.apps.individuals.models.Individual`.
@@ -233,5 +233,8 @@ class Specimen(LeukappModel):
         elif self.source_type == constants.NORMAL:
             self.individual.normals_count += 1
             self.int_id = source_type_id + str(self.individual.normals_count)
+        elif self.source_type == constants.QUERY:
+            self.individual.queries_count += 1
+            self.int_id = source_type_id + str(self.individual.queries_count)
         self.individual.save()
         return self.int_id
