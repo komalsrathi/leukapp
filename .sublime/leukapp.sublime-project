@@ -5,7 +5,7 @@
 			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
 			"name": "Anaconda Python Builder",
 			"selector": "source.python",
-			"shell_cmd": "~/.virtualenvs/leukapp/bin/python -u \"$file\""
+			"shell_cmd": "/Users/medinaj/.virtualenvs/leukapp/bin/python -u \"$file\""
 		}
 	],
 	"folders":
@@ -25,8 +25,8 @@
 	],
 	"settings":
 	{
+		"python_interpreter": "/Users/medinaj/.virtualenvs/leukapp/bin/python",
 		"indent_using_spaces": true,
-		"python_interpreter": "~/.virtualenvs/leukapp/bin/python",
 		"tab_size": 4,
 		"translate_tabs_to_spaces": true
 	}
