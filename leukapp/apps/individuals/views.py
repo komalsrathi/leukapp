@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Most of these views inherits from Django's `Class Based Views`. See:
+Most of these views inherits from Django's `Class Based Views`.
+
+See:
     • https://docs.djangoproject.com/en/1.8/topics/class-based-views/
     • http://ccbv.co.uk/projects/Django/1.8/
     • http://www.pydanny.com/stay-with-the-django-cbv-defaults.html

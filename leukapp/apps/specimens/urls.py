@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+"""URL patterns for the specimens application."""
+
 # python
 from __future__ import absolute_import, unicode_literals
 
@@ -47,3 +49,12 @@ urlpatterns = [
     ),
 
 ]
+"""
+List of URL patterns that includes:
+
+* URL pattern for the SpecimenDetailView
+* URL pattern for the SpecimenListView
+* URL pattern for the SpecimenRedirectView
+* URL pattern for the SpecimenUpdateView
+* URL pattern for the SpecimenUpdateView
+"""
