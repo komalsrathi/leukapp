@@ -34,7 +34,7 @@ class Project(LeukappModel):
         )
     description = models.CharField(
         _("project description"),
-        max_length=140,
+        max_length=500,
         null=True,
         )
     pi = models.ForeignKey(
@@ -73,7 +73,7 @@ class Project(LeukappModel):
         null=True,
         )
     protocol_no = models.CharField(
-        _("protocol number"),
+        _("IRB protocol number"),
         max_length=100,
         null=True,
         )
