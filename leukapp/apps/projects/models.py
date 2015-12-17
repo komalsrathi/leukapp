@@ -1,15 +1,22 @@
 # -*- coding: utf-8 -*-
 
+"""
+Models/database schemas for the :mod:`~leukapp.apps.projects` application.
+
+See `Django's Model Documentation`_ for more information.
+
+.. _Django's Model Documentation:
+    https://docs.djangoproject.com/en/1.9/topics/db/models/
+"""
+
 # django imports
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 
 # apps imports
 from leukapp.apps.core.models import LeukappModel
 from leukapp.apps.core.validators import object_name_validator
-from leukapp.apps.core.utils import LeukConnect
 from leukapp.apps.participants.models import Participant
 
 # local imports
@@ -18,13 +25,12 @@ from . import constants
 
 class Project(LeukappModel):
 
-    """
-    requirements= https://docs.google.com/spreadsheets/d/17TJ6zQ3OzwE-AZVZykFzzbHxtDM88aM7vvCPxJQ8-_M/edit#gid=0
-    """
+    """Model used to track and manage Projects."""
 
     APP_NAME = constants.APP_NAME
 
-    # external
+    # EXTERNAL FIELDS
+    # =========================================================================
     title = models.CharField(
         _("project title"),
         max_length=100,
@@ -78,7 +84,8 @@ class Project(LeukappModel):
         null=True,
         )
 
-    # internal
+    # INTERNAL FIELDS
+    # =========================================================================
     slug = models.SlugField(
         _("slug"),
         unique=True,
@@ -98,26 +105,47 @@ class Project(LeukappModel):
         null=True,
         )
 
+    # META CLASS
+    # =========================================================================
     class Meta:
         verbose_name = _(constants.APP_NAME[:-1])
         verbose_name_plural = _(constants.APP_NAME)
 
+    # PUBLIC METHODS
+    # =========================================================================
     def __str__(self):
+        """Return slug when str is called on object."""
         return self.slug
 
+    # PRIVATE METHODS
+    # =========================================================================
     def _if_new(self):
-        """ ran when object is created """
+        """
+        Executed only when the object is created.
 
-        # This function can only be called from save()
+        .. currentmodule::
+            leukapp.apps.core
+        .. note::
+            This method can only be called from
+            :meth:`~models.LeukappModel.save` and is protected by
+            :meth:`~models.LeukappModel._check_if_caller_is_save`.
+        """
         self._check_if_caller_is_save()
 
         # get internal id
         self.int_id = str(self.pk)
 
     def _if_save(self):
-        """ _if_save() is run everytime the object is saved"""
+        """
+        Executed everytime the object is saved.
 
-        # This function can only be called from save()
+        .. currentmodule::
+            leukapp.apps.core
+        .. note::
+            This method can only be called from
+            :meth:`~models.LeukappModel.save` and is protected by
+            :meth:`~models.LeukappModel._check_if_caller_is_save`.
+        """
         self._check_if_caller_is_save()
 
         # update object slug
