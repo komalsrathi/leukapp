@@ -133,15 +133,13 @@ class Aliquot(LeukappModel):
     class Meta:
         verbose_name = _(constants.APP_NAME[:-1])
         verbose_name_plural = _(constants.APP_NAME)
-        unique_together = (constants.ALIQUOT_UNIQUE_TOGETHER)
-        index_together = (constants.ALIQUOT_UNIQUE_TOGETHER)
+        unique_together = constants.ALIQUOT_UNIQUE_TOGETHER
+        index_together = constants.ALIQUOT_UNIQUE_TOGETHER
 
     # PUBLIC METHODS
     # =========================================================================
     def __str__(self):
-        """
-        Returns the :attr:`slug` when ``str`` is requested.
-        """
+        """Return the :attr:`slug` when ``str`` is requested."""
         return self.slug
 
     # PRIVATE METHODS
@@ -181,7 +179,7 @@ class Aliquot(LeukappModel):
 
     def _get_int_id(self):
         """
-        Computes the :attr:`int_id`.
+        Compute the :attr:`int_id`.
 
         The :attr:`int_id` generation is based on a count of ``Aliquots`` per
         :class:`~leukapp.apps.specimens.models.Specimen`.

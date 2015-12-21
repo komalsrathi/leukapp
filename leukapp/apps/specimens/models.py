@@ -162,8 +162,8 @@ class Specimen(LeukappModel):
     class Meta:
         verbose_name = _(constants.APP_NAME[:-1])
         verbose_name_plural = _(constants.APP_NAME)
-        unique_together = (constants.SPECIMEN_UNIQUE_TOGETHER)
-        index_together = (constants.SPECIMEN_UNIQUE_TOGETHER)
+        unique_together = constants.SPECIMEN_UNIQUE_TOGETHER
+        index_together = constants.SPECIMEN_UNIQUE_TOGETHER
 
     # PUBLIC METHODS
     # =========================================================================
