@@ -2,6 +2,7 @@
 
 """
 This module contains the :mod:`~leukapp.apps.individuals` app constants.
+
 Information that isn't likely to change and that is used across the
 :mod:`~leukapp.apps.individuals` app and the :mod:`~leukapp` project
 should be stored here.
@@ -16,21 +17,21 @@ from leukapp.apps.core import constants as coreconstants
 # APP INFO
 # =============================================================================
 
-APP_NAME = 'individuals'  #: Application's name.
+APP_NAME = "individuals"  #: Application's name.
 
 # URLS
 # =============================================================================
-INDIVIDUAL_CREATE_URL = APP_NAME + ':create'  #: Create URL reverse string.
-INDIVIDUAL_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
+INDIVIDUAL_CREATE_URL = APP_NAME + ":create"  #: Create URL reverse string.
+INDIVIDUAL_LIST_URL = APP_NAME + ":list"      #: List URL reverse string.
 
 # FIELDS
 # =============================================================================
 
 #: Fields required to create a new instance.
 INDIVIDUAL_CREATE_FIELDS = (
-    'institution',
-    'species',
-    'ext_id',
+    "institution",
+    "species",
+    "ext_id",
     )
 
 #: Enabled fields to update an existing instance.
@@ -39,9 +40,9 @@ INDIVIDUAL_UPDATE_FIELDS = (
 
 #: Fields that are required to be unique together.
 INDIVIDUAL_UNIQUE_TOGETHER = (
-    'institution',
-    'species',
-    'ext_id',
+    "institution",
+    "species",
+    "ext_id",
     )
 
 # CHOICES
@@ -49,12 +50,17 @@ INDIVIDUAL_UNIQUE_TOGETHER = (
 
 # INSTITUTION
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-MSK = 'MSK'
-OTHER = 'OTHER'
+MSK = "MSK"
+ICO = "ICO"
+PV = "PV"
+IHBT = "IHBT"
+OTHER = "OTHER"
 INSTITUTION = (
-    (MSK, 'MSK'),
-    (OTHER, 'OTHER'),
+    (MSK, MSK),
+    (ICO, ICO),
+    (PV, PV),
+    (IHBT, IHBT),
+    (OTHER, OTHER),
     )
 """
 List of value, verbose_name pairs for the
@@ -64,10 +70,10 @@ List of value, verbose_name pairs for the
 # SPECIES
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-HUMAN = 'HUMAN'
-MOUSE = 'MOUSE'
-YEAST = 'YEAST'
-ZEBRAFISH = 'ZEBRAFISH'
+HUMAN = "HUMAN"
+MOUSE = "MOUSE"
+YEAST = "YEAST"
+ZEBRAFISH = "ZEBRAFISH"
 SPECIES = (
     (HUMAN, HUMAN),
     (MOUSE, MOUSE),
@@ -98,10 +104,10 @@ Dictionary including all
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 INT_ID_SPECIES = {
-    HUMAN: 'H',
-    MOUSE: 'M',
-    YEAST: 'Y',
-    ZEBRAFISH: 'Z',
+    HUMAN: "H",
+    MOUSE: "M",
+    YEAST: "Y",
+    ZEBRAFISH: "Z",
     }
 """
 Characters used in the **leukid** to describe the `Individual's`
@@ -112,10 +118,10 @@ Characters used in the **leukid** to describe the `Individual's`
 # =============================================================================
 
 #: Tuple of permissions required to create a new instance.
-INDIVIDUAL_CREATE_PERMISSIONS = ('individuals.add_individual',)
+INDIVIDUAL_CREATE_PERMISSIONS = ("individuals.add_individual",)
 
 #: Tuple of permissions required to update an existing instance.
-INDIVIDUAL_UPDATE_PERMISSIONS = ('individuals.change_individual',)
+INDIVIDUAL_UPDATE_PERMISSIONS = ("individuals.change_individual",)
 
 # MESSAGES
 # =============================================================================
