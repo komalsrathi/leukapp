@@ -59,7 +59,7 @@ class TestLeukformLoader(TestCase):
         fields = loader._get_fields(copy)
         for column in list(copy):
             model, field = column.split('.')
-            expected = {field: self.copy[column].strip()}
+            expected = {field: copy[column].strip()}
             self.assertDictContainsSubset(expected, fields[model])
 
     def test_get_or_create_accepted(self):
