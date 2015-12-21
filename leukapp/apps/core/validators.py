@@ -62,7 +62,7 @@ This validator allows letters, numbers, white spaces, underscores and hyphens.
 # EXTERNAL ID VALIDATOR
 # =============================================================================
 ext_id_validator = RegexValidator(
-    regex=r'^[-a-zA-Z0-9_.]+\Z',
+    regex=r'^[-a-zA-Z0-9_./\s]+\Z',
     code='invalid',
     message=_(
         "Enter a valid 'External id' consisting of "
