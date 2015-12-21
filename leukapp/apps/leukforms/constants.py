@@ -2,6 +2,7 @@
 
 """
 This module contains the :mod:`~leukapp.apps.leukforms` app constants.
+
 Information that isn't likely to change and that is used across the
 :mod:`~leukapp.apps.leukforms` app and the :mod:`~leukapp` project
 should be stored here.
@@ -51,59 +52,59 @@ from .forms import WorkflowForm
 
 # APP INFO
 # =============================================================================
-APP_NAME = 'leukforms'  #: Application's name.
+APP_NAME = "leukforms"  #: Application's name.
 
 # URLS
 # =============================================================================
-LEUKFORM_CREATE_URL = APP_NAME + ':create'  #: Create URL reverse string.
-LEUKFORM_LIST_URL = APP_NAME + ':list'      #: List URL reverse string.
+LEUKFORM_CREATE_URL = APP_NAME + ":create"  #: Create URL reverse string.
+LEUKFORM_LIST_URL = APP_NAME + ":list"      #: List URL reverse string.
 
 # FIELDS
 # =============================================================================
 
 #: Fields required to create a new instance.
 LEUKFORM_CREATE_FIELDS = (
-    'description',
-    'submission',
-    'mock',
+    "description",
+    "submission",
+    "mock",
     )
 
 #: Enabled fields to update an existing instance.
 LEUKFORM_UPDATE_FIELDS = (
-    'description',
+    "description",
     )
 
 #: Fields that are required to be unique together.
 LEUKFORM_UNIQUE_TOGETHER = (
-    'description',
-    'submission',
-    'mock',
+    "description",
+    "submission",
+    "mock",
     )
 
 #: Dictionary including **create fields*** for `leukapp` apps models.
 CREATE_FIELDS = {
-    'Individual': INDIVIDUAL_CREATE_FIELDS,
-    'Specimen': SPECIMEN_CREATE_FIELDS,
-    'Aliquot': ALIQUOT_CREATE_FIELDS,
-    'Extraction': EXTRACTION_CREATE_FIELDS,
-    'Workflow': WORKFLOW_CREATE_FIELDS,
+    "Individual": INDIVIDUAL_CREATE_FIELDS,
+    "Specimen": SPECIMEN_CREATE_FIELDS,
+    "Aliquot": ALIQUOT_CREATE_FIELDS,
+    "Extraction": EXTRACTION_CREATE_FIELDS,
+    "Workflow": WORKFLOW_CREATE_FIELDS,
     }
 
 #: Dictionary including **unique together fields*** for `leukapp` apps models.
 LEUKAPP_UNIQUE_TOGETHER = {
-    'Individual': INDIVIDUAL_UNIQUE_TOGETHER,
-    'Specimen': SPECIMEN_UNIQUE_TOGETHER,
-    'Aliquot': ALIQUOT_UNIQUE_TOGETHER,
-    'Extraction': EXTRACTION_UNIQUE_TOGETHER,
-    'Workflow': WORKFLOW_UNIQUE_TOGETHER,
+    "Individual": INDIVIDUAL_UNIQUE_TOGETHER,
+    "Specimen": SPECIMEN_UNIQUE_TOGETHER,
+    "Aliquot": ALIQUOT_UNIQUE_TOGETHER,
+    "Extraction": EXTRACTION_UNIQUE_TOGETHER,
+    "Workflow": WORKFLOW_UNIQUE_TOGETHER,
     }
 
 #: During submission, empty values are replaced for ``UNKNOWN`` for these cols.
 UNKWOWN_ENABLED_COLUMNS = (
-    'Specimen.ext_id',
-    'Aliquot.ext_id',
-    'Extraction.ext_id',
-    'Workflow.ext_id',
+    "Specimen.ext_id",
+    "Aliquot.ext_id",
+    "Extraction.ext_id",
+    "Workflow.ext_id",
     )
 
 # MODELS
@@ -111,16 +112,16 @@ UNKWOWN_ENABLED_COLUMNS = (
 
 #: List of models names potentially used during a leukform submission.
 MODELS_LIST = [
-    'Individual', 'Specimen', 'Aliquot', 'Extraction', 'Workflow',
+    "Individual", "Specimen", "Aliquot", "Extraction", "Workflow",
     ]
 
 #: Dictionary of model classes potentially used during a leukform submission.
 LEUKAPP_MODELS = {
-    'Individual': Individual,
-    'Specimen': Specimen,
-    'Aliquot': Aliquot,
-    'Extraction': Extraction,
-    'Workflow': Workflow,
+    "Individual": Individual,
+    "Specimen": Specimen,
+    "Aliquot": Aliquot,
+    "Extraction": Extraction,
+    "Workflow": Workflow,
     }
 
 # FACTORIES
@@ -128,12 +129,12 @@ LEUKAPP_MODELS = {
 
 #: Dictionary of model factories potentially used during a leukform submission.
 LEUKAPP_FACTORIES = {
-    'Individual': IndividualFactory,
-    'Specimen': SpecimenFactory,
-    'Aliquot': AliquotFactory,
-    'Extraction': ExtractionFactory,
-    'Project': ProjectFactory,
-    'Workflow': WorkflowFactory,
+    "Individual": IndividualFactory,
+    "Specimen": SpecimenFactory,
+    "Aliquot": AliquotFactory,
+    "Extraction": ExtractionFactory,
+    "Project": ProjectFactory,
+    "Workflow": WorkflowFactory,
     }
 
 # FORMS
@@ -141,21 +142,21 @@ LEUKAPP_FACTORIES = {
 
 #: Dictionary of model forms potentially used during a leukform submission.
 LEUKAPP_FORMS = {
-    'Individual': IndividualForm,
-    'Specimen': SpecimenForm,
-    'Aliquot': AliquotForm,
-    'Extraction': ExtractionForm,
-    'Workflow': WorkflowForm,
+    "Individual": IndividualForm,
+    "Specimen": SpecimenForm,
+    "Aliquot": AliquotForm,
+    "Extraction": ExtractionForm,
+    "Workflow": WorkflowForm,
     }
 
 # PERMISSIONS
 # =============================================================================
 
 #: Tuple of permissions required to create a new instance.
-LEUKFORM_CREATE_PERMISSIONS = ('leukforms.add_leukform',)
+LEUKFORM_CREATE_PERMISSIONS = ("leukforms.add_leukform",)
 
 #: Tuple of permissions required to update an existing instance.
-LEUKFORM_UPDATE_PERMISSIONS = ('leukforms.change_leukform',)
+LEUKFORM_UPDATE_PERMISSIONS = ("leukforms.change_leukform",)
 
 # MESSAGES
 # =============================================================================

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # python
-# import time
+import time
 import csv
 import io
 import json
@@ -95,7 +95,7 @@ class LeukformLoader(object):
         if mock:
             self.VALID_MESSAGE = 'VALID_MESSAGE'
 
-        # print("Validation completed.")
+        print("Validation completed.")
         columns = get_out_columns(columns)
         rows = self._process_leukform(rows)
         output = self._write_output(rows, columns, mock)
@@ -112,13 +112,13 @@ class LeukformLoader(object):
         rows = self._sort_rows(rows)
 
         count = 0
-        # start = time.time()
+        start = time.time()
         for row in rows:
             processed_row = self._process_row(row)
             processed_rows.append(processed_row)
             count += 1
-            # print("%s rows processed in %s." % (count, time.time() - start))
-        # print(time.time() - start)
+            print("%s rows processed in %s." % (count, time.time() - start))
+        print(time.time() - start)
         return processed_rows
 
     def _sort_rows(self, rows):
@@ -190,7 +190,7 @@ class LeukformLoader(object):
 
     def _get_fields(self, row):
         """
-        Gets `fields` from `row`. If the field is empty, is not added
+        Get `fields` from `row`. If the field is empty, is not added.
 
         Input:
             row (dict): csv.DictReader type of dictionary
@@ -210,7 +210,7 @@ class LeukformLoader(object):
             if row[column]:
                 if model not in fields:
                     fields[model] = {}
-                fields[model][field] = row[column]
+                fields[model][field] = row[column].strip()
 
         return fields
 
@@ -283,6 +283,7 @@ class LeukformLoader(object):
                     instance = form.save(commit=True)
                     self.added[model].append(instance)
                 else:
+                    print(search)
                     msg = form.errors.as_json()
                     self.rejected[model] += 1
 
@@ -290,7 +291,7 @@ class LeukformLoader(object):
 
     def _update_fields(self, model, fields, instance):
         """
-        Updates child fields after parent is found or created.
+        Update child fields after parent is found or created.
 
         Input Args:
             model (string): name of instance's model

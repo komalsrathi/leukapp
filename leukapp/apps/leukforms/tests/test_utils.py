@@ -38,17 +38,28 @@ class TestLeukformLoader(TestCase):
             expected = {parent.lower(): instance.pk}
             self.assertDictEqual(fields[child], expected)
 
-    def test_clean_fields_empty_row(self):
+    def test_get_fields_empty_row(self):
         loader = LeukformLoader()
         fields = loader._get_fields({})
         self.assertDictEqual(fields, {})
 
-    def test_clean_fields(self):
+    def test_get_fields(self):
         loader = LeukformLoader()
         fields = loader._get_fields(self.rowexample)
         for column in list(self.rowexample):
             model, field = column.split('.')
             expected = {field: self.rowexample[column]}
+            self.assertDictContainsSubset(expected, fields[model])
+
+    def test_get_fields_strip_data(self):
+        loader = LeukformLoader()
+        copy = self.rowexample.copy()
+        for column in list(copy):
+            copy[column] += "      "
+        fields = loader._get_fields(copy)
+        for column in list(copy):
+            model, field = column.split('.')
+            expected = {field: self.copy[column].strip()}
             self.assertDictContainsSubset(expected, fields[model])
 
     def test_get_or_create_accepted(self):
