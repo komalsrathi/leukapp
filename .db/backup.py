@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
-Dumps a production database backup and current commit to **luna**.
-"""
+"""Dump a production database backup and current commit to **luna**."""
 
 # python
 from datetime import datetime
@@ -16,7 +14,7 @@ from time import sleep
 
 def backuptoluna():
     """
-    Dumps a production database backup and current commit to **luna**.
+    Dump a production database backup and current commit to **luna**.
 
     For December the 3rd of 2015, the backup and commit are stored using this
     pattern::

@@ -2,7 +2,7 @@
 
 # LEUKAPP SPECIFIC ENVIRONMENT VARIABLES
 # =============================================================================
-export LEUKDC_ROOT_DIR=/ifs/work/leukgen/leukapp/$DEPLOYMENT
+export LEUKDC_ROOT_DIR=/ifs/work/leukgen/leukgen/leukapp/$DEPLOYMENT
 export LEUKDC_BACKUPDB_DIR=$LEUKDC_ROOT_DIR/db
 export LEUKDC_PROJECTS_DIR=$LEUKDC_ROOT_DIR/projects
 export LEUKDC_SAMPLES_DIR=$LEUKDC_ROOT_DIR/samples
